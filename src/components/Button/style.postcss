@@ -1,0 +1,71 @@
+@import 'main.postcss';
+
+.Button {
+  background-color: var(--colorPrimary);
+  border: none;
+  border-radius: 0.25em;
+  color: var(--colorTextInverse);
+  min-height: 3.5em;
+  outline: none;
+  padding-left: 4em;
+  padding-right: 4em;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: var(--colorPrimaryLight);
+  }
+
+  &:active {
+    background-color: var(--colorPrimaryDark);
+  }
+
+  &__default {
+    &__inverse {
+      background-color: transparent;
+      color: var(--colorPrimary);
+
+      &:hover {
+        background-color: var(--colorPrimaryLight);
+        color: var(--colorTextInverse);
+      }
+
+      &:active {
+        background-color: var(--colorPrimaryDark);
+        color: var(--colorTextInverse);
+      }
+    }
+  }
+
+  &__danger {
+    background-color: var(--colorWrong);
+
+    &:hover {
+      background-color: var(--colorWrongLight);
+    }
+
+    &:active {
+      background-color: var(--colorWrongDark);
+    }
+
+    &__inverse {
+      background-color: transparent;
+      color: var(--colorWrong);
+
+      &:hover {
+        background-color: var(--colorWrongLight);
+        color: var(--colorTextInverse);
+      }
+
+      &:active {
+        background-color: var(--colorWrongDark);
+        color: var(--colorTextInverse);
+      }
+    }
+  }
+
+  &[disabled] {
+    background-color: var(--colorDisabled);
+    color: var(--colorTextInverse);
+    cursor: not-allowed;
+  }
+}

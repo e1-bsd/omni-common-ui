@@ -1,0 +1,27 @@
+@import 'main.postcss';
+@import  './_fonts.postcss';
+
+:root {
+  background-color: var(--colorBase);
+  box-sizing: border-box;
+  color: var(--colorTextBase);
+  font-family: var(--fontFamily);
+}
+
+body {
+  font-family: inherit;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  font-family: inherit;
+  transition-duration: 500ms;
+  transition-property: background-color, border-color, color;
+  transition-timing-function: ease;
+}
+
+input {
+  min-width: 0;
+}

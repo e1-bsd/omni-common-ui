@@ -1,0 +1,45 @@
+:root {
+  --colorBase: #fff;
+  --colorPrimary: #1563f9;
+  --colorSecondary: #ff0084;
+  --colorTerciary: #67c96f;
+  --colorTextBase: #000;
+  --colorTextInverse: #fff;
+  --colorOk: var(--colorTerciary);
+  --colorWrong: #dc4d50;
+
+  --colorIdle: #bac0c8;
+
+  --colorPrimaryLight: color(var(--colorPrimary) blackness(-20%));
+  --colorPrimaryDark: color(var(--colorPrimary) blackness(+20%));
+
+  --colorWrongLight: color(var(--colorWrong) blackness(-20%));
+  --colorWrongDark: color(var(--colorWrong) blackness(+20%));
+
+  --colorDisabled: var(--colorIdle);
+}
+
+:root {
+  --fontFamily: 'Odin Font';
+  --fontSizeBase: 1em;
+  --fontSizePageHeader: 1.5em;
+  --fontSizePageSubheader: 1.125em;
+  --fontSizeSectionHeader: 0.875em;
+  --fontSizeInput: 0.875em;
+}
+
+:root {
+  --touchableMinHeight: 2.5em;
+  --touchablePaddingHorizontal: 1em;
+  --touchablePaddingVertical: 0.5em;
+  --hairThin: 0.0625em;
+}
+
+:root {
+  --pageMaxWidth: 50em;
+  --pageOuterSpace: 2em;
+}
+
+:root {
+  --zIndexInputDropdown: 2;
+}

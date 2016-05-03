@@ -1,0 +1,9 @@
+{
+  "preset": "airbnb",
+  "validateLineBreaks": "LF",
+  "requireCamelCaseOrUpperCaseIdentifiers": {
+    "ignoreProperties": true
+  },
+  "requireArrowFunctions": true,
+  "requireParenthesesAroundArrowParam": true
+}
