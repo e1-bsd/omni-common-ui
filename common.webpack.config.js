@@ -26,6 +26,7 @@ const combineLoaders = require('webpack-combine-loaders');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
+const shouldRunLint = process.env.NODE_ENV === 'development';
 const hotUpdateEntries = isProd ?
     [] :
     [
@@ -44,13 +45,15 @@ module.exports = (options) => ({
   entry: hotUpdateEntries.concat([options.entry]),
   output: isProd ? productionOutput(options) : undefined,
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'jsxhint!jscs'
-      }
-    ],
+    preLoaders: shouldRunLint ?
+        [
+          {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            loader: 'jsxhint!jscs'
+          }
+        ] :
+        [],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -122,8 +125,7 @@ module.exports = (options) => ({
     }
   },
   postcss: webpack => {
-    return [
-      stylelint(),
+    return (shouldRunLint ? [stylelint()] : []).concat([
       postcssImport({
         path: ['node_modules', options.context, `${options.context}/assets/styles`, './'],
         addDependencyTo: webpack,
@@ -152,7 +154,7 @@ module.exports = (options) => ({
       }),
       postcssCalc,
       postcssReporter({ clearMessages: true })
-    ];
+    ]);
   },
   externals: {
     'cheerio': 'window',
