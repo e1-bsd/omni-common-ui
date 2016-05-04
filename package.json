@@ -81,7 +81,7 @@
     "redux-immutable": "3.0.6",
     "redux-logger": "2.6.1",
     "redux-thunk": "2.0.1",
-    "sinon": "1.17.4",
+    "sinon": "2.0.0-pre",
     "style-loader": "0.13.1",
     "stylelint": "6.2.2",
     "stylelint-config-standard": "6.0.0",
