@@ -16,4 +16,8 @@ describe('Button', () => {
     wrapper.simulate('click', { preventDefault: () => {} });
     expect(onClick.called).to.be.true;
   });
+
+  it('thows error if invalid type is passed', () => {
+    expect(() => shallow(<Button type="faketype" />)).to.throw();
+  });
 });
