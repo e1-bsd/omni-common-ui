@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Type } from 'omni-common-ui';
+import { Button } from 'omni-common-ui';
 import log from 'loglevel';
 
 class ButtonShowcase extends Component {
@@ -7,7 +7,7 @@ class ButtonShowcase extends Component {
     return <div>
       <div>
         <Button onClick={() => log.info('Normal button clicked')}>Normal</Button>
-        <Button type={Type.danger}
+        <Button type={Button.Type.danger}
             onClick={() => log.info('Danger button clicked')}>
           Danger!
         </Button>
@@ -18,7 +18,7 @@ class ButtonShowcase extends Component {
           Inverse
         </Button>
         <Button inverse={true}
-            type={Type.danger}
+            type={Button.Type.danger}
             onClick={() => log.info('Danger inverse button clicked')}>
           Danger inverse
         </Button>

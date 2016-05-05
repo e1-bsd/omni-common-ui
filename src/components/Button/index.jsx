@@ -30,4 +30,6 @@ Button.propTypes = {
   inverse: React.PropTypes.bool,
 };
 
+Button.Type = Type;
+
 export default Button;

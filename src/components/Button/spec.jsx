@@ -2,7 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import Sinon from 'sinon';
-import Button from './button';
+import Button from './';
+import { Type } from './type';
 
 describe('Button', () => {
   it('renders its children', () => {
@@ -19,5 +20,9 @@ describe('Button', () => {
 
   it('thows error if invalid type is passed', () => {
     expect(() => shallow(<Button type="faketype" />)).to.throw();
+  });
+
+  it('contains Type object', () => {
+    expect(Button.Type).to.equal(Type);
   });
 });
