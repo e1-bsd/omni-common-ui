@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -21,12 +23,12 @@ describe('Button', () => {
 
   it('Type.danger applies its styles', () => {
     const wrapper = shallow(<Button type={Type.danger} />);
-    expect(wrapper.find(`.${Type.danger}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.__danger}`).length).to.equal(1);
   });
 
   it('uses Type.default if no type is provided', () => {
     const wrapper = shallow(<Button />);
-    expect(wrapper.find(`.${Type.default}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
   });
 
   describe('when clicked', () => {
