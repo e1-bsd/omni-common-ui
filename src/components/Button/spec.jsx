@@ -19,6 +19,16 @@ describe('Button', () => {
     expect(() => shallow(<Button type="faketype" />)).to.throw();
   });
 
+  it('Type.danger applies its styles', () => {
+    const wrapper = shallow(<Button type={Type.danger} />);
+    expect(wrapper.find(`.${Type.danger}`).length).to.equal(1);
+  });
+
+  it('uses Type.default if no type is provided', () => {
+    const wrapper = shallow(<Button />);
+    expect(wrapper.find(`.${Type.default}`).length).to.equal(1);
+  });
+
   describe('when clicked', () => {
     const eventObjectMock = { preventDefault: () => {} };
 
