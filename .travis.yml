@@ -34,6 +34,11 @@ deploy:
     on:
       branch: master
 
+notifications:
+  email:
+    recipients:
+      - E1ODIN_Technology@EF.com
+
 env:
   global:
     - GIT_NAME: E1 BSD
