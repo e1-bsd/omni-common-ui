@@ -36,6 +36,7 @@ Button.propTypes = {
   onClick: React.PropTypes.func.isRequired,
   type: React.PropTypes.string,
   inverse: React.PropTypes.bool,
+  disabled: React.PropTypes.bool,
 };
 
 Button.Type = Type;
