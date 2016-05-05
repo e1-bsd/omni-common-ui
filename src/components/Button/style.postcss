@@ -3,13 +3,14 @@
 .Button {
   background-color: var(--colorPrimary);
   border: none;
-  border-radius: 0.25em;
   color: var(--colorTextInverse);
   cursor: pointer;
-  min-height: 3.5em;
+  min-height: var(--touchableMinHeight);
   outline: none;
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-bottom: var(--touchablePaddingVertical);
+  padding-left: var(--touchablePaddingHorizontal);
+  padding-right: var(--touchablePaddingHorizontal);
+  padding-top: var(--touchablePaddingVertical);
   text-transform: uppercase;
 
   &:hover {
