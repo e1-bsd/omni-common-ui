@@ -21,6 +21,11 @@ const Button = (props) => {
 
   function handleClick(e) {
     e.preventDefault();
+
+    if (props.disabled) {
+      return;
+    }
+
     if (is.function(props.onClick)) {
       props.onClick(e);
     }

@@ -33,5 +33,12 @@ describe('Button', () => {
       const wrapper = shallow(<Button />);
       expect(() => wrapper.simulate('click', eventObjectMock)).to.not.throw();
     });
+
+    it('does nothing if it is disabled', () => {
+      const onClick = Sinon.spy();
+      const wrapper = shallow(<Button onClick={onClick} disabled={true} />);
+      wrapper.simulate('click', eventObjectMock);
+      expect(onClick.called).to.be.false;
+    });
   });
 });
