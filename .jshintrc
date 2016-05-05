@@ -20,5 +20,10 @@
   "varstmt": true,
   "browser": true,
   "mocha": true,
-  "-W138": false
+  "-W138": false,
+  "globals": {
+    "DEVELOPMENT": true,
+    "TEST": true,
+    "PRODUCTION": true
+  }
 }

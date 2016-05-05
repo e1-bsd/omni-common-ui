@@ -26,7 +26,7 @@ const combineLoaders = require('webpack-combine-loaders');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-const shouldRunLint = process.env.NODE_ENV === 'development';
+const shouldRunLint = nodeEnv === 'development';
 const hotUpdateEntries = isProd ?
     [] :
     [
@@ -110,7 +110,10 @@ module.exports = (options) => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: `'${nodeEnv}'` }
+      'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
+      'DEVELOPMENT': nodeEnv === 'development',
+      'TEST': nodeEnv === 'test',
+      'PRODUCTION': nodeEnv === 'production',
     })
   ].concat(options.plugins),
   devServer: {
