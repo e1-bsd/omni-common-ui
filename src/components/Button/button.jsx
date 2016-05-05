@@ -5,8 +5,9 @@ import classnames from 'classnames';
 import { Type, validateType } from './type';
 
 const Button = (props) => {
-  validateType(props.type);
   const type = props.type || Type.default;
+  validateType(type);
+
   const classes = classnames(styles.Button,
     { [styles.__inverse]: props.inverse },
     type);
