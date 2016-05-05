@@ -20,11 +20,18 @@ describe('Button', () => {
   });
 
   describe('when clicked', () => {
+    const eventObjectMock = { preventDefault: () => {} };
+
     it('calls onClick', () => {
       const onClick = Sinon.spy();
       const wrapper = shallow(<Button onClick={onClick} />);
-      wrapper.simulate('click', { preventDefault: () => {} });
+      wrapper.simulate('click', eventObjectMock);
       expect(onClick.called).to.be.true;
+    });
+
+    it('does not fail if onClick is not provided', () => {
+      const wrapper = shallow(<Button />);
+      expect(() => wrapper.simulate('click', eventObjectMock)).to.not.throw();
     });
   });
 });

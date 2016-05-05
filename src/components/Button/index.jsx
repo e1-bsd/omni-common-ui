@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
 import { Type, validateType } from './type';
+import is from 'is_js';
 
 const Button = (props) => {
   const type = props.type || Type.default;
@@ -20,7 +21,9 @@ const Button = (props) => {
 
   function handleClick(e) {
     e.preventDefault();
-    props.onClick(e);
+    if (is.function(props.onClick)) {
+      props.onClick(e);
+    }
   }
 };
 
