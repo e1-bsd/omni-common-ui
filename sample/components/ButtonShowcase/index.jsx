@@ -11,6 +11,10 @@ class ButtonShowcase extends Component {
             onClick={() => log.info('Danger button clicked')}>
           Danger!
         </Button>
+        <Button disabled={true}
+            onClick={() => log.info('Disabled button clicked')}>
+          Disabled
+        </Button>
       </div>
       <div>
         <Button inverse={true}
@@ -21,6 +25,11 @@ class ButtonShowcase extends Component {
             type={Button.Type.danger}
             onClick={() => log.info('Danger inverse button clicked')}>
           Danger inverse
+        </Button>
+        <Button inverse={true}
+            disabled={true}
+            onClick={() => log.info('Disabled button clicked')}>
+          Disabled
         </Button>
       </div>
     </div>;
