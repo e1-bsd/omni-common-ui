@@ -31,6 +31,11 @@ describe('Button', () => {
     expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
   });
 
+  it('applies inverse styles if true is provided for the property', () => {
+    const wrapper = shallow(<Button inverse={true} />);
+    expect(wrapper.find(`.${styles.__inverse}`).length).to.equal(1);
+  });
+
   describe('when clicked', () => {
     const eventObjectMock = { preventDefault: () => {} };
 
