@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'omni-common-ui';
+import Showcase from 'components/Showcase';
 import log from 'loglevel';
 
 class ButtonShowcase extends Component {
   render() {
-    return <div>
+    return <Showcase title="Buttons">
       <div>
         <Button onClick={() => log.info('Normal button clicked')}>Normal</Button>
         <Button type={Button.Type.danger}
@@ -32,7 +33,7 @@ class ButtonShowcase extends Component {
           Disabled
         </Button>
       </div>
-    </div>;
+    </Showcase>;
   }
 }
 
