@@ -39,6 +39,4 @@ Button.propTypes = {
   disabled: React.PropTypes.bool,
 };
 
-Button.Type = Type;
-
 export default Button;
