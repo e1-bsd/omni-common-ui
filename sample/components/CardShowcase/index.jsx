@@ -5,6 +5,7 @@ import sampleImage from './sample-image.jpg';
 import React, { Component } from 'react';
 import { Card, Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
+import log from 'loglevel';
 
 const Item = (props) =>
   <div className="col-xs-6 col-sm-4 col-md-3 col-lg-2">
@@ -50,7 +51,7 @@ class CardShowcase extends Component {
             <Card.Image src={sampleImage} />
             <Card.Content>
               <div>Some text</div>
-              <Button>A button</Button>
+              <Button onClick={() => log.info('Click!')}>A button</Button>
             </Card.Content>
           </Card.Card>
         </Item>
