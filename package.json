@@ -12,8 +12,8 @@
   },
   "main": "dist/main.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/e1-bsd/omni-common-ui.git"
+    "type": "git",
+    "url": "https://github.com/e1-bsd/omni-common-ui.git"
   },
   "license": "MIT",
   "devDependencies": {
@@ -31,6 +31,7 @@
     "es6-promise": "3.1.2",
     "express": "4.13.4",
     "file-loader": "0.8.5",
+    "flexboxgrid": "6.3.0",
     "formsy-react": "0.18.0",
     "git-rev-sync": "1.6.0",
     "history": "2.1.1",
