@@ -1,6 +1,6 @@
 import 'flexboxgrid';
 
-import React, { Component } from 'react';
+import React from 'react';
 
 const Grid = (props) =>
   <div className="container">

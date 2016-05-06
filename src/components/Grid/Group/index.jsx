@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const GridGroup = (props) => {
+const Group = (props) => {
   return <div className="row">
     {props.children}
   </div>;
 };
 
-export default GridGroup;
+export default Group;
