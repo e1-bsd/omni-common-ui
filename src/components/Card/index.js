@@ -8,8 +8,7 @@ export const Card = _Card;
 export const Content = _Content;
 export const Image = _Image;
 
-export default {
-  Card,
-  Content,
-  Image,
-};
+Card.Content = Content;
+Card.Image = Image;
+
+export default Card;

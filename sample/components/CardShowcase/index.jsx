@@ -17,43 +17,43 @@ class CardShowcase extends Component {
     return <Showcase title="Cards">
       <div className="row">
         <Item>
-          <Card.Card>
+          <Card>
             <Card.Content>Normal</Card.Content>
-          </Card.Card>
+          </Card>
         </Item>
         <Item>
-          <Card.Card><Card.Image src={sampleImage} /></Card.Card>
+          <Card><Card.Image src={sampleImage} /></Card>
         </Item>
         <Item>
-          <Card.Card>
+          <Card>
             <Card.Image src={sampleImage} />
             <Card.Content>Some text</Card.Content>
-          </Card.Card>
+          </Card>
         </Item>
         <Item>
-          <Card.Card>
+          <Card>
             <Card.Content>Some text</Card.Content>
             <Card.Image src={sampleImage} />
-          </Card.Card>
+          </Card>
         </Item>
         <Item>
-          <Card.Card>
+          <Card>
             <Card.Image src={sampleImage} />
             <Card.Content>
-              <Card.Card>
+              <Card>
                 <Card.Content>Some text</Card.Content>
-              </Card.Card>
+              </Card>
             </Card.Content>
-          </Card.Card>
+          </Card>
         </Item>
         <Item>
-          <Card.Card>
+          <Card>
             <Card.Image src={sampleImage} />
             <Card.Content>
               <div>Some text</div>
               <Button onClick={() => log.info('Click!')}>A button</Button>
             </Card.Content>
-          </Card.Card>
+          </Card>
         </Item>
       </div>
     </Showcase>;
