@@ -8,7 +8,7 @@ let exec = require('child_process').exec;
 let path = require('path');
 
 let cmdLine = path.join('.', 'node_modules', '.bin', 'webpack');
-cmdLine += ' --progress --colors';
+cmdLine += ' -p --bail --progress --colors';
 
 let env = !!process.argv[2] ? process.argv[2].toLowerCase() : 'production';
 
