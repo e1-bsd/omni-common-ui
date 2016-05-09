@@ -5,8 +5,8 @@ import { Form } from 'omni-common-ui';
 class FormShowcase extends Component {
   render() {
     return <Showcase title="Form">
-      <div>Hello, This is form show case</div>
-      <Form.TextInput name="username" label="Username"/>
+      <Form.TextInput name="normal" label="Normal"/>
+      <Form.TextInput name="disabled" label="Disabled" disabled="true"/>
     </Showcase>;
   }
 }
