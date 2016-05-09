@@ -4,19 +4,21 @@ import React from 'react';
 import Modal from 'react-modal';
 import Card from 'components/Card';
 
-const Dialog = (props) => {
-  return <Modal className={styles.Dialog}
+const Dialog = (props) =>
+  <Modal className={styles.Dialog}
       overlayClassName={styles.Overlay}
-      isOpen={true}>
+      onRequestClose={props.onRequestClose}
+      isOpen={props.isOpen}>
     <Card>
       <Card.Content>
-        <p>Modal Content</p>
+        {props.children}
       </Card.Content>
     </Card>
   </Modal>;
-};
 
 Dialog.propTypes = {
+  isOpen: React.PropTypes.bool.isRequired,
+  onRequestClose: React.PropTypes.func.isRequired,
 };
 
 export default Dialog;

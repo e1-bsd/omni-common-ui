@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { Dialog } from 'omni-common-ui';
+import { Dialog, Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 
 class DialogShowcase extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return <Showcase title="Dialogs">
-      <Dialog />
+      <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })}>Show dialog</Button>
+      <Dialog isOpen={this.state.isOpen}
+          onRequestClose={() => this.setState({ isOpen: false })}>
+        <p>Dialog content</p>
+      </Dialog>
     </Showcase>;
   }
 }
