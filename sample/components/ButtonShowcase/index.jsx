@@ -8,27 +8,11 @@ class ButtonShowcase extends Component {
     return <Showcase title="Buttons">
       <div>
         <Button onClick={() => log.info('Normal button clicked')}>Normal</Button>
-        <Button type={Button.Type.danger}
-            onClick={() => log.info('Danger button clicked')}>
-          Danger!
+        <Button type={Button.Type.primary}
+            onClick={() => log.info('Primary button clicked')}>
+          Primary
         </Button>
         <Button disabled={true}
-            onClick={() => log.info('Disabled button clicked')}>
-          Disabled
-        </Button>
-      </div>
-      <div>
-        <Button inverse={true}
-            onClick={() => log.info('Inverse button clicked')}>
-          Inverse
-        </Button>
-        <Button inverse={true}
-            type={Button.Type.danger}
-            onClick={() => log.info('Danger inverse button clicked')}>
-          Danger inverse
-        </Button>
-        <Button inverse={true}
-            disabled={true}
             onClick={() => log.info('Disabled button clicked')}>
           Disabled
         </Button>

@@ -9,9 +9,7 @@ const Button = (props) => {
   const type = props.type || Type.default;
   validateType(type);
 
-  const classes = classnames(styles.Button,
-    { [styles.__inverse]: props.inverse },
-    type);
+  const classes = classnames(styles.Button, type);
 
   return <button className={classes}
       disabled={props.disabled}
@@ -35,7 +33,6 @@ const Button = (props) => {
 Button.propTypes = {
   onClick: React.PropTypes.func.isRequired,
   type: React.PropTypes.string,
-  inverse: React.PropTypes.bool,
   disabled: React.PropTypes.bool,
 };
 

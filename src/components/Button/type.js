@@ -2,7 +2,7 @@ import styles from './style.postcss';
 
 export const Type = {
   default: styles.__default,
-  danger: styles.__danger,
+  primary: styles.__primary,
 };
 
 export function validateType(type) {
@@ -10,7 +10,7 @@ export function validateType(type) {
     return true;
   }
 
-  if (type === Type.danger) {
+  if (type === Type.primary) {
     return true;
   }
 

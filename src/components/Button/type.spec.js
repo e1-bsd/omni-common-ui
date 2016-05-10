@@ -7,8 +7,8 @@ describe('Button', () => {
       expect(Type.default).to.exist;
     });
 
-    it('has danger', () => {
-      expect(Type.danger).to.exist;
+    it('has primary', () => {
+      expect(Type.primary).to.exist;
     });
   });
 });

@@ -8,8 +8,8 @@ describe('Button', () => {
       expect(validateType(Type.default)).to.be.true;
     });
 
-    it('accepts danger', () => {
-      expect(validateType(Type.danger)).to.be.true;
+    it('accepts primary', () => {
+      expect(validateType(Type.primary)).to.be.true;
     });
 
     it('throws error if invalid type is passed', () => {

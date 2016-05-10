@@ -21,9 +21,9 @@ describe('Button', () => {
     expect(() => shallow(<Button type="faketype" />)).to.throw();
   });
 
-  it('applies proper styles if Type.danger is passed', () => {
-    const wrapper = shallow(<Button type={Type.danger} />);
-    expect(wrapper.find(`.${styles.__danger}`).length).to.equal(1);
+  it('applies proper styles if Type.primary is passed', () => {
+    const wrapper = shallow(<Button type={Type.primary} />);
+    expect(wrapper.find(`.${styles.__primary}`).length).to.equal(1);
   });
 
   it('applies proper styles if Type.default is passed', () => {
@@ -34,11 +34,6 @@ describe('Button', () => {
   it('uses Type.default if no type is provided', () => {
     const wrapper = shallow(<Button />);
     expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
-  });
-
-  it('applies inverse styles if true is provided for the property', () => {
-    const wrapper = shallow(<Button inverse={true} />);
-    expect(wrapper.find(`.${styles.__inverse}`).length).to.equal(1);
   });
 
   describe('when clicked', () => {

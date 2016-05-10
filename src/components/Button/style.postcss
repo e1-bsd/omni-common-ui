@@ -1,10 +1,8 @@
 @import 'main.postcss';
 
 .Button {
-  background-color: var(--colorPrimary);
   border: none;
   border-radius: var(--borderRadius);
-  color: var(--colorTextInverse);
   cursor: pointer;
   min-height: var(--touchableMinHeight);
   outline: none;
@@ -14,55 +12,29 @@
   padding-top: var(--touchablePaddingVertical);
   text-transform: uppercase;
 
-  &:hover {
-    background-color: var(--colorPrimaryLight);
-  }
-
-  &:active {
-    background-color: var(--colorPrimaryDark);
-  }
-
   &.__default {
-    &.__inverse {
-      background-color: transparent;
-      color: var(--colorPrimary);
-
-      &:hover {
-        background-color: var(--colorPrimaryLight);
-        color: var(--colorTextInverse);
-      }
-
-      &:active {
-        background-color: var(--colorPrimaryDark);
-        color: var(--colorTextInverse);
-      }
-    }
-  }
-
-  &.__danger {
-    background-color: var(--colorWrong);
+    background-color: var(--colorBase);
+    color: var(--colorTextInverse);
 
     &:hover {
-      background-color: var(--colorWrongLight);
+      background-color: var(--colorPrimaryLight);
     }
 
     &:active {
-      background-color: var(--colorWrongDark);
+      background-color: var(--colorPrimaryDark);
+    }
+  }
+
+  &.__primary {
+    background-color: var(--colorPrimary);
+    color: var(--colorTextInverse);
+
+    &:hover {
+      background-color: var(--colorPrimaryLight);
     }
 
-    &.__inverse {
-      background-color: transparent;
-      color: var(--colorWrong);
-
-      &:hover {
-        background-color: var(--colorWrongLight);
-        color: var(--colorTextInverse);
-      }
-
-      &:active {
-        background-color: var(--colorWrongDark);
-        color: var(--colorTextInverse);
-      }
+    &:active {
+      background-color: var(--colorPrimaryDark);
     }
   }
 
