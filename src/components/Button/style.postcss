@@ -14,14 +14,17 @@
 
   &.__default {
     background-color: var(--colorBase);
-    color: var(--colorTextInverse);
+    border: var(--hairThin) solid var(--colorPrimary);
+    color: var(--colorPrimary);
 
     &:hover {
-      background-color: var(--colorPrimaryLight);
+      border-color: var(--colorPrimaryLight);
+      color: var(--colorPrimaryLight);
     }
 
     &:active {
-      background-color: var(--colorPrimaryDark);
+      border-color: var(--colorPrimaryDark);
+      color: var(--colorPrimaryDark);
     }
   }
 
@@ -40,7 +43,18 @@
 
   &[disabled] {
     background-color: var(--colorDisabled);
+    border: none;
     color: var(--colorTextInverse);
     cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--colorDisabled);
+      color: var(--colorTextInverse);
+    }
+
+    &:active {
+      background-color: var(--colorDisabled);
+      color: var(--colorTextInverse);
+    }
   }
 }
