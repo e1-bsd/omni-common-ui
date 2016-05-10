@@ -1,13 +1,19 @@
-import React from 'react';
+import styles from './style.postcss';
 
-const NormalCell = (props) => <td>{props.children}</td>;
-const HeaderCell = (props) => <th>{props.children}</th>;
+import React from 'react';
+import classnames from 'classnames';
+
+const NormalCell = (props) => <td className={props.className}>{props.children}</td>;
+const HeaderCell = (props) => <th className={props.className}>{props.children}</th>;
 
 const Cell = (props) => {
-  const CellNode = props.header === true ?
+  const isHeader = props.header === true;
+  const CellNode = isHeader ?
       HeaderCell :
       NormalCell;
-  return <CellNode>
+  const classes = classnames(styles.Cell, { [styles.__header]: isHeader });
+
+  return <CellNode className={classes}>
     {props.children}
   </CellNode>;
 };
