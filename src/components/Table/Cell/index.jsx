@@ -14,7 +14,9 @@ const Cell = (props) => {
   const classes = classnames(styles.Cell, { [styles.__header]: isHeader });
 
   return <CellNode className={classes}>
-    {props.children}
+    <div>
+      {props.children}
+    </div>
   </CellNode>;
 };
 
