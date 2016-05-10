@@ -1,5 +1,6 @@
-import React from 'react';
 import styles from './style.postcss';
+
+import React from 'react';
 
 const TextInput = (props) => {
   return <div className={styles.TextInput}>
