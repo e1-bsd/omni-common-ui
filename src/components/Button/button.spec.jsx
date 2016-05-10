@@ -21,7 +21,7 @@ describe('Button', () => {
     expect(() => shallow(<Button type="faketype" />)).to.throw();
   });
 
-  it('Type.danger applies its styles', () => {
+  it('applies proper styles if Type.danger is passed', () => {
     const wrapper = shallow(<Button type={Type.danger} />);
     expect(wrapper.find(`.${styles.__danger}`).length).to.equal(1);
   });
