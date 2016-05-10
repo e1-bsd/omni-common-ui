@@ -26,6 +26,11 @@ describe('Button', () => {
     expect(wrapper.find(`.${styles.__danger}`).length).to.equal(1);
   });
 
+  it('applies proper styles if Type.default is passed', () => {
+    const wrapper = shallow(<Button type={Type.default} />);
+    expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
+  });
+
   it('uses Type.default if no type is provided', () => {
     const wrapper = shallow(<Button />);
     expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
