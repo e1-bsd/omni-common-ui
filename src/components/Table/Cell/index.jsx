@@ -1,5 +1,4 @@
 import React from 'react';
-import is from 'is_js';
 
 const NormalCell = (props) => <td>{props.children}</td>;
 const HeaderCell = (props) => <th>{props.children}</th>;
