@@ -10,13 +10,13 @@ describe('Table', () => {
       expect(wrapper.contains(<div id="innerContent" />)).to.be.true;
     });
 
-    it('renders a normal table cell is header prop is false', () => {
-      const wrapper = mount(<Cell header={false} />);
+    it('renders a normal table cell if context.isHeader is false', () => {
+      const wrapper = mount(<Cell />, { context: { isHeader: false } });
       expect(wrapper.find('td')).to.have.length(1);
     });
 
-    it('renders a table header cell is header prop is true', () => {
-      const wrapper = mount(<Cell header={true} />);
+    it('renders a table header cell if context.isHeader is true', () => {
+      const wrapper = mount(<Cell />, { context: { isHeader: true } });
       expect(wrapper.find('th')).to.have.length(1);
     });
 
