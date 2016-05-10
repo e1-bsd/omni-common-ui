@@ -16,4 +16,12 @@ describe('Table', () => {
   it('has a Cell property', () => {
     expect(CellComponent).to.equal(Table.Cell);
   });
+
+  it('does not expose Header', () => {
+    expect(Table.Header).to.be.undefined;
+  });
+
+  it('does not expose Body', () => {
+    expect(Table.Body).to.be.undefined;
+  });
 });
