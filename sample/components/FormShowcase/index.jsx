@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
 import Showcase from 'components/Showcase';
+import { Button } from 'omni-common-ui';
 import { Form } from 'omni-common-ui';
 import SelectShowcase from './SelectShowcase';
+import log from 'loglevel';
 
 class FormShowcase extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      saveBtn: false,
+      data: {},
+    };
+  }
+
   handleFormChange(data) {
+    this.setState({ formData: data });
   }
 
   handleInvalid() {
+    this.setState({ saveBtn: true });
   }
 
   handleValid() {
+    this.setState({ saveBtn: false });
   }
 
   render() {
@@ -38,6 +51,11 @@ class FormShowcase extends Component {
             label="Required"
             required
             value='' />
+        <Button type={Button.Type.primary}
+                disabled = {this.state.saveBtn}
+                onClick={() => log.info(this.state.formData)}>
+          Save
+        </Button>
         <SelectShowcase />
       </Form>
     </Showcase>;
