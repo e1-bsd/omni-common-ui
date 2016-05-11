@@ -7,21 +7,25 @@ class TableShowcase extends Component {
     return <Showcase title="Tables">
       <Grid>
         <Grid.Group>
-          <Table data={[
-            { Name: 'Row one', Content: 'These are regular data rows' },
-            { Name: 'Row two', Content: 'They work like above' },
-            { Name: 'Row three', Content: 'They work like above' },
-          ]} />
-          <Table data={[
-            { Name: 'Row one', Content: 'These are regular data rows' },
-            { Name: 'Row two', Content: 'They work like above' },
-            {
-              Name: 'Row three',
-              'Third column': 'Not all rows have this',
-              Content: 'They work like above',
-            },
-          ]} />
-      </Grid.Group>
+          <Grid.Item>
+            <Table data={[
+              { Name: 'Row one', Content: 'These are regular data rows' },
+              { Name: 'Row two', Content: 'They work like above' },
+              { Name: 'Row three', Content: 'They work like above' },
+            ]} />
+          </Grid.Item>
+          <Grid.Item>
+            <Table data={[
+              { Name: 'Row one', Content: 'These are regular data rows' },
+              { Name: 'Row two', Content: 'They work like above' },
+              {
+                Name: 'Row three',
+                'Third column': 'Not all rows have this',
+                Content: 'They work like above',
+              },
+            ]} />
+          </Grid.Item>
+        </Grid.Group>
       </Grid>
     </Showcase>;
   }
