@@ -30,11 +30,11 @@ class TextInput extends Component {
   render() {
     const errorMessage = this.getErrorMessage();
     const classes = classnames(styles.TextInput, this.getValidationClasses());
-    return <div className={classes}>
-      <label>
-        <span className={styles.TextInput_label}>{this.props.label}</span>
+    return <label className={classes}>
+      <span className={styles.TextInput_label}>{this.props.label}</span>
+      <div className={styles.TextInput_inputContainer}>
         <input type="text"
-            className={styles.TextInput_element}
+            className={styles.TextInput_inputContainer_element}
             name={this.props.name}
             disabled={this.props.disabled}
             value={this.props.getValue()}
@@ -42,9 +42,11 @@ class TextInput extends Component {
             validationError={this.props.validationError}
             required={this.props.required}
             onChange={(e) => this.handleChange(e)} />
-      </label>
-      <span className={styles.TextInput_validationError}>{errorMessage}</span>
-    </div>;
+        <span className={styles.TextInput_inputContainer_validationError}>
+          {errorMessage}
+        </span>
+      </div>
+    </label>;
   }
 }
 
