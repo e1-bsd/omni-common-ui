@@ -1,12 +1,19 @@
+import Reactable from 'reactable';
 import _Table from './Table';
-import _Row from './Row';
-import _Cell from './Cell';
 
 export const Table = _Table;
-export const Row = _Row;
-export const Cell = _Cell;
+export const Sort = Reactable.Sort;
+export const Td = Reactable.Td;
+export const Tfoot = Reactable.Tfoot;
+export const Thead = Reactable.Thead;
+export const Tr = Reactable.Tr;
+export const Th = Reactable.Th;
 
-Table.Row = Row;
-Table.Cell = Cell;
+Table.Sort = Sort;
+Table.Td = Td;
+Table.Tfoot = Tfoot;
+Table.Thead = Thead;
+Table.Tr = Tr;
+Table.Th = Th;
 
 export default Table;
