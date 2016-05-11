@@ -14,10 +14,22 @@ class TextInput extends Component {
     if (this.props.showError()) {
       return styles.TextInput_error;
     }
+
+    if (this.props.showRequired()) {
+      return styles.TextInput_required;
+    }
+  }
+
+  getErrorMessage() {
+    if (this.props.showRequired()) {
+      return 'This field is required';
+    } else {
+      return this.props.getErrorMessage();
+    }
   }
 
   render() {
-    const errorMessage = this.props.getErrorMessage();
+    const errorMessage = this.getErrorMessage();
     const textInputElementClasses = classnames(styles.TextInput_element,
     this.getValidationClasses());
     return <div className={styles.TextInput}>
@@ -30,6 +42,7 @@ class TextInput extends Component {
         value={this.props.getValue()}
         validations={this.props.validations}
         validationError={this.props.validationError}
+        required={this.props.required}
         onChange={(e) => this.handleChange(e)}/>
       </label>
       <span className={styles.TextInput_validationError}>{errorMessage}</span>
