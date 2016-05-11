@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     return <thead>{this.props.children}</thead>;
   }
-};
+}
 
 Header.childContextTypes = {
   isHeader: React.PropTypes.bool,

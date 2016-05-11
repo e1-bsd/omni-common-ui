@@ -8,7 +8,7 @@ class Body extends Component {
   render() {
     return <tbody>{this.props.children}</tbody>;
   }
-};
+}
 
 Body.childContextTypes = {
   isHeader: React.PropTypes.bool,
