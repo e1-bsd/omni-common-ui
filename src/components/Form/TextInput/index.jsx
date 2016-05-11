@@ -11,11 +11,11 @@ class TextInput extends Component {
 
   getValidationClasses() {
     if (this.props.showError()) {
-      return styles.TextInput_error;
+      return styles.__error;
     }
 
     if (this.props.showRequired()) {
-      return styles.TextInput_required;
+      return styles.__required;
     }
   }
 
@@ -29,13 +29,12 @@ class TextInput extends Component {
 
   render() {
     const errorMessage = this.getErrorMessage();
-    const textInputElementClasses = classnames(styles.TextInput_element,
-        this.getValidationClasses());
-    return <div className={styles.TextInput}>
+    const classes = classnames(styles.TextInput, this.getValidationClasses());
+    return <div className={classes}>
       <label>
         <span className={styles.TextInput_label}>{this.props.label}</span>
         <input type="text"
-            className={textInputElementClasses}
+            className={styles.TextInput_element}
             name={this.props.name}
             disabled={this.props.disabled}
             value={this.props.getValue()}
