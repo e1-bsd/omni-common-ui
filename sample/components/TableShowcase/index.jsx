@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
-import { Table } from 'omni-common-ui';
+import { Table, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 
 class TableShowcase extends Component {
   render() {
-    const data = [
-      { name: 'Row one', content: 'These are regular data rows' },
-      { name: 'Row two', content: 'They work like above' },
-    ];
-
     return <Showcase title="Tables">
-      <Table data={data}/>
+      <Grid>
+        <Grid.Group>
+          <Table data={[
+            { Name: 'Row one', Content: 'These are regular data rows' },
+            { Name: 'Row two', Content: 'They work like above' },
+            { Name: 'Row three', Content: 'They work like above' },
+          ]} />
+          <Table data={[
+            { Name: 'Row one', Content: 'These are regular data rows' },
+            { Name: 'Row two', Content: 'They work like above' },
+            {
+              Name: 'Row three',
+              'Third column': 'Not all rows have this',
+              Content: 'They work like above',
+            },
+          ]} />
+      </Grid.Group>
+      </Grid>
     </Showcase>;
   }
 }
