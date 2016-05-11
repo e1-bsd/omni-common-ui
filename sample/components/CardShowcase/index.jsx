@@ -14,7 +14,7 @@ class CardShowcase extends Component {
         <Grid.Group>
           <Grid.Item className={itemClasses}>
             <Card>
-              <Card.Content>Normal</Card.Content>
+              <Card.Content>Just some text</Card.Content>
             </Card>
           </Grid.Item>
           <Grid.Item className={itemClasses}>
@@ -23,12 +23,12 @@ class CardShowcase extends Component {
           <Grid.Item className={itemClasses}>
             <Card>
               <Card.Image src={sampleImage} />
-              <Card.Content>Some text</Card.Content>
+              <Card.Content>Context after image</Card.Content>
             </Card>
           </Grid.Item>
           <Grid.Item className={itemClasses}>
             <Card>
-              <Card.Content>Some text</Card.Content>
+              <Card.Content>Content before image</Card.Content>
               <Card.Image src={sampleImage} />
             </Card>
           </Grid.Item>
@@ -37,7 +37,7 @@ class CardShowcase extends Component {
               <Card.Image src={sampleImage} />
               <Card.Content>
                 <Card>
-                  <Card.Content>Some text</Card.Content>
+                  <Card.Content>Inner card</Card.Content>
                 </Card>
               </Card.Content>
             </Card>
@@ -46,7 +46,7 @@ class CardShowcase extends Component {
             <Card>
               <Card.Image src={sampleImage} />
               <Card.Content>
-                <div>Some text</div>
+                <div>Content with other elements</div>
                 <Button onClick={() => log.info('Click!')}>A button</Button>
               </Card.Content>
             </Card>
