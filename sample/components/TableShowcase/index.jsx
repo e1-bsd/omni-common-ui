@@ -13,7 +13,8 @@ class TableShowcase extends Component {
 
   render() {
     return <Showcase title="Tables">
-      <Table header={() => this.renderHeader()}>
+      <Table header={() => this.renderHeader()}
+          expandable={true}>
         <Table.Row>
           <Table.Cell>1</Table.Cell>
           <Table.Cell>2</Table.Cell>
