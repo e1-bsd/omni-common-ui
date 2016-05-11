@@ -21,7 +21,12 @@ class FormShowcase extends Component {
             onValid={() => this.handleValid()}>
         <Form.TextInput name="normal" label="Normal" value='' />
         <Form.TextInput name="disabled" label="Disabled" disabled={true} value=''/>
-        <Form.TextInput name="email" label="Email" validations="isEmail" validationError="This is not a valid email" value='' />
+        <Form.TextInput
+            name="email"
+            label="Email"
+            validations="isEmail"
+            validationError="This is not a valid email"
+            value='' />
         <SelectShowcase />
       </Form>
     </Showcase>;
