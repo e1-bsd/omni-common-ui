@@ -32,25 +32,25 @@ class FormShowcase extends Component {
       <Form onChange={(data) => this.handleFormChange(data)}
             onInvalid={() => this.handleInvalid()}
             onValid={() => this.handleValid()}>
-        <Form.TextInput name="normal" label="Normal" inputValue='' />
-        <Form.TextInput name="disabled" label="Disabled" disabled={true} inputValue='disabled'/>
+        <Form.TextInput name="normal" label="Normal" value='' />
+        <Form.TextInput name="disabled" label="Disabled" disabled={true} value='disabled'/>
         <Form.TextInput
             name="number"
             label="Number"
             validations="isNumeric"
             validationError="This is not a valid number"
-            inputValue='' />
+            value='' />
         <Form.TextInput
             name="email"
             label="Email"
             validations="isEmail"
             validationError="This is not a valid email"
-            inputValue='' />
+            value='' />
         <Form.TextInput
             name="required"
             label="Required"
             required
-            inputValue='' />
+            value='' />
         <Button type={Button.Type.primary}
                 disabled = {this.state.saveBtn}
                 onClick={() => log.info(this.state.formData)}>
