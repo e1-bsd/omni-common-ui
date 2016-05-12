@@ -2,7 +2,7 @@ import React from 'react';
 
 const requireShowcases = require.context('containers',
     true,
-    /[a-z]+Showcase\/index\.jsx?/);
+    /^\.\/[A-Za-z]+Showcase\/index\.jsx?/);
 const allShowcases = requireShowcases.keys()
     .map(requireShowcases)
     .map((item) => item.default);
