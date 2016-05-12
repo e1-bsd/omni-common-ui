@@ -17,6 +17,7 @@ class FormShowcase extends Component {
 
   handleFormChange(data) {
     this.setState({ formData: data });
+    log.info(data);
   }
 
   handleInvalid() {
