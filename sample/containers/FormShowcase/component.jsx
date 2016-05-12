@@ -28,7 +28,7 @@ class FormShowcase extends Component {
   }
 
   render() {
-    return <Showcase title="Form">
+    return <Showcase title="Form" titleLink="forms">
       <Form onChange={(data) => this.handleFormChange(data)}
             onInvalid={() => this.handleInvalid()}
             onValid={() => this.handleValid()}>
