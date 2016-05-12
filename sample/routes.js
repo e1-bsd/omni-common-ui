@@ -1,12 +1,14 @@
 import App from 'components/App';
+import All from 'components/All';
+import { routes as buttonShowcase } from 'containers/ButtonShowcase';
 
 export default {
-  component: 'div',
+  path: '/',
+  component: App,
+  indexRoute: {
+    component: All,
+  },
   childRoutes: [
-    {
-      path: '/',
-      component: App,
-      childRoutes: [],
-    },
+    buttonShowcase,
   ],
 };
