@@ -4,7 +4,7 @@ import Showcase from 'components/Showcase';
 
 class TableShowcase extends Component {
   render() {
-    return <Showcase title="Tables">
+    return <Showcase title="Tables" titleLink="tables">
       <Grid>
         <Grid.Group>
           <Grid.Item>
