@@ -1,6 +1,6 @@
 import component from './component';
 
 export default {
-  path: 'buttons',
+  path: 'cards',
   component,
 };

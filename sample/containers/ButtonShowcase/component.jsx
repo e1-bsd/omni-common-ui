@@ -4,7 +4,7 @@ import Showcase from 'components/Showcase';
 import log from 'loglevel';
 
 const ButtonShowcase = () =>
-    <Showcase title="Buttons" titleLink='buttons'>
+    <Showcase title="Buttons" titleLink="buttons">
       <div>
         <Button onClick={() => log.info('Normal button clicked')}>Normal</Button>
         <Button type={Button.Type.primary}

@@ -9,7 +9,7 @@ const itemClasses = 'col-xs-6 col-sm-4 col-md-3 col-lg-2';
 
 class CardShowcase extends Component {
   render() {
-    return <Showcase title="Cards">
+    return <Showcase title="Cards" titleLink="cards">
       <Grid>
         <Grid.Group>
           <Grid.Item className={itemClasses}>

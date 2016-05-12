@@ -1,6 +1,7 @@
 import App from 'components/App';
 import All from 'components/All';
-import { routes as buttonShowcase } from 'containers/ButtonShowcase';
+import { routes as buttons } from 'containers/ButtonShowcase';
+import { routes as cards } from 'containers/CardShowcase';
 
 export default {
   path: '/',
@@ -9,6 +10,7 @@ export default {
     component: All,
   },
   childRoutes: [
-    buttonShowcase,
+    buttons,
+    cards,
   ],
 };
