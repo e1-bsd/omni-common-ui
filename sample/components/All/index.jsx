@@ -1,17 +1,15 @@
 import React from 'react';
-import ButtonShowcase from 'containers/ButtonShowcase';
-import CardShowcase from 'components/CardShowcase';
-import FormShowcase from 'components/FormShowcase';
-import DialogShowcase from 'components/DialogShowcase';
-import TableShowcase from 'components/TableShowcase';
 
-const All = (props) =>
+const requireShowcases = require.context('containers',
+    true,
+    /[a-z]+Showcase\/index\.jsx?/);
+const allShowcases = requireShowcases.keys()
+    .map(requireShowcases)
+    .map((item) => item.default);
+
+const All = () =>
     <div>
-      <ButtonShowcase />
-      <CardShowcase />
-      <FormShowcase />
-      <DialogShowcase />
-      <TableShowcase />
+      {allShowcases.map((Component) => <Component key={Component.name}/>)}
     </div>;
 
 export default All;
