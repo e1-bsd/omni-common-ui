@@ -51,12 +51,12 @@ class FormShowcase extends Component {
             label="Required"
             required
             value='' />
+        <SelectShowcase />
         <Button type={Button.Type.primary}
                 disabled = {this.state.saveBtn}
                 onClick={() => log.info(this.state.formData)}>
           Save
         </Button>
-        <SelectShowcase />
       </Form>
     </Showcase>;
   }

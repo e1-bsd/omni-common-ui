@@ -39,9 +39,6 @@ class TextInput extends Component {
             name={this.props.name}
             disabled={this.props.disabled}
             value={this.props.getValue()}
-            validations={this.props.validations}
-            validationError={this.props.validationError}
-            required={this.props.required}
             onChange={(e) => this.handleChange(e)} />
         <span className={styles.TextInput_inputContainer_validationError}>
           {errorMessage}
