@@ -15,7 +15,7 @@ class TableShowcase extends Component {
             ]} />
           </Grid.Item>
           <Grid.Item>
-            <Table data={[
+            <Table.Expandable data={[
               { Name: 'Row one', Content: 'These are regular data rows' },
               { Name: 'Row two', Content: 'They work like above' },
               {
