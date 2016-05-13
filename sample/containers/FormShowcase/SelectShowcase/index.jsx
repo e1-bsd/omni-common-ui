@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
+import Showcase from 'components/Showcase';
 import { Form } from 'omni-common-ui';
 
-const optionNormal = [
+const options = [
   { value: 'one', label: 'One' },
   { value: 'two', label: 'Two', clearableValue: false },
-];
-
-const optionRequired = [
-  { value: 'three', label: 'three' },
-  { value: 'four', label: 'four' },
 ];
 
 class SelectShowcase extends Component {
@@ -17,30 +13,16 @@ class SelectShowcase extends Component {
     this.state = {};
   }
 
-  onNormalChange(normal) {
-    this.setState({ normal: normal.value });
-  }
-
-  onRequiredChange(required) {
-    this.setState({ required: required.value });
+  onChange(value) {
+    this.setState({ value: value });
   }
 
   render() {
-    return <div>
-      <Form.Select
-        options={optionNormal}
-        name="normal"
-        label="normal"
-        value={this.state.normal}
-        onChange={(value) => this.onNormalChange(value)} />
-      <Form.Select
-        options={optionRequired}
-        name="required"
-        label="required"
-        value={this.state.required}
-        required
-        onChange={(value) => this.onRequiredChange(value)} />
-    </div>;
+    return <Showcase title="Select boxes">
+      <Form.Select options={options}
+          value={this.state.value}
+          onChange={(value) => this.onChange(value)} />
+    </Showcase>;
   }
 }
 
