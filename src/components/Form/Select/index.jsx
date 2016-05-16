@@ -14,12 +14,24 @@ class Select extends Component {
     }
   }
 
+  getErrorMessage() {
+    if (this.props.showRequired()) {
+      return 'This field is required';
+    }
+
+    return '';
+  }
+
   render() {
     const classes = classnames(styles.Select_element, this.getClasses());
+    const errorMessage = this.getErrorMessage();
     return <div className={styles.Select}>
       <label>
         <span className={styles.Select_label}>{this.props.label}</span>
         <ReactSelect className={classes} {...this.props} />
+        <span className={styles.Select_element_validationError}>
+        {errorMessage}
+        </span>
       </label>
     </div>;
   }
