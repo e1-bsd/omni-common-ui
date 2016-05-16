@@ -15,11 +15,11 @@ class Select extends Component {
   }
 
   render() {
-    const classes = classnames(styles.Select, this.getClasses());
-    return <div className={classes}>
+    const classes = classnames(styles.Select_element, this.getClasses());
+    return <div className={styles.Select}>
       <label>
         <span className={styles.Select_label}>{this.props.label}</span>
-        <ReactSelect className={styles.Select_element} {...this.props} />
+        <ReactSelect className={classes} {...this.props} />
       </label>
     </div>;
   }

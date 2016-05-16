@@ -2,9 +2,12 @@
 
 .Select {
   margin-bottom: 1em;
-  &.__required {
-    & .Select_element {
-      border-color: var(--colorWrong);
+
+  &_element {
+    &.__required {
+      & :global(.Select-control) {
+        border-color: var(--colorWrong);
+      }
     }
   }
 }
