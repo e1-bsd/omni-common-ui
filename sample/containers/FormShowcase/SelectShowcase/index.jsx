@@ -30,13 +30,13 @@ class SelectShowcase extends Component {
       <Form.Select
         options={optionNormal}
         name="normal"
-        label="normal"
+        label="Normal"
         value={this.state.normal}
         onChange={(value) => this.onNormalChange(value)} />
       <Form.Select
         options={optionRequired}
         name="required"
-        label="required"
+        label="Required"
         value={this.state.required}
         required
         onChange={(value) => this.onRequiredChange(value)} />
