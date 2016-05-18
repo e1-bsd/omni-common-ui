@@ -9,11 +9,19 @@ const Field = (props) => {
     <span className={styles.Field_label}>{props.label}</span>
     <div className={styles.Field_inputContainer}>
       {props.children}
-      <span className={styles.Field_inputContainer_validationError}>
-        {getErrorMessage()}
-      </span>
+      {renderError()}
     </div>
   </label>;
+
+  function renderError() {
+    if (!props.showError()) {
+      return;
+    }
+
+    return <span className={styles.Field_inputContainer_validationError}>
+      {getErrorMessage()}
+    </span>;
+  }
 
   function getValidationClasses() {
     if (props.showError()) {
