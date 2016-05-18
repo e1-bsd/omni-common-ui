@@ -12,11 +12,13 @@
   &_element {
     flex: 1;
     width: 100%;
+
     &.__required {
       & :global(.Select-control) {
         border-color: var(--colorWrong);
       }
     }
+
     &_validationError {
       color: var(--colorWrong);
     }
