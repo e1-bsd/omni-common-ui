@@ -5,7 +5,6 @@ import { HOC as FormsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 
 class TextInput extends Component {
-
   handleChange(e) {
     this.props.setValue(e.currentTarget.value);
   }
