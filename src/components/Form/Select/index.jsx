@@ -8,14 +8,10 @@ import classnames from 'classnames';
 import Field from '../Field';
 
 class Select extends Component {
-  getClasses() {
-    if (this.props.showRequired()) {
-      return styles.__required;
-    }
-  }
-
   render() {
-    const classes = classnames(styles.Select_element, this.getClasses());
+    const classes = classnames(styles.Select_element,
+        { [styles.__required]: this.props.showRequired() },
+        { [styles.__error]: this.props.showError() });
     return <Field label={this.props.label}
         getErrorMessage={() => this.props.getErrorMessage()}
         showError={() => this.props.showError()}
