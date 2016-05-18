@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import ReactSelect from 'react-select';
 import { HOC as FormsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
+import Field from '../Field';
 
 class Select extends Component {
   getClasses() {
@@ -13,26 +14,15 @@ class Select extends Component {
     }
   }
 
-  getErrorMessage() {
-    if (this.props.showRequired()) {
-      return 'This field is required';
-    }
-
-    return '';
-  }
-
   render() {
     const classes = classnames(styles.Select_element, this.getClasses());
-    const errorMessage = this.getErrorMessage();
-    return <label className={styles.Select}>
-      <span className={styles.Select_label}>{this.props.label}</span>
+    return <Field label={this.props.label}
+        getErrorMessage={() => this.props.getErrorMessage()}
+        showError={() => this.props.showError()}
+        showRequired={() => this.props.showRequired()}>
       <ReactSelect className={classes} {...this.props} />
-      <span className={styles.Select_element_validationError}>
-        {errorMessage}
-      </span>
-    </label>;
+    </Field>;
   }
-
 }
 
 export default FormsyDecorator(Select);
