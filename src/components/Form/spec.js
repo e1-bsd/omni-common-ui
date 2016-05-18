@@ -95,19 +95,19 @@ describe('Form', () => {
   it('show required styles when a select is required', ()=> {
     const wrapper = mount(<Form>
     <Form.Select name="required"
-                 label="required"
-                 value=''
-                 options = {options}
-                 required/></Form>);
+         label="required"
+         value=''
+         options = {options}
+         required/></Form>);
     expect(wrapper.find(`.${selectStyle.__required}`)).to.have.length(1);
   });
 
   it('do not show required styles when a select is not required', ()=> {
     const wrapper = mount(<Form>
     <Form.Select name="required"
-                 label="required"
-                 value=''
-                 options = {options}/></Form>);
+        label="required"
+        value=''
+        options = {options}/></Form>);
     expect(wrapper.find(`.${selectStyle.__required}`)).to.have.length(0);
   });
 
