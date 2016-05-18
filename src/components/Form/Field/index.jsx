@@ -43,10 +43,10 @@ const Field = (props) => {
 };
 
 Field.propTypes = {
-  label: React.PropTypes.func,
-  showError: React.PropTypes.func.required,
-  showRequired: React.PropTypes.func.required,
-  getErrorMessage: React.PropTypes.func.required,
+  label: React.PropTypes.string,
+  showError: React.PropTypes.func.isRequired,
+  showRequired: React.PropTypes.func.isRequired,
+  getErrorMessage: React.PropTypes.func.isRequired,
 };
 
 export default Field;
