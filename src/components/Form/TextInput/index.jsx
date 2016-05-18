@@ -2,48 +2,25 @@ import styles from './style.postcss';
 
 import React, { Component } from 'react';
 import { HOC as FormsyDecorator } from 'formsy-react';
-import classnames from 'classnames';
+import Field from '../Field';
 
 class TextInput extends Component {
   handleChange(e) {
     this.props.setValue(e.currentTarget.value);
   }
 
-  getValidationClasses() {
-    if (this.props.showError()) {
-      return styles.__error;
-    }
-
-    if (this.props.showRequired()) {
-      return styles.__required;
-    }
-  }
-
-  getErrorMessage() {
-    if (this.props.showRequired()) {
-      return 'This field is required';
-    } else {
-      return this.props.getErrorMessage();
-    }
-  }
-
   render() {
-    const errorMessage = this.getErrorMessage();
-    const classes = classnames(styles.TextInput, this.getValidationClasses());
-    return <label className={classes}>
-      <span className={styles.TextInput_label}>{this.props.label}</span>
-      <div className={styles.TextInput_inputContainer}>
-        <input type="text"
-            className={styles.TextInput_inputContainer_element}
-            name={this.props.name}
-            disabled={this.props.disabled}
-            value={this.props.getValue()}
-            onChange={(e) => this.handleChange(e)} />
-        <span className={styles.TextInput_inputContainer_validationError}>
-          {errorMessage}
-        </span>
-      </div>
-    </label>;
+    return <Field label={this.props.label}
+        getErrorMessage={() => this.props.getErrorMessage()}
+        showError={() => this.props.showError()}
+        showRequired={() => this.props.showRequired()}>
+      <input type="text"
+          className={styles.TextInput}
+          name={this.props.name}
+          disabled={this.props.disabled}
+          value={this.props.getValue()}
+          onChange={(e) => this.handleChange(e)} />
+    </Field>;
   }
 }
 

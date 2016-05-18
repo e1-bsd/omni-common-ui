@@ -1,4 +1,4 @@
-import styles from './TextInput/style.postcss';
+import styles from './Field/style.postcss';
 
 import React from 'react';
 import { expect } from 'chai';
@@ -30,7 +30,7 @@ describe('Form', () => {
           value="123" />
     </Form>);
     expect(wrapper.find(`.${styles.__error}`)).to.have.length(1);
-    expect(wrapper.find(`.${styles.TextInput_inputContainer_validationError}`).text()).to.equal('This is not a valid email');
+    expect(wrapper.find(`.${styles.Field_inputContainer_validationError}`).text()).to.equal('This is not a valid email');
   });
 
   it('show no error when a input do meet its email validation', ()=> {
@@ -53,7 +53,7 @@ describe('Form', () => {
           value="abc" />
     </Form>);
     expect(wrapper.find(`.${styles.__error}`)).to.have.length(1);
-    expect(wrapper.find(`.${styles.TextInput_inputContainer_validationError}`).text()).to.equal('This is not a valid number');
+    expect(wrapper.find(`.${styles.Field_inputContainer_validationError}`).text()).to.equal('This is not a valid number');
   });
 
   it('show error when a input do not meet its isNumeric validation', ()=> {
