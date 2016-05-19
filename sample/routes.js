@@ -5,6 +5,7 @@ import { routes as cards } from 'containers/CardShowcase';
 import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
 import { routes as tables } from 'containers/TableShowcase';
+import { routes as topnav } from 'containers/TopNavShowcase';
 
 export default {
   path: '/',
@@ -18,5 +19,6 @@ export default {
     dialogs,
     forms,
     tables,
+    topnav,
   ],
 };

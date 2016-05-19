@@ -1,0 +1,26 @@
+@import 'main.postcss';
+
+.Select {
+  display: flex;
+  margin-bottom: 1em;
+
+  &_label {
+    width: 5em;
+    padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
+  }
+
+  &_element {
+    flex: 1;
+    width: 100%;
+
+    &.__required {
+      & :global(.Select-control) {
+        border-color: var(--colorWrong);
+      }
+    }
+
+    &_validationError {
+      color: var(--colorWrong);
+    }
+  }
+}
