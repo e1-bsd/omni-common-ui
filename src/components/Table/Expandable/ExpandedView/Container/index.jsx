@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 import is from 'is_js';
+import { Card } from 'components/Card';
 
 class Container extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Container extends Component {
   render() {
     return <div className={styles.Container}
         style={{ transform: `translateY(-${this.state.height})` }}>
-      hey
+      <Card>hey</Card>
     </div>;
   }
 }
