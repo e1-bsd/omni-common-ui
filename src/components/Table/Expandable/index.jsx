@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React, { Component } from 'react';
 import Table from '../Table';
 import Reactable from 'reactable';
-import ExpandedContainer from './ExpandedContainer';
+import ExpandedView from './ExpandedView';
 
 const COLUMN_EXPAND_KEY = 'expand';
 const COLUMN_EXPAND_DEF = { key: COLUMN_EXPAND_KEY, label: '' };
@@ -11,7 +11,6 @@ const COLUMN_EXPAND_DEF = { key: COLUMN_EXPAND_KEY, label: '' };
 class Expandable extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   render() {
@@ -30,7 +29,6 @@ class Expandable extends Component {
       <Reactable.Td column={COLUMN_EXPAND_KEY}>
         <div>
           <span>Expand</span>
-          <div style={{ height: this.state.expandedHeight }}></div>
           {this.renderExpandedContent(index === 0)}
         </div>
       </Reactable.Td>
@@ -47,9 +45,9 @@ class Expandable extends Component {
       return;
     }
 
-    return <ExpandedContainer onHeightChanged={(height) => this.setState({ expandedHeight: height })} />;
+    return <ExpandedView />;
   }
-};
+}
 
 Expandable.propTypes = {
   data: React.PropTypes.array.isRequired,
