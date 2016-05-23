@@ -23,8 +23,8 @@ class Container extends Component {
   }
 
   componentWillUnmount() {
-    if (is.function(this.resizeSensor)) {
-      this.resizeSensor(this.domNode);
+    if (is.object(this.resizeSensor)) {
+      this.resizeSensor.detach();
     }
 
     this.domNode = null;
