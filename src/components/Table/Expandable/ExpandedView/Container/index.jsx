@@ -9,7 +9,7 @@ import { Card } from 'components/Card';
 class Container extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { height: 0 };
   }
 
   componentDidMount() {
