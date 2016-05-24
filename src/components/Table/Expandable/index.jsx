@@ -56,9 +56,10 @@ class Expandable extends Component {
   }
 
   renderExpandedViewRow(row, index) {
-    return <Reactable.Tr key={`${index}-expanded`}>
-      <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
-        <div className={styles.ExpandTable_expandedCell_content}>
+    return <Reactable.Tr key={`${index}-expanded`}
+        className={styles.ExpandTable_expandedRow}>
+      <Reactable.Td column="expanded">
+        <div className={styles.ExpandTable_expandedRow_content}>
           <ExpandedView>hey</ExpandedView>
         </div>
       </Reactable.Td>
