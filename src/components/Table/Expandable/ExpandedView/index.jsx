@@ -1,15 +1,9 @@
 import React from 'react';
-import Dialog from 'components/Dialog';
+import Card from 'components/Card';
 
 const ExpandedView = (props) =>
-    <Dialog isOpen={props.isOpen}
-        onRequestClose={props.onRequestClose}>
+    <Card>
       {props.children}
-    </Dialog>;
-
-ExpandedView.propTypes = {
-  isOpen: React.PropTypes.bool.isRequired,
-  onRequestClose: React.PropTypes.func.isRequired,
-};
+    </Card>;
 
 export default ExpandedView;

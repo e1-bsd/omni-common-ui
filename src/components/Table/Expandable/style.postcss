@@ -1,6 +1,8 @@
 @import 'main.postcss';
 
 .ExpandTable {
+  position: relative;
+
   &_expandCell {
     cursor: pointer;
     padding: 0 !important;
@@ -18,5 +20,11 @@
 
   &_expandedCell {
     padding: 0 !important;
+
+    &_content {
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
   }
 }

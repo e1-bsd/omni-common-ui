@@ -12,13 +12,17 @@ class Expandable extends Component {
   }
 
   render() {
+    const headers = this.props.columns.map((column) => this.renderHeader(column));
+    let rows = this.props.data.map((row, index) => this.renderRow(row, index));
+    rows = [].concat.apply([], rows);
+
     return <Table className={styles.ExpandTable}>
       <Reactable.Thead>
-        {this.props.columns.map((column) => this.renderHeader(column))}
+        {headers}
         <Reactable.Th column="expand"><span /></Reactable.Th>
         <Reactable.Th column="expanded" style={{ display: 'none' }}><span /></Reactable.Th>
       </Reactable.Thead>
-      {this.props.data.map((row, index) => this.renderRow(row, index))}
+      {rows}
     </Table>;
   }
 
@@ -29,7 +33,11 @@ class Expandable extends Component {
   }
 
   renderRow(row, index) {
-    return <Reactable.Tr key={index}>
+    return [this.renderMasterRow(row, index), this.renderExpandedViewRow(row, index)];
+  }
+
+  renderMasterRow(row, index) {
+    return <Reactable.Tr key={`${index}-master`}>
       {Object.keys(row).map((column) => this.renderCell(row, column))}
       <Reactable.Td column="expand" className={styles.ExpandTable_expandCell}>
         <div onClick={() => this.setState({ expandedRow: index })}
@@ -37,8 +45,16 @@ class Expandable extends Component {
           Expand
         </div>
       </Reactable.Td>
+      <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}><span /></Reactable.Td>
+    </Reactable.Tr>;
+  }
+
+  renderExpandedViewRow(row, index) {
+    return <Reactable.Tr key={`${index}-expanded`}>
       <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
-        {this.renderExpandedContent(index === this.state.expandedRow)}
+        <div className={styles.ExpandTable_expandedCell_content}>
+          {this.renderExpandedContent(index === this.state.expandedRow)}
+        </div>
       </Reactable.Td>
     </Reactable.Tr>;
   }
@@ -49,8 +65,7 @@ class Expandable extends Component {
   }
 
   renderExpandedContent(isOpen) {
-    return <ExpandedView isOpen={isOpen}
-        onRequestClose={() => this.setState({ expandedRow: undefined })} />;
+    return <ExpandedView>hey</ExpandedView>;
   }
 }
 
