@@ -33,7 +33,11 @@ class Expandable extends Component {
   }
 
   renderRow(row, index) {
-    return [this.renderMasterRow(row, index), this.renderExpandedViewRow(row, index)];
+    if (index === this.state.expandedRow) {
+      return [this.renderMasterRow(row, index), this.renderExpandedViewRow(row, index)];
+    }
+
+    return this.renderMasterRow(row, index);
   }
 
   renderMasterRow(row, index) {
@@ -45,7 +49,9 @@ class Expandable extends Component {
           Expand
         </div>
       </Reactable.Td>
-      <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}><span /></Reactable.Td>
+      <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
+        <span />
+      </Reactable.Td>
     </Reactable.Tr>;
   }
 
@@ -53,7 +59,7 @@ class Expandable extends Component {
     return <Reactable.Tr key={`${index}-expanded`}>
       <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
         <div className={styles.ExpandTable_expandedCell_content}>
-          {this.renderExpandedContent(index === this.state.expandedRow)}
+          <ExpandedView>hey</ExpandedView>
         </div>
       </Reactable.Td>
     </Reactable.Tr>;
@@ -62,10 +68,6 @@ class Expandable extends Component {
   renderCell(row, column) {
     const value = row[column];
     return <Reactable.Td column={column} key={column}>{value}</Reactable.Td>;
-  }
-
-  renderExpandedContent(isOpen) {
-    return <ExpandedView>hey</ExpandedView>;
   }
 }
 
