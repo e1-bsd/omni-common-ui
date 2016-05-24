@@ -50,7 +50,7 @@ class TopNavShowcase extends Component {
     if (!this.state.md) {
       return <TopNav.Logo src={logoImage}></TopNav.Logo>;
     } else {
-      return <span></span>;
+      return <span className={styles.TopNavShowcase_sideBar}></span>;
     }
   }
 
