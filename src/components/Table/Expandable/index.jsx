@@ -8,7 +8,7 @@ import ExpandedView from './ExpandedView';
 class Expandable extends Component {
   constructor(props) {
     super(props);
-    this.state = { expandedRow: undefined };
+    this.state = { expandedRow: undefined, expandedHeight: undefined };
   }
 
   render() {
@@ -56,11 +56,15 @@ class Expandable extends Component {
   }
 
   renderExpandedViewRow(row, index) {
+    const updateHeight = (height) => this.setState({ expandedHeight: height });
     return <Reactable.Tr key={`${index}-expanded`}
         className={styles.ExpandTable_expandedRow}>
       <Reactable.Td column="expanded">
-        <div className={styles.ExpandTable_expandedRow_content}>
-          <ExpandedView>hey</ExpandedView>
+        <div>
+          <div className={styles.ExpandTable_expandedRow_content}>
+            <ExpandedView onHeightChanged={updateHeight}>hey</ExpandedView>
+          </div>
+          <div style={{ height: this.state.expandedHeight }} />
         </div>
       </Reactable.Td>
     </Reactable.Tr>;
