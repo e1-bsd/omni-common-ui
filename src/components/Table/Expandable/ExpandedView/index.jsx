@@ -1,35 +1,15 @@
-import React, { Component } from 'react';
-import Container from './Container';
+import React from 'react';
+import Dialog from 'components/Dialog';
 
-class ExpandedView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { height: 0 };
-  }
-
-  onHeightChanged(height) {
-    this.setState({ height });
-  }
-
-  calculateCompensationHeight() {
-    if (this.props.shouldForceHeight !== true) {
-      return 'auto';
-    }
-
-    return Number.parseInt(this.state.height) + Number.parseInt(this.props.rowNormalHeight || 0);
-  }
-
-  render() {
-    return <div>
-      <div style={{ height: this.calculateCompensationHeight() }} />
-      <Container onHeightChanged={(height) => this.onHeightChanged(height)} />
-    </div>;
-  }
-}
+const ExpandedView = (props) =>
+    <Dialog isOpen={props.isOpen}
+        onRequestClose={props.onRequestClose}>
+      {props.children}
+    </Dialog>;
 
 ExpandedView.propTypes = {
-  shouldForceHeight: React.PropTypes.bool,
-  rowNormalHeight: React.PropTypes.number,
+  isOpen: React.PropTypes.bool.isRequired,
+  onRequestClose: React.PropTypes.func.isRequired,
 };
 
 export default ExpandedView;
