@@ -31,10 +31,13 @@ class Expandable extends Component {
   renderRow(row, index) {
     return <Reactable.Tr key={index}>
       {Object.keys(row).map((column) => this.renderCell(row, column))}
-      <Reactable.Td column="expand">
-        <span onClick={() => this.setState({ expandedRow: index })}>Expand</span>
+      <Reactable.Td column="expand" className={styles.ExpandTable_expandCell}>
+        <div onClick={() => this.setState({ expandedRow: index })}
+            className={styles.ExpandTable_expandCell_content}>
+          Expand
+        </div>
       </Reactable.Td>
-      <Reactable.Td column="expanded" style={{ padding: 0 }}>
+      <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
         {this.renderExpandedContent(index === this.state.expandedRow)}
       </Reactable.Td>
     </Reactable.Tr>;
