@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Table from '../Table';
 import Reactable from 'reactable';
 import ExpandedView from './ExpandedView';
+import ExpandControl from './ExpandControl';
 
 class Expandable extends Component {
   constructor(props) {
@@ -44,10 +45,10 @@ class Expandable extends Component {
     return <Reactable.Tr key={`${index}-master`}>
       {Object.keys(row).map((column) => this.renderCell(row, column))}
       <Reactable.Td column="expand" className={styles.ExpandTable_expandCell}>
-        <div onClick={() => this.setState({ expandedRow: index })}
-            className={styles.ExpandTable_expandCell_content}>
-          Expand
-        </div>
+        <ExpandControl className={styles.ExpandTable_expandCell_content}
+            isOpen={this.state.expandedRow === index}
+            onExpand={() => this.setState({ expandedRow: index })}
+            onContract={() => this.setState({ expandedRow: undefined })} />
       </Reactable.Td>
       <Reactable.Td column="expanded" className={styles.ExpandTable_expandedCell}>
         <span />
