@@ -36,7 +36,9 @@ class ExpandedView extends Component {
 
   render() {
     return <Card>
-      {this.props.children}
+      <div>
+        {this.props.children}
+      </div>
     </Card>;
   }
 }
