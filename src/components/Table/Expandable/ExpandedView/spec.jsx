@@ -20,7 +20,16 @@ describe('Table', () => {
       });
 
       describe('when onHeightChanged is provided', () => {
-        it('calls onHeightChanged when its own height changes');
+        it('calls onHeightChanged after mounting', () => {
+          const onHeightChanged = Sinon.spy();
+          const wrapper = mount(<ExpandedView onHeightChanged={onHeightChanged} />);
+          expect(onHeightChanged.called).to.be.true;
+        });
+
+        it('sets up ResizeSensor after mounting', () => {
+          const wrapper = mount(<ExpandedView onHeightChanged={() => {}} />);
+          expect(wrapper.instance().resizeSensor).to.be.an('object');
+        });
 
         it('cleans up resizing sensors when unmounted', () => {
           const wrapper = mount(<ExpandedView onHeightChanged={() => {}} />);
