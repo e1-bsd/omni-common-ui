@@ -2,6 +2,7 @@ import Reactable from 'reactable';
 import { expect } from 'chai';
 import Table from './';
 import TableComponent from './Table';
+import ExpandableComponent from './Expandable';
 
 describe('Table', () => {
   it('can be used directly as Table component', () => {
@@ -30,5 +31,9 @@ describe('Table', () => {
 
   it('exposes Th as property', () => {
     expect(Reactable.Th).to.equal(Table.Th);
+  });
+
+  it('exposes Expandable as property', () => {
+    expect(ExpandableComponent).to.equal(Table.Expandable);
   });
 });
