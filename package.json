@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --history-api-fallback --progress --port 3000",
+    "start": "./node_modules/.bin/webpack-dev-server --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
     "build:staging": "node build.js staging",

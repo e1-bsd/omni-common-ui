@@ -108,7 +108,6 @@ module.exports = (options) => ({
     new Clean([options.outputPath]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
       'DEVELOPMENT': nodeEnv === 'development',
@@ -118,7 +117,10 @@ module.exports = (options) => ({
   ].concat(options.plugins),
   devServer: {
     hot: true,
-    contentBase: options.context
+    contentBase: options.context,
+    noInfo: true,
+    stats: { colors: true },
+    historyApiFallback: true,
   },
   resolve: {
     modulesDirectories: ['node_modules', options.context, './'],
