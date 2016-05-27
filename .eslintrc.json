@@ -5,8 +5,14 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "comma-dangle": [1, "always-multiline"],
-    "import/no-unresolved": [0]
+    "comma-dangle": ["warn", "always-multiline"],
+    "import/no-unresolved": ["off"],
+    "no-underscore-dangle": ["off"],
+    "consistent-return": ["off"],
+    "react/jsx-indent-props": ["warn", 4],
+    "react/jsx-first-prop-new-line": ["warn", "never"],
+    "react/wrap-multilines": ["off"],
+    "react/jsx-closing-bracket-location": ["warn", "after-props"]
   },
   "globals": {
     "PRODUCTION": false,
