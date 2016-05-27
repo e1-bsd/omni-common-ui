@@ -1,7 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { HOC as FormsyDecorator } from 'formsy-react';
+import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Field from '../Field';
 
@@ -27,4 +27,12 @@ const TextInput = (props) => {
   }
 };
 
-export default FormsyDecorator(TextInput);
+TextInput.propTypes = {
+  showRequired: React.PropTypes.func.isRequired,
+  name: React.PropTypes.string,
+  disabled: React.PropTypes.bool,
+  getValue: React.PropTypes.func.isRequired,
+  setValue: React.PropTypes.func.isRequired,
+};
+
+export default formsyDecorator(TextInput);

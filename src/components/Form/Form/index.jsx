@@ -10,4 +10,12 @@ const Form = (props) => <div>
   </FormsyForm>
 </div>;
 
+Form.propTypes = {
+  onSubmit: React.PropTypes.func,
+  onChange: React.PropTypes.func,
+  onValid: React.PropTypes.func,
+  onInvalid: React.PropTypes.func,
+  children: React.PropTypes.node,
+};
+
 export default Form;

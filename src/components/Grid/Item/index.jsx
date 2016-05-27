@@ -10,4 +10,9 @@ const Item = (props) => {
   </div>;
 };
 
+Item.propTypes = {
+  className: React.PropTypes.string,
+  children: React.PropTypes.node,
+};
+
 export default Item;
