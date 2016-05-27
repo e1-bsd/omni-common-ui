@@ -27,7 +27,8 @@ class Checkbox extends Component {
   }
 
   render() {
-    const { name, label, items } = this.props;
+    const { name, label, items, validations, validationError } = this.props;
+
     return <Field label={label}
         getErrorMessage={() => this.props.getErrorMessage()}
         showError={() => this.props.showError()}
@@ -36,7 +37,9 @@ class Checkbox extends Component {
         items.map((item, i) => <div key={i}>
           <input type="checkbox"
               name={name}
-              onChange={(e) => this.handleChange(e, item)} />
+              onChange={(e) => this.handleChange(e, item)}
+              validations={validations}
+              validationError={validationError} />
           <span>{item}</span>
         </div>)
       }
@@ -54,6 +57,8 @@ Checkbox.propTypes = {
   getErrorMessage: React.PropTypes.func.isRequired,
   showRequired: React.PropTypes.func.isRequired,
   showError: React.PropTypes.func.isRequired,
+  validations: React.PropTypes.func,
+  validationError: React.PropTypes.string,
 };
 
 export default formsyDecorator(Checkbox);
