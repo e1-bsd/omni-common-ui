@@ -48,11 +48,16 @@ module.exports = (options) => ({
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-          cacheDirectory: true
-        }
+        loader: combineLoaders([
+          {
+            loader: 'babel',
+            query: {
+              presets: ['react', 'es2015', 'stage-2'],
+              cacheDirectory: true
+            }
+          },
+          { loader: 'eslint' },
+        ])
       },
       {
         test: /\.css$/,
@@ -151,6 +156,10 @@ module.exports = (options) => ({
       postcssCalc,
       postcssReporter({ clearMessages: true })
     ];
+  },
+  eslint: {
+    configFile: path.join(__dirname, '.eslintrc.json'),
+    failOnError: true
   },
   externals: {
     'cheerio': 'window',
