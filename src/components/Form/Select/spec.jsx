@@ -18,7 +18,7 @@ describe('Form', () => {
             label="required"
             value=""
             options={options}
-            required={true} />
+            required />
       </Form>);
       expect(wrapper.find(`.${styles.__required}`)).to.have.length(1);
     });

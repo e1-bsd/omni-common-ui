@@ -158,7 +158,9 @@ module.exports = (options) => ({
     ];
   },
   eslint: {
-    configFile: path.join(__dirname, '.eslintrc.json'),
+    configFile: path.join(__dirname, nodeEnv === 'test' ?
+        '.test.eslintrc.json' :
+        '.eslintrc.json'),
     failOnError: true
   },
   externals: {

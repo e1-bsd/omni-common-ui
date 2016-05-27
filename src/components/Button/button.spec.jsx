@@ -53,7 +53,7 @@ describe('Button', () => {
 
     it('does nothing if it is disabled', () => {
       const onClick = Sinon.spy();
-      const wrapper = shallow(<Button onClick={onClick} disabled={true} />);
+      const wrapper = shallow(<Button onClick={onClick} disabled />);
       wrapper.simulate('click', eventObjectMock);
       expect(onClick.called).to.be.false;
     });

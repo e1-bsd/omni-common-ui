@@ -1,0 +1,11 @@
+{
+  "extends": ["./.eslintrc.json"],
+  "rules": {
+    "no-unused-expressions": ["off"],
+    "max-len": ["off"]
+  },
+  "globals": {
+    "describe": false,
+    "it": false
+  }
+}

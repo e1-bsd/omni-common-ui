@@ -22,7 +22,7 @@ describe('Table', () => {
       describe('when onHeightChanged is provided', () => {
         it('calls onHeightChanged after mounting', () => {
           const onHeightChanged = Sinon.spy();
-          const wrapper = mount(<ExpandedView onHeightChanged={onHeightChanged} />);
+          mount(<ExpandedView onHeightChanged={onHeightChanged} />);
           expect(onHeightChanged.called).to.be.true;
         });
 

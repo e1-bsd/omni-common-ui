@@ -1,5 +1,3 @@
-import styles from './style.postcss';
-
 import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
@@ -7,7 +5,7 @@ import Dialog from './';
 
 describe('Dialog', () => {
   it('renders its children if open', () => {
-    const wrapper = mount(<Dialog isOpen={true}><div id="innerContent" /></Dialog>);
+    const wrapper = mount(<Dialog isOpen><div id="innerContent" /></Dialog>);
     expect(document.getElementById('innerContent')).to.exist;
     wrapper.unmount();
   });

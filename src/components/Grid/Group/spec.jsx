@@ -18,7 +18,7 @@ describe('Grid', () => {
       });
 
       it('wraps it only if it is not an Item', () => {
-        const wrapper = shallow(<Group><Item><div id="child" /></Item></Group>);
+        shallow(<Group><Item><div id="child" /></Item></Group>);
         expect(wrapper.find(Item)).to.have.length(1);
       });
     });
@@ -39,7 +39,7 @@ describe('Grid', () => {
       });
 
       it('wraps only children that are not an Item', () => {
-        const wrapper = shallow(<Group>
+        shallow(<Group>
           <div id="child1" />
           <Item><div id="child2" /></Item>
         </Group>);

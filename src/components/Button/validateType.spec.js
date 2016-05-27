@@ -13,7 +13,7 @@ describe('Button', () => {
     });
 
     it('throws error if invalid type is passed', () => {
-      expect(() => validateType("faketype")).to.throw();
+      expect(() => validateType('faketype')).to.throw();
     });
   });
 });

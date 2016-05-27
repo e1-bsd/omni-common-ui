@@ -39,14 +39,14 @@ describe('Form', () => {
       expect(wrapper.find(`.${errorClass}`)).to.have.length(0);
     });
 
-    it('applies required styles if showRequired retuns true', ()=> {
+    it('applies required styles if showRequired retuns true', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => true}
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__required}`)).to.have.length(1);
     });
 
-    it('does not apply required styles if showRequired retuns false', ()=> {
+    it('does not apply required styles if showRequired retuns false', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);

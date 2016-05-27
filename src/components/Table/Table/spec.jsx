@@ -1,6 +1,6 @@
 import React from 'react';
 import Reactable from 'reactable';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import Table from './';
 

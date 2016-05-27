@@ -1,5 +1,3 @@
-import styles from './style.postcss';
-
 import React from 'react';
 import Sinon from 'sinon';
 import { shallow } from 'enzyme';
@@ -15,7 +13,7 @@ describe('Table', () => {
       });
 
       it('renders "Contract" if isOpen is true', () => {
-        const wrapper = shallow(<ExpandControl isOpen={true} />);
+        const wrapper = shallow(<ExpandControl isOpen />);
         expect(wrapper.text()).to.equal('Contract');
       });
 
@@ -29,7 +27,7 @@ describe('Table', () => {
 
         it('calls onContract if isOpen is true', () => {
           const onContract = Sinon.spy();
-          const wrapper = shallow(<ExpandControl isOpen={true} onContract={onContract} />);
+          const wrapper = shallow(<ExpandControl isOpen onContract={onContract} />);
           wrapper.simulate('click');
           expect(onContract.called).to.be.true;
         });
@@ -40,7 +38,7 @@ describe('Table', () => {
         });
 
         it('throws an error if onContract is not provided and isOpen is true', () => {
-          const wrapper = shallow(<ExpandControl isOpen={true} onExpand={() => {}} />);
+          const wrapper = shallow(<ExpandControl isOpen onExpand={() => {}} />);
           expect(() => wrapper.simulate('click')).to.throw();
         });
       });
