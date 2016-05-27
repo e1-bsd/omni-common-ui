@@ -15,7 +15,9 @@ const Select = (props) => {
       getErrorMessage={() => props.getErrorMessage()}
       showError={() => props.showError()}
       showRequired={() => props.showRequired()}>
-    <ReactSelect className={classes} {...props} onChange={(e) => handleChange(e)}/>
+    <ReactSelect className={classes}
+        onChange={(e) => handleChange(e)}
+        {...props} />
   </Field>;
 
   function handleChange(e) {
@@ -25,6 +27,7 @@ const Select = (props) => {
 
 Select.propTypes = {
   showRequired: React.PropTypes.showRequired.isRequired,
+  setValue: React.PropTypes.func.isRequired,
 };
 
 export default formsyDecorator(Select);

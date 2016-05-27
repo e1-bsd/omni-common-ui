@@ -1,11 +1,10 @@
 import 'react-select/dist/react-select.css';
 
-import React, { Component }  from 'react';
-import { HOC as FormsyDecorator } from 'formsy-react';
+import React, { Component } from 'react';
+import { HOC as formsyDecorator } from 'formsy-react';
 import Field from '../Field';
 
 class Checkbox extends Component {
-
   componentDidMount() {
     this.props.setValue([]);
   }
@@ -30,21 +29,31 @@ class Checkbox extends Component {
   render() {
     const { name, label, items } = this.props;
     return <Field label={label}
-                  getErrorMessage={() => this.props.getErrorMessage()}
-                  showError={() => this.props.showError()}
-                  showRequired={() => this.props.showRequired()}>
-      {items.map((item, i) =>
-          <div key={i}>
-            <input
-              type="checkbox"
-              name={name} onChange={(e)=> this.handleChange(e, item)}
-              />
-            <span>{item}</span>
-          </div>
-      )}
+        getErrorMessage={() => this.props.getErrorMessage()}
+        showError={() => this.props.showError()}
+        showRequired={() => this.props.showRequired()}>
+      {
+        items.map((item, i) => <div key={i}>
+          <input type="checkbox"
+              name={name}
+              onChange={(e) => this.handleChange(e, item)} />
+          <span>{item}</span>
+        </div>)
+      }
     </Field>;
   }
 
 }
 
-export default FormsyDecorator(Checkbox);
+Checkbox.propTypes = {
+  setValue: React.PropTypes.func.isRequired,
+  getValue: React.PropTypes.func.isRequired,
+  name: React.PropTypes.string,
+  label: React.PropTypes.string,
+  items: React.PropTypes.array,
+  getErrorMessage: React.PropTypes.func.isRequired,
+  showRequired: React.PropTypes.func.isRequired,
+  showError: React.PropTypes.func.isRequired,
+};
+
+export default formsyDecorator(Checkbox);
