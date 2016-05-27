@@ -14,7 +14,16 @@
     "react/jsx-indent-props": ["warn", 4],
     "react/jsx-first-prop-new-line": ["warn", "never"],
     "react/wrap-multilines": ["off"],
-    "react/jsx-closing-bracket-location": ["warn", "after-props"]
+    "react/jsx-closing-bracket-location": ["warn", "after-props"],
+    "react/sort-comp": ["warn", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render",
+        "/^render.+$/"
+      ]
+    }]
   },
   "globals": {
     "PRODUCTION": false,

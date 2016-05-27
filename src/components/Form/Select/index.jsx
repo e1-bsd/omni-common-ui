@@ -3,7 +3,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import ReactSelect from 'react-select';
-import { HOC as FormsyDecorator } from 'formsy-react';
+import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Field from '../Field';
 
@@ -23,4 +23,8 @@ const Select = (props) => {
   }
 };
 
-export default FormsyDecorator(Select);
+Select.propTypes = {
+  showRequired: React.PropTypes.showRequired.isRequired,
+};
+
+export default formsyDecorator(Select);

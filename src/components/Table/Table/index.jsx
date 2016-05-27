@@ -10,4 +10,11 @@ const Table = (props) => <Reactable.Table columns={props.columns}
   {props.children}
 </Reactable.Table>;
 
+Table.propTypes = {
+  columns: React.PropTypes.array.isRequired,
+  data: React.PropTypes.array.isRequired,
+  className: React.PropTypes.string.isRequired,
+  children: React.PropTypes.node,
+};
+
 export default Table;

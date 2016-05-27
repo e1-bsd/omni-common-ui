@@ -45,6 +45,7 @@ class ExpandedView extends Component {
 
 ExpandedView.propTypes = {
   onHeightChanged: React.PropTypes.func,
+  children: React.PropTypes.node,
 };
 
 export default ExpandedView;

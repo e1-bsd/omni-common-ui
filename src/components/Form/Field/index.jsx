@@ -36,9 +36,9 @@ const Field = (props) => {
   function getErrorMessage() {
     if (props.showRequired()) {
       return 'This field is required';
-    } else {
-      return props.getErrorMessage();
     }
+
+    return props.getErrorMessage();
   }
 };
 
@@ -47,6 +47,7 @@ Field.propTypes = {
   showError: React.PropTypes.func.isRequired,
   showRequired: React.PropTypes.func.isRequired,
   getErrorMessage: React.PropTypes.func.isRequired,
+  children: React.PropTypes.node,
 };
 
 export default Field;
