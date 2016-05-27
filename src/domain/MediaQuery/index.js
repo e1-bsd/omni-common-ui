@@ -2,8 +2,8 @@ let styleMedia = window.styleMedia || window.media;
 
 // For those that don't support matchMedium
 if (!styleMedia) {
-  let style = document.createElement('style');
-  let script = document.getElementsByTagName('script')[0];
+  const style = document.createElement('style');
+  const script = document.getElementsByTagName('script')[0];
 
   style.type = 'text/css';
   style.id = 'matchmediajs-test';
@@ -11,13 +11,13 @@ if (!styleMedia) {
   script.parentNode.insertBefore(style, script);
 
   // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
-  let info = 'getComputedStyle' in window &&
+  const info = 'getComputedStyle' in window &&
     window.getComputedStyle(style, null) ||
     style.currentStyle;
 
   styleMedia = {
-    matchMedium: function (media) {
-      const text = '@media ' + media + '{ #matchmediajs-test { width: 1px; } }';
+    matchMedium: (media) => {
+      const text = `@media ${media}{ #matchmediajs-test { width: 1px; } }`;
 
       // 'style.styleSheet' is used by IE <= 8 and 'style.textContent' for all other browsers
       if (style.styleSheet) {
@@ -32,26 +32,24 @@ if (!styleMedia) {
   };
 }
 
-let localMatchMedia = function (media) {
-  return {
-    matches: styleMedia.matchMedium(media || 'all'),
-    media: media || 'all',
-  };
-};
+const localMatchMedia = (media) => ({
+  matches: styleMedia.matchMedium(media || 'all'),
+  media: media || 'all',
+});
 
-let hasMediaQueries = localMatchMedia('only all').matches;
+const hasMediaQueries = localMatchMedia('only all').matches;
 let isListening = false;
 let timeoutID = 0;// setTimeout for debouncing 'handleChange'
-let queries = [];// Contains each 'mql' and associated 'listeners' if 'addListener' is used
-let handleChange = function () {
+const queries = [];// Contains each 'mql' and associated 'listeners' if 'addListener' is used
+const handleChange = () => {
   // Debounce
   clearTimeout(timeoutID);
 
   timeoutID = setTimeout(() => {
     for (let i = 0, il = queries.length; i < il; i++) {
-      let mql  = queries[i].mql;
-      let listeners = queries[i].listeners || [];
-      let matches = localMatchMedia(mql.media).matches;
+      const mql = queries[i].mql;
+      const listeners = queries[i].listeners || [];
+      const matches = localMatchMedia(mql.media).matches;
 
       // Update mql.matches value and call listeners
       // Fire listeners only if transitioning to or from matched state
@@ -67,11 +65,11 @@ let handleChange = function () {
 };
 
 export const mediaQuery = (media) => {
-  let mql = localMatchMedia(media);
-  let listeners = [];
+  const mql = localMatchMedia(media);
+  const listeners = [];
   let index = 0;
 
-  mql.addListener = function (listener) {
+  mql.addListener = (listener) => {
     // Changes would not occur to css media type so return now (Affects IE <= 8)
     if (!hasMediaQueries) {
       return;
@@ -87,15 +85,15 @@ export const mediaQuery = (media) => {
     // Push object only if it has not been pushed already
     if (index === 0) {
       index = queries.push({
-        mql: mql,
-        listeners: listeners,
+        mql,
+        listeners,
       });
     }
 
     listeners.push(listener);
   };
 
-  mql.removeListener = function (listener) {
+  mql.removeListener = (listener) => {
     for (let i = 0, il = listeners.length; i < il; i++) {
       if (listeners[i] === listener) {
         listeners.splice(i, 1);
