@@ -10,6 +10,7 @@
     "no-underscore-dangle": ["off"],
     "consistent-return": ["off"],
     "padded-blocks": ["warn", "never"],
+    "no-use-before-define": ["error", "nofunc"],
     "react/jsx-indent-props": ["warn", 4],
     "react/jsx-first-prop-new-line": ["warn", "never"],
     "react/wrap-multilines": ["off"],

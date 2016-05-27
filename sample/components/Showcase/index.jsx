@@ -22,6 +22,7 @@ const Showcase = (props) => {
 Showcase.propTypes = {
   title: React.PropTypes.string.isRequired,
   titleLink: React.PropTypes.string,
+  children: React.PropTypes.node,
 };
 
 export default Showcase;
