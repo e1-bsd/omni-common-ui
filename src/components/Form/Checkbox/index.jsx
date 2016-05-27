@@ -4,7 +4,7 @@ import React from 'react';
 import { HOC as FormsyDecorator } from 'formsy-react';
 import Field from '../Field';
 
-const Radio = (props) => {
+const Checkbox = (props) => {
   const { name, label, items } = props;
   return <Field label={label}
       getErrorMessage={() => props.getErrorMessage()}
@@ -13,7 +13,7 @@ const Radio = (props) => {
       {items.map((item, i) =>
         <div key={i}>
           <input
-            type="radio"
+            type="checkbox"
             name={name} onChange={(e)=> handleChange(e, item)}
             />
           <span>{item}</span>
@@ -22,8 +22,7 @@ const Radio = (props) => {
   </Field>;
 
   function handleChange(e, item) {
-    props.setValue(item);
   }
 };
 
-export default FormsyDecorator(Radio);
+export default FormsyDecorator(Checkbox);

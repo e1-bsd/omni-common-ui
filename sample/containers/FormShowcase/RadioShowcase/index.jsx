@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { Form } from 'omni-common-ui';
 
 class RadioShowcase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
 
   render() {
     return <div>
