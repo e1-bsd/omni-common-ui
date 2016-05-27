@@ -17,29 +17,19 @@ class SelectShowcase extends Component {
     this.state = {};
   }
 
-  onNormalChange(normal) {
-    this.setState({ normal: normal.value });
-  }
-
-  onRequiredChange(required) {
-    this.setState({ required: required.value });
-  }
-
   render() {
     return <div>
       <Form.Select
         options={optionNormal}
-        name="normal"
-        label="Normal"
-        value={this.state.normal}
-        onChange={(value) => this.onNormalChange(value)} />
+        name="normalSelect"
+        label="Normal Select"
+        value={this.state.normal} />
       <Form.Select
         options={optionRequired}
-        name="required"
-        label="Required"
+        name="requiredSelect"
+        label="Required Select"
         value={this.state.required}
-        required
-        onChange={(value) => this.onRequiredChange(value)} />
+        required />
     </div>;
   }
 }

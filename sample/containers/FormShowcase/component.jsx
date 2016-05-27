@@ -34,7 +34,7 @@ class FormShowcase extends Component {
       <Form onChange={(data) => this.handleFormChange(data)}
             onInvalid={() => this.handleInvalid()}
             onValid={() => this.handleValid()}>
-        <Form.TextInput name="normal" label="Normal" value='' />
+        <Form.TextInput name="normalText" label="Normal Text" value='' />
         <Form.TextInput name="disabled" label="Disabled" disabled={true} value='disabled'/>
         <Form.TextInput
             name="number"
@@ -49,8 +49,8 @@ class FormShowcase extends Component {
             validationError="This is not a valid email"
             value='' />
         <Form.TextInput
-            name="required"
-            label="Required"
+            name="requiredText"
+            label="Required Text"
             required
             value='' />
         <SelectShowcase />
