@@ -9,6 +9,7 @@
     "import/no-unresolved": ["off"],
     "no-underscore-dangle": ["off"],
     "consistent-return": ["off"],
+    "padded-blocks": ["warn", "never"],
     "react/jsx-indent-props": ["warn", 4],
     "react/jsx-first-prop-new-line": ["warn", "never"],
     "react/wrap-multilines": ["off"],
