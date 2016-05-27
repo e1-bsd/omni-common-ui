@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import {
-  LOCATION_CHANGE
+  LOCATION_CHANGE,
 } from 'react-router-redux';
 
 const initialState = Immutable.fromJS({

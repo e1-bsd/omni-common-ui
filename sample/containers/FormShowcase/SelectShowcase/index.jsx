@@ -19,17 +19,15 @@ class SelectShowcase extends Component {
 
   render() {
     return <div>
-      <Form.Select
-        options={optionNormal}
-        name="normalSelect"
-        label="Normal Select"
-        value={this.state.normal} />
-      <Form.Select
-        options={optionRequired}
-        name="requiredSelect"
-        label="Required Select"
-        value={this.state.required}
-        required />
+      <Form.Select options={optionNormal}
+          name="normalSelect"
+          label="Normal Select"
+          value={this.state.normal} />
+      <Form.Select options={optionRequired}
+          name="requiredSelect"
+          label="Required Select"
+          value={this.state.required}
+          required />
     </div>;
   }
 }

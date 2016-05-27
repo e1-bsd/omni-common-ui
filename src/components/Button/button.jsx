@@ -34,6 +34,7 @@ Button.propTypes = {
   onClick: React.PropTypes.func.isRequired,
   type: React.PropTypes.string,
   disabled: React.PropTypes.bool,
+  children: React.PropTypes.node,
 };
 
 export default Button;

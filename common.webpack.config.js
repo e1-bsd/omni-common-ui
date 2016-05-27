@@ -113,7 +113,7 @@ module.exports = (options) => ({
   devServer: {
     hot: true,
     contentBase: options.context,
-    noInfo: true,
+    noInfo: false,
     stats: { colors: true },
     historyApiFallback: true,
   },

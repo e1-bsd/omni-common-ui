@@ -10,4 +10,8 @@ const Card = (props) => {
   </div>;
 };
 
+Card.propTypes = {
+  children: React.PropTypes.node,
+};
+
 export default Card;

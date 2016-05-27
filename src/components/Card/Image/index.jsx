@@ -2,4 +2,12 @@ import styles from './style.postcss';
 
 import React from 'react';
 
-export default (props) => <img className={styles.Image} {...props} />;
+const Image = (props) => <img className={styles.Image}
+    alt={props.alt}
+    {...props} />;
+
+Image.propTypes = {
+  alt: React.PropTypes.string,
+};
+
+export default Image;

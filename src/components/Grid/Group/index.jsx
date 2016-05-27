@@ -28,4 +28,8 @@ const Group = (props) => {
   }
 };
 
+Group.propTypes = {
+  children: React.PropTypes.node,
+};
+
 export default Group;

@@ -14,5 +14,5 @@ export function validateType(type) {
     return true;
   }
 
-  throw `Type "${type}" is not valid! Use the Type object provided`;
+  throw new Error(`Type "${type}" is not valid! Use the Type object provided`);
 }

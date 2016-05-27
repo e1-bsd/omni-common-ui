@@ -11,4 +11,8 @@ const Grid = (props) => {
   </div>;
 };
 
+Grid.propTypes = {
+  children: React.PropTypes.node,
+};
+
 export default Grid;

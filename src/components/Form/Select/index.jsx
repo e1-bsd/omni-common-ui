@@ -26,7 +26,7 @@ const Select = (props) => {
 };
 
 Select.propTypes = {
-  showRequired: React.PropTypes.showRequired.isRequired,
+  showRequired: React.PropTypes.func.isRequired,
   setValue: React.PropTypes.func.isRequired,
 };
 

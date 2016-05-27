@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 
-const TableShowcase = (props) => <Showcase title="Tables" titleLink="tables">
+const TableShowcase = () => <Showcase title="Tables" titleLink="tables">
   <Grid>
     <Grid.Group>
       <Grid.Item>

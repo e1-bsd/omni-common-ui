@@ -7,9 +7,8 @@ const allShowcases = requireShowcases.keys()
     .map(requireShowcases)
     .map((item) => item.default);
 
-const All = () =>
-    <div>
-      {allShowcases.map((Component) => <Component key={Component.name}/>)}
-    </div>;
+const All = () => <div>
+  {allShowcases.map((Component) => <Component key={Component.name} />)}
+</div>;
 
 export default All;
