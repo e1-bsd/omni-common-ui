@@ -5,7 +5,8 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "comma-dangle": [1, "always-multiline"]
+    "comma-dangle": [1, "always-multiline"],
+    "import/no-unresolved": [0]
   },
   "globals": {
     "PRODUCTION": false,
