@@ -6,7 +6,6 @@ import ReactSelect from 'react-select';
 import { HOC as FormsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Field from '../Field';
-import log from 'loglevel';
 
 const Select = (props) => {
   const classes = classnames(styles.Select_element,
@@ -20,7 +19,6 @@ const Select = (props) => {
   </Field>;
 
   function handleChange(e) {
-    log.info(e.value);
     props.setValue(e.value);
   }
 };
