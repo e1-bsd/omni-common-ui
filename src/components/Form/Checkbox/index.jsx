@@ -57,7 +57,7 @@ Checkbox.propTypes = {
   getErrorMessage: React.PropTypes.func.isRequired,
   showRequired: React.PropTypes.func.isRequired,
   showError: React.PropTypes.func.isRequired,
-  validations: React.PropTypes.func,
+  validations: React.PropTypes.string,
   validationError: React.PropTypes.string,
 };
 
