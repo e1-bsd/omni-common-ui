@@ -14,8 +14,16 @@ const ProgressBar = (props) => {
     let { progress } = props;
     progress = progress || 0;
 
+    if (progress < 0) {
+      progress = 0;
+    }
+
     if (is.number(total)) {
       return progress / total;
+    }
+
+    if (progress > 100) {
+      progress = 100;
     }
 
     return progress / 100;
