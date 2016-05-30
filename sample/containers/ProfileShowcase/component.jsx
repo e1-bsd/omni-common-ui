@@ -1,10 +1,13 @@
 import React from 'react';
 import { Profile } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
+import yeahImage from './1.png';
+import stupidImage from './2.png';
 
 const ProfileShowcase = () => <Showcase title="Profile" titleLink="profile">
   <div>
-    <Profile />
+    <Profile src={yeahImage} />
+    <Profile src={stupidImage} />
   </div>
 </Showcase>;
 

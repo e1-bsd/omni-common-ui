@@ -3,9 +3,8 @@ import styles from './style.postcss';
 
 const Profile = (props) => {
   const { src } = props;
-  return <span src={src} className={styles.Profile}>
-
-  </span>;
+  return <img src={src} role="presentation" className={styles.Profile}>
+  </img>;
 };
 
 Profile.propTypes = {
