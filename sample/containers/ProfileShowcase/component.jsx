@@ -1,9 +1,10 @@
 import React from 'react';
+import { Profile } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 
 const ProfileShowcase = () => <Showcase title="Profile" titleLink="profile">
   <div>
-    Hello, This is Profile show case
+    <Profile />
   </div>
 </Showcase>;
 
