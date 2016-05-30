@@ -6,7 +6,7 @@ import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
 import { routes as profile } from 'containers/ProfileShowcase';
 import { routes as tables } from 'containers/TableShowcase';
-import { routes as topnav } from 'containers/TopNavShowcase';
+import { routes as topNav } from 'containers/TopNavShowcase';
 import { routes as progressBars } from 'containers/ProgressBarShowcase';
 
 export default {
@@ -22,7 +22,7 @@ export default {
     forms,
     profile,
     tables,
-    topnav,
+    topNav,
     progressBars,
   ],
 };
