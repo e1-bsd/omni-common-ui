@@ -1,15 +1,19 @@
 @import 'main.postcss';
 
 .Logo {
-  margin-left: 1.33em;
-  margin-top: 1em;
-  height: 2.5em;
-  width: 4.25em;
-  order: 1;
+  height: 100%;
+
+  & img {
+    max-height: 100%;
+  }
 
   &_sideBar {
-    width: 2em;
-    display: inline-block;
     background-color: #8e8e93;
+    display: block;
+    height: calc(100% + 2em);
+    margin-bottom: -1em;
+    margin-left: -1em;
+    margin-top: -1em;
+    width: 2em;
   }
 }
