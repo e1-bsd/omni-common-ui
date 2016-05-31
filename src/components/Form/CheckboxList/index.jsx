@@ -10,14 +10,14 @@ class CheckboxList extends Component {
     this.props.setValue([]);
   }
 
-  handleChange(e, item) {
+  handleChange(e, option) {
     const checked = e.currentTarget.checked;
 
     let newValue = [];
     if (checked) {
-      newValue = this.props.getValue().concat(item);
+      newValue = this.props.getValue().concat(option);
     } else {
-      newValue = this.props.getValue().filter((it) => !this.cmp(it, item));
+      newValue = this.props.getValue().filter((it) => !this.cmp(it, option));
     }
 
     this.props.setValue(newValue);
@@ -28,15 +28,20 @@ class CheckboxList extends Component {
   }
 
   render() {
-    const { name, label, items } = this.props;
+    const { name, label, items, validations, validationError } = this.props;
 
     return <Field label={label}
         getErrorMessage={() => this.props.getErrorMessage()}
         showError={() => this.props.showError()}
+        validations={validations}
+        validationError={validationError}
         showRequired={() => this.props.showRequired()}>
       {
         items.map((item, i) =>
-          <Checkbox key={i} name={name} item={item} />)
+          <Checkbox key={i}
+              name={name}
+              item={item}
+              onChecked={(e, option) => this.handleChange(e, option)} />)
       }
     </Field>;
   }

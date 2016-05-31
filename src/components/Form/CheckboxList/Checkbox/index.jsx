@@ -1,15 +1,20 @@
 import React from 'react';
 
-const CheckBox = (props) => <div key={props.key}>
-  <input type="checkbox" name={props.name} />
-  <span>{props.item}</span>
-</div>;
+const CheckBox = (props) => {
+  return <div>
+    <input type="checkbox" name={props.name} onChange={(e) => handleOptionChecked(e, props.item)} />
+    <span>{props.item}</span>
+  </div>;
+  function handleOptionChecked(e, item) {
+    props.onChecked(e, item);
+  }
+};
 
 
 CheckBox.propTypes = {
-  key: React.PropTypes.string,
   name: React.PropTypes.string,
   item: React.PropTypes.string,
+  onChecked: React.PropTypes.func,
 };
 
 export default CheckBox;

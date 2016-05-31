@@ -11,6 +11,8 @@
     "consistent-return": ["off"],
     "padded-blocks": ["warn", "never"],
     "no-use-before-define": ["error", "nofunc"],
+    "no-restricted-syntax": ["warn"],
+    "no-debugger": ["warn"],
     "react/jsx-indent-props": ["warn", 4],
     "react/jsx-first-prop-new-line": ["warn", "never"],
     "react/wrap-multilines": ["off"],
