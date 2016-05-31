@@ -7,7 +7,7 @@ import stupidImage from './2.png';
 const ProfileShowcase = () => <Showcase title="Profile" titleLink="profile">
   <div>
     <Profile src={yeahImage} />
-    <Profile src={stupidImage} />
+    <Profile src={stupidImage} disabled />
   </div>
 </Showcase>;
 
