@@ -2,8 +2,12 @@ import React from 'react';
 
 const CheckBox = (props) => {
   return <div>
-    <input type="checkbox" name={props.name} onChange={(e) => handleOptionChecked(e, props.item)} />
-    <span>{props.item}</span>
+    <label>
+      <input type="checkbox"
+          name={props.name}
+          onChange={(e) => handleOptionChecked(e, props.item)} />
+      {props.item}
+    </label>
   </div>;
   function handleOptionChecked(e, item) {
     props.onChecked(e, item);
