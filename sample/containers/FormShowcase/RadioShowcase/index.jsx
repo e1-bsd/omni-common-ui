@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'omni-common-ui';
 
 const RadioShowcase = () => <div>
-  <Form.Radio name="radio" label="Radio" items={['foo', 'bar']}></Form.Radio>
+  <Form.RadioList name="radio" label="Radio" items={['foo', 'bar']}></Form.RadioList>
 </div>;
 
 export default RadioShowcase;
