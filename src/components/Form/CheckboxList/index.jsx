@@ -3,8 +3,9 @@ import 'react-select/dist/react-select.css';
 import React, { Component } from 'react';
 import { HOC as formsyDecorator } from 'formsy-react';
 import Field from '../Field';
+import Checkbox from './Checkbox';
 
-class Checkbox extends Component {
+class CheckboxList extends Component {
   componentDidMount() {
     this.props.setValue([]);
   }
@@ -27,28 +28,22 @@ class Checkbox extends Component {
   }
 
   render() {
-    const { name, label, items, validations, validationError } = this.props;
+    const { name, label, items } = this.props;
 
     return <Field label={label}
         getErrorMessage={() => this.props.getErrorMessage()}
         showError={() => this.props.showError()}
         showRequired={() => this.props.showRequired()}>
       {
-        items.map((item, i) => <div key={i}>
-          <input type="checkbox"
-              name={name}
-              onChange={(e) => this.handleChange(e, item)}
-              validations={validations}
-              validationError={validationError} />
-          <span>{item}</span>
-        </div>)
+        items.map((item, i) =>
+          <Checkbox key={i} name={name} item={item} />)
       }
     </Field>;
   }
 
 }
 
-Checkbox.propTypes = {
+CheckboxList.propTypes = {
   setValue: React.PropTypes.func.isRequired,
   getValue: React.PropTypes.func.isRequired,
   name: React.PropTypes.string,
@@ -61,4 +56,4 @@ Checkbox.propTypes = {
   validationError: React.PropTypes.string,
 };
 
-export default formsyDecorator(Checkbox);
+export default formsyDecorator(CheckboxList);

@@ -11,8 +11,8 @@ class CheckboxShowcase extends Component {
 
   render() {
     return <div>
-      <Form.Checkbox name="checkBoxNormal" label="Normal Checkbox" items={['foo', 'bar']} />
-      <Form.Checkbox name="customize"
+      <Form.CheckboxList name="checkBoxNormal" label="Normal Checkbox" items={['foo', 'bar']} />
+      <Form.CheckboxList name="customize"
           label="Customize Validation"
           items={['1', '2', '3', '4', '5']}
           validations="noMoreThanThree"
