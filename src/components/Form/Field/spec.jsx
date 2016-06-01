@@ -52,5 +52,20 @@ describe('Form', () => {
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__required}`)).to.have.length(0);
     });
+
+    it('does not use a label if useLabel is not provided', () => {
+      const wrapper = mount(<Field showError={() => false}
+          showRequired={() => false}
+          getErrorMessage={() => ''} />);
+      expect(wrapper.find('label')).to.have.length(0);
+    });
+
+    it('uses a label if useLabel is provided', () => {
+      const wrapper = mount(<Field showError={() => false}
+          showRequired={() => false}
+          getErrorMessage={() => ''}
+          useLabel />);
+      expect(wrapper.find('label')).to.have.length(1);
+    });
   });
 });
