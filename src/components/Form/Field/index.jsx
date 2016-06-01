@@ -5,20 +5,28 @@ import classnames from 'classnames';
 
 const Field = (props) => {
   const classes = classnames(styles.Field, getValidationClasses());
-  return <label className={classes}>
-    <span className={styles.Field_label}>{props.label}</span>
-    <div className={styles.Field_inputContainer}>
-      {props.children}
-      {renderError()}
-    </div>
-  </label>;
+  if (props.useLabel === true) {
+    return <label className={classes}>{renderInner()}</label>;
+  }
+
+  return <div className={classes}>{renderInner()}</div>;
+
+  function renderInner() {
+    return <div className={styles.Field_wrap}>
+      <span className={styles.Field_wrap_label}>{props.label}</span>
+      <div className={styles.Field_wrap_inputContainer}>
+        {props.children}
+        {renderError()}
+      </div>
+    </div>;
+  }
 
   function renderError() {
     if (!props.showError()) {
       return;
     }
 
-    return <span className={styles.Field_inputContainer_validationError}>
+    return <span className={styles.Field_wrap_inputContainer_validationError}>
       {getErrorMessage()}
     </span>;
   }
@@ -48,6 +56,7 @@ Field.propTypes = {
   showRequired: React.PropTypes.func.isRequired,
   getErrorMessage: React.PropTypes.func.isRequired,
   children: React.PropTypes.node,
+  useLabel: React.PropTypes.bool,
 };
 
 export default Field;

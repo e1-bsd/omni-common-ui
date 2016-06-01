@@ -26,7 +26,7 @@ describe('Form', () => {
       const wrapper = shallow(<Field showError={() => true}
           showRequired={() => false}
           getErrorMessage={() => errorMessage} />);
-      const errorClass = styles.Field_inputContainer_validationError;
+      const errorClass = styles.Field_wrap_inputContainer_validationError;
       const errorText = wrapper.find(`.${errorClass}`).text();
       expect(errorText).to.equal(errorMessage);
     });
@@ -35,7 +35,7 @@ describe('Form', () => {
       const wrapper = shallow(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
-      const errorClass = styles.Field_inputContainer_validationError;
+      const errorClass = styles.Field_wrap_inputContainer_validationError;
       expect(wrapper.find(`.${errorClass}`)).to.have.length(0);
     });
 

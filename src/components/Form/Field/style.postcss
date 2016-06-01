@@ -4,42 +4,47 @@
   display: flex;
   margin-bottom: 1em;
 
-  &_label {
-    width: 5em;
-    padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
-  }
-
-  &_inputContainer {
+  &_wrap {
+    display: flex;
     flex: 1;
 
-    &_element {
-      border: var(--hairThin) solid var(--colorIdle);
-      border-radius: var(--borderRadius);
-      display: block;
-      outline: none;
-      padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal);
-      width: 100%;
-
-      &[disabled] {
-        background-color: #eee;
-        cursor: not-allowed;
-      }
+    &_label {
+      width: 5em;
+      padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
     }
 
-    &_validationError {
-      color: var(--colorWrong);
-      display: block;
+    &_inputContainer {
+      flex: 1;
+
+      &_element {
+        border: var(--hairThin) solid var(--colorIdle);
+        border-radius: var(--borderRadius);
+        display: block;
+        outline: none;
+        padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal);
+        width: 100%;
+
+        &[disabled] {
+          background-color: #eee;
+          cursor: not-allowed;
+        }
+      }
+
+      &_validationError {
+        color: var(--colorWrong);
+        display: block;
+      }
     }
   }
 
   &.__error {
-    & .Field_inputContainer_element {
+    & .Field_wrap_inputContainer_element {
       border-color: var(--colorWrong);
     }
   }
 
   &.__required {
-    & .Field_inputContainer_element {
+    & .Field_wrap_inputContainer_element {
       border-color: var(--colorWrong);
     }
   }
