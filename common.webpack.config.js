@@ -161,7 +161,7 @@ module.exports = (options) => ({
     configFile: path.join(__dirname, nodeEnv === 'test' ?
         '.test.eslintrc.json' :
         '.eslintrc.json'),
-    failOnError: true
+    failOnError: nodeEnv !== 'development'
   },
   externals: {
     'cheerio': 'window',
