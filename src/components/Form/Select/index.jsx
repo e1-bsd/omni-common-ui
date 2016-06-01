@@ -14,7 +14,8 @@ const Select = (props) => {
   return <Field label={props.label}
       getErrorMessage={() => props.getErrorMessage()}
       showError={() => props.showError()}
-      showRequired={() => props.showRequired()}>
+      showRequired={() => props.showRequired()}
+      useLabel>
     <ReactSelect className={classes}
         onChange={(e) => handleChange(e)}
         {...props} />

@@ -13,7 +13,8 @@ const TextInput = (props) => {
   return <Field label={props.label}
       getErrorMessage={() => props.getErrorMessage()}
       showError={() => props.showError()}
-      showRequired={() => props.showRequired()}>
+      showRequired={() => props.showRequired()}
+      useLabel>
     <input type="text"
         className={classes}
         name={props.name}
