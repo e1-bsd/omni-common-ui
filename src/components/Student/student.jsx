@@ -8,12 +8,23 @@ const Student = (props) => {
   return <div>
     <img src={src} role="presentation" className={classes}>
     </img>
+    {renderInfo(props.name, props.middleName, props.surname)}
   </div>;
+  function renderInfo(name, middleName, surname) {
+    return <ul>
+      {name ? <li>{name}</li> : ''}
+      {middleName ? <li>{middleName}</li> : ''}
+      {surname ? <li>{surname}</li> : ''}
+    </ul>;
+  }
 };
 
 Student.propTypes = {
-  src: React.PropTypes.string,
   disabled: React.PropTypes.bool,
+  middleName: React.PropTypes.string,
+  name: React.PropTypes.string,
+  src: React.PropTypes.string,
+  surname: React.PropTypes.string,
 };
 
 export default Student;
