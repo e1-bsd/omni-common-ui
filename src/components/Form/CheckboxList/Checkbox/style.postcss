@@ -1,0 +1,27 @@
+.Checkbox {
+  cursor: pointer;
+
+  &::before {
+    background-color: red;
+    content: '';
+    display: inline-block;
+    height: 1em;
+    vertical-align: middle;
+    width: 1em;
+  }
+
+  &_input {
+    left: -9999em;
+    position: absolute;
+  }
+
+  &_text {
+    vertical-align: middle;
+  }
+
+  &.__checked {
+    &::before {
+      background-color: blue;
+    }
+  }
+}

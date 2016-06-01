@@ -29,6 +29,7 @@ class CheckboxList extends Component {
 
   render() {
     const { name, label, items, validations, validationError } = this.props;
+    const checked = this.props.getValue() || [];
 
     return <Field label={label}
         getErrorMessage={() => this.props.getErrorMessage()}
@@ -41,7 +42,8 @@ class CheckboxList extends Component {
           <Checkbox key={i}
               name={name}
               item={item}
-              onChecked={(e, option) => this.handleChange(e, option)} />)
+              onChecked={(e) => this.handleChange(e, item)}
+              checked={checked.indexOf(item) >= 0} />)
       }
     </Field>;
   }
