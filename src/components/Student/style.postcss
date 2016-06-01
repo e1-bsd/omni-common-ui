@@ -1,12 +1,18 @@
 @import 'main.postcss';
 
 .Student {
-  display: inline-block;
-  border-radius: 50%;
-  width: 3em;
-  height: 3em;
-  margin: 0.5em 1em;
-  border: 2px solid #000000;
+  &_image {
+    display: inline-block;
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    margin: 0.5em 1em;
+    border: 2px solid #000000;
+    background-color: #8e8e93;
+  }
+  &_info {
+    list-style-type: none;
+  }
   &.__disabled {
     opacity: 0.4;
   }

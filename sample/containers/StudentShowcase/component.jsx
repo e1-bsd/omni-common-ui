@@ -15,6 +15,7 @@ const StudentShowcase = () => {
           name={ruben.name}
           surname={ruben.surname} />
       <Student src={stupidImage} disabled />
+      <Student />
     </div>
   </Showcase>;
 };
