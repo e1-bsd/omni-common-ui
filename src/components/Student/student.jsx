@@ -4,14 +4,13 @@ import classnames from 'classnames';
 
 const Student = (props) => {
   const { src } = props;
-  const classes = props.disabled ?
-    classnames(styles.Student_image, styles.__disabled) : styles.Student_image;
-  return <div>
-    {renderImage(src, classes)}
+  const classes = classnames(styles.Student, { [styles.__disabled]: props.disabled });
+  return <div className={classes}>
+    {renderImage(src)}
     {renderInfo(props.name, props.middleName, props.surname)}
   </div>;
-  function renderImage(srcPath, className) {
-    return <img src={srcPath} className={className} role="presentation"></img>;
+  function renderImage(srcPath) {
+    return <img src={srcPath} className={styles.Student_image} role="presentation"></img>;
   }
   function renderInfo(name, middleName, surname) {
     return <ul className={styles.Student_info}>
