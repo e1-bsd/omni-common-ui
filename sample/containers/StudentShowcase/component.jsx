@@ -11,7 +11,7 @@ const StudentShowcase = () => {
 
   const gaurav = {
     name: 'Gaurav',
-    middleName: 'stupid',
+    middleName: 'Awesome',
     surname: 'Pahwa',
   };
 
