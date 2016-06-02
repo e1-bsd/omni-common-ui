@@ -9,6 +9,7 @@ import { routes as student } from 'containers/StudentShowcase';
 import { routes as tables } from 'containers/TableShowcase';
 import { routes as topNav } from 'containers/TopNavShowcase';
 import { routes as progressBars } from 'containers/ProgressBarShowcase';
+import { routes as tabs } from 'containers/TabsShowcase';
 
 export default {
   path: '/',
@@ -26,5 +27,6 @@ export default {
     tables,
     topNav,
     progressBars,
+    tabs,
   ],
 };
