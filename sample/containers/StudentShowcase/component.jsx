@@ -7,6 +7,7 @@ const StudentShowcase = () => {
   const ruben = {
     name: 'Rubén',
     surname: 'Illodo Brea',
+    src: 'http://7xk9wr.com1.z0.glb.clouddn.com/10.png',
   };
 
   const gaurav = {
@@ -24,7 +25,7 @@ const StudentShowcase = () => {
     <Grid>
       <Grid.Group>
         <Grid.Item className="col-xs-1">
-          <Student src="http://7xk9wr.com1.z0.glb.clouddn.com/10.png"
+          <Student src={ruben.src}
               name={ruben.name}
               surname={ruben.surname} />
         </Grid.Item>
