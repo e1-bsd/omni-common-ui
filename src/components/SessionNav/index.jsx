@@ -1,8 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import back from './back.png';
-import forward from './forward.png';
 
 const SessionNav = (props) => {
   const { current, onBack, onForward, items } = props;
@@ -17,11 +15,14 @@ const SessionNav = (props) => {
   </div>;
 
   function renderBack() {
-    return current === 0 ? '' : <img src={back} role="presentation" onClick={() => onBack()} />;
+    return current === 0 ?
+      <span className={styles.SessionNav_emptyBtn}>&nbsp;</span> :
+      <a className={styles.SessionNav_back} onClick={() => onBack()}></a>;
   }
   function renderForward() {
     return current + 1 === items.length ?
-      '' : <img src={forward} role="presentation" onClick={() => onForward()} />;
+      <span>&nbsp;</span> :
+      <a className={styles.SessionNav_forward} onClick={() => onForward()}></a>;
   }
 };
 SessionNav.propTypes = {

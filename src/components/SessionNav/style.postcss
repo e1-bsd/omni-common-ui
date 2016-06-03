@@ -2,6 +2,27 @@
 
 .SessionNav {
   display: flex;
+
+  &_emptyBtn {
+    width: 2em;
+  }
+
+  &_back, &_forward {
+    margin-top: 1em;
+    border-right: 0.25em solid;
+    border-bottom: 0.25em solid;
+    width: 2em; height: 2em;
+    display: flex;
+  }
+
+  &_back {
+    transform: rotate(135deg);
+  }
+
+  &_forward {
+    transform: rotate(-45deg);
+  }
+
   &_content {
     list-style-type: none;
   }
