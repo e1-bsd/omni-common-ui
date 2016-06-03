@@ -21,7 +21,7 @@ const SessionNav = (props) => {
   }
   function renderForward() {
     return current + 1 === items.length ?
-      <span>&nbsp;</span> :
+      <span className={styles.SessionNav_emptyBtn}>&nbsp;</span> :
       <a className={styles.SessionNav_forward} onClick={() => onForward()}></a>;
   }
 };

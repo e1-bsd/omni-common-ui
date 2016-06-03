@@ -50,7 +50,7 @@ describe('SessionNav', () => {
 
 describe('SessionNav', () => {
   const sessions = [{ name: 'Unit 1', date: 'Saturday, 4 June 2016' }];
-  it('hide the back button in the first item', () => {
+  it('hide the forward & back button when there is only one item', () => {
     const current = 0;
     const wrapper = shallow(<SessionNav items={sessions} current={current} />);
     expect(wrapper.find(`.${styles.SessionNav}`)).to.have.length(1);
