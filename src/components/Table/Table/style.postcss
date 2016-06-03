@@ -1,0 +1,28 @@
+@import 'main.postcss';
+
+.Table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+
+  & tr {
+    vertical-align: top;
+  }
+
+  & td,
+  & th {
+    padding-bottom: var(--touchablePaddingVertical);
+    padding-left: var(--touchablePaddingHorizontal);
+    padding-right: var(--touchablePaddingHorizontal);
+    padding-top: var(--touchablePaddingVertical);
+  }
+
+  & td {
+    background-color: #ccc;
+  }
+
+  & th {
+    background-color: #aaa;
+    outline: none;
+  }
+}

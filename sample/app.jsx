@@ -31,7 +31,7 @@ const syncBrowserHistory = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.get('routing').toJS(),
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (!PRODUCTION) {
   log.enableAll();
 }
 

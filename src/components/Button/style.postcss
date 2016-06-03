@@ -1,71 +1,60 @@
 @import 'main.postcss';
 
 .Button {
-  background-color: var(--colorPrimary);
   border: none;
-  border-radius: 0.25em;
-  color: var(--colorTextInverse);
-  min-height: 3.5em;
+  border-radius: var(--borderRadius);
+  cursor: pointer;
+  min-height: var(--touchableMinHeight);
   outline: none;
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-bottom: var(--touchablePaddingVertical);
+  padding-left: var(--touchablePaddingHorizontal);
+  padding-right: var(--touchablePaddingHorizontal);
+  padding-top: var(--touchablePaddingVertical);
   text-transform: uppercase;
 
-  &:hover {
-    background-color: var(--colorPrimaryLight);
-  }
-
-  &:active {
-    background-color: var(--colorPrimaryDark);
-  }
-
-  &__default {
-    &__inverse {
-      background-color: transparent;
-      color: var(--colorPrimary);
-
-      &:hover {
-        background-color: var(--colorPrimaryLight);
-        color: var(--colorTextInverse);
-      }
-
-      &:active {
-        background-color: var(--colorPrimaryDark);
-        color: var(--colorTextInverse);
-      }
-    }
-  }
-
-  &__danger {
-    background-color: var(--colorWrong);
+  &.__default {
+    background-color: var(--colorBase);
+    border: var(--hairThin) solid var(--colorPrimary);
+    color: var(--colorPrimary);
 
     &:hover {
-      background-color: var(--colorWrongLight);
+      border-color: var(--colorPrimaryLight);
+      color: var(--colorPrimaryLight);
     }
 
     &:active {
-      background-color: var(--colorWrongDark);
+      border-color: var(--colorPrimaryDark);
+      color: var(--colorPrimaryDark);
+    }
+  }
+
+  &.__primary {
+    background-color: var(--colorPrimary);
+    color: var(--colorTextInverse);
+
+    &:hover {
+      background-color: var(--colorPrimaryLight);
     }
 
-    &__inverse {
-      background-color: transparent;
-      color: var(--colorWrong);
-
-      &:hover {
-        background-color: var(--colorWrongLight);
-        color: var(--colorTextInverse);
-      }
-
-      &:active {
-        background-color: var(--colorWrongDark);
-        color: var(--colorTextInverse);
-      }
+    &:active {
+      background-color: var(--colorPrimaryDark);
     }
   }
 
   &[disabled] {
     background-color: var(--colorDisabled);
+    border: none;
     color: var(--colorTextInverse);
     cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--colorDisabled);
+      color: var(--colorTextInverse);
+    }
+
+    &:active {
+      background-color: var(--colorDisabled);
+      color: var(--colorTextInverse);
+    }
   }
 }

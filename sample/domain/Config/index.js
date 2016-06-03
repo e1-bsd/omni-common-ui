@@ -1,20 +1,18 @@
-/* global process */
-
 import developmentConfig from './development.json';
 import productionConfig from './production.json';
 import testConfig from './test.json';
 import thePackage from 'package.json';
 
 let config = null;
-if (process.env.NODE_ENV === 'development') {
+if (DEVELOPMENT) {
   config = developmentConfig;
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (PRODUCTION) {
   config = productionConfig;
 }
 
-if (process.env.NODE_ENV === 'test') {
+if (TEST) {
   config = testConfig;
 }
 

@@ -1,12 +1,32 @@
 import App from 'components/App';
+import All from 'components/All';
+import { routes as buttons } from 'containers/ButtonShowcase';
+import { routes as cards } from 'containers/CardShowcase';
+import { routes as dialogs } from 'containers/DialogShowcase';
+import { routes as forms } from 'containers/FormShowcase';
+import { routes as sessionNav } from 'containers/SessionNavShowcase';
+import { routes as student } from 'containers/StudentShowcase';
+import { routes as tables } from 'containers/TableShowcase';
+import { routes as topNav } from 'containers/TopNavShowcase';
+import { routes as progressBars } from 'containers/ProgressBarShowcase';
+import { routes as tabs } from 'containers/TabsShowcase';
 
 export default {
-  component: 'div',
+  path: '/',
+  component: App,
+  indexRoute: {
+    component: All,
+  },
   childRoutes: [
-    {
-      path: '/',
-      component: App,
-      childRoutes: [],
-    },
+    buttons,
+    cards,
+    dialogs,
+    forms,
+    sessionNav,
+    student,
+    tables,
+    topNav,
+    progressBars,
+    tabs,
   ],
 };

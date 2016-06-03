@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import { Button } from 'src';
-import log from 'loglevel';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return <div>
-      <Button onClick={() => log.info('Test button clicked!')}>Test button</Button>
-    </div>;
-  }
-}
+const App = (props) => <div>{props.children}</div>;
+
+App.propTypes = {
+  children: React.PropTypes.node,
+};
 
 export default App;

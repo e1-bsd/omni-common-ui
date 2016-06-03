@@ -44,22 +44,20 @@ module.exports = (options) => ({
   entry: hotUpdateEntries.concat([options.entry]),
   output: isProd ? productionOutput(options) : undefined,
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'jsxhint!jscs'
-      }
-    ],
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-          cacheDirectory: true
-        }
+        loader: combineLoaders([
+          {
+            loader: 'babel',
+            query: {
+              presets: ['react', 'es2015', 'stage-2'],
+              cacheDirectory: true
+            }
+          },
+          { loader: 'eslint' },
+        ])
       },
       {
         test: /\.css$/,
@@ -105,14 +103,19 @@ module.exports = (options) => ({
     new Clean([options.outputPath]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: `'${nodeEnv}'` }
+      'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
+      'DEVELOPMENT': nodeEnv === 'development',
+      'TEST': nodeEnv === 'test',
+      'PRODUCTION': nodeEnv === 'production',
     })
   ].concat(options.plugins),
   devServer: {
     hot: true,
-    contentBase: options.context
+    contentBase: options.context,
+    noInfo: false,
+    stats: { colors: true },
+    historyApiFallback: true,
   },
   resolve: {
     modulesDirectories: ['node_modules', options.context, './'],
@@ -154,10 +157,17 @@ module.exports = (options) => ({
       postcssReporter({ clearMessages: true })
     ];
   },
+  eslint: {
+    configFile: path.join(__dirname, nodeEnv === 'test' ?
+        '.test.eslintrc.json' :
+        '.eslintrc.json'),
+    failOnError: nodeEnv !== 'development'
+  },
   externals: {
     'cheerio': 'window',
     'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
+    'react/lib/ReactContext': true,
+    'react/addons': true
   }
 });
 

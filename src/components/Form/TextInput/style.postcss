@@ -1,0 +1,23 @@
+@import 'main.postcss';
+
+.TextInput {
+  border: var(--hairThin) solid var(--colorIdle);
+  border-radius: var(--borderRadius);
+  display: block;
+  outline: none;
+  padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal);
+  width: 100%;
+
+  &[disabled] {
+    background-color: #eee;
+    cursor: not-allowed;
+  }
+
+  &.__error {
+    border-color: var(--colorWrong);
+  }
+
+  &.__required {
+    border-color: var(--colorWrong);
+  }
+}
