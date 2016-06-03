@@ -14,9 +14,12 @@ const Student = (props) => {
   }
   function renderInfo(name, middleName, surname) {
     return <ul className={styles.Student_info}>
-      {name ? <li>{name}</li> : ''}
-      {middleName ? <li>{middleName}</li> : ''}
-      {surname ? <li>{surname}</li> : ''}
+      {name ? <li className={classnames({ 'test-student-name': TEST })}>{name}</li> : ''}
+      {middleName ?
+        <li className={classnames({ 'test-student-middleName': TEST })}>
+          {middleName}
+        </li> : ''}
+      {surname ? <li className={classnames({ 'test-student-surname': TEST })}>{surname}</li> : ''}
     </ul>;
   }
 };
