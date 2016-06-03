@@ -21,11 +21,10 @@ class SessionNavShowcase extends Component {
   }
 
   render() {
-    const currentSession = this.state.sessions[this.state.current];
     return <Showcase title="Session Navigation" titleLink="session-nav">
       <div>
-        <SessionNav name={currentSession.name}
-            date={currentSession.date}
+        <SessionNav items={this.state.sessions}
+            current={this.state.current}
             onBack={() => this.handleBack()}
             onForward={() => this.handleForward()} />
       </div>
