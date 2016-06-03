@@ -25,6 +25,7 @@ script:
 deploy:
   - provider: script
     script: ./publish-sample.sh
+    skip_cleanup: true
     on:
       branch: master
   - provider: npm
