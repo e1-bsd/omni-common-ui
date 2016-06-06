@@ -1,4 +1,5 @@
 import styles from './style.postcss';
+import testImg from './test-image.png';
 
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -11,7 +12,7 @@ describe('Student', () => {
       name: 'Rubén',
       surname: 'Illodo Brea',
       middleName: 'master',
-      src: 'http://7xk9wr.com1.z0.glb.clouddn.com/10.png',
+      src: testImg,
     };
 
     const wrapper = shallow(<Student src={ruben.src}
