@@ -20,6 +20,7 @@ const postcssSimpleMixin = require('postcss-simple-mixin');
 const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
+const postcssPxToRem = require('postcss-pxtorem');
 const stylelint = require('stylelint');
 const combineLoaders = require('webpack-combine-loaders');
 
@@ -143,6 +144,15 @@ module.exports = (options) => ({
       postcssColorFunctions,
       postcssColorHexAlpha,
       postcssNesting,
+      postcssPxToRem({
+        rootValue: 16,
+        unitPrecision: 5,
+        propWhiteList: [],
+        selectorBlackList: [],
+        replace: true,
+        mediaQuery: false,
+        minPixelValue: 0
+      }),
       postcssCssnext({
         browsers: [
           '> 0%',
