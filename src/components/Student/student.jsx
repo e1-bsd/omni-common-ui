@@ -3,27 +3,31 @@ import styles from './style.postcss';
 import classnames from 'classnames';
 
 const Student = (props) => {
-  const { src } = props;
   const classes = classnames(styles.Student, { [styles.__disabled]: props.disabled });
 
   return <div className={classes}>
-    {renderImage(src)}
-    {renderInfo(props.name, props.middleName, props.surname)}
+    {renderImage()}
+    {renderInfo()}
   </div>;
 
-  function renderImage(srcPath) {
-    return <img src={srcPath} className={styles.Student_image} role="presentation"></img>;
+  function renderImage() {
+    return <img src={props.src} className={styles.Student_image} role="presentation" />;
   }
 
-  function renderInfo(name, middleName, surname) {
+  function renderInfo() {
     return <div className={styles.Student_info}>
-      {name ? <div className={classnames({ 'test-student-name': TEST })}>{name}</div> : ''}
-      {middleName ?
-        <div className={classnames({ 'test-student-middleName': TEST })}>
-          {middleName}
-        </div> : ''}
-      {surname ? <div className={classnames({ 'test-student-surname': TEST })}>{surname}</div> : ''}
+      {renderName(props.name, classnames({ 'test-student-name': TEST }))}
+      {renderName(props.middleName, classnames({ 'test-student-middleName': TEST }))}
+      {renderName(props.surname, classnames({ 'test-student-surname': TEST }))}
     </div>;
+  }
+
+  function renderName(name, nameClasses) {
+    if (!name) {
+      return;
+    }
+
+    return <div className={nameClasses}>{name}</div>;
   }
 };
 
