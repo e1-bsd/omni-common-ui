@@ -1,18 +1,24 @@
 @import 'main.postcss';
 
 .Student {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
   &_image {
-    display: inline-block;
+    display: block;
     border-radius: 50%;
     width: 3em;
     height: 3em;
     margin: 0.5em 1em;
-    border: 2px solid #000000;
+    border: 2px solid #000;
     background-color: #8e8e93;
   }
+
   &_info {
-    list-style-type: none;
+    text-align: center;
   }
+
   &.__disabled {
     opacity: 0.4;
   }

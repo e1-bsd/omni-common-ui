@@ -1,6 +1,7 @@
 @import 'main.postcss';
 
 .SessionNav {
+  align-items: center;
   display: flex;
 
   &_emptyBtn {
@@ -8,11 +9,12 @@
   }
 
   &_back, &_forward {
-    margin-top: 1em;
-    border-right: 0.25em solid;
     border-bottom: 0.25em solid;
-    width: 2em; height: 2em;
+    border-right: 0.25em solid;
+    cursor: pointer;
     display: flex;
+    height: 2em;
+    width: 2em;
   }
 
   &_back {
