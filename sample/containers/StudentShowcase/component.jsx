@@ -4,12 +4,14 @@ import testImage2 from './test-image-2.png';
 import React from 'react';
 import { Student, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
+import log from 'loglevel';
 
 const StudentShowcase = () => {
   const ruben = {
     name: 'Rubén',
     surname: 'Illodo Brea',
     src: testImage2,
+    onStudentClick: () => log.info('click Ruben'),
   };
 
   const gaurav = {
@@ -29,7 +31,8 @@ const StudentShowcase = () => {
         <Grid.Item className="col-xs-6 col-md-3">
           <Student src={ruben.src}
               name={ruben.name}
-              surname={ruben.surname} />
+              surname={ruben.surname}
+              onStudentClick={ruben.onStudentClick} />
         </Grid.Item>
         <Grid.Item className="col-xs-6 col-md-3">
           <Student src={testImage1}

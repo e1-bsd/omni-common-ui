@@ -2,7 +2,6 @@
 
 .Button {
   border: none;
-  border-radius: var(--borderRadius);
   cursor: pointer;
   min-height: var(--touchableMinHeight);
   outline: none;
@@ -13,18 +12,37 @@
   text-transform: uppercase;
 
   &.__default {
-    background-color: var(--colorBase);
+    background-color: transparent;
     border: var(--hairThin) solid var(--colorPrimary);
     color: var(--colorPrimary);
 
     &:hover {
-      border-color: var(--colorPrimaryLight);
-      color: var(--colorPrimaryLight);
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
     }
 
     &:active {
-      border-color: var(--colorPrimaryDark);
-      color: var(--colorPrimaryDark);
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorDisabled);
+      color: var(--colorDisabled);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+        color: var(--colorDisabled);
+      }
+
+      &:active {
+        background-color: transparent;
+        color: var(--colorDisabled);
+      }
     }
   }
 
@@ -33,11 +51,11 @@
     color: var(--colorTextInverse);
 
     &:hover {
-      background-color: var(--colorPrimaryLight);
+      background-color: var(--colorActive);
     }
 
     &:active {
-      background-color: var(--colorPrimaryDark);
+      background-color: var(--colorActive);
     }
   }
 

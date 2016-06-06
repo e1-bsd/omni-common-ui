@@ -11,7 +11,10 @@ const Student = (props) => {
   </div>;
 
   function renderImage() {
-    return <img src={props.src} className={styles.Student_image} role="presentation" />;
+    return <img src={props.src}
+        className={styles.Student_image}
+        role="presentation"
+        onClick={() => props.onStudentClick()} />;
   }
 
   function renderInfo() {
@@ -35,6 +38,7 @@ Student.propTypes = {
   disabled: React.PropTypes.bool,
   middleName: React.PropTypes.string,
   name: React.PropTypes.string,
+  onStudentClick: React.PropTypes.func,
   src: React.PropTypes.string,
   surname: React.PropTypes.string,
 };
