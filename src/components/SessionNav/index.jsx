@@ -8,10 +8,10 @@ const SessionNav = (props) => {
 
   return <div className={styles.SessionNav}>
     {renderBack()}
-    <ul className={styles.SessionNav_content}>
-      <li>{currentSession.name}</li>
-      <li>{currentSession.date}</li>
-    </ul>
+    <div className={styles.SessionNav_content}>
+      <div>{currentSession.name}</div>
+      <div>{currentSession.date}</div>
+    </div>
     {renderForward()}
   </div>;
 
