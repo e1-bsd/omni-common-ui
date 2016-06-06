@@ -17,7 +17,7 @@ const SessionNav = (props) => {
 
   function renderBack() {
     if (current === 0) {
-      return <span className={styles.SessionNav_emptyBtn}>&nbsp;</span>;
+      return <div className={styles.SessionNav_emptyBtn} />;
     }
 
     return <a className={styles.SessionNav_back} onClick={() => onBack()} />;
@@ -25,7 +25,7 @@ const SessionNav = (props) => {
 
   function renderForward() {
     if (current + 1 === items.length) {
-      return <span className={styles.SessionNav_emptyBtn}>&nbsp;</span>;
+      return <div className={styles.SessionNav_emptyBtn} />;
     }
 
     return <a className={styles.SessionNav_forward} onClick={() => onForward()} />;
