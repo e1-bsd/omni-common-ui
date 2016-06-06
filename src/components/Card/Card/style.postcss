@@ -2,18 +2,9 @@
 
 .Card {
   background: var(--colorBase);
-  border-radius: var(--borderRadius);
+  border: var(--hairThin) solid #c1c1c1;
   display: block;
   overflow: auto;
   position: relative;
   -webkit-overflow-scrolling: touch;
-
-  &.__1 {
-    box-shadow: var(--cardShadow);
-    transition: all 0.2s ease-in-out;
-
-    &:hover {
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    }
-  }
 }
