@@ -5,32 +5,30 @@ import { Card, Button, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 import log from 'loglevel';
 
-const itemClasses = 'col-xs-6 col-sm-4 col-md-3 col-lg-2';
-
 const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
   <Grid>
     <Grid.Group>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card>
           <Card.Content>Just some text</Card.Content>
         </Card>
       </Grid.Item>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card><Card.Image src={sampleImage} /></Card>
       </Grid.Item>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card>
           <Card.Image src={sampleImage} />
           <Card.Content>Context after image</Card.Content>
         </Card>
       </Grid.Item>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card>
           <Card.Content>Content before image</Card.Content>
           <Card.Image src={sampleImage} />
         </Card>
       </Grid.Item>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card>
           <Card.Image src={sampleImage} />
           <Card.Content>
@@ -40,7 +38,7 @@ const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
           </Card.Content>
         </Card>
       </Grid.Item>
-      <Grid.Item className={itemClasses}>
+      <Grid.Item xs={6} sm={4} md={3} lg={2}>
         <Card>
           <Card.Image src={sampleImage} />
           <Card.Content>
