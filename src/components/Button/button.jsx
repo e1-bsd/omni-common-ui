@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 import { Type, validateType } from './type';
 import is from 'is_js';
 
@@ -11,15 +12,21 @@ const Button = (props) => {
 
   const classes = classnames(styles.Button, type);
 
-  return <button className={classes}
-      disabled={props.disabled}
-      onClick={handleClick}>
-    {props.children}
-  </button>;
+  if (is.existy(props.linkTo)) {
+    return <Link to={props.linkTo}>{renderButton()}</Link>;
+  }
+
+  return renderButton();
+
+  function renderButton() {
+    return <button className={classes}
+        disabled={props.disabled}
+        onClick={handleClick}>
+      {props.children}
+    </button>;
+  }
 
   function handleClick(e) {
-    e.preventDefault();
-
     if (props.disabled) {
       return;
     }
@@ -35,6 +42,7 @@ Button.propTypes = {
   type: React.PropTypes.string,
   disabled: React.PropTypes.bool,
   children: React.PropTypes.node,
+  linkTo: React.PropTypes.string,
 };
 
 export default Button;
