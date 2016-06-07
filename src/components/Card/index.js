@@ -1,5 +1,3 @@
-/* jshint -W079 */
-
 import _Card from './Card';
 import _Content from './Content';
 import _Image from './Image';

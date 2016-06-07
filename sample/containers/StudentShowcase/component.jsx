@@ -28,20 +28,20 @@ const StudentShowcase = () => {
   return <Showcase title="Student" titleLink="student">
     <Grid>
       <Grid.Group>
-        <Grid.Item className="col-xs-6 col-md-3">
+        <Grid.Item xs={6} md={3}>
           <Student src={ruben.src}
               name={ruben.name}
               surname={ruben.surname}
               onStudentClick={ruben.onStudentClick} />
         </Grid.Item>
-        <Grid.Item className="col-xs-6 col-md-3">
+        <Grid.Item xs={6} md={3}>
           <Student src={testImage1}
               disabled
               name={gaurav.name}
               middleName={gaurav.middleName}
               surname={gaurav.surname} />
         </Grid.Item>
-        <Grid.Item className="col-xs-6 col-md-3">
+        <Grid.Item xs={6} md={3}>
           <Student name={le.name} surname={le.surname} />
         </Grid.Item>
       </Grid.Group>

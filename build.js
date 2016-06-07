@@ -1,7 +1,3 @@
-/* jshint node:true */
-/* jshint -W034 */
-/* jshint -W097 */
-
 'use strict';
 
 let exec = require('child_process').exec;

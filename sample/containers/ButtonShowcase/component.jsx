@@ -22,6 +22,17 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Disabled primary
     </Button>
   </div>
+  <div>
+    <Button type={Button.Type.primary}
+        linkTo="buttons"
+        onClick={() => log.info('Link to /buttons clicked')}>
+      Link to /buttons
+    </Button>
+    <Button linkTo="/"
+        onClick={() => log.info('Link to home clicked')}>
+      Link to home
+    </Button>
+  </div>
 </Showcase>;
 
 export default ButtonShowcase;

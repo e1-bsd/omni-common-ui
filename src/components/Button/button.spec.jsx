@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import { Link } from 'react-router';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import Sinon from 'sinon';
@@ -15,6 +16,11 @@ describe('Button', () => {
   it('renders its children', () => {
     const wrapper = shallow(<Button><div id="innerContent" /></Button>);
     expect(wrapper.contains(<div id="innerContent" />)).to.be.true;
+  });
+
+  it('renders a Link when linkTo is provided', () => {
+    const wrapper = shallow(<Button linkTo="/" />);
+    expect(wrapper.find(Link)).to.have.length(1);
   });
 
   it('thows error if invalid type is passed', () => {
@@ -37,24 +43,22 @@ describe('Button', () => {
   });
 
   describe('when clicked', () => {
-    const eventObjectMock = { preventDefault: () => {} };
-
     it('calls onClick', () => {
       const onClick = Sinon.spy();
       const wrapper = shallow(<Button onClick={onClick} />);
-      wrapper.simulate('click', eventObjectMock);
+      wrapper.simulate('click');
       expect(onClick.called).to.be.true;
     });
 
     it('does not fail if onClick is not provided', () => {
       const wrapper = shallow(<Button />);
-      expect(() => wrapper.simulate('click', eventObjectMock)).to.not.throw();
+      expect(() => wrapper.simulate('click')).to.not.throw();
     });
 
     it('does nothing if it is disabled', () => {
       const onClick = Sinon.spy();
       const wrapper = shallow(<Button onClick={onClick} disabled />);
-      wrapper.simulate('click', eventObjectMock);
+      wrapper.simulate('click');
       expect(onClick.called).to.be.false;
     });
   });
