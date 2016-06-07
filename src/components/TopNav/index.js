@@ -9,6 +9,7 @@ export const Logo = _Logo;
 export const Profile = _Profile;
 export const MainContent = _MainContent;
 export const MenuGroup = _MenuGroup;
+
 TopNav.Logo = Logo;
 TopNav.Profile = Profile;
 TopNav.MainContent = MainContent;
