@@ -28,8 +28,7 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
         onClick={() => log.info('Link to /buttons clicked')}>
       Link to /buttons
     </Button>
-    <Button type={Button.Type.primary}
-        linkTo="/"
+    <Button linkTo="/"
         onClick={() => log.info('Link to home clicked')}>
       Link to home
     </Button>
