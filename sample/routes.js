@@ -4,7 +4,6 @@ import { routes as buttons } from 'containers/ButtonShowcase';
 import { routes as cards } from 'containers/CardShowcase';
 import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
-import { routes as sessionNav } from 'containers/SessionNavShowcase';
 import { routes as student } from 'containers/StudentShowcase';
 import { routes as tables } from 'containers/TableShowcase';
 import { routes as topNav } from 'containers/TopNavShowcase';
@@ -22,7 +21,6 @@ export default {
     cards,
     dialogs,
     forms,
-    sessionNav,
     student,
     tables,
     topNav,
