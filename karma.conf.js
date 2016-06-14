@@ -1,3 +1,5 @@
+/* eslint global-require: "off" */
+
 process.env.NODE_ENV = 'test';
 
 module.exports = (config) => {
@@ -5,23 +7,23 @@ module.exports = (config) => {
     basePath: '',
     frameworks: ['mocha'],
     files: [
-      'test.webpack.js'
+      'test.webpack.js',
     ],
     exclude: [],
     preprocessors: {
-      'test.webpack.js': ['webpack', 'sourcemap']
+      'test.webpack.js': ['webpack', 'sourcemap'],
     },
     webpack: require('./common.webpack.config.js')({
       context: 'src',
       entry: 'index',
       outputPath: 'dist',
-      plugins: []
+      plugins: [],
     }),
     webpackServer: {
-      noInfo: true
+      noInfo: true,
     },
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
     },
     reporters: ['mocha'],
     colors: true,
@@ -29,7 +31,7 @@ module.exports = (config) => {
     autoWatch: true,
     browsers: ['Chrome', 'Firefox'],
     singleRun: false,
-    concurrency: Infinity
+    concurrency: Infinity,
   };
 
   if (process.env.TRAVIS) {
