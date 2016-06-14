@@ -8,7 +8,7 @@ Follow this steps to setup your development environment.
 It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).  
 A [Windows](https://github.com/coreybutler/nvm-windows) version is also available.
 2. Open a terminal at the root folder of the project.
-3. Run `npm install`.
+3. Run `npm update`.
 
 ## Starting the development environment
 
