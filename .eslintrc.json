@@ -1,7 +1,9 @@
 {
   "extends": ["airbnb"],
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["error", 2, {
+      "SwitchCase": 1
+    }],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
@@ -11,8 +13,10 @@
     "consistent-return": ["off"],
     "padded-blocks": ["warn", "never"],
     "no-use-before-define": ["error", "nofunc"],
-    "no-restricted-syntax": ["warn"],
-    "no-debugger": ["warn"],
+    "new-cap": ["error", {
+      "capIsNewExceptions": ["Record", "Map"]
+    }],
+    "no-unused-expressions": ["off"],
     "react/jsx-indent-props": ["warn", 4],
     "react/jsx-first-prop-new-line": ["warn", "never"],
     "react/wrap-multilines": ["off"],
@@ -30,6 +34,10 @@
   "globals": {
     "PRODUCTION": false,
     "DEVELOPMENT": false,
-    "TEST": false
+    "TEST": false,
+    "QA": false,
+    "STAGING": false,
+    "describe": false,
+    "it": false
   }
 }
