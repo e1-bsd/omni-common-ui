@@ -1,5 +1,3 @@
-'use strict';
-
 const commonWebpackConfig = require('./common.webpack.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const git = require('git-rev-sync');
@@ -17,8 +15,8 @@ module.exports = [
     plugins: [],
     output: {
       libraryTarget: 'commonjs2',
-      library: 'omni-common-ui'
-    }
+      library: 'omni-common-ui',
+    },
   }),
   commonWebpackConfig({
     context: 'sample',
@@ -28,10 +26,10 @@ module.exports = [
       new HtmlWebpackPlugin({
         template: 'index.html',
         inject: 'body',
-        version: version,
+        version,
         commit: commitHash,
-        baseUrl: Config.baseUrl
-      })
-    ]
-  })
+        baseUrl: Config.baseUrl,
+      }),
+    ],
+  }),
 ];
