@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
 const Clean = require('clean-webpack-plugin');
@@ -25,14 +23,11 @@ const isProd = nodeEnv === 'production';
 
 const hotUpdateEntries = isProd ?
     [] :
-    [
-      'webpack-dev-server/client?http://localhost:3000/',
-      'webpack/hot/dev-server'
-    ];
+    ['webpack-dev-server/client?http://localhost:3000/', 'webpack/hot/dev-server'];
 
 const productionOutput = (options) => Object.assign({
   path: path.join(__dirname, options.outputPath),
-  filename: '[name].js'
+  filename: '[name].js',
 }, options.output);
 
 module.exports = (options) => ({
@@ -50,15 +45,15 @@ module.exports = (options) => ({
             loader: 'babel',
             query: {
               presets: ['react', 'es2015', 'stage-2'],
-              cacheDirectory: true
-            }
+              cacheDirectory: true,
+            },
           },
           { loader: 'eslint' },
-        ])
+        ]),
       },
       {
         test: /\.css$/,
-        loader: 'style!css?root=.'
+        loader: 'style!css?root=.',
       },
       {
         test: /\.postcss$/,
@@ -71,30 +66,30 @@ module.exports = (options) => ({
               root: '.',
               modules: true,
               importLoaders: 1,
-              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]'
-            }
+              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
+            },
           },
-          { loader: 'postcss' }
-        ])
+          { loader: 'postcss' },
+        ]),
       },
       {
         test: /\.(woff2?|svg|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         exclude: /node_modules/,
-        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         exclude: /node_modules/,
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+        ],
       },
       {
         test: /\.json$/,
-        loader: 'json'
-      }
-    ]
+        loader: 'json',
+      },
+    ],
   },
   plugins: [
     new Clean([options.outputPath]),
@@ -102,10 +97,10 @@ module.exports = (options) => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
-      'DEVELOPMENT': nodeEnv === 'development',
-      'TEST': nodeEnv === 'test',
-      'PRODUCTION': nodeEnv === 'production',
-    })
+      DEVELOPMENT: nodeEnv === 'development',
+      TEST: nodeEnv === 'test',
+      PRODUCTION: nodeEnv === 'production',
+    }),
   ].concat(options.plugins),
   devServer: {
     hot: true,
@@ -118,63 +113,59 @@ module.exports = (options) => ({
     modulesDirectories: ['node_modules', options.context, './'],
     extensions: ['', '.js', '.jsx', '.json'],
     alias: {
-      'omni-common-ui$': 'src/index.js'
-    }
+      'omni-common-ui$': 'src/index.js',
+    },
   },
-  postcss: webpack => {
-    return [
-      stylelint(),
-      postcssImport({
-        path: ['node_modules', options.context, `${options.context}/assets/styles`, './'],
-        addDependencyTo: webpack,
-        plugins: [
-          stylelint()
-        ]
-      }),
-      postcssUrl({ url: 'rebase' }),
-      postcssContainerQueries,
-      postcssSimpleMixin,
-      postcssCustomSelectors,
-      postcssCustomProperties,
-      postcssSelectorNot,
-      postcssColorFunctions,
-      postcssColorHexAlpha,
-      postcssNesting,
-      postcssPxToRem({
-        rootValue: 16,
-        unitPrecision: 5,
-        propWhiteList: [],
-        selectorBlackList: [],
-        replace: true,
-        mediaQuery: false,
-        minPixelValue: 0
-      }),
-      postcssCssnext({
-        browsers: [
-          '> 0%',
-          'last 2 versions',
-          'Firefox ESR',
-          'Opera 12.1',
-          'Android 2.3',
-          'iOS 7'
-        ],
-      }),
-      postcssCalc,
-      postcssReporter({ clearMessages: true })
-    ];
-  },
+  postcss: (webpackInstance) => [
+    stylelint(),
+    postcssImport({
+      path: ['node_modules', options.context, `${options.context}/assets/styles`, './'],
+      addDependencyTo: webpackInstance,
+      plugins: [
+        stylelint(),
+      ],
+    }),
+    postcssUrl({ url: 'rebase' }),
+    postcssContainerQueries,
+    postcssSimpleMixin,
+    postcssCustomSelectors,
+    postcssCustomProperties,
+    postcssSelectorNot,
+    postcssColorFunctions,
+    postcssColorHexAlpha,
+    postcssNesting,
+    postcssPxToRem({
+      rootValue: 16,
+      unitPrecision: 5,
+      propWhiteList: [],
+      selectorBlackList: [],
+      replace: true,
+      mediaQuery: false,
+      minPixelValue: 0,
+    }),
+    postcssCssnext({
+      browsers: [
+        '> 0%',
+        'last 2 versions',
+        'Firefox ESR',
+        'Opera 12.1',
+        'Android 2.3',
+        'iOS 7',
+      ],
+    }),
+    postcssCalc,
+    postcssReporter({ clearMessages: true }),
+  ],
   eslint: {
-    configFile: path.join(__dirname, nodeEnv === 'test' ?
-        '.test.eslintrc.json' :
-        '.eslintrc.json'),
-    failOnError: nodeEnv !== 'development'
+    configFile: '.eslintrc.json',
+    failOnError: nodeEnv !== 'development',
   },
   externals: {
-    'cheerio': 'window',
+    cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
-    'react/addons': true
-  }
+    'react/addons': true,
+  },
 });
 
 function getSourceMapType() {

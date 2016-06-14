@@ -38,7 +38,7 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
   type: React.PropTypes.string,
   disabled: React.PropTypes.bool,
   children: React.PropTypes.node,
