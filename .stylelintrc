@@ -3,8 +3,8 @@
   "rules": {
     "declaration-block-no-duplicate-properties": true,
     "declaration-block-properties-order": "alphabetical",
-    "font-family-name-quotes": "single-unless-keyword",
-    "function-url-quotes": "single",
+    "font-family-name-quotes": "always-unless-keyword",
+    "function-url-quotes": "always",
     "string-quotes": "single"
   }
 }
