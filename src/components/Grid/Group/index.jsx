@@ -1,9 +1,11 @@
+import grid from '../grid.postcss';
+
 import React from 'react';
 import Item from '../Item';
 import is from 'is_js';
 
 const Group = (props) => {
-  return <div className="row">
+  return <div className={grid.row}>
     {buildChildren()}
   </div>;
 

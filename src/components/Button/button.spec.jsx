@@ -29,17 +29,27 @@ describe('Button', () => {
 
   it('applies proper styles if Type.primary is passed', () => {
     const wrapper = shallow(<Button type={Type.primary} />);
-    expect(wrapper.find(`.${styles.__primary}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.__primary}`)).to.have.length(1);
   });
 
   it('applies proper styles if Type.default is passed', () => {
     const wrapper = shallow(<Button type={Type.default} />);
-    expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
+    expect(wrapper.find(`.${styles.__default}`)).to.have.length(1);
   });
 
   it('uses Type.default if no type is provided', () => {
     const wrapper = shallow(<Button />);
     expect(wrapper.find(`.${styles.__default}`).length).to.equal(1);
+  });
+
+  it('uses block styles if block property is provided', () => {
+    const wrapper = shallow(<Button block />);
+    expect(wrapper.find(`.${styles.__block}`).length).to.equal(1);
+  });
+
+  it('uses block styles on Link and itself if block propery is provided', () => {
+    const wrapper = shallow(<Button linkTo="/" block />);
+    expect(wrapper.find(`.${styles.__block}`).length).to.equal(2);
   });
 
   describe('when clicked', () => {

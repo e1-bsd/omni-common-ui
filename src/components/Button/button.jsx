@@ -9,11 +9,13 @@ import is from 'is_js';
 const Button = (props) => {
   const type = props.type || Type.default;
   validateType(type);
+  const blockClass = { [styles.__block]: props.block === true };
 
-  const classes = classnames(styles.Button, type);
+  const classes = classnames(styles.Button, type, blockClass);
 
   if (is.existy(props.linkTo)) {
-    return <Link to={props.linkTo}>{renderButton()}</Link>;
+    return <Link to={props.linkTo}
+        className={classnames(styles.ButtonLink, blockClass)}>{renderButton()}</Link>;
   }
 
   return renderButton();
@@ -43,6 +45,7 @@ Button.propTypes = {
   disabled: React.PropTypes.bool,
   children: React.PropTypes.node,
   linkTo: React.PropTypes.string,
+  block: React.PropTypes.bool,
 };
 
 export default Button;

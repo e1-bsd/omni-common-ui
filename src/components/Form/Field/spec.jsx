@@ -31,7 +31,8 @@ describe('Form', () => {
       expect(errorText).to.equal(errorMessage);
     });
 
-    it('does not show the error message provided by getErrorMessage if showError returns false', () => {
+    it('does not show the error message provided by getErrorMessage ' +
+        'if showError returns false', () => {
       const wrapper = shallow(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
