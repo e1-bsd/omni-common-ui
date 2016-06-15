@@ -33,6 +33,11 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Link to home
     </Button>
   </div>
+  <div>
+    <Button onClick={() => log.info('Block button clicked')} block>
+      Block button
+    </Button>
+  </div>
 </Showcase>;
 
 export default ButtonShowcase;
