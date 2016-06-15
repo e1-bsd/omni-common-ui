@@ -8,7 +8,7 @@ const Item = (props) => {
   let { xs } = props;
   const { sm, md, lg } = props;
 
-  if (!xs && !sm && !md && !lg) {
+  if (!xs) {
     xs = 12;
   }
 
