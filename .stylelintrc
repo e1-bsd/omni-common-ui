@@ -5,7 +5,13 @@
     "declaration-block-properties-order": "alphabetical",
     "font-family-name-quotes": "always-unless-keyword",
     "function-url-quotes": "always",
-    "string-quotes": "single"
+    "string-quotes": "single",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global"]
+      }
+    ]
   },
   "ignoreFiles": ["node_modules/**/*"]
 }
