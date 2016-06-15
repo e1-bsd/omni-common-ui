@@ -1,3 +1,4 @@
+import grid from '../grid.postcss';
 import styles from './style.postcss';
 
 import React from 'react';
@@ -12,10 +13,10 @@ const Item = (props) => {
   }
 
   const classes = classnames(styles.Item,
-      { [`col-xs-${xs}`]: !!xs },
-      { [`col-sm-${sm}`]: !!sm },
-      { [`col-md-${md}`]: !!md },
-      { [`col-lg-${lg}`]: !!lg });
+      { [grid[`col-xs-${xs}`]]: !!xs },
+      { [grid[`col-sm-${sm}`]]: !!sm },
+      { [grid[`col-md-${md}`]]: !!md },
+      { [grid[`col-lg-${lg}`]]: !!lg });
   return <div className={classes}>
     {props.children}
   </div>;
