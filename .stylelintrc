@@ -6,5 +6,6 @@
     "font-family-name-quotes": "always-unless-keyword",
     "function-url-quotes": "always",
     "string-quotes": "single"
-  }
+  },
+  "ignoreFiles": ["node_modules/**/*"]
 }
