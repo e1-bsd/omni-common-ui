@@ -1,3 +1,4 @@
+const path = require('path');
 const commonWebpackConfig = require('./common.webpack.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const git = require('git-rev-sync');
@@ -17,6 +18,11 @@ module.exports = [
       libraryTarget: 'commonjs2',
       library: 'omni-common-ui',
     },
+    resolve: {
+      root: [
+        path.resolve('src'),
+      ],
+    },
   }),
   commonWebpackConfig({
     context: 'sample',
@@ -31,5 +37,11 @@ module.exports = [
         baseUrl: Config.baseUrl,
       }),
     ],
+    resolve: {
+      root: [
+        path.resolve('sample'),
+        path.resolve('src'),
+      ],
+    },
   }),
 ];
