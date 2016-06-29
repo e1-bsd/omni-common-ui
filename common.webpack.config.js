@@ -21,10 +21,6 @@ const combineLoaders = require('webpack-combine-loaders');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-const hotUpdateEntries = nodeEnv === 'development' ?
-    [] :
-    ['webpack-dev-server/client?http://localhost:3000/', 'webpack/hot/dev-server'];
-
 const productionOutput = (options) => Object.assign({
   path: path.join(__dirname, options.outputPath),
   filename: '[name].js',
@@ -33,7 +29,7 @@ const productionOutput = (options) => Object.assign({
 module.exports = (options) => ({
   context: path.join(__dirname, options.context),
   devtool: getSourceMapType(),
-  entry: hotUpdateEntries.concat([options.entry]),
+  entry: [options.entry],
   output: isProd ? productionOutput(options) : undefined,
   module: {
     loaders: [
@@ -94,15 +90,13 @@ module.exports = (options) => ({
   plugins: [
     new Clean(['dist']),
     new webpack.optimize.OccurenceOrderPlugin(),
-  ].concat(addHotReplacementPlugin())
-  .concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
       DEVELOPMENT: nodeEnv === 'development',
       TEST: nodeEnv === 'test',
       PRODUCTION: nodeEnv === 'production',
     }),
-  ]).concat(options.plugins),
+  ].concat(options.plugins),
   devServer: {
     hot: true,
     contentBase: options.context,
@@ -171,14 +165,6 @@ module.exports = (options) => ({
     'react/addons': true,
   },
 });
-
-function addHotReplacementPlugin() {
-  if (nodeEnv === 'development') {
-    return [new webpack.HotModuleReplacementPlugin()];
-  }
-
-  return [];
-}
 
 function getSourceMapType() {
   switch (nodeEnv) {
