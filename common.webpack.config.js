@@ -21,7 +21,7 @@ const combineLoaders = require('webpack-combine-loaders');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-const hotUpdateEntries = isProd ?
+const hotUpdateEntries = nodeEnv === 'development' ?
     [] :
     ['webpack-dev-server/client?http://localhost:3000/', 'webpack/hot/dev-server'];
 
@@ -92,16 +92,17 @@ module.exports = (options) => ({
     ],
   },
   plugins: [
-    new Clean([options.outputPath]),
+    new Clean(['dist']),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+  ].concat(addHotReplacementPlugin())
+  .concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
       DEVELOPMENT: nodeEnv === 'development',
       TEST: nodeEnv === 'test',
       PRODUCTION: nodeEnv === 'production',
     }),
-  ].concat(options.plugins),
+  ]).concat(options.plugins),
   devServer: {
     hot: true,
     contentBase: options.context,
@@ -110,7 +111,10 @@ module.exports = (options) => ({
     historyApiFallback: true,
   },
   resolve: {
-    modulesDirectories: ['node_modules', options.context, './'],
+    root: [].concat(options.resolve.root)
+    .concat([
+      path.resolve('./'),
+    ]),
     extensions: ['', '.js', '.jsx', '.json'],
     alias: {
       'omni-common-ui$': 'src/index.js',
@@ -167,6 +171,14 @@ module.exports = (options) => ({
     'react/addons': true,
   },
 });
+
+function addHotReplacementPlugin() {
+  if (nodeEnv === 'development') {
+    return [new webpack.HotModuleReplacementPlugin()];
+  }
+
+  return [];
+}
 
 function getSourceMapType() {
   switch (nodeEnv) {

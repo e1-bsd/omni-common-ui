@@ -1,4 +1,5 @@
 /* eslint global-require: "off" */
+const path = require('path');
 
 process.env.NODE_ENV = 'test';
 
@@ -18,6 +19,11 @@ module.exports = (config) => {
       entry: 'index',
       outputPath: 'dist',
       plugins: [],
+      resolve: {
+        root: [
+          path.resolve('src'),
+        ],
+      },
     }),
     webpackServer: {
       noInfo: true,
