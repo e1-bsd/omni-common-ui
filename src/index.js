@@ -7,7 +7,6 @@ import _Table from 'components/Table';
 import _TopNav from 'components/TopNav';
 import _ProgressBar from 'components/ProgressBar';
 import _Tabs from 'components/Tabs';
-import _moment from 'domain/moment';
 import _createBuildRoute from 'domain/createBuildRoute';
 import _connect from 'domain/connect';
 
@@ -20,6 +19,5 @@ export const Table = _Table;
 export const TopNav = _TopNav;
 export const ProgressBar = _ProgressBar;
 export const Tabs = _Tabs;
-export const moment = _moment;
 export const createBuildRoute = _createBuildRoute;
 export const connect = _connect;
