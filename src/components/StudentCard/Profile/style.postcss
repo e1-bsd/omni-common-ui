@@ -1,0 +1,55 @@
+@import 'main.postcss';
+
+:root {
+  --imageSize: 56px;
+  --nameLineHeight: 24px;
+  --nameFontWeight: 500;
+  --nameFontSize: 115%;
+  --surnameFontSize: 90%;
+}
+
+.StudentCard_profile {
+  display: flex;
+  align-items: center;
+  background-color: var(--colorBase);
+
+  // for the subtle line when Content is present
+  border-bottom: 1px solid transparent;
+  padding-bottom: calc(var(--touchablePaddingVertical) - 1px);
+
+  &_image {
+    background-color: #8e8e93;
+    border-radius: 50%;
+    display: block;
+    height: var(--imageSize);
+    margin: 0.5em 1em 0.5em 0;
+    width: var(--imageSize);
+    align-self: flex-start;
+  }
+
+  &_info {
+    max-width: 60%;
+    text-align: left;
+  }
+
+  &_name,
+  &_surname {
+    line-height: var(--nameLineHeight);
+    font-weight: --nameFontWeight;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &_name {
+    font-size: var(--nameFontSize);
+  }
+
+  &_surname {
+    font-size: var(--surnameFontSize);
+  }
+
+  &.__separated {
+    border-bottom: var(--hairThin) solid #f1f1f1;
+  }
+}

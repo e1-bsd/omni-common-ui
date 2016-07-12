@@ -1,10 +1,41 @@
 @import 'main.postcss';
 
+:root {
+  --borderWidth: var(--hairThin);
+}
+
 .Card {
   background: var(--colorBase);
-  border: var(--hairThin) solid #c1c1c1;
+  border: var(--borderWidth) solid var(--colorLightBorder);
   display: block;
-  overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+
+  &::before {
+    content: '';
+    width: 5px;
+    height: calc(100% + var(--borderWidth) + var(--borderWidth));
+    position: absolute;
+    top: calc(0 - var(--borderWidth));
+    left: calc(0 - var(--borderWidth));
+    background: transparent;
+  }
+
+  &_status {
+    &.__grey {
+      &:before { background-color: grey; }
+    }
+
+    &.__green {
+      &:before { background-color: green; }
+    }
+
+    &.__amber {
+      &:before { background-color: orange; }
+    }
+
+    &.__red {
+      &:before { background-color: red; }
+    }
+  }
 }
