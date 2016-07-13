@@ -103,5 +103,9 @@
   },
   "engines": {
     "node": "4.4.x"
+  },
+  "dependencies": {
+    "chai-enzyme": "^0.5.0",
+    "cheerio": "^0.20.0"
   }
 }

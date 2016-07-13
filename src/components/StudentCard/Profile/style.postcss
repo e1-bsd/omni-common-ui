@@ -9,11 +9,11 @@
 }
 
 .StudentCard_profile {
-  display: flex;
   align-items: center;
   background-color: var(--colorBase);
+  display: flex;
 
-  // for the subtle line when Content is present
+  /* for the subtle line when Content is present */
   border-bottom: 1px solid transparent;
   padding-bottom: calc(var(--touchablePaddingVertical) - 1px);
 
@@ -21,10 +21,10 @@
     background-color: #8e8e93;
     border-radius: 50%;
     display: block;
+    align-self: flex-start;
     height: var(--imageSize);
     margin: 0.5em 1em 0.5em 0;
     width: var(--imageSize);
-    align-self: flex-start;
   }
 
   &_info {
@@ -34,8 +34,8 @@
 
   &_name,
   &_surname {
-    line-height: var(--nameLineHeight);
     font-weight: --nameFontWeight;
+    line-height: var(--nameLineHeight);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

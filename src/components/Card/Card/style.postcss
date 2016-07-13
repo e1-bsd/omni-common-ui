@@ -12,30 +12,30 @@
   position: relative;
 
   &::before {
+    background: transparent;
     content: '';
-    width: 5px;
     height: calc(100% + var(--borderWidth) + var(--borderWidth));
+    left: calc(0 - var(--borderWidth));
     position: absolute;
     top: calc(0 - var(--borderWidth));
-    left: calc(0 - var(--borderWidth));
-    background: transparent;
+    width: 5px;
   }
 
   &_status {
     &.__grey {
-      &:before { background-color: var(--colorStatusGrey); }
+      &::before { background-color: var(--colorStatusGrey); }
     }
 
     &.__green {
-      &:before { background-color: var(--colorStatusGreen); }
+      &::before { background-color: var(--colorStatusGreen); }
     }
 
     &.__amber {
-      &:before { background-color: var(--colorStatusAmber); }
+      &::before { background-color: var(--colorStatusAmber); }
     }
 
     &.__red {
-      &:before { background-color: var(--colorStatusRed); }
+      &::before { background-color: var(--colorStatusRed); }
     }
   }
 }
