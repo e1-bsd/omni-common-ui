@@ -12,23 +12,21 @@ const Profile = (props, { withSeparatorLine }) => {
     classes = classnames(styles.StudentCard_profile, styles.__1);
   }
 
-  const renderName = (name, nameClasses) => {
+  const renderName = (prop, name, nameClasses) => {
     if (!name) {
       return;
     }
-    return <div className={nameClasses}>{name}</div>;
+    return <div className={nameClasses} data-prop={prop}>{name}</div>;
   };
 
   return <Card.Content withoutBottomPadding>
     <div className={classes}>
       <StudentPicture src={props.avatarUrl}
-          className={styles.StudentCard_profile_image}
-          gender={props.gender} />
+          gender={props.gender}
+          className={styles.StudentCard_profile_image} />
       <div className={styles.StudentCard_profile_info}>
-        {renderName(props.name,
-          classnames(styles.StudentCard_profile_name))}
-        {renderName(props.surname,
-          classnames(styles.StudentCard_profile_surname))}
+        {renderName('name', props.name, styles.StudentCard_profile_name)}
+        {renderName('surname', props.surname, styles.StudentCard_profile_surname)}
       </div>
     </div>
   </Card.Content>;
