@@ -1,6 +1,6 @@
 {
   "name": "omni-common-ui",
-  "version": "0.0.5-dev",
+  "version": "0.0.6-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
@@ -59,7 +59,6 @@
     "karma-webpack": "1.7.0",
     "loglevel": "1.4.1",
     "mocha": "2.5.3",
-    "moment": "2.13.0",
     "node-libs-browser": "1.0.0",
     "normalize.css": "4.1.1",
     "postcss-calc": "5.2.1",
@@ -104,5 +103,9 @@
   },
   "engines": {
     "node": "4.4.x"
+  },
+  "dependencies": {
+    "chai-enzyme": "^0.5.0",
+    "cheerio": "^0.20.0"
   }
 }
