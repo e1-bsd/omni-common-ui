@@ -2,6 +2,7 @@ import App from 'components/App';
 import All from 'components/All';
 import { routes as buttons } from 'containers/ButtonShowcase';
 import { routes as cards } from 'containers/CardShowcase';
+import { routes as studentCards } from 'containers/StudentCardShowcase';
 import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
 import { routes as tables } from 'containers/TableShowcase';
@@ -18,6 +19,7 @@ export default {
   childRoutes: [
     buttons,
     cards,
+    studentCards,
     dialogs,
     forms,
     tables,

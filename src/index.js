@@ -1,5 +1,7 @@
 import _Button from 'components/Button';
 import _Card from 'components/Card';
+import _StudentCard from 'components/StudentCard';
+import _StudentPicture from 'components/StudentPicture';
 import _Grid from 'components/Grid';
 import _Dialog from 'components/Dialog';
 import _Form from 'components/Form';
@@ -12,6 +14,8 @@ import _connect from 'domain/connect';
 
 export const Button = _Button;
 export const Card = _Card;
+export const StudentCard = _StudentCard;
+export const StudentPicture = _StudentPicture;
 export const Grid = _Grid;
 export const Dialog = _Dialog;
 export const Form = _Form;
