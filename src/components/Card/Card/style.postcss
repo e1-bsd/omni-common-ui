@@ -2,6 +2,8 @@
 
 :root {
   --borderWidth: var(--hairThin);
+  --thickerBorderWidth: var(--thicker);
+  --statusAccentBorderWidth: 5px;
 }
 
 .Card {
@@ -18,7 +20,16 @@
     left: calc(0 - var(--borderWidth));
     position: absolute;
     top: calc(0 - var(--borderWidth));
-    width: 5px;
+    width: var(--statusAccentBorderWidth);
+  }
+
+  &.__thickerBorder {
+    border-width: var(--thickerBorderWidth);
+    &::before {
+      height: calc(100% + var(--thickerBorderWidth) + var(--thickerBorderWidth));
+      left: calc(0 - var(--thickerBorderWidth));
+      top: calc(0 - var(--thickerBorderWidth));
+    }
   }
 
   &_status {

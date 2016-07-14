@@ -1,4 +1,5 @@
 import profileStyles from '../Profile/style.postcss';
+import contentStyles from '../Content/style.postcss';
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
@@ -16,7 +17,23 @@ describe('StudentCard', () => {
   });
   it('sets the given status accent color class when provided', () => {
     const wrapper = shallow(<StudentCard statusAccentColor="grey" />);
-    expect(wrapper).to.contain(<Card showStatusAccent statusAccentColor="grey" />);
+    expect(wrapper).to.contain(<Card statusAccentColor="grey" />);
+  });
+  it('sets the given status accent color class and left-pads the StudentCard.Content', () => {
+    const wrapper = mount(
+      <StudentCard statusAccentColor="grey"><StudentCard.Content /></StudentCard>
+    );
+    expect(
+      wrapper.find(StudentCard.Content)
+    ).to.have.className(contentStyles.__withLeftPadding);
+  });
+  it('does not left-pad the StudentCard.Content when there is no status accent', () => {
+    const wrapper = mount(
+      <StudentCard><StudentCard.Content /></StudentCard>
+    );
+    expect(
+      wrapper.find(StudentCard.Content)
+    ).to.not.have.className(contentStyles.__withLeftPadding);
   });
   it('renders a StudentCard.Profile when provided', () => {
     const wrapper = shallow(<StudentCard><StudentCard.Profile /></StudentCard>);

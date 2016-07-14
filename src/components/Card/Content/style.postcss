@@ -1,10 +1,15 @@
 @import 'main.postcss';
 
+:root {
+  --cardContentPaddingVertical: var(--touchablePaddingVertical);
+  --cardContentPaddingHorizontal: calc(var(--touchablePaddingHorizontal) - 1px);
+}
+
 .Content {
-  padding-bottom: var(--touchablePaddingVertical);
-  padding-left: var(--touchablePaddingHorizontal);
-  padding-right: var(--touchablePaddingHorizontal);
-  padding-top: var(--touchablePaddingVertical);
+  padding-bottom: var(--cardContentPaddingVertical);
+  padding-left: var(--cardContentPaddingHorizontal);
+  padding-right: var(--cardContentPaddingHorizontal);
+  padding-top: var(--cardContentPaddingVertical);
 
   &.__bottomless {
     padding-bottom: 0;

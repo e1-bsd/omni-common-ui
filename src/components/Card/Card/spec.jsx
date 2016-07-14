@@ -11,19 +11,23 @@ describe('Card', () => {
     expect(wrapper.contains(<div id="innerContent" />)).to.be.true;
   });
   it('sets the default status accent color class when enabled', () => {
-    const wrapper = shallow(<Card showStatusAccent />);
-    expect(wrapper).to.have.className(styles.__grey);
+    const wrapper = shallow(<Card />);
+    expect(wrapper).to.not.have.className(styles.__grey);
   });
   it('sets the default status accent color class when provided but invalid', () => {
-    const wrapper = shallow(<Card showStatusAccent statusAccentColor="other" />);
-    expect(wrapper).to.have.className(styles.__grey);
+    const wrapper = shallow(<Card statusAccentColor="other" />);
+    expect(wrapper).to.not.have.className(styles.__grey);
   });
   it('sets the given status accent color class when provided', () => {
-    const wrapper = shallow(<Card showStatusAccent statusAccentColor="green" />);
+    const wrapper = shallow(<Card statusAccentColor="green" />);
     expect(wrapper).to.have.className(styles.__green);
   });
-  it('sets no accent color class when provided but disabled', () => {
-    const wrapper = shallow(<Card statusAccentColor="green" />);
-    expect(wrapper).to.not.have.className(styles.__green);
+  it('sets the given status accent color class when provided with a thicker border', () => {
+    const wrapper = shallow(<Card withThickerBorder statusAccentColor="green" />);
+    expect(wrapper).to.have.className(styles.__green);
+  });
+  it('sets the thicker border class when provided', () => {
+    const wrapper = shallow(<Card withThickerBorder />);
+    expect(wrapper).to.have.className(styles.__thickerBorder);
   });
 });
