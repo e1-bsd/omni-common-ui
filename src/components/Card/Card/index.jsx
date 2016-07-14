@@ -1,31 +1,49 @@
 import styles from './style.postcss';
 
-import React from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 
-const Card = (props) => {
-  const getClassesWithStatusAccent = (showStatusAccent, statusAccentColor) => {
-    const classes = [styles.Card, styles.__1];
-    if (showStatusAccent) {
-      if (Card.accentColors.some((c) => c === statusAccentColor)) {
+class Card extends Component {
+  getChildContext() {
+    return {
+      isShowingStatusAccent: this.isShowingStatusAccent(this.props.statusAccentColor),
+    };
+  }
+
+  isShowingStatusAccent(statusAccentColor) {
+    return Card.accentColors.some(
+      (c) => c === statusAccentColor
+    );
+  }
+
+  render() {
+    const getClassesWithStatusAccent = (statusAccentColor) => {
+      const classes = [styles.Card, styles.__1];
+      if (this.isShowingStatusAccent(statusAccentColor)) {
         classes.push([styles.Card_status, styles[`__${statusAccentColor}`]]);
       } else {
-        classes.push([styles.Card_status, styles.__grey]);
+        classes.push([styles.Card_status]);
       }
-    }
-    return classnames(classes);
-  };
+      if (this.props.withThickerBorder) {
+        classes.push([styles.__thickerBorder]);
+      }
+      return classnames(classes);
+    };
 
-  return <div className={getClassesWithStatusAccent(props.showStatusAccent,
-      props.statusAccentColor)}>
-    {props.children}
-  </div>;
-};
+    return <div className={getClassesWithStatusAccent(this.props.statusAccentColor)}>
+      {this.props.children}
+    </div>;
+  }
+}
 
 Card.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
+Card.childContextTypes = {
+  isShowingStatusAccent: React.PropTypes.bool,
+};
+
 Card.propTypes = {
-  showStatusAccent: React.PropTypes.bool,
+  withThickerBorder: React.PropTypes.bool,
   statusAccentColor: React.PropTypes.oneOf(Card.accentColors),
   children: React.PropTypes.node,
 };

@@ -1,11 +1,11 @@
 @import 'main.postcss';
 
 :root {
-  --imageSize: 56px;
-  --nameLineHeight: 24px;
+  --imageSize: 50px;
+  --nameLineHeight: 21.5px;
   --nameFontWeight: 500;
-  --nameFontSize: 115%;
-  --surnameFontSize: 90%;
+  --nameFontSize: 15.4px;
+  --surnameFontSize: 12.5px;
 }
 
 .StudentCard_profile {
@@ -23,18 +23,21 @@
     display: block;
     align-self: flex-start;
     height: var(--imageSize);
-    margin: 0.5em 1em 0.5em 0;
+    margin: 2px 15px 2px 0;
+    max-width: var(--imageSize);
     width: var(--imageSize);
   }
 
   &_info {
     max-width: 60%;
+    overflow: hidden;
     text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &_name,
   &_surname {
-    font-weight: --nameFontWeight;
     line-height: var(--nameLineHeight);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -43,6 +46,7 @@
 
   &_name {
     font-size: var(--nameFontSize);
+    font-weight: var(--nameFontWeight);
   }
 
   &_surname {

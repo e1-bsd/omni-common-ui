@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Card } from 'omni-common-ui';
 
 class StudentCard extends Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
   getChildContext() {
     return {
       withSeparatorLine: this.props.withSeparatorLine,
@@ -14,8 +9,7 @@ class StudentCard extends Component {
   }
 
   render() {
-    return <Card showStatusAccent={!! this.props.statusAccentColor}
-        statusAccentColor={this.props.statusAccentColor}>
+    return <Card statusAccentColor={this.props.statusAccentColor}>
       {this.props.children}
     </Card>;
   }
