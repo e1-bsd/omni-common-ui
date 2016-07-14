@@ -9,7 +9,8 @@ class StudentCard extends Component {
   }
 
   render() {
-    return <Card statusAccentColor={this.props.statusAccentColor}>
+    return <Card withLeftPaddedContentArea={!! this.props.withLeftPaddedContentArea}
+        statusAccentColor={this.props.statusAccentColor}>
       {this.props.children}
     </Card>;
   }
@@ -22,8 +23,9 @@ StudentCard.childContextTypes = {
 };
 
 StudentCard.propTypes = {
-  statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),
   withSeparatorLine: React.PropTypes.bool,
+  withLeftPaddedContentArea: React.PropTypes.bool,
+  statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),
   children: React.PropTypes.node,
 };
 

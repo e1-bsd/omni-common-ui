@@ -6,7 +6,8 @@ import classnames from 'classnames';
 class Card extends Component {
   getChildContext() {
     return {
-      isShowingStatusAccent: this.isShowingStatusAccent(this.props.statusAccentColor),
+      isLeftPaddingRequiredInContentArea: this.props.withLeftPaddedContentArea
+        && this.isShowingStatusAccent(this.props.statusAccentColor),
     };
   }
 
@@ -39,11 +40,12 @@ class Card extends Component {
 Card.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
 Card.childContextTypes = {
-  isShowingStatusAccent: React.PropTypes.bool,
+  isLeftPaddingRequiredInContentArea: React.PropTypes.bool,
 };
 
 Card.propTypes = {
   withThickerBorder: React.PropTypes.bool,
+  withLeftPaddedContentArea: React.PropTypes.bool,
   statusAccentColor: React.PropTypes.oneOf(Card.accentColors),
   children: React.PropTypes.node,
 };

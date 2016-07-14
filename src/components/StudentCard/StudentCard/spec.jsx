@@ -17,11 +17,13 @@ describe('StudentCard', () => {
   });
   it('sets the given status accent color class when provided', () => {
     const wrapper = shallow(<StudentCard statusAccentColor="grey" />);
-    expect(wrapper).to.contain(<Card statusAccentColor="grey" />);
+    expect(wrapper).to.contain(<Card withLeftPaddedContentArea={false} statusAccentColor="grey" />);
   });
-  it('sets the given status accent color class and left-pads the StudentCard.Content', () => {
+  it('sets the left-pad on the StudentCard.Content when enabled', () => {
     const wrapper = mount(
-      <StudentCard statusAccentColor="grey"><StudentCard.Content /></StudentCard>
+      <StudentCard withLeftPaddedContentArea statusAccentColor="grey">
+        <StudentCard.Content />
+      </StudentCard>
     );
     expect(
       wrapper.find(StudentCard.Content)
@@ -30,6 +32,14 @@ describe('StudentCard', () => {
   it('does not left-pad the StudentCard.Content when there is no status accent', () => {
     const wrapper = mount(
       <StudentCard><StudentCard.Content /></StudentCard>
+    );
+    expect(
+      wrapper.find(StudentCard.Content)
+    ).to.not.have.className(contentStyles.__withLeftPadding);
+  });
+  it('does not left-pad the StudentCard.Content with a status accent but left-pad disabled', () => {
+    const wrapper = mount(
+      <StudentCard statusAccentColor="grey"><StudentCard.Content /></StudentCard>
     );
     expect(
       wrapper.find(StudentCard.Content)
