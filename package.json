@@ -3,6 +3,7 @@
   "version": "0.0.8-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
@@ -16,7 +17,7 @@
     "url": "https://github.com/e1-bsd/omni-common-ui.git"
   },
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "6.10.4",
     "babel-loader": "6.2.4",
     "babel-preset-es2015": "6.9.0",
