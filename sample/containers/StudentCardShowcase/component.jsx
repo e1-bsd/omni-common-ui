@@ -52,7 +52,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         </StudentCard>
       </Grid.Item>
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
-        <StudentCard statusAccentColor="grey" withSeparatorLine>
+        <StudentCard withLeftPaddedContentArea statusAccentColor="grey" withSeparatorLine>
           <StudentCard.Profile name="吴君亮"
               gender={0} avatarUrl={testImage} />
           <StudentCard.Content>
