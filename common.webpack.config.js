@@ -69,7 +69,7 @@ module.exports = (options) => ({
         ]),
       },
       {
-        test: /\.(woff2?|svg|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(woff2?|svg|ttf|eot|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         exclude: /node_modules/,
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
