@@ -2,9 +2,12 @@
 'use strict';
 
 const exec = require('child_process').exec;
+const path = require('path');
+
+let cmdLine = path.join('.', 'node_modules', '.bin', 'webpack');
+cmdLine += ' -p --bail --progress --colors';
 
 const env = !!process.argv[2] ? process.argv[2].toLowerCase() : 'production';
-let cmdLine = 'webpack -p --bail --progress --colors';
 
 if (process.platform === 'win32') {
   cmdLine = `set NODE_ENV=${env}&& ${cmdLine}`;
