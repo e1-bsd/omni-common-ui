@@ -3,12 +3,12 @@
   "version": "0.0.12-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "webpack-dev-server --progress --hot --inline --port 3000",
+    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
     "build:staging": "node build.js staging",
-    "test:start": "karma start --no-single-run --browsers Chrome",
-    "test:once": "karma start --single-run"
+    "test:start": "./node_modules/.bin/karma start --no-single-run --browsers Chrome",
+    "test:once": "./node_modules/.bin/karma start --single-run"
   },
   "main": "dist/main.js",
   "repository": {
