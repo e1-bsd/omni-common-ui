@@ -4,12 +4,12 @@
   "description": "Project Omni's common UI components.",
   "scripts": {
     "postinstall": "npm run build",
-    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
+    "start": "webpack-dev-server --progress --hot --inline --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
     "build:staging": "node build.js staging",
-    "test:start": "./node_modules/.bin/karma start --no-single-run --browsers Chrome",
-    "test:once": "./node_modules/.bin/karma start --single-run"
+    "test:start": "karma start --no-single-run --browsers Chrome",
+    "test:once": "karma start --single-run"
   },
   "main": "dist/main.js",
   "repository": {
