@@ -3,7 +3,6 @@
   "version": "0.0.9-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "webpack-dev-server --progress --hot --inline --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
