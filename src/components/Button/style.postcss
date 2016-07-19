@@ -1,9 +1,18 @@
 @import 'main.postcss';
 
+.Button:not(.__autoWidth) {
+  width: 100%;
+
+  @media (--sm-viewport) {
+    width: auto;
+  }
+}
+
 .Button {
   border: none;
   cursor: pointer;
   min-height: var(--touchableMinHeight);
+  min-width: var(--buttonMinWidth);
   outline: none;
   padding-bottom: var(--touchablePaddingVertical);
   padding-left: var(--touchablePaddingHorizontal);
@@ -22,7 +31,8 @@
       color: var(--colorTextInverse);
     }
 
-    &:active {
+    &:active,
+    &.__active {
       background-color: var(--colorActive);
       border-color: var(--colorActive);
       color: var(--colorTextInverse);
@@ -39,7 +49,8 @@
         color: var(--colorPrimaryDisabled);
       }
 
-      &:active {
+      &:active,
+      &.__active {
         background-color: transparent;
         color: var(--colorPrimaryDisabled);
       }
@@ -54,7 +65,8 @@
       background-color: var(--colorActive);
     }
 
-    &:active {
+    &:active,
+    &.__active {
       background-color: var(--colorActive);
     }
   }
@@ -70,7 +82,8 @@
       color: var(--colorTextInverse);
     }
 
-    &:active {
+    &:active,
+    &.__active {
       background-color: var(--colorPrimaryDisabled);
       color: var(--colorTextInverse);
     }
@@ -80,6 +93,8 @@
     display: block;
     width: 100%;
   }
+
+  &.__autoWidth { /* */ }
 }
 
 .ButtonLink {
