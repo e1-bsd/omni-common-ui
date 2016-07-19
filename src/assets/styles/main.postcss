@@ -38,6 +38,7 @@
   --hairThin: 1px;
   --thicker: 2px;
   --borderRadius: 2px;
+  --buttonMinWidth: 100px;
 }
 
 :root {
@@ -48,3 +49,7 @@
 :root {
   --zIndexTableExpanded: 1;
 }
+
+@custom-media --sm-viewport only screen and (min-width: 480px);
+@custom-media --md-viewport only screen and (min-width: 800px);
+@custom-media --lg-viewport only screen and (min-width: 980px);

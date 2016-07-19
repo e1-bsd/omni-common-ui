@@ -4,12 +4,17 @@
   border: none;
   cursor: pointer;
   min-height: var(--touchableMinHeight);
+  min-width: var(--buttonMinWidth);
+  width: 100%;
   outline: none;
   padding-bottom: var(--touchablePaddingVertical);
   padding-left: var(--touchablePaddingHorizontal);
   padding-right: var(--touchablePaddingHorizontal);
   padding-top: var(--touchablePaddingVertical);
   text-transform: uppercase;
+  @media (--sm-viewport) {
+    width: auto;
+  }
 
   &.__default {
     background-color: transparent;
@@ -88,3 +93,5 @@
     width: 100%;
   }
 }
+
+
