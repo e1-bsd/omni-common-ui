@@ -6,8 +6,8 @@ import classnames from 'classnames';
 class Card extends Component {
   getChildContext() {
     return {
-      isLeftPaddingRequiredInContentArea: this.props.withLeftPaddedContentArea
-        && this.isShowingStatusAccent(this.props.statusAccentColor),
+      isLeftPaddingRequiredInContentArea: this.props.withLeftPaddedContentArea &&
+          this.isShowingStatusAccent(this.props.statusAccentColor),
     };
   }
 

@@ -17,11 +17,16 @@
       "capIsNewExceptions": ["Record", "Map"]
     }],
     "no-unused-expressions": ["off"],
-    "react/jsx-indent-props": ["warn", 4],
-    "react/jsx-first-prop-new-line": ["warn", "never"],
+    "space-unary-ops": ["error", {
+      "words": true,
+      "nonwords": false
+    }],
+    "operator-linebreak": ["error", "after"],
+    "react/jsx-indent-props": ["error", 4],
+    "react/jsx-first-prop-new-line": ["error", "never"],
     "react/wrap-multilines": ["off"],
-    "react/jsx-closing-bracket-location": ["warn", "after-props"],
-    "react/sort-comp": ["warn", {
+    "react/jsx-closing-bracket-location": ["error", "after-props"],
+    "react/sort-comp": ["error", {
       "order": [
         "static-methods",
         "lifecycle",
@@ -38,6 +43,12 @@
     "QA": false,
     "STAGING": false,
     "describe": false,
-    "it": false
+    "context": false,
+    "it": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "specify": false,
+    "before": false,
+    "after": false
   }
 }
