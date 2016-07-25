@@ -13,7 +13,7 @@ const Profile = (props, { withSeparatorLine }) => {
   }
 
   const renderName = (prop, name, nameClasses) => {
-    if (!name) {
+    if (! name) {
       return;
     }
     return <div className={nameClasses} data-prop={prop}>{name}</div>;

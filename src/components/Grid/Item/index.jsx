@@ -8,15 +8,15 @@ const Item = (props) => {
   let { xs } = props;
   const { sm, md, lg } = props;
 
-  if (!xs) {
+  if (! xs) {
     xs = 12;
   }
 
   const classes = classnames(styles.Item,
-      { [grid[`col-xs-${xs}`]]: !!xs },
-      { [grid[`col-sm-${sm}`]]: !!sm },
-      { [grid[`col-md-${md}`]]: !!md },
-      { [grid[`col-lg-${lg}`]]: !!lg });
+      { [grid[`col-xs-${xs}`]]: !! xs },
+      { [grid[`col-sm-${sm}`]]: !! sm },
+      { [grid[`col-md-${md}`]]: !! md },
+      { [grid[`col-lg-${lg}`]]: !! lg });
   return <div className={classes}>
     {props.children}
   </div>;

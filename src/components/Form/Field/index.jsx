@@ -22,7 +22,7 @@ const Field = (props) => {
   }
 
   function renderError() {
-    if (!props.showError()) {
+    if (! props.showError()) {
       return;
     }
 

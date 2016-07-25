@@ -10,7 +10,7 @@ class DialogShowcase extends Component {
 
   render() {
     return <Showcase title="Dialogs" titleLink="dialogs">
-      <Button onClick={() => this.setState({ isOpen: !this.state.isOpen })}>Show dialog</Button>
+      <Button onClick={() => this.setState({ isOpen: ! this.state.isOpen })}>Show dialog</Button>
       <Dialog isOpen={this.state.isOpen}
           onRequestClose={() => this.setState({ isOpen: false })}>
         <p>Dialog content</p>

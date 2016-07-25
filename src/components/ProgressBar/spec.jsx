@@ -20,7 +20,7 @@ describe('ProgressBar', () => {
     });
 
     it('the progress is 0 if "progress" is negative', () => {
-      const wrapper = shallow(<ProgressBar progress={-45} />);
+      const wrapper = shallow(<ProgressBar progress={- 45} />);
       const progress = wrapper.find(`.${styles.ProgressBar_progress}`);
       expect(progress.props().style.width).to.equal('0%');
     });
@@ -46,7 +46,7 @@ describe('ProgressBar', () => {
     });
 
     it('the progress is 0 if "progress" is negative', () => {
-      const wrapper = shallow(<ProgressBar progress={-45} total={45} />);
+      const wrapper = shallow(<ProgressBar progress={- 45} total={45} />);
       const progress = wrapper.find(`.${styles.ProgressBar_progress}`);
       expect(progress.props().style.width).to.equal('0%');
     });
