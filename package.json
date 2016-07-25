@@ -1,6 +1,6 @@
 {
   "name": "omni-common-ui",
-  "version": "0.0.15-dev",
+  "version": "0.0.16-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
