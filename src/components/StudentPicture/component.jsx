@@ -44,7 +44,7 @@ class StudentPicture extends Component {
 }
 
 StudentPicture.propTypes = {
-  gender: React.PropTypes.number,
+  gender: React.PropTypes.string,
   src: React.PropTypes.string,
   onError: React.PropTypes.func,
   className: React.PropTypes.string,
