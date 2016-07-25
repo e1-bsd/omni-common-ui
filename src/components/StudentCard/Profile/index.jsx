@@ -39,7 +39,7 @@ Profile.contextTypes = {
 Profile.propTypes = {
   name: React.PropTypes.string,
   surname: React.PropTypes.string,
-  gender: React.PropTypes.number,
+  gender: React.PropTypes.string,
   avatarUrl: React.PropTypes.string,
   withSeparatorLine: React.PropTypes.bool,
 };
