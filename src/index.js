@@ -11,6 +11,7 @@ import _ProgressBar from 'components/ProgressBar';
 import _Tabs from 'components/Tabs';
 import _createBuildRoute from 'domain/createBuildRoute';
 import _connect from 'domain/connect';
+import _Gender from 'domain/Gender';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -25,3 +26,4 @@ export const ProgressBar = _ProgressBar;
 export const Tabs = _Tabs;
 export const createBuildRoute = _createBuildRoute;
 export const connect = _connect;
+export const Gender = _Gender;
