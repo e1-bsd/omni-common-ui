@@ -1,7 +1,7 @@
 let styleMedia = window.styleMedia || window.media;
 
 // For those that don't support matchMedium
-if (!styleMedia) {
+if (! styleMedia) {
   const style = document.createElement('style');
   const script = document.getElementsByTagName('script')[0];
 
@@ -71,13 +71,13 @@ export const mediaQuery = (media) => {
 
   mql.addListener = (listener) => {
     // Changes would not occur to css media type so return now (Affects IE <= 8)
-    if (!hasMediaQueries) {
+    if (! hasMediaQueries) {
       return;
     }
 
     // Set up 'resize' listener for browsers that support CSS3 media queries (Not for IE <= 8)
     // There should only ever be 1 resize listener running for performance
-    if (!isListening) {
+    if (! isListening) {
       isListening = true;
       window.addEventListener('resize', handleChange, true);
     }

@@ -23,7 +23,7 @@ class Logo extends Component {
   }
 
   render() {
-    if (!this.state.md) {
+    if (! this.state.md) {
       return <span className={styles.Logo} {...this.props}>
         <img src={this.props.src} role="presentation" />
       </span>;

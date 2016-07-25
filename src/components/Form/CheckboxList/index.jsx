@@ -17,7 +17,7 @@ class CheckboxList extends Component {
     if (checked) {
       newValue = this.props.getValue().concat(option);
     } else {
-      newValue = this.props.getValue().filter((it) => !this.cmp(it, option));
+      newValue = this.props.getValue().filter((it) => ! this.cmp(it, option));
     }
 
     this.props.setValue(newValue);

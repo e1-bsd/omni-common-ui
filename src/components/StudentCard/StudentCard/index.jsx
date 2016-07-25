@@ -9,7 +9,7 @@ class StudentCard extends Component {
   }
 
   render() {
-    return <Card withLeftPaddedContentArea={!!this.props.withLeftPaddedContentArea}
+    return <Card withLeftPaddedContentArea={!! this.props.withLeftPaddedContentArea}
         statusAccentColor={this.props.statusAccentColor}>
       {this.props.children}
     </Card>;

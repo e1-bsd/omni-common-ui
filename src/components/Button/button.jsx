@@ -10,9 +10,9 @@ const Button = (props) => {
   const type = props.type || Type.default;
   validateType(type);
   const modeClasses = {
-    [styles.__block]: !!props.block,
-    [styles.__autoWidth]: !!props.autoWidth,
-    [styles.__active]: !!props.active,
+    [styles.__block]: !! props.block,
+    [styles.__autoWidth]: !! props.autoWidth,
+    [styles.__active]: !! props.active,
   };
 
   const classes = classnames(styles.Button, type, modeClasses);

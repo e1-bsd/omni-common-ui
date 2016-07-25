@@ -19,7 +19,11 @@
     "no-unused-expressions": ["off"],
     "space-unary-ops": ["error", {
       "words": true,
-      "nonwords": false
+      "nonwords": true,
+      "overrides": {
+        "++": false,
+        "--": false
+      }
     }],
     "operator-linebreak": ["error", "after"],
     "react/jsx-indent-props": ["error", 4],
