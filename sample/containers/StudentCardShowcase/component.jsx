@@ -19,7 +19,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         </StudentCard>
       </Grid.Item>
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
-        <StudentCard statusAccentColor="green">
+        <StudentCard statusAccentColor="green" statusAccentPosition="left">
           <StudentCard.Profile name="Kate" surname="Zakrzewska"
               gender={0} avatarUrl={testImage} />
         </StudentCard>
@@ -31,7 +31,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         </StudentCard>
       </Grid.Item>
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
-        <StudentCard statusAccentColor="amber">
+        <StudentCard statusAccentColor="amber" statusAccentPosition="left">
           <StudentCard.Profile name="Kate" surname="Zakrzewska"
               gender={0} avatarUrl={testImage} />
         </StudentCard>

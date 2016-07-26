@@ -5,13 +5,9 @@ import { StudentPicture, Card } from 'omni-common-ui';
 import classnames from 'classnames';
 
 const Profile = (props, { withSeparatorLine }) => {
-  let classes;
-  if (withSeparatorLine) {
-    classes = classnames(styles.StudentCard_profile, styles.__1, styles.__separated);
-  } else {
-    classes = classnames(styles.StudentCard_profile, styles.__1);
-  }
-
+  const classes = classnames(styles.StudentCard_profile,
+      styles.__1,
+      { [styles.__separated]: withSeparatorLine });
   const renderName = (prop, name, nameClasses) => {
     if (! name) {
       return;
@@ -41,7 +37,6 @@ Profile.propTypes = {
   surname: React.PropTypes.string,
   gender: React.PropTypes.string,
   avatarUrl: React.PropTypes.string,
-  withSeparatorLine: React.PropTypes.bool,
 };
 
 export default Profile;
