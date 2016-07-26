@@ -102,7 +102,7 @@ module.exports = (options) => ({
     new Clean(['dist']),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${nodeEnv === 'test' ? 'production' : nodeEnv}'`,
+      'process.env.NODE_ENV': `'${nodeEnv}'`,
       DEVELOPMENT: nodeEnv === 'development',
       TEST: nodeEnv === 'test',
       PRODUCTION: nodeEnv === 'production',
