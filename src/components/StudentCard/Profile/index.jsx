@@ -3,11 +3,14 @@ import styles from './style.postcss';
 import React from 'react';
 import { StudentPicture, Card } from 'omni-common-ui';
 import classnames from 'classnames';
+import is from 'is_js';
+import Tooltip from 'components/Tooltip';
 
 const Profile = (props, { withSeparatorLine }) => {
   const classes = classnames(styles.StudentCard_profile,
       styles.__1,
       { [styles.__separated]: withSeparatorLine });
+
   const renderName = (prop, name, nameClasses) => {
     if (! name) {
       return;
@@ -24,8 +27,22 @@ const Profile = (props, { withSeparatorLine }) => {
         {renderName('name', props.name, styles.StudentCard_profile_name)}
         {renderName('surname', props.surname, styles.StudentCard_profile_surname)}
       </div>
+      {renderStatus()}
     </div>
   </Card.Content>;
+
+  function renderStatus() {
+    const { status, statusInitial, statusHighlighted } = props;
+    if (is.not.string(statusInitial) || is.empty(statusInitial)) {
+      return null;
+    }
+
+    const statusClasses = classnames(styles.StudentCard_profile_status,
+        { [styles.__highlight]: !! statusHighlighted });
+    return <Tooltip text={status} className={styles.StudentCard_profile_statusContainer}>
+      <div className={statusClasses}>{statusInitial}</div>
+    </Tooltip>;
+  }
 };
 
 Profile.contextTypes = {
@@ -37,6 +54,9 @@ Profile.propTypes = {
   surname: React.PropTypes.string,
   gender: React.PropTypes.string,
   avatarUrl: React.PropTypes.string,
+  status: React.PropTypes.string,
+  statusInitial: React.PropTypes.string,
+  statusHighlighted: React.PropTypes.bool,
 };
 
 export default Profile;

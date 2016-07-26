@@ -12,6 +12,7 @@ import _Tabs from 'components/Tabs';
 import _createBuildRoute from 'domain/createBuildRoute';
 import _connect from 'domain/connect';
 import _Gender from 'domain/Gender';
+import _Tooltip from 'components/Tooltip';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -27,3 +28,4 @@ export const Tabs = _Tabs;
 export const createBuildRoute = _createBuildRoute;
 export const connect = _connect;
 export const Gender = _Gender;
+export const Tooltip = _Tooltip;

@@ -6,6 +6,7 @@
   --nameFontWeight: 500;
   --nameFontSize: 15.4px;
   --surnameFontSize: 12.5px;
+  --statusSize: 20px;
 }
 
 .StudentCard_profile {
@@ -29,6 +30,7 @@
   }
 
   &_info {
+    flex: 1;
     max-width: 60%;
     overflow: hidden;
     text-align: left;
@@ -55,5 +57,27 @@
 
   &.__separated {
     border-bottom: var(--hairThin) solid #e9e9e9;
+  }
+
+  &_statusContainer {
+    align-self: flex-start;
+    overflow: hidden;
+  }
+
+  &_status {
+    align-items: center;
+    background-color: #898989;
+    color: var(--colorTextInverse);
+    display: flex;
+    flex: 0;
+    height: var(--statusSize);
+    justify-content: center;
+    margin-top: 7px;
+    text-transform: uppercase;
+    width: var(--statusSize);
+
+    &.__highlight {
+      background-color: var(--colorActive);
+    }
   }
 }

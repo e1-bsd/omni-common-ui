@@ -75,6 +75,7 @@
     "postcss-selector-not": "2.0.0",
     "postcss-simple-mixin": "0.1.1",
     "postcss-url": "5.1.2",
+    "rc-tooltip": "3.4.2",
     "react": "15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-daterange-picker": "1.0.0",
