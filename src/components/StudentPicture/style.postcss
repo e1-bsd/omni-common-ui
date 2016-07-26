@@ -1,6 +1,14 @@
 @import 'main.postcss';
 
 .StudentPicture {
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 50%;
   display: block;
+}
+
+.StudentPicture > img {
+  visibility: hidden;
+  width: 1px;
 }

@@ -17,11 +17,14 @@ class StudentPicture extends Component {
       src = this.getDefaultAvatar();
     }
 
-    this.state = { src };
+    this.state = {
+      currentSrc: src,
+      originalSrc: src,
+    };
   }
 
   onError() {
-    this.setState({ src: this.getDefaultAvatar() }, this.props.onError);
+    this.setState({ currentSrc: this.getDefaultAvatar() }, this.props.onError);
   }
 
   getDefaultAvatar() {
@@ -36,10 +39,17 @@ class StudentPicture extends Component {
   }
 
   render() {
-    return <img src={this.state.src}
-        onError={() => this.onError()}
-        className={classnames(styles.StudentPicture, this.props.className)}
-        role="presentation" />;
+    const { currentSrc, originalSrc } = this.state;
+    // the browser will automatically select the next if the first image fails
+    const inlineStyles = {
+      backgroundImage: `url("${originalSrc}"), url("${this.getDefaultAvatar()}")`,
+    };
+    return <div style={inlineStyles}
+        className={classnames(styles.StudentPicture, this.props.className)}>
+      <img src={currentSrc}
+          onError={() => this.onError()}
+          alt="user avatar" />
+    </div>;
   }
 }
 
