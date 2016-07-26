@@ -20,6 +20,17 @@ const combineLoaders = require('webpack-combine-loaders');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
+const esLintShouldGiveError = (() => {
+  if (nodeEnv === 'development') {
+    return false;
+  }
+
+  if (nodeEnv === 'test' && process.env.ALLOW_ESLINT_ERRORS === 'true') {
+    return false;
+  }
+
+  return true;
+})();
 
 const productionOutput = (options) => Object.assign({
   path: path.join(__dirname, options.outputPath),
@@ -156,7 +167,7 @@ module.exports = (options) => ({
   ],
   eslint: {
     configFile: '.eslintrc.json',
-    failOnError: nodeEnv !== 'development',
+    failOnError: esLintShouldGiveError,
   },
   externals: {
     cheerio: 'window',
@@ -170,10 +181,9 @@ function getSourceMapType() {
   switch (nodeEnv) {
     case 'production':
       return 'hidden-source-map';
-    case 'test':
-      return 'inline-source-map';
     default:
+    case 'test':
     case 'development':
-      return 'cheap-eval-source-map';
+      return 'inline-source-map';
   }
 }

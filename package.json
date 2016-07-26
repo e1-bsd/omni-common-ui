@@ -7,8 +7,8 @@
     "build": "node build.js production",
     "build:qa": "node build.js qa",
     "build:staging": "node build.js staging",
-    "test:start": "./node_modules/.bin/karma start --no-single-run --browsers Chrome",
-    "test:once": "./node_modules/.bin/karma start --single-run"
+    "test:start": "./node_modules/.bin/karma start dev.karma.conf.js --no-single-run --browsers Chrome",
+    "test:once": "./node_modules/.bin/karma start ci.karma.conf.js --single-run"
   },
   "main": "dist/main.js",
   "repository": {
