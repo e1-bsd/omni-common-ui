@@ -2,12 +2,6 @@
 
 :root {
   --borderWidth: var(--hairThin);
-  --thickerBorderWidth: var(--thicker);
-  --statusAccentBorderWidth: 5px;
-  --colorStatusRed: var(--colorWrong);
-  --colorStatusAmber: var(--colorSuspended);
-  --colorStatusGreen: var(--colorCorrect);
-  --colorStatusGrey: var(--colorDisabled);
 }
 
 .Card {
@@ -16,41 +10,4 @@
   display: block;
   -webkit-overflow-scrolling: touch;
   position: relative;
-
-  &::before {
-    background: transparent;
-    content: '';
-    height: calc(100% + var(--borderWidth) + var(--borderWidth));
-    left: calc(0 - var(--borderWidth));
-    position: absolute;
-    top: calc(0 - var(--borderWidth));
-    width: var(--statusAccentBorderWidth);
-  }
-
-  &.__thickerBorder {
-    border-width: var(--thickerBorderWidth);
-    &::before {
-      height: calc(100% + var(--thickerBorderWidth) + var(--thickerBorderWidth));
-      left: calc(0 - var(--thickerBorderWidth));
-      top: calc(0 - var(--thickerBorderWidth));
-    }
-  }
-
-  &_status {
-    &.__grey {
-      &::before { background-color: var(--colorStatusGrey); }
-    }
-
-    &.__green {
-      &::before { background-color: var(--colorStatusGreen); }
-    }
-
-    &.__amber {
-      &::before { background-color: var(--colorStatusAmber); }
-    }
-
-    &.__red {
-      &::before { background-color: var(--colorStatusRed); }
-    }
-  }
 }

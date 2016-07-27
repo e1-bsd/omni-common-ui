@@ -1,0 +1,39 @@
+@import 'main.postcss';
+
+:root {
+  --statusSize: 20px;
+  --fontSize: 16px;
+  --paddingVertical: calc((var(--statusSize) - var(--fontSize)) / 2);
+  --paddingHorizontal: 5px;
+}
+
+.ProductionStatus {
+  cursor: default;
+  overflow: hidden;
+  user-select: none;
+
+  &_inner {
+    align-items: center;
+    background-color: #898989;
+    color: var(--colorTextInverse);
+    display: flex;
+    flex: 0;
+    font-size: var(--fontSize);
+    justify-content: center;
+    padding-bottom: var(--paddingVertical);
+    padding-left: var(--paddingHorizontal);
+    padding-right: var(--paddingHorizontal);
+    padding-top: var(--paddingVertical);
+    text-transform: uppercase;
+
+    &.__highlight {
+      background-color: var(--colorActive);
+    }
+
+    &.__small {
+      height: var(--statusSize);
+      padding: 0;
+      width: var(--statusSize);
+    }
+  }
+}

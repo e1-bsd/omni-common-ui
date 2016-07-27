@@ -1,0 +1,56 @@
+@import 'main.postcss';
+
+:root {
+  --borderWidth: var(--hairThin);
+  --thickerBorderWidth: var(--thicker);
+  --statusAccentBorderWidth: 5px;
+  --colorStatusRed: var(--colorWrong);
+  --colorStatusAmber: var(--colorSuspended);
+  --colorStatusGreen: var(--colorCorrect);
+  --colorStatusGrey: var(--colorDisabled);
+}
+
+.StudentCard {
+  position: relative;
+
+  &,
+  &.__bottom {
+    &::after {
+      background: transparent;
+      bottom: 0;
+      content: '';
+      height: var(--statusAccentBorderWidth);
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  &.__left {
+    &::after {
+      background: transparent;
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: var(--statusAccentBorderWidth);
+    }
+  }
+
+  &.__grey {
+    &::after { background-color: var(--colorStatusGrey); }
+  }
+
+  &.__green {
+    &::after { background-color: var(--colorStatusGreen); }
+  }
+
+  &.__amber {
+    &::after { background-color: var(--colorStatusAmber); }
+  }
+
+  &.__red {
+    &::after { background-color: var(--colorStatusRed); }
+  }
+}

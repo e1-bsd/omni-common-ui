@@ -6,6 +6,7 @@
   --nameFontWeight: 500;
   --nameFontSize: 15.4px;
   --surnameFontSize: 12.5px;
+  --statusSize: 20px;
 }
 
 .StudentCard_profile {
@@ -29,7 +30,7 @@
   }
 
   &_info {
-    max-width: 60%;
+    flex: 1;
     overflow: hidden;
     text-align: left;
     text-overflow: ellipsis;
@@ -55,5 +56,10 @@
 
   &.__separated {
     border-bottom: var(--hairThin) solid #e9e9e9;
+  }
+
+  &_status {
+    align-self: flex-start;
+    margin-top: 7px;
   }
 }

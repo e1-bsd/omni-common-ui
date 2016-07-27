@@ -1,14 +1,14 @@
 {
   "name": "omni-common-ui",
-  "version": "0.0.16-dev",
+  "version": "0.0.17-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
     "build": "node build.js production",
     "build:qa": "node build.js qa",
     "build:staging": "node build.js staging",
-    "test:start": "./node_modules/.bin/karma start --no-single-run --browsers Chrome",
-    "test:once": "./node_modules/.bin/karma start --single-run"
+    "test:start": "./node_modules/.bin/karma start dev.karma.conf.js --no-single-run --browsers Chrome",
+    "test:once": "./node_modules/.bin/karma start ci.karma.conf.js --single-run"
   },
   "main": "dist/main.js",
   "repository": {
@@ -75,6 +75,7 @@
     "postcss-selector-not": "2.0.0",
     "postcss-simple-mixin": "0.1.1",
     "postcss-url": "5.1.2",
+    "rc-tooltip": "3.4.2",
     "react": "15.1.0",
     "react-addons-test-utils": "15.1.0",
     "react-daterange-picker": "1.0.0",
