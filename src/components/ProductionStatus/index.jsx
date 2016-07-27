@@ -7,6 +7,7 @@ import Tooltip from 'components/Tooltip';
 
 const ProductionStatus = (props) => {
   const { status, initial, highlighted, className } = props;
+  const containerClasses = classnames(styles.ProductionStatus, className);
   const statusClasses = classnames(styles.ProductionStatus_inner,
       { [styles.__highlight]: !! highlighted });
 
@@ -21,13 +22,19 @@ const ProductionStatus = (props) => {
   return null;
 
   function renderSmall() {
-    return <Tooltip text={status} className={classnames(styles.ProductionStatus, className)}>
+    if (is.string(status) && is.not.empty(status)) {
+      return <Tooltip text={status} className={containerClasses}>
+        <div className={classnames(statusClasses, styles.__small)}>{initial}</div>
+      </Tooltip>;
+    }
+
+    return <div className={containerClasses}>
       <div className={classnames(statusClasses, styles.__small)}>{initial}</div>
-    </Tooltip>;
+    </div>;
   }
 
   function renderBig() {
-    return <div className={classnames(styles.ProductionStatus, className)}>
+    return <div className={containerClasses}>
       <div className={statusClasses}>{status}</div>
     </div>;
   }
