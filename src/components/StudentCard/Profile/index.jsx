@@ -1,7 +1,8 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { StudentPicture, Card } from 'omni-common-ui';
+import StudentPicture from 'components/StudentPicture';
+import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 

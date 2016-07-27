@@ -4,7 +4,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import { StudentPicture } from 'omni-common-ui';
+import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
 describe('StudentCard.Profile', () => {
