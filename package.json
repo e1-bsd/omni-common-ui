@@ -3,10 +3,11 @@
   "version": "0.0.17-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
-    "build": "./node_modules/.bin/gulp build",
-    "test:start": "./node_modules/.bin/karma start dev.karma.conf.js --no-single-run --browsers Chrome",
-    "test:once": "./node_modules/.bin/karma start ci.karma.conf.js --single-run"
+    "postinstall": "npm run build",
+    "start": "webpack-dev-server --progress --hot --inline --port 3000",
+    "build": "gulp build",
+    "test:start": "karma start dev.karma.conf.js --no-single-run --browsers Chrome",
+    "test:once": "karma start ci.karma.conf.js --single-run"
   },
   "main": "lib/index.js",
   "repository": {
