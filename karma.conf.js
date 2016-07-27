@@ -1,5 +1,4 @@
 /* eslint global-require: "off" */
-const path = require('path');
 
 process.env.NODE_ENV = 'test';
 
@@ -14,17 +13,7 @@ module.exports = (config) => {
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require('./common.webpack.config.js')({
-      context: 'src',
-      entry: 'index',
-      outputPath: 'dist',
-      plugins: [],
-      resolve: {
-        root: [
-          path.resolve('src'),
-        ],
-      },
-    }),
+    webpack: require('./webpack.config.js'),
     webpackServer: {
       noInfo: true,
     },
