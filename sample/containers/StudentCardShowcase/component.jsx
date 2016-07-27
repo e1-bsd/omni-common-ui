@@ -10,27 +10,27 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard>
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="male"
               statusInitial="s"
-              avatarUrl={testImage} />
+              avatarUrl="error" />
         </StudentCard>
       </Grid.Item>
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
         <StudentCard statusAccentColor="grey">
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               status="studying"
               statusInitial="s"
               statusHighlighted
-              avatarUrl={testImage} />
+              avatarUrl="error" />
         </StudentCard>
       </Grid.Item>
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
         <StudentCard statusAccentColor="green" statusAccentPosition="left">
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               status="On Hold"
               statusInitial="H"
               avatarUrl={testImage} />
@@ -40,7 +40,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="red">
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               avatarUrl={testImage} />
         </StudentCard>
       </Grid.Item>
@@ -48,7 +48,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="amber" statusAccentPosition="left">
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               status="On Hold"
               avatarUrl={testImage} />
         </StudentCard>
@@ -57,7 +57,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="invalid">
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               avatarUrl={testImage} />
         </StudentCard>
       </Grid.Item>
@@ -65,7 +65,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard withSeparatorLine>
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
-              gender={0}
+              gender="female"
               avatarUrl={testImage} />
           <StudentCard.Content>
             <Card.Content>Some Status</Card.Content>
@@ -75,7 +75,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
       <Grid.Item xs={12} sm={6} md={4} lg={3}>
         <StudentCard withLeftPaddedContentArea statusAccentColor="grey" withSeparatorLine>
           <StudentCard.Profile name="吴君亮"
-              gender={0}
+              gender="female"
               avatarUrl={testImage} />
           <StudentCard.Content>
             <div>Content div with other things</div>
