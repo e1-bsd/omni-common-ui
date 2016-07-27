@@ -6,16 +6,31 @@ import is from 'is_js';
 import Tooltip from 'components/Tooltip';
 
 const ProductionStatus = (props) => {
-  const { status, initial, highlighted } = props;
-  if (is.not.string(initial) || is.empty(initial)) {
-    return null;
-  }
-
+  const { status, initial, highlighted, className } = props;
   const statusClasses = classnames(styles.ProductionStatus_inner,
       { [styles.__highlight]: !! highlighted });
-  return <Tooltip text={status} className={classnames(styles.ProductionStatus, props.className)}>
-    <div className={statusClasses}>{initial}</div>
-  </Tooltip>;
+
+  if (is.string(initial) && is.not.empty(initial)) {
+    return renderSmall();
+  }
+
+  if (is.string(status) && is.not.empty(status)) {
+    return renderBig();
+  }
+
+  return null;
+
+  function renderSmall() {
+    return <Tooltip text={status} className={classnames(styles.ProductionStatus, className)}>
+      <div className={classnames(statusClasses, styles.__small)}>{initial}</div>
+    </Tooltip>;
+  }
+
+  function renderBig() {
+    return <div className={classnames(styles.ProductionStatus, className)}>
+      <div className={statusClasses}>{status}</div>
+    </div>;
+  }
 };
 
 ProductionStatus.propTypes = {

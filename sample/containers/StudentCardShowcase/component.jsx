@@ -11,7 +11,6 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
               gender={0}
-              status="studying"
               statusInitial="s"
               avatarUrl={testImage} />
         </StudentCard>
@@ -50,6 +49,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
           <StudentCard.Profile name="Kate"
               surname="Zakrzewska"
               gender={0}
+              status="On Hold"
               avatarUrl={testImage} />
         </StudentCard>
       </Grid.Item>
