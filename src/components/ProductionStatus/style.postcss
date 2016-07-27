@@ -1,0 +1,26 @@
+@import 'main.postcss';
+
+:root {
+  --statusSize: 20px;
+}
+
+.ProductionStatus {
+  overflow: hidden;
+
+  &_inner {
+    align-items: center;
+    background-color: #898989;
+    color: var(--colorTextInverse);
+    display: flex;
+    flex: 0;
+    height: var(--statusSize);
+    justify-content: center;
+    margin-top: 7px;
+    text-transform: uppercase;
+    width: var(--statusSize);
+
+    &.__highlight {
+      background-color: var(--colorActive);
+    }
+  }
+}
