@@ -3,31 +3,35 @@
   "version": "0.0.17-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --hot --inline --port 3000",
-    "build": "node build.js production",
-    "build:qa": "node build.js qa",
-    "build:staging": "node build.js staging",
-    "test:start": "./node_modules/.bin/karma start dev.karma.conf.js --no-single-run --browsers Chrome",
-    "test:once": "./node_modules/.bin/karma start ci.karma.conf.js --single-run"
+    "postinstall": "npm run build",
+    "start": "webpack-dev-server --progress --hot --inline --port 3000",
+    "build": "gulp build",
+    "test:start": "karma start dev.karma.conf.js --no-single-run --browsers Chrome",
+    "test:once": "karma start ci.karma.conf.js --single-run"
   },
-  "main": "dist/main.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/e1-bsd/omni-common-ui.git"
   },
+  "private": true,
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "6.10.4",
     "babel-loader": "6.2.4",
+    "babel-plugin-resolver": "0.0.6",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-stage-2": "6.11.0",
     "chai": "3.5.0",
+    "chai-enzyme": "0.5.0",
+    "cheerio": "0.20.0",
     "classnames": "2.2.5",
     "clean-webpack-plugin": "0.1.9",
     "cq-prolyfill": "0.3.2",
     "css-element-queries": "0.3.2",
     "css-loader": "0.23.1",
+    "del": "2.2.1",
     "enzyme": "2.3.0",
     "es6-promise": "3.2.1",
     "eslint": "2.13.1",
@@ -42,6 +46,11 @@
     "flexboxgrid": "6.3.0",
     "formsy-react": "0.18.0",
     "git-rev-sync": "1.6.0",
+    "gulp": "3.9.1",
+    "gulp-babel": "6.1.2",
+    "gulp-postcss": "6.1.1",
+    "gulp-sequence": "0.4.5",
+    "gulp-sourcemaps": "1.6.0",
     "history": "2.1.2",
     "html-webpack-plugin": "2.21.0",
     "image-webpack-loader": "1.8.0",
@@ -100,9 +109,7 @@
     "webpack-combine-loaders": "2.0.0",
     "webpack-dev-middleware": "1.6.1",
     "webpack-dev-server": "1.14.1",
-    "webpack-hot-middleware": "2.11.0",
-    "chai-enzyme": "0.5.0",
-    "cheerio": "0.20.0"
+    "webpack-hot-middleware": "2.11.0"
   },
   "engines": {
     "node": "4.4.x"

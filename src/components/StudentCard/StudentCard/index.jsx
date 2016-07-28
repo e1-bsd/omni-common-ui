@@ -1,7 +1,7 @@
 import styles from './style.postcss';
 
 import React, { Component } from 'react';
-import { Card } from 'omni-common-ui';
+import Card from 'components/Card';
 import classnames from 'classnames';
 
 class StudentCard extends Component {
