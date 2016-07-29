@@ -1,6 +1,8 @@
 import path from 'path';
 import is from 'is_js';
 
+import { formatPattern } from 'react-router';
+
 export const createBuildRoute = (ownProps) => (...args) => {
   const route = getRoute(args);
   const params = getParams(args);
@@ -16,11 +18,9 @@ export const createBuildRoute = (ownProps) => (...args) => {
   newRoute = path.resolve(newRoute, route);
 
   const finalParams = Object.assign({}, ownProps.params, params);
-  Object.keys(finalParams).forEach((param) => {
-    newRoute = newRoute.replace(`:${param}`, finalParams[param]);
-  });
+  newRoute = formatPattern(newRoute, finalParams);
 
-  return newRoute;
+  return newRoute.replace(/\/$/, '');
 };
 
 function getRoute(args) {
