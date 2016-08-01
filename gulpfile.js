@@ -6,6 +6,9 @@ const sourcemaps = require('gulp-sourcemaps');
 const postcssImport = require('postcss-import');
 const babel = require('gulp-babel');
 const sequence = require('gulp-sequence');
+const replace = require('gulp-replace');
+
+const modulesDir = path.resolve('node_modules');
 
 gulp.task('clean', () => del(['lib']));
 
@@ -26,6 +29,7 @@ gulp.task('build:js', () => gulp.src(['lib/**/*.js', 'lib/**/*.jsx'])
       presets: ['react', 'es2015', 'stage-2'],
       plugins: [['resolver', { resolveDirs: [path.resolve('lib')] }]],
     }))
+    .pipe(replace(new RegExp(`${modulesDir}/?`, 'g'), ''))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib')));
 
