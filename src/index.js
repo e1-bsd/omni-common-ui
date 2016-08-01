@@ -14,7 +14,7 @@ import _connect from 'domain/connect';
 import _Gender from 'domain/Gender';
 import _Tooltip from 'components/Tooltip';
 import _ProductionStatus from 'components/ProductionStatus';
-import { mediaQuery as _mediaQuery } from 'components/MediaQuery';
+import { mediaQuery as _mediaQuery } from 'domain/MediaQuery';
 
 export const Button = _Button;
 export const Card = _Card;
