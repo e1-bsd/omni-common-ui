@@ -14,6 +14,7 @@ import _connect from 'domain/connect';
 import _Gender from 'domain/Gender';
 import _Tooltip from 'components/Tooltip';
 import _ProductionStatus from 'components/ProductionStatus';
+import { mediaQuery as _mediaQuery } from 'components/MediaQuery';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -31,3 +32,4 @@ export const connect = _connect;
 export const Gender = _Gender;
 export const Tooltip = _Tooltip;
 export const ProductionStatus = _ProductionStatus;
+export const mediaQuery = _mediaQuery;
