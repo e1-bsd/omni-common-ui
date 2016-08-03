@@ -1,6 +1,6 @@
 {
   "name": "omni-common-ui",
-  "version": "0.0.17-dev",
+  "version": "0.0.18-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
     "postinstall": "npm run build",
