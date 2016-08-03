@@ -15,7 +15,10 @@ gulp.task('clean', () => del(['lib']));
 gulp.task('copy:all', () => gulp.src('src/**/*')
     .pipe(gulp.dest('lib')));
 
-gulp.task('build:css', () => gulp.src('lib/**/*.postcss')
+gulp.task('copy:assets', () => gulp.src('src/**/*.!(postcss|jsx|js)?(.map)')
+    .pipe(gulp.dest('lib')));
+
+gulp.task('build:css', () => gulp.src('src/**/*.postcss')
     .pipe(sourcemaps.init())
     .pipe(postcss([postcssImport({
       path: ['node_modules', 'lib', 'lib/assets/styles', './'],
@@ -23,7 +26,7 @@ gulp.task('build:css', () => gulp.src('lib/**/*.postcss')
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib')));
 
-gulp.task('build:js', () => gulp.src(['lib/**/*.js', 'lib/**/*.jsx'])
+gulp.task('build:js', () => gulp.src(['src/**/*.js', 'src/**/*.jsx'])
     .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['react', 'es2015', 'stage-2'],
@@ -41,5 +44,12 @@ gulp.task('build', sequence(
   ['build:css', 'build:js'],
   'remove:jsx'
 ));
+
+gulp.task('watch', ['build'], () => {
+  gulp.watch('./src/**/*.postcss', ['build:css']);
+  gulp.watch('./src/**/*.jsx', ['build:js']);
+  gulp.watch('./src/**/*.js', ['build:js']);
+  gulp.watch('./src/**/*.!(postcss|jsx|js)?(.map)', ['copy:assets']);
+});
 
 gulp.task('default', ['build']);
