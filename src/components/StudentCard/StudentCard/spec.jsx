@@ -4,7 +4,8 @@ import profileStyles from '../Profile/style.postcss';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
-import { StudentCard, Card } from 'omni-common-ui';
+import StudentCard from 'components/StudentCard';
+import Card from 'components/Card';
 import classnames from 'classnames';
 
 describe('StudentCard', () => {

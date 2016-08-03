@@ -15,7 +15,7 @@ const Button = (props) => {
     [styles.__active]: !! props.active,
   };
 
-  const classes = classnames(styles.Button, type, modeClasses);
+  const classes = classnames(styles.Button, type, modeClasses, props.className);
 
   if (is.existy(props.linkTo)) {
     return <Link to={props.linkTo}
@@ -54,6 +54,7 @@ Button.propTypes = {
   block: React.PropTypes.bool,
   autoWidth: React.PropTypes.bool,
   active: React.PropTypes.bool,
+  className: React.PropTypes.string,
 };
 
 export default Button;
