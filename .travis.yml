@@ -18,6 +18,9 @@ install:
 script:
   - npm run test:once
 
+before_deploy:
+  - npm version dev.$TRAVIS_BUILD_NUMBER
+
 deploy:
   - provider: npm
     email: $GIT_EMAIL
