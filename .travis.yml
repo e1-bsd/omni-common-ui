@@ -26,6 +26,8 @@ deploy:
     email: $GIT_EMAIL
     api_key: $NPM_TOKEN
     skip_cleanup: true
+    on:
+      all_branches: true
 
 notifications:
   email:
