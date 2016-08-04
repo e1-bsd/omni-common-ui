@@ -1,3 +1,6 @@
+/* eslint strict: "off" */
+'use strict';
+
 const path = require('path');
 const gulp = require('gulp');
 const del = require('del');
@@ -9,6 +12,7 @@ const sequence = require('gulp-sequence');
 const replace = require('gulp-replace');
 
 const modulesDir = path.resolve('node_modules');
+const libDir = path.resolve('lib');
 
 gulp.task('clean', () => del(['lib']));
 
@@ -33,6 +37,10 @@ gulp.task('build:js', () => gulp.src(['src/**/*.js', 'src/**/*.jsx'])
       plugins: [['resolver', { resolveDirs: [path.resolve('lib')] }]],
     }))
     .pipe(replace(new RegExp(`${modulesDir}/?`, 'g'), ''))
+    .pipe(replace(new RegExp(`${libDir}[^\']*`, 'g'), (file, libPath) => {
+      const filePath = file.path.replace('/src/', '/lib/');
+      return path.relative(filePath, libPath);
+    }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib')));
 
