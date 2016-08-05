@@ -15,7 +15,6 @@
     "type": "git",
     "url": "https://github.com/e1-bsd/omni-common-ui.git"
   },
-  "private": true,
   "license": "MIT",
   "dependencies": {
     "babel-core": "6.10.4",
