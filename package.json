@@ -3,7 +3,6 @@
   "version": "0.0.18-dev",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "webpack-dev-server --progress --hot --inline --port 3000",
     "build": "gulp build",
     "test:start": "karma start dev.karma.conf.js --no-single-run --browsers Chrome",
