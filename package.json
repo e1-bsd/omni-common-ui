@@ -50,6 +50,7 @@
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-postcss": "6.1.1",
+    "gulp-replace": "e1-bsd/gulp-replace",
     "gulp-sequence": "0.4.5",
     "gulp-sourcemaps": "1.6.0",
     "history": "2.1.2",
