@@ -19,6 +19,7 @@ install:
 
 script:
   - npm run test:once
+  - npm run build
 
 before_deploy:
   - node ci.bump-version.js
