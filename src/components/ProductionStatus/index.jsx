@@ -6,10 +6,11 @@ import is from 'is_js';
 import Tooltip from 'components/Tooltip';
 
 const ProductionStatus = (props) => {
-  const { status, initial, highlighted, className } = props;
+  const { status, initial, highlighted, className, unbreakable } = props;
   const containerClasses = classnames(styles.ProductionStatus, className);
   const statusClasses = classnames(styles.ProductionStatus_inner,
-      { [styles.__highlight]: !! highlighted });
+      { [styles.__highlight]: !! highlighted },
+      { [styles.__unbreakable]: !! unbreakable });
 
   if (is.string(initial) && is.not.empty(initial)) {
     return renderSmall();
@@ -45,6 +46,7 @@ ProductionStatus.propTypes = {
   status: React.PropTypes.string,
   initial: React.PropTypes.string,
   highlighted: React.PropTypes.bool,
+  unbreakable: React.PropTypes.bool,
 };
 
 export default ProductionStatus;
