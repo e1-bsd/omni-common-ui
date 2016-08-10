@@ -2,9 +2,6 @@
 
 :root {
   --statusSize: 20px;
-  --fontSize: 16px;
-  --paddingVertical: calc((var(--statusSize) - var(--fontSize)) / 2);
-  --paddingHorizontal: 5px;
 }
 
 .ProductionStatus {
@@ -18,16 +15,19 @@
     color: var(--colorTextInverse);
     display: flex;
     flex: 0;
-    font-size: var(--fontSize);
+    font-size: 10px;
+    font-weight: 500;
     justify-content: center;
-    padding-bottom: var(--paddingVertical);
-    padding-left: var(--paddingHorizontal);
-    padding-right: var(--paddingHorizontal);
-    padding-top: var(--paddingVertical);
+    letter-spacing: 0.5px;
+    padding: 5px;
     text-transform: uppercase;
 
     &.__highlight {
       background-color: var(--colorActive);
+    }
+
+    &.__unbreakable {
+      white-space: nowrap;
     }
 
     &.__small {
