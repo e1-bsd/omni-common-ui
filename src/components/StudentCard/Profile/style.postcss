@@ -15,14 +15,14 @@
   display: flex;
 
   /* for the subtle line when Content is present */
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent; /* stylelint-disable-line declaration-block-properties-order */
   padding-bottom: calc(var(--touchablePaddingVertical) - 1px);
 
   &_image {
+    align-self: flex-start;
     background-color: #8e8e93;
     border-radius: 50%;
     display: block;
-    align-self: flex-start;
     height: var(--imageSize);
     margin: 2px 15px 2px 0;
     max-width: var(--imageSize);
