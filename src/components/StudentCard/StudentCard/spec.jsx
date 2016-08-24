@@ -19,6 +19,11 @@ describe('StudentCard', () => {
     expect(wrapper).to.have.descendants(Card);
   });
 
+  it('adds the borderless prop to Card when borderless prop is provided', () => {
+    const wrapper = shallow(<StudentCard borderless />);
+    expect(wrapper).to.contain(<Card borderless />);
+  });
+
   it('sets the given status accent color class when provided', () => {
     const wrapper = shallow(<StudentCard statusAccentColor="grey" />);
     expect(

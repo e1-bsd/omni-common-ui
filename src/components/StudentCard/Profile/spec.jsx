@@ -18,7 +18,7 @@ describe('StudentCard.Profile', () => {
   it('renders profile info with the given name', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" />);
     expect(
-      wrapper.find(`.${styles.StudentCard_profile_name}[data-prop="name"]`)
+      wrapper.find(`.${styles.StudentCard_profile_name}`)
     ).to.have.text(
       'John'
     );
@@ -26,7 +26,7 @@ describe('StudentCard.Profile', () => {
   it('renders profile info with the given surname', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" />);
     expect(
-      wrapper.find(`.${styles.StudentCard_profile_surname}[data-prop="surname"]`)
+      wrapper.find(`.${styles.StudentCard_profile_surname}`)
     ).to.have.text(
       'Doe'
     );

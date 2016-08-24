@@ -6,8 +6,11 @@
 
 .Card {
   background: var(--colorBase);
-  border: var(--borderWidth) solid var(--colorBorder);
   display: block;
   -webkit-overflow-scrolling: touch;
   position: relative;
+
+  &:not(.__borderless) {
+    border: var(--borderWidth) solid var(--colorBorder);
+  }
 }
