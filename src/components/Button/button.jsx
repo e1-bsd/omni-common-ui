@@ -19,7 +19,7 @@ const Button = (props) => {
 
   if (is.existy(props.linkTo)) {
     return <Link to={props.linkTo}
-        className={classnames(styles.ButtonLink, modeClasses)}>
+        className={classnames(styles.ButtonLink, modeClasses, props.className)}>
       {renderButton()}
     </Link>;
   }
