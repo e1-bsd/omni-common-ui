@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import classnames from 'classnames';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
@@ -12,7 +13,16 @@ describe('StudentCard.Profile', () => {
     const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
-      <StudentPicture src="url" gender={1} className={styles.StudentCard_profile_image} />
+      <StudentPicture src="url" gender={1}
+          className={styles.StudentCard_profile_image} />
+    );
+  });
+  it('renders a bigger StudentPicture with the withBiggerAvatar prop', () => {
+    const wrapper = shallow(<Profile withBiggerAvatar avatarUrl="url" gender={1} />);
+    expect(wrapper)
+    .to.contain(
+      <StudentPicture src="url" gender={1}
+          className={classnames(styles.StudentCard_profile_image, styles.__bigger)} />
     );
   });
   it('renders profile info with the given name', () => {

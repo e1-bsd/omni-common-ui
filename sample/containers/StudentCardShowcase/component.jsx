@@ -91,6 +91,15 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
               avatarUrl={testImage} />
         </StudentCard>
       </Grid.Item>
+      <Grid.Item xs={12} sm={6} md={4} lg={3}>
+        <StudentCard borderless statusAccentColor="grey">
+          <StudentCard.Profile name="Jane"
+              surname="Bigger Avatar"
+              gender="male"
+              avatarUrl={testImage}
+              withBiggerAvatar />
+        </StudentCard>
+      </Grid.Item>
     </Grid.Group>
   </Grid>
 </Showcase>;

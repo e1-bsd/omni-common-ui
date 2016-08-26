@@ -2,6 +2,7 @@
 
 :root {
   --imageSize: 50px;
+  --biggerModeImageSize: 60px;
   --nameLineHeight: 19px;
   --nameFontWeight: 500;
   --nameFontSize: 15px;
@@ -27,6 +28,12 @@
     margin: 2px 15px 2px 0;
     max-width: var(--imageSize);
     width: var(--imageSize);
+
+    &.__bigger {
+      height: var(--biggerModeImageSize);
+      max-width: var(--biggerModeImageSize);
+      width: var(--biggerModeImageSize);
+    }
   }
 
   &_info {
