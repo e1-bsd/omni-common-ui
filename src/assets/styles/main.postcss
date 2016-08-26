@@ -17,11 +17,12 @@
   --colorCorrect: #74d17f;
   --colorWrong: #de4c4c;
   --colorSuspended: #f7932d;
+  --colorOnHold: #898989;
 }
 
 :root {
-  --fontFamily: 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'Malgun Gothic', sans-serif;
-  --fontFamilyCondensed: 'Helvetica Neue Condensed', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'Malgun Gothic', sans-serif;
+  --fontFamily: 'Helvetica Neue', sans-serif;
+  --fontFamilyCondensed: 'Helvetica Neue Condensed', 'Helvetica Neue', sans-serif;
   --fontSizeBase: 1em;
   --fontSizePageHeader: 1.5em;
   --fontSizePageSubheader: 1.125em;
@@ -49,7 +50,8 @@
 }
 
 :root {
-  --zIndexTableExpanded: 1;
+  --zIndex-1--expandedTableRow: var(--zIndex-1);
+  --zIndex-8--modalPopup: var(--zIndex-8);
 }
 
 @custom-media --sm-viewport only screen and (min-width: 480px);

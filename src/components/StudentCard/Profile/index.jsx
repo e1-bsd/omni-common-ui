@@ -23,7 +23,9 @@ const Profile = (props, { withSeparatorLine }) => {
     <div className={classes}>
       <StudentPicture src={props.avatarUrl}
           gender={props.gender}
-          className={styles.StudentCard_profile_image} />
+          className={classnames(styles.StudentCard_profile_image, {
+            [styles.__bigger]: !! props.withBiggerAvatar,
+          })} />
       <div className={styles.StudentCard_profile_info}>
         {renderName('name', props.name, styles.StudentCard_profile_name)}
         {renderName('surname', props.surname, styles.StudentCard_profile_surname)}
@@ -48,6 +50,7 @@ Profile.propTypes = {
   status: React.PropTypes.string,
   statusInitial: React.PropTypes.string,
   statusHighlighted: React.PropTypes.bool,
+  withBiggerAvatar: React.PropTypes.bool,
 };
 
 export default Profile;

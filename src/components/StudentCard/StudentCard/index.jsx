@@ -12,13 +12,13 @@ class StudentCard extends Component {
   }
 
   render() {
-    const { statusAccentColor, statusAccentPosition } = this.props;
+    const { borderless, statusAccentColor, statusAccentPosition } = this.props;
     const classes = classnames(styles.StudentCard,
         { [styles[`__${statusAccentPosition}`]]: !! statusAccentPosition },
         { [styles[`__${statusAccentColor}`]]: !! statusAccentColor });
 
     return <div className={classes}>
-      <Card>
+      <Card borderless={!! borderless}>
         {this.props.children}
       </Card>
     </div>;
@@ -34,6 +34,7 @@ StudentCard.childContextTypes = {
 };
 
 StudentCard.propTypes = {
+  borderless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
   statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),
   statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),

@@ -2,9 +2,10 @@
 
 :root {
   --imageSize: 50px;
-  --nameLineHeight: 21.5px;
+  --biggerModeImageSize: 60px;
+  --nameLineHeight: 19px;
   --nameFontWeight: 500;
-  --nameFontSize: 15.4px;
+  --nameFontSize: 15px;
   --surnameFontSize: 12.5px;
   --statusSize: 20px;
 }
@@ -15,18 +16,24 @@
   display: flex;
 
   /* for the subtle line when Content is present */
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent; /* stylelint-disable-line declaration-block-properties-order */
   padding-bottom: calc(var(--touchablePaddingVertical) - 1px);
 
   &_image {
+    align-self: flex-start;
     background-color: #8e8e93;
     border-radius: 50%;
     display: block;
-    align-self: flex-start;
     height: var(--imageSize);
     margin: 2px 15px 2px 0;
     max-width: var(--imageSize);
     width: var(--imageSize);
+
+    &.__bigger {
+      height: var(--biggerModeImageSize);
+      max-width: var(--biggerModeImageSize);
+      width: var(--biggerModeImageSize);
+    }
   }
 
   &_info {
