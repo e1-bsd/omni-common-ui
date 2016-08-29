@@ -42,7 +42,7 @@ const esLintShouldGiveError = (() => {
 module.exports = {
   context: path.join(__dirname, 'sample'),
   devtool: getSourceMapType(),
-  entry: ['app.jsx'],
+  entry: ['babel-polyfill', 'app.jsx'],
   output: {
     path: path.join(__dirname, 'dist-sample'),
     filename: '[name].js',
