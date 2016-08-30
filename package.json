@@ -31,8 +31,8 @@
   "devDependencies": {
     "babel-core": "6.10.4",
     "babel-loader": "6.2.4",
-    "babel-polyfill": "6.13.0",
     "babel-plugin-resolver": "0.0.6",
+    "babel-polyfill": "6.13.0",
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-stage-2": "6.11.0",
@@ -75,6 +75,7 @@
     "karma-webpack": "1.7.0",
     "loglevel": "1.4.1",
     "mocha": "2.5.3",
+    "moment-timezone": "0.5.5",
     "node-libs-browser": "1.0.0",
     "normalize.css": "4.1.1",
     "postcss-calc": "5.2.1",

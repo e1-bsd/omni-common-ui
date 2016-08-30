@@ -18,6 +18,7 @@ import { mediaQuery as _mediaQuery } from 'domain/MediaQuery';
 import { Api as _Api, buildUrl as _buildUrl, fetch as _fetch } from 'domain/Api';
 import { ApiResponse as _ApiResponse } from 'domain/ApiResponse';
 import { ApiResponseHelper as _ApiResponseHelper } from 'domain/ApiResponseHelper';
+import _moment from 'domain/moment';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -41,3 +42,4 @@ export const build = _buildUrl;
 export const fetch = _fetch;
 export const ApiResponse = _ApiResponse;
 export const ApiResponseHelper = _ApiResponseHelper;
+export const moment = _moment;
