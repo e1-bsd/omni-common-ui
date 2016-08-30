@@ -12,6 +12,10 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
         onClick={() => log.info('Active button clicked')}>
       Active
     </Button>
+    <Button active disabled
+        onClick={() => log.info('Active button clicked')}>
+      Disabled active
+    </Button>
     <Button disabled
         onClick={() => log.info('Disabled button clicked')}>
       Disabled
@@ -26,6 +30,11 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
         type={Button.Type.primary}
         onClick={() => log.info('Active primary button clicked')}>
       Active primary
+    </Button>
+    <Button active disabled
+        type={Button.Type.primary}
+        onClick={() => log.info('Active primary button clicked')}>
+      Disabled active primary
     </Button>
     <Button disabled
         type={Button.Type.primary}

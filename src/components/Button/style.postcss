@@ -51,8 +51,8 @@
 
       &:active,
       &.__active {
-        background-color: transparent;
-        color: var(--colorPrimaryDisabled);
+        background-color: var(--colorPrimaryDisabled);
+        color: var(--colorTextInverse);
       }
     }
   }
@@ -69,6 +69,12 @@
     &.__active {
       background-color: var(--colorActive);
     }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+    }
   }
 
   &[disabled] {
@@ -76,11 +82,6 @@
     border: none;
     color: var(--colorTextInverse);
     cursor: not-allowed;
-
-    &:hover {
-      background-color: var(--colorPrimaryDisabled);
-      color: var(--colorTextInverse);
-    }
 
     &:active,
     &.__active {
