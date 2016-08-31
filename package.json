@@ -15,7 +15,7 @@
     "url": "https://github.com/e1-bsd/omni-common-ui.git"
   },
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "alertifyjs": "1.7.1",
     "babel-core": "6.10.4",
     "babel-loader": "6.2.4",
