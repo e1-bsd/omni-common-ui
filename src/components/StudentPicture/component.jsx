@@ -27,35 +27,30 @@ class StudentPicture extends Component {
     }
   }
 
-  onError() {
-    this.setImageSrcInState({ src: this.getDefaultAvatar() }, this.props.onError);
-  }
-
-  setImageSrcInState(props, cb) {
+  setImageSrcInState(props, cb = () => {}) {
     const { src = this.getDefaultAvatar() } = props;
+    if (this.state && this.state.originalSrc === src) {
+      return cb();
+    }
     this.setState({
-      currentSrc: src,
+      originalSrc: src,
     }, cb);
   }
 
   render() {
-    const { currentSrc } = this.state;
+    const { originalSrc } = this.state;
     const inlineStyles = {
-      backgroundImage: `url("${currentSrc}")`,
+      backgroundImage: `url("${originalSrc}"), url("${this.getDefaultAvatar()}")`,
     };
     return <div style={inlineStyles}
-        className={classnames(styles.StudentPicture, this.props.className)}>
-      <img src={currentSrc}
-          onError={() => this.onError()}
-          alt="user avatar" />
-    </div>;
+        className={classnames(styles.StudentPicture, this.props.className)}
+        data-src={originalSrc} />;
   }
 }
 
 StudentPicture.propTypes = {
   gender: React.PropTypes.string,
   src: React.PropTypes.string,
-  onError: React.PropTypes.func,
   className: React.PropTypes.string,
 };
 
