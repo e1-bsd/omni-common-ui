@@ -4,27 +4,16 @@ import defaultAvatarFemaleImg from './default-avatar-female.svg';
 import defaultAvatarImg from './default-avatar.svg';
 
 import React, { Component } from 'react';
-import is from 'is_js';
 import Gender from 'domain/Gender';
 import classnames from 'classnames';
 
 class StudentPicture extends Component {
-  constructor(props) {
-    super(props);
-
-    let { src } = this.props;
-    if (is.not.string(src)) {
-      src = this.getDefaultAvatar();
-    }
-
-    this.state = {
-      currentSrc: src,
-      originalSrc: src,
-    };
+  componentWillMount() {
+    this.setImageSrcInState(this.props);
   }
 
-  onError() {
-    this.setState({ currentSrc: this.getDefaultAvatar() }, this.props.onError);
+  componentWillReceiveProps(nextProps) {
+    this.setImageSrcInState(nextProps);
   }
 
   getDefaultAvatar() {
@@ -38,11 +27,21 @@ class StudentPicture extends Component {
     }
   }
 
+  onError() {
+    this.setImageSrcInState({ src: this.getDefaultAvatar() }, this.props.onError);
+  }
+
+  setImageSrcInState(props, cb) {
+    const { src = this.getDefaultAvatar() } = props;
+    this.setState({
+      currentSrc: src,
+    }, cb);
+  }
+
   render() {
-    const { currentSrc, originalSrc } = this.state;
-    // the browser will automatically select the next if the first image fails
+    const { currentSrc } = this.state;
     const inlineStyles = {
-      backgroundImage: `url("${originalSrc}"), url("${this.getDefaultAvatar()}")`,
+      backgroundImage: `url("${currentSrc}")`,
     };
     return <div style={inlineStyles}
         className={classnames(styles.StudentPicture, this.props.className)}>
