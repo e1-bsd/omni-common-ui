@@ -11,8 +11,7 @@ if (! styleMedia) {
   script.parentNode.insertBefore(style, script);
 
   // 'style.currentStyle' is used by IE <= 8 and 'window.getComputedStyle' for all other browsers
-  const info = 'getComputedStyle' in window &&
-    window.getComputedStyle(style, null) ||
+  const info = ('getComputedStyle' in window && window.getComputedStyle(style, null)) ||
     style.currentStyle;
 
   styleMedia = {
@@ -103,3 +102,5 @@ export const mediaQuery = (media) => {
 
   return mql;
 };
+
+export default mediaQuery;

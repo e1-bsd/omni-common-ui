@@ -34,6 +34,8 @@ TextInput.propTypes = {
   disabled: React.PropTypes.bool,
   getValue: React.PropTypes.func.isRequired,
   setValue: React.PropTypes.func.isRequired,
+  showError: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string,
 };
 
 export default formsyDecorator(TextInput);

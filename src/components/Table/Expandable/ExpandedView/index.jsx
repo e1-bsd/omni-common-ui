@@ -5,6 +5,7 @@ import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 import is from 'is_js';
 
 class ExpandedView extends Component {
+  /* eslint react/no-find-dom-node: "off" */
   constructor(props) {
     super(props);
     this.state = { height: 0 };
