@@ -9,6 +9,9 @@
     "semi": ["error", "always"],
     "comma-dangle": ["warn", "always-multiline"],
     "import/no-unresolved": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
+    "import/imports-first": ["off"],
+    "import/no-named-as-default": ["off"],
     "no-underscore-dangle": ["off"],
     "consistent-return": ["off"],
     "padded-blocks": ["warn", "never"],
@@ -30,6 +33,7 @@
     "react/jsx-first-prop-new-line": ["error", "never"],
     "react/wrap-multilines": ["off"],
     "react/jsx-closing-bracket-location": ["error", "after-props"],
+    "react/jsx-wrap-multilines": ["off"],
     "react/sort-comp": ["error", {
       "order": [
         "static-methods",
@@ -38,10 +42,17 @@
         "render",
         "/^render.+$/"
       ]
-    }]
+    }],
+    "jsx-a11y/label-has-for": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true
   },
   "globals": {
     "PRODUCTION": false,
+    "PRODUCTION_CN": false,
+    "PRODUCTION_SG": false,
     "DEVELOPMENT": false,
     "TEST": false,
     "QA": false,
