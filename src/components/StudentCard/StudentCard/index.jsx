@@ -6,8 +6,10 @@ import classnames from 'classnames';
 
 class StudentCard extends Component {
   getChildContext() {
+    const { backgroundless = false, withSeparatorLine = false } = this.props;
     return {
-      withSeparatorLine: this.props.withSeparatorLine,
+      backgroundless,
+      withSeparatorLine,
     };
   }
 
@@ -30,10 +32,12 @@ StudentCard.accentPosition = ['bottom', 'left'];
 StudentCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
 StudentCard.childContextTypes = {
+  backgroundless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
 };
 
 StudentCard.propTypes = {
+  backgroundless: React.PropTypes.bool,
   borderless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
   statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),

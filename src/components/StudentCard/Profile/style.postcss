@@ -12,12 +12,15 @@
 
 .StudentCard_profile {
   align-items: center;
-  background-color: var(--colorBase);
-  display: flex;
+  border-bottom: 1px solid transparent; /* stylelint-disable-line declaration-block-properties-order */
 
   /* for the subtle line when Content is present */
-  border-bottom: 1px solid transparent; /* stylelint-disable-line declaration-block-properties-order */
+  display: flex;
   padding-bottom: calc(var(--touchablePaddingVertical) - 1px);
+
+  &:not(.__backgroundless) {
+    background-color: var(--colorBase);
+  }
 
   &_image {
     align-self: flex-start;

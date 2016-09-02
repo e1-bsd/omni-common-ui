@@ -6,11 +6,13 @@ import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 
-const Profile = (props, { withSeparatorLine }) => {
+const Profile = (props, { withSeparatorLine, backgroundless }) => {
   const { status, statusInitial, statusHighlighted } = props;
   const classes = classnames(styles.StudentCard_profile,
-      styles.__1,
-      { [styles.__separated]: withSeparatorLine });
+      styles.__1, {
+        [styles.__separated]: withSeparatorLine,
+        [styles.__backgroundless]: backgroundless,
+      });
 
   const renderName = (prop, name, nameClasses) => {
     if (! name) {
@@ -39,6 +41,7 @@ const Profile = (props, { withSeparatorLine }) => {
 };
 
 Profile.contextTypes = {
+  backgroundless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
 };
 

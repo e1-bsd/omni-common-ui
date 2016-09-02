@@ -5,10 +5,13 @@
 }
 
 .Card {
-  background: var(--colorBase);
   display: block;
   -webkit-overflow-scrolling: touch;
   position: relative;
+
+  &:not(.__backgroundless) {
+    background: var(--colorBase);
+  }
 
   &:not(.__borderless) {
     border: var(--borderWidth) solid var(--colorBorder);
