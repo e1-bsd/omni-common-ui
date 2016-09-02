@@ -12,7 +12,7 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
       styles.__1, {
         [styles.__separated]: withSeparatorLine,
         [styles.__backgroundless]: backgroundless,
-      });
+      }, props.className);
 
   const renderName = (prop, name, nameClasses) => {
     if (! name) {
@@ -46,6 +46,7 @@ Profile.contextTypes = {
 };
 
 Profile.propTypes = {
+  className: React.PropTypes.string,
   name: React.PropTypes.string,
   surname: React.PropTypes.string,
   gender: React.PropTypes.string,
