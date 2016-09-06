@@ -15,9 +15,9 @@ if (DEVELOPMENT) {
   installDevTools(Immutable);
 }
 
-export function setupStore(reducer, baseUrl) {
+export function setupStore(reducer) {
   const browserHistory = useRouterHistory(useBeforeUnload(useBasename(createHistory)))({
-    basename: baseUrl,
+    basename: '/',
   });
 
   const loggerMiddleware = createLogger();

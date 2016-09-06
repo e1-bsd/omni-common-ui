@@ -19,7 +19,11 @@ import { Api as _Api, buildUrl as _buildUrl, fetch as _fetch } from 'domain/Api'
 import { ApiResponse as _ApiResponse } from 'domain/ApiResponse';
 import { ApiResponseHelper as _ApiResponseHelper } from 'domain/ApiResponseHelper';
 import _moment from 'domain/moment';
-import _setupStore from './setupStore';
+import _setupApp from './setupApp';
+import {
+  SingleSignOnHandler as _SingleSignOnHandler,
+  routes as _singleSignOnRoutes,
+} from 'containers/SingleSignOn';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -44,4 +48,6 @@ export const fetch = _fetch;
 export const ApiResponse = _ApiResponse;
 export const ApiResponseHelper = _ApiResponseHelper;
 export const moment = _moment;
-export const setupStore = _setupStore;
+export const setupApp = _setupApp;
+export const SingleSignOnHandler = _SingleSignOnHandler;
+export const singleSignOnRoutes = _singleSignOnRoutes;
