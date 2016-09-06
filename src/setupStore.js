@@ -1,0 +1,52 @@
+import Immutable from 'immutable';
+import installDevTools from 'immutable-devtools';
+
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createLogger from 'redux-logger';
+import { createHistory, useBasename, useBeforeUnload } from 'history';
+import { useRouterHistory } from 'react-router';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
+import { combineReducers } from 'redux-immutable';
+import routerReducer from './routerReducer';
+
+if (DEVELOPMENT) {
+  installDevTools(Immutable);
+}
+
+export function setupStore(reducer, baseUrl) {
+  const browserHistory = useRouterHistory(useBeforeUnload(useBasename(createHistory)))({
+    basename: baseUrl,
+  });
+
+  const loggerMiddleware = createLogger();
+  const reduxRouterMiddleware = routerMiddleware(browserHistory);
+  const createStoreWithMiddleware = compose(
+    applyMiddleware(
+      singleSignOnMiddleware,
+      reduxRouterMiddleware,
+      thunk,
+      loggerMiddleware
+    )
+  )(createStore);
+
+  const store = createStoreWithMiddleware(createReducer(reducer),
+      window.devToolsExtension && window.devToolsExtension());
+
+  const syncBrowserHistory = syncHistoryWithStore(browserHistory, store, {
+    selectLocationState: (state) => state.get('routing').toJS(),
+  });
+
+  return { store, syncBrowserHistory };
+}
+
+function createReducer(reducer) {
+  return combineReducers({
+    rootReducer: combineReducers(reducer),
+    routing: routerReducer,
+    singleSignOn,
+  });
+}
+
+export default setupStore;

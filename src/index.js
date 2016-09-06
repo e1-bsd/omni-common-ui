@@ -19,6 +19,7 @@ import { Api as _Api, buildUrl as _buildUrl, fetch as _fetch } from 'domain/Api'
 import { ApiResponse as _ApiResponse } from 'domain/ApiResponse';
 import { ApiResponseHelper as _ApiResponseHelper } from 'domain/ApiResponseHelper';
 import _moment from 'domain/moment';
+import _setupStore from './setupStore';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -43,3 +44,4 @@ export const fetch = _fetch;
 export const ApiResponse = _ApiResponse;
 export const ApiResponseHelper = _ApiResponseHelper;
 export const moment = _moment;
+export const setupStore = _setupStore;
