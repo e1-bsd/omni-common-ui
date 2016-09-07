@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'domain/connect';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as singleSignOnActions from './actions';
 import userManager from './userManager';
