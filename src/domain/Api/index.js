@@ -1,5 +1,8 @@
+import Config from 'domain/Config';
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
+
+export const buildUrl = (path) => Config.apiBase + path;
 
 export const fetch = (...args) => isomorphicFetch(...args)
     .then(checkResponseStatus)
