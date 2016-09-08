@@ -19,7 +19,7 @@ import { Api as _Api, buildUrl as _buildUrl, fetch as _fetch } from 'domain/Api'
 import { ApiResponse as _ApiResponse } from 'domain/ApiResponse';
 import { ApiResponseHelper as _ApiResponseHelper } from 'domain/ApiResponseHelper';
 import _moment from 'domain/moment';
-import _setupApp from './setupApp';
+import _setupApp from './setupApp.js';
 import {
   SingleSignOnHandler as _SingleSignOnHandler,
   routes as _singleSignOnRoutes,
