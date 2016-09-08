@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { SingleSignOnProvider } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
+import Store from 'domain/Store';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -15,22 +16,18 @@ if (! PRODUCTION) {
   log.setLevel('error');
 }
 
-
 export function setupApp(routes, reducer) {
   const { store, syncBrowserHistory } = setupStore(reducer);
+  Store.set(store);
 
-  setImmediate(() => {
-    render(
-      <Provider store={store}>
-        <SingleSignOnProvider store={store}>
-          <Router history={syncBrowserHistory} routes={routes} />
-        </SingleSignOnProvider>
-      </Provider>,
-      document.getElementById('root')
-    );
-  });
-
-  return store;
+  render(
+    <Provider store={store}>
+      <SingleSignOnProvider store={store}>
+        <Router history={syncBrowserHistory} routes={routes} />
+      </SingleSignOnProvider>
+    </Provider>,
+    document.getElementById('root')
+  );
 }
 
 export default setupApp;
