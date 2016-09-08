@@ -7,6 +7,14 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { SingleSignOnProvider } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
+import log from 'loglevel';
+
+if (! PRODUCTION) {
+  log.enableAll();
+} else {
+  log.setLevel('error');
+}
+
 
 export function setupApp(routes, reducer) {
   const { store, syncBrowserHistory } = setupStore(reducer);
