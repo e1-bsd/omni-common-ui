@@ -1,0 +1,77 @@
+.userInfo {
+  float: right;
+  height: 100%;
+  padding-right: 40px;
+  position: relative;
+
+  &_hide {
+    display: none;
+  }
+
+  &_container {
+    cursor: pointer;
+    height: 100%;
+
+    & > div {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &_username {
+      &_impersonate {
+        color: #fff;
+      }
+    }
+
+    &_expand {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 100%;
+      margin-right: 13px;
+      width: 20px;
+
+      &:global {
+        background-image: url('chevron-small-down.svg');
+      }
+
+      &_impersonate:global {
+        background-image: url('chevron-small-down-white.svg');
+      }
+    }
+  }
+
+  &_features {
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 0;
+    top: calc(100% + 1px);
+
+    & > span {
+      display: block;
+    }
+
+    &_item {
+      transition: none;
+
+      &:hover {
+        background-color: #0087e6;
+        color: #fff;
+      }
+
+      & > div {
+        border-bottom: 1px solid #999;
+        cursor: pointer;
+        margin: 0 20px;
+        min-width: 100px;
+        padding: 10px 0;
+        transition: none;
+      }
+
+      &_last > div {
+        border-bottom: none;
+      }
+    }
+  }
+}
