@@ -21,7 +21,7 @@ class SingleSignOnHandler extends Component {
       this._setLastUrlPath();
       log.debug('SingleSignOnHandler - User is not valid', user);
       log.debug('SingleSignOnHandler - lastUrlPath', localStorage.lastUrlPath);
-      // userManager.signinRedirect();
+      userManager.signinRedirect();
       return null;
     } else if (user && user.expires_in) {
       storeTokenLifeTime(Config.defaultTokenLifeTime);
