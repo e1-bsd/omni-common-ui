@@ -129,7 +129,7 @@ class UserInfo extends Component {
 function mapStateToProps(state) {
   return {
     privileges: state.get('rootReducer').get('privileges').items,
-    user: state.get('sso').get('oidc').user,
+    user: state.get('singleSignOn').get('oidc').user,
     unimpersonateState: state
       .get('rootReducer')
       .get('impersonate')
