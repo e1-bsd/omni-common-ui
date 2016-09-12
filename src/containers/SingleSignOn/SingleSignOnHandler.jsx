@@ -6,7 +6,6 @@ import userManager from './userManager';
 import Config from 'domain/Config';
 import log from 'loglevel';
 import routes from './routes';
-import is from 'is_js';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -16,7 +15,7 @@ MockSingleSignOnHandler.propTypes = {
 
 class SingleSignOnHandler extends Component {
   componentDidMount() {
-    const { user, storeTokenLifeTime } = this.props;
+    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = this.props;
     if (! user || user.expired) {
       this._setLastUrlPath();
       log.debug('SingleSignOnHandler - User is not valid', user);
@@ -26,19 +25,6 @@ class SingleSignOnHandler extends Component {
     } else if (user && user.expires_in) {
       storeTokenLifeTime(Config.defaultTokenLifeTime);
     }
-  }
-
-  _setLastUrlPath() {
-    if (location.pathname === routes.path) {
-      log.debug(`SingleSignOnHandler - New lastUrlPath is ${routes.path}. Will not modify it.`);
-      return;
-    }
-
-    localStorage.lastUrlPath = location.pathname + location.search;
-  }
-
-  render() {
-    const { user, userInfo, isExpiring, resetUserExpiring } = this.props;
 
     if (user &&
         ! user.expired &&
@@ -53,16 +39,27 @@ class SingleSignOnHandler extends Component {
       userManager.events.load(user);
     }
 
-    if (user &&
-        ! user.expired &&
-        is.object(userInfo) &&
-        Object.keys(userInfo).length > 0) {
-      log.debug('SingleSignOnHandler - User is valid', user);
-      return this.props.children;
-    } else if (isExpiring) {
+    if (isExpiring) {
       log.debug('SingleSignOnHandler - isExpiring', isExpiring);
       resetUserExpiring();
       userManager.signoutRedirect();
+    }
+  }
+
+  _setLastUrlPath() {
+    if (location.pathname === routes.path) {
+      log.debug(`SingleSignOnHandler - New lastUrlPath is ${routes.path}. Will not modify it.`);
+      return;
+    }
+
+    localStorage.lastUrlPath = location.pathname + location.search;
+  }
+
+  render() {
+    const { user } = this.props;
+    if (user && ! user.expired) {
+      log.debug('SingleSignOnHandler - User is valid', user);
+      return this.props.children;
     }
 
     return null;
