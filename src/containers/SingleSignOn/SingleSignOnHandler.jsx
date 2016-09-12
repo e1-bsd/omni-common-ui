@@ -55,7 +55,7 @@ class SingleSignOnHandler extends Component {
 
     if (user &&
         ! user.expired &&
-        is.not.undefined(userInfo) &&
+        is.object(userInfo) &&
         Object.keys(userInfo).length > 0) {
       log.debug('SingleSignOnHandler - User is valid', user);
       return this.props.children;
