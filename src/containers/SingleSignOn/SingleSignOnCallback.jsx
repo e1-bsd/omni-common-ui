@@ -5,11 +5,16 @@ import { push } from 'react-router-redux';
 import log from 'loglevel';
 
 const SingleSignOnCallback = (props) => {
-  return <CallbackComponent successCallback={successCallback} />;
+  log.debug('SingleSignOnCallback - called!');
+  return <CallbackComponent successCallback={successCallback} errorCallback={errorCallback} />;
 
   function successCallback() {
     log.debug('SingleSignOnCallback - lastUrlPath', localStorage.lastUrlPath);
     props.dispatch(push(localStorage.lastUrlPath || ''));
+  }
+
+  function errorCallback(error) {
+    log.error('SingleSignOnCallback - errorCallback', error);
   }
 };
 
