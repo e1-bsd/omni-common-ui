@@ -131,6 +131,6 @@
     "gulp-sourcemaps": "1.6.0"
   },
   "engines": {
-    "node": "4.4.x"
+    "node": "6.6.x"
   }
 }
