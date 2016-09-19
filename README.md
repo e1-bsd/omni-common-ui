@@ -10,9 +10,8 @@ Follow this steps to setup your development environment.
 1. Install [NodeJS](https://nodejs.org/) (**6.6.x**).  
 It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).  
 A [Windows](https://github.com/coreybutler/nvm-windows) version is also available.
-2. Update NPM running `npm install -g npm@3.10.x`.
-3. Open a terminal at the root folder of the project.
-4. Run `npm update`.
+2. Open a terminal at the root folder of the project.
+3. Run `npm update`.
 
 ## Starting the development environment
 
