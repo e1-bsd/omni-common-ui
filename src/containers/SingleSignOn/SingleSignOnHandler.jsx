@@ -16,6 +16,11 @@ MockSingleSignOnHandler.propTypes = {
 class SingleSignOnHandler extends Component {
   componentDidMount() {
     const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = this.props;
+
+    if (user && ! user.expired) {
+      props.fetchPrivilegesIfNeeded();
+    }
+
     if (! user || user.expired) {
       this._setLastUrlPath();
       log.debug('SingleSignOnHandler - User is not valid', user);
