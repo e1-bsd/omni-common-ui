@@ -8,6 +8,7 @@ import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
+import { reducer as privileges } from 'containers/Privileges';
 import { combineReducers } from 'redux-immutable';
 import routerReducer from './routerReducer';
 
@@ -43,7 +44,7 @@ export function setupStore(reducer) {
 
 function createReducer(reducer) {
   return combineReducers({
-    rootReducer: combineReducers(reducer),
+    rootReducer: combineReducers(Object.assign({ privileges }, reducer)),
     routing: routerReducer,
     singleSignOn,
   });
