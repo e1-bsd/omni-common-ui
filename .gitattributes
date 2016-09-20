@@ -1,0 +1,22 @@
+* text=auto
+
+*.json text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.css text eol=lf
+*.postcss text eol=lf
+*.html text eol=lf
+*.hbs text eol=lf
+*.bat text eol=lf
+*.ps1 text eol=lf
+*.feature text eol=lf
+*.editorconfig text eol=lf
+*.stylelintrc text eol=lf
+*.md text eol=lf
+*.svg text eol=lf
+
+*.jpg binary
+*.png binary
+*.ttf binary
+*.jar binary
+*.exe binary
