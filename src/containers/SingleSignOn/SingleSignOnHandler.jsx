@@ -15,9 +15,18 @@ MockSingleSignOnHandler.propTypes = {
 
 class SingleSignOnHandler extends Component {
   componentDidMount() {
-    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = this.props;
+    this._checkUser(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._checkUser(nextProps);
+  }
+
+  _checkUser(props) {
+    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = props;
 
     if (user && ! user.expired) {
+      log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
       props.fetchPrivilegesIfNeeded();
     }
 
@@ -34,11 +43,11 @@ class SingleSignOnHandler extends Component {
     if (user &&
         ! user.expired &&
         user.expires_in &&
-        this.props.tokenLifeTime > - 1 &&
-        this.props.tokenLifeTime !== user.expires_in &&
+        props.tokenLifeTime > - 1 &&
+        props.tokenLifeTime !== user.expires_in &&
         user.expires_in !== 60) {
       log.debug('SingleSignOnHandler - User expires in…', user);
-      const expiresAt = parseInt((new Date().getTime() / 1000) + this.props.tokenLifeTime, 10);
+      const expiresAt = parseInt((new Date().getTime() / 1000) + props.tokenLifeTime, 10);
       user.expires_at = expiresAt;
       userManager._storeUser(user);
       userManager.events.load(user);
@@ -79,6 +88,7 @@ SingleSignOnHandler.propTypes = {
   storeTokenLifeTime: React.PropTypes.func.isRequired,
   user: React.PropTypes.object,
   userInfo: React.PropTypes.object,
+  fetchPrivilegesIfNeeded: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
