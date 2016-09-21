@@ -1,4 +1,6 @@
 import { fetch, buildUrl } from 'domain/Api';
+import { ApiResponseHelper } from 'domain/ApiResponseHelper';
+import log from 'loglevel';
 
 export const FETCH_PRIVILEGES_REQUEST = 'FETCH_PRIVILEGES_REQUEST';
 export const FETCH_PRIVILEGES_SUCCESS = 'FETCH_PRIVILEGES_SUCCESS';
@@ -16,23 +18,26 @@ export function fetchPrivilegesIfNeeded() {
 function fetchPrivileges() {
   return (dispatch, getState) => {
     const user = getState().get('singleSignOn').get('oidc').user;
-    return dispatch(fetchPrivilegesRequest(user.id)).payload
+    return dispatch(fetchPrivilegesRequest(user.profile.sub)).payload
       .then((json) => dispatch(fetchPrivilegesSuccess(json)))
       .catch((error) => dispatch(fetchPrivilegesFailure(error)));
   };
 }
 
 function shouldFetchPrivileges(state) {
-  const privileges = state.privileges;
-  if (! privileges) {
-    return true;
-  }
-
-  if (privileges.isFetching) {
+  const privileges = state.get('rootReducer').get('privileges');
+  if (! ApiResponseHelper.shouldFetch(privileges)) {
+    log.debug('shouldFetchPrivileges - shouldFetch() returned false');
     return false;
   }
 
-  return privileges.didInvalidate;
+  if (! ApiResponseHelper.hasSucceeded(privileges) || privileges.data.didInvalidate === true) {
+    log.debug('shouldFetchPrivileges - Yes, we should!');
+    return true;
+  }
+
+  log.debug('shouldFetchPrivileges - Nah…');
+  return false;
 }
 
 function fetchPrivilegesRequest(userId) {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as singleSignOnActions from './actions';
+import { actions as privilegesActions } from 'containers/Privileges';
 import userManager from './userManager';
 import Config from 'domain/Config';
 import log from 'loglevel';
@@ -15,20 +16,8 @@ MockSingleSignOnHandler.propTypes = {
 
 class SingleSignOnHandler extends Component {
   componentDidMount() {
-    this._checkUser(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._checkUser(nextProps);
-  }
-
-  _checkUser(props) {
-    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = props;
-
-    if (user && ! user.expired) {
-      log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
-      props.fetchPrivilegesIfNeeded();
-    }
+    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = this.props;
+    this._checkPrivileges(this.props);
 
     if (! user || user.expired) {
       this._setLastUrlPath();
@@ -43,11 +32,11 @@ class SingleSignOnHandler extends Component {
     if (user &&
         ! user.expired &&
         user.expires_in &&
-        props.tokenLifeTime > - 1 &&
-        props.tokenLifeTime !== user.expires_in &&
+        this.props.tokenLifeTime > - 1 &&
+        this.props.tokenLifeTime !== user.expires_in &&
         user.expires_in !== 60) {
       log.debug('SingleSignOnHandler - User expires in…', user);
-      const expiresAt = parseInt((new Date().getTime() / 1000) + props.tokenLifeTime, 10);
+      const expiresAt = parseInt((new Date().getTime() / 1000) + this.props.tokenLifeTime, 10);
       user.expires_at = expiresAt;
       userManager._storeUser(user);
       userManager.events.load(user);
@@ -57,6 +46,19 @@ class SingleSignOnHandler extends Component {
       log.debug('SingleSignOnHandler - isExpiring', isExpiring);
       resetUserExpiring();
       userManager.signoutRedirect();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._checkPrivileges(nextProps);
+  }
+
+  _checkPrivileges(props) {
+    const { user } = props;
+
+    if (user && ! user.expired) {
+      log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
+      props.fetchPrivilegesIfNeeded();
     }
   }
 
@@ -99,7 +101,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(singleSignOnActions, dispatch);
+  return Object.assign({},
+      bindActionCreators(singleSignOnActions, dispatch),
+      bindActionCreators(privilegesActions, dispatch));
 }
 
 export default Config.featureLogin !== true ?
