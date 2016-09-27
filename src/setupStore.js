@@ -11,6 +11,7 @@ import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/Sing
 import { reducer as privileges } from 'containers/Privileges';
 import { combineReducers } from 'redux-immutable';
 import routerReducer from './routerReducer';
+import is from 'is_js';
 
 if (DEVELOPMENT) {
   installDevTools(Immutable);
@@ -44,10 +45,18 @@ export function setupStore(reducer) {
 
 function createReducer(reducer) {
   return combineReducers({
-    rootReducer: combineReducers(Object.assign({ privileges }, reducer)),
+    rootReducer: buildRootReducer(reducer),
     routing: routerReducer,
     singleSignOn,
   });
+}
+
+function buildRootReducer(reducer) {
+  if (is.not.object(reducer) || is.empty(reducer)) {
+    return combineReducers({ privileges });
+  }
+
+  return combineReducers(Object.assign({ privileges }, reducer));
 }
 
 export default setupStore;
