@@ -74,6 +74,26 @@
     }
   }
 
+  &.__primaryInverse {
+    background-color: var(--colorBase);
+    color: var(--colorPrimary);
+
+    &:hover {
+      background-color: var(--colorActive);
+    }
+
+    &:active,
+    &.__active {
+      background-color: var(--colorActive);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+    }
+  }
+
   &[disabled] {
     background-color: var(--colorPrimaryDisabled);
     border: none;

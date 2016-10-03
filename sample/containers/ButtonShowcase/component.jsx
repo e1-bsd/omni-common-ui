@@ -43,6 +43,27 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
     </Button>
   </div>
   <div>
+    <Button type={Button.Type.primaryInverse}
+        onClick={() => log.info('PrimaryInverse button clicked')}>
+      PrimaryInverse
+    </Button>
+    <Button active
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Active primaryInverse button clicked')}>
+      Active primaryInverse
+    </Button>
+    <Button active disabled
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Active primaryInverse button clicked')}>
+      Disabled active primaryInverse
+    </Button>
+    <Button disabled
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Disabled primaryInverse button clicked')}>
+      Disabled primaryInverse
+    </Button>
+  </div>
+  <div>
     <Button type={Button.Type.primary}
         linkTo="buttons"
         onClick={() => log.info('Link to /buttons clicked')}>

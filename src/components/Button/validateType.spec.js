@@ -12,6 +12,10 @@ describe('Button', () => {
       expect(validateType(Type.primary)).to.be.true;
     });
 
+    it('accepts primaryInverse', () => {
+      expect(validateType(Type.primaryInverse)).to.be.true;
+    });
+
     it('throws error if invalid type is passed', () => {
       expect(() => validateType('faketype')).to.throw();
     });

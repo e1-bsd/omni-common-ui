@@ -3,6 +3,7 @@ import styles from './style.postcss';
 export const Type = {
   default: styles.__default,
   primary: styles.__primary,
+  primaryInverse: styles.__primaryInverse,
 };
 
 export function validateType(type) {
@@ -11,6 +12,10 @@ export function validateType(type) {
   }
 
   if (type === Type.primary) {
+    return true;
+  }
+
+  if (type === Type.primaryInverse) {
     return true;
   }
 
