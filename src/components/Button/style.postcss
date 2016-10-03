@@ -74,17 +74,56 @@
     }
   }
 
+  &.__defaultInverse {
+    background-color: transparent;
+    border: var(--hairThin) solid var(--colorBase);
+    color: var(--colorBase);
+
+    &:hover {
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &:active,
+    &.__active {
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+        color: var(--colorPrimaryDisabled);
+      }
+
+      &:active,
+      &.__active {
+        background-color: var(--colorPrimaryDisabled);
+        color: var(--colorTextInverse);
+      }
+    }
+  }
+
   &.__primaryInverse {
     background-color: var(--colorBase);
     color: var(--colorPrimary);
 
     &:hover {
       background-color: var(--colorActive);
+      color: var(--colorTextInverse);
     }
 
     &:active,
     &.__active {
       background-color: var(--colorActive);
+      color: var(--colorTextInverse);
     }
 
     &[disabled] {
