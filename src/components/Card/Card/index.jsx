@@ -23,7 +23,7 @@ Card.contextTypes = {
 
 Card.propTypes = {
   borderless: React.PropTypes.bool,
-  className: React.PropTypes.String,
+  className: React.PropTypes.string,
   children: React.PropTypes.node,
 };
 
