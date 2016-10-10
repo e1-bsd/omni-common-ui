@@ -21,7 +21,7 @@ describe('StudentCard', () => {
 
   it('adds the borderless prop to Card when borderless prop is provided', () => {
     const wrapper = shallow(<StudentCard borderless />);
-    expect(wrapper).to.contain(<Card borderless />);
+    expect(wrapper.find(Card).prop('borderless')).to.be.true;
   });
 
   it('sets the given status accent color class when provided', () => {

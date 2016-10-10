@@ -15,7 +15,7 @@ class Expandable extends Component {
   render() {
     const headers = this.props.columns.map((column) => this.renderHeader(column));
     let rows = this.props.data.map((row, index) => this.renderRow(row, index));
-    rows = [].concat.apply([], rows);
+    rows = [].concat(rows);
 
     return <Table className={styles.ExpandTable}>
       <Reactable.Thead>

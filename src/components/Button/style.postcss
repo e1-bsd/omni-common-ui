@@ -14,10 +14,7 @@
   min-height: var(--touchableMinHeight);
   min-width: var(--buttonMinWidth);
   outline: none;
-  padding-bottom: var(--touchablePaddingVertical);
-  padding-left: var(--touchablePaddingHorizontal);
-  padding-right: var(--touchablePaddingHorizontal);
-  padding-top: var(--touchablePaddingVertical);
+  padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal);
   text-transform: uppercase;
 
   &.__default {
@@ -51,8 +48,8 @@
 
       &:active,
       &.__active {
-        background-color: transparent;
-        color: var(--colorPrimaryDisabled);
+        background-color: var(--colorPrimaryDisabled);
+        color: var(--colorTextInverse);
       }
     }
   }
@@ -69,6 +66,71 @@
     &.__active {
       background-color: var(--colorActive);
     }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+    }
+  }
+
+  &.__defaultInverse {
+    background-color: transparent;
+    border: var(--hairThin) solid var(--colorBase);
+    color: var(--colorBase);
+
+    &:hover {
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &:active,
+    &.__active {
+      background-color: var(--colorActive);
+      border-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: transparent;
+        color: var(--colorPrimaryDisabled);
+      }
+
+      &:active,
+      &.__active {
+        background-color: var(--colorPrimaryDisabled);
+        color: var(--colorTextInverse);
+      }
+    }
+  }
+
+  &.__primaryInverse {
+    background-color: var(--colorBase);
+    color: var(--colorPrimary);
+
+    &:hover {
+      background-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &:active,
+    &.__active {
+      background-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: var(--hairThin) solid var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled);
+    }
   }
 
   &[disabled] {
@@ -76,11 +138,6 @@
     border: none;
     color: var(--colorTextInverse);
     cursor: not-allowed;
-
-    &:hover {
-      background-color: var(--colorPrimaryDisabled);
-      color: var(--colorTextInverse);
-    }
 
     &:active,
     &.__active {
@@ -94,7 +151,7 @@
     width: 100%;
   }
 
-  &.__autoWidth { /* */ }
+  &.__autoWidth { /* - */ }
 }
 
 .ButtonLink {

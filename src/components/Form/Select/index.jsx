@@ -29,6 +29,8 @@ const Select = (props) => {
 Select.propTypes = {
   showRequired: React.PropTypes.func.isRequired,
   setValue: React.PropTypes.func.isRequired,
+  showError: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string,
 };
 
 export default formsyDecorator(Select);

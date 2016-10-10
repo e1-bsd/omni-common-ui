@@ -1,0 +1,74 @@
+@import 'main.postcss';
+
+:root {
+  --nameLineHeight: 1.7;
+  --nameMarginBottom: 10px;
+  --suffixMarginLeft: -80px;
+  --suffixInputPaddingRight: 80px;
+  --inputBorder: 2px solid lightgray;
+  --inputHeight: 40px;
+  --inputPaddingLeft: 20px;
+}
+
+.TextInput {
+  display: inline-block;
+  letter-spacing: 1px;
+
+  &_name {
+    display: block;
+    font-size: var(--fontSize-md);
+    font-weight: var(--fontWeight-medium);
+    letter-spacing: var(--letterSpacing);
+    line-height: var(--nameLineHeight);
+    margin-bottom: var(--nameMarginBottom);
+    text-transform: capitalize;
+  }
+
+  &_suffixWrapper {
+    display: inline-block;
+    width: 100%;
+
+    &_suffix {
+      margin-left: -80px;
+    }
+  }
+
+  &_suffixInput {
+    padding-right: 80px;
+    text-align: right;
+  }
+
+  &_input {
+    border: var(--inputBorder);
+    border-radius: var(--borderRadius);
+    display: inline-block;
+    height: var(--inputHeight);
+    letter-spacing: var(--letterSpacing);
+    padding-left: var(--inputPaddingLeft);
+    width: 100%;
+
+    &::-webkit-input-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &:-moz-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &::-moz-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &:-ms-input-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+  }
+}

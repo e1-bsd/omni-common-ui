@@ -28,6 +28,9 @@ const RadioList = (props) => {
 RadioList.propTypes = {
   showRequired: React.PropTypes.func.isRequired,
   setValue: React.PropTypes.func.isRequired,
+  name: React.PropTypes.string,
+  label: React.PropTypes.string,
+  items: React.PropTypes.array.isRequired,
 };
 
 export default formsyDecorator(RadioList);

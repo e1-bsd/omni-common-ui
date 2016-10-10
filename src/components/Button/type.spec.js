@@ -10,5 +10,13 @@ describe('Button', () => {
     it('has primary', () => {
       expect(Type.primary).to.exist;
     });
+
+    it('has defaultInverse', () => {
+      expect(Type.defaultInverse).to.exist;
+    });
+
+    it('has primaryInverse', () => {
+      expect(Type.primaryInverse).to.exist;
+    });
   });
 });

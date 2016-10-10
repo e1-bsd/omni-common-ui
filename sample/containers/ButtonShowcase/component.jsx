@@ -12,6 +12,10 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
         onClick={() => log.info('Active button clicked')}>
       Active
     </Button>
+    <Button active disabled
+        onClick={() => log.info('Active button clicked')}>
+      Disabled active
+    </Button>
     <Button disabled
         onClick={() => log.info('Disabled button clicked')}>
       Disabled
@@ -27,10 +31,57 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
         onClick={() => log.info('Active primary button clicked')}>
       Active primary
     </Button>
+    <Button active disabled
+        type={Button.Type.primary}
+        onClick={() => log.info('Active primary button clicked')}>
+      Disabled active primary
+    </Button>
     <Button disabled
         type={Button.Type.primary}
         onClick={() => log.info('Disabled primary button clicked')}>
       Disabled primary
+    </Button>
+  </div>
+  <div>
+    <Button type={Button.Type.defaultInverse}
+        onClick={() => log.info('DefaultInverse button clicked')}>
+      DefaultInverse
+    </Button>
+    <Button active
+        type={Button.Type.defaultInverse}
+        onClick={() => log.info('Active defaultInverse button clicked')}>
+      Active defaultInverse
+    </Button>
+    <Button active disabled
+        type={Button.Type.defaultInverse}
+        onClick={() => log.info('Active defaultInverse button clicked')}>
+      Disabled active defaultInverse
+    </Button>
+    <Button disabled
+        type={Button.Type.defaultInverse}
+        onClick={() => log.info('Disabled defaultInverse button clicked')}>
+      Disabled defaultInverse
+    </Button>
+  </div>
+  <div>
+    <Button type={Button.Type.primaryInverse}
+        onClick={() => log.info('PrimaryInverse button clicked')}>
+      PrimaryInverse
+    </Button>
+    <Button active
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Active primaryInverse button clicked')}>
+      Active primaryInverse
+    </Button>
+    <Button active disabled
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Active primaryInverse button clicked')}>
+      Disabled active primaryInverse
+    </Button>
+    <Button disabled
+        type={Button.Type.primaryInverse}
+        onClick={() => log.info('Disabled primaryInverse button clicked')}>
+      Disabled primaryInverse
     </Button>
   </div>
   <div>

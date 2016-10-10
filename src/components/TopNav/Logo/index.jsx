@@ -29,7 +29,7 @@ class Logo extends Component {
       </span>;
     }
 
-    return <span className={styles.Logo_sideBar}></span>;
+    return <span className={styles.Logo_sideBar} />;
   }
 }
 
