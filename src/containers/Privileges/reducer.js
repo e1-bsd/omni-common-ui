@@ -13,7 +13,7 @@ export default function privileges(state = new ApiResponse(), action) {
     case FETCH_PRIVILEGES_REQUEST:
       return ApiResponseHelper.create({ loading: true });
     case FETCH_PRIVILEGES_SUCCESS:
-      return Privileges.create({ items: action.privileges });
+      return ApiResponseHelper.create(Privileges.create({ items: action.privileges }));
     case FETCH_PRIVILEGES_FAILURE:
       return ApiResponseHelper.create(new Error(action.error));
     case FETCH_PRIVILEGES_INVALIDATE:
