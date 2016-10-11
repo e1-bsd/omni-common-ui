@@ -1,5 +1,7 @@
 /* eslint global-require: "off" */
 
+const path = require('path');
+
 process.env.NODE_ENV = 'test';
 
 module.exports = (config) => {
@@ -13,7 +15,7 @@ module.exports = (config) => {
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require('./webpack.config.js'),
+    webpack: require(path.resolve(process.cwd(), './webpack.config.js')),
     webpackServer: {
       noInfo: true,
     },
@@ -24,9 +26,15 @@ module.exports = (config) => {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', 'Firefox'],
     singleRun: false,
-    concurrency: Infinity,
+    concurrency: 1,
+    browsers: ['Chrome', 'Firefox', 'IE_no_addons'],
+    customLaunchers: {
+      IE_no_addons: {
+        base: 'IE',
+        flags: ['-extoff', '-private'],
+      },
+    },
   };
 
   if (process.env.TRAVIS) {
