@@ -3,3 +3,5 @@
 !/lib
 !/.eslintrc.json
 !/.stylelintrc
+!/build.js
+!/webpack.config.js
