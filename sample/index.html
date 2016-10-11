@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
-  Version: <%= htmlWebpackPlugin.options.version %>
-  Commit: <%= htmlWebpackPlugin.options.commit %>
+  Version: {{ htmlWebpackPlugin.options.version }}
+  Commit: {{ htmlWebpackPlugin.options.commit }}
 -->
 <html>
   <head>
@@ -9,203 +9,16 @@
     <meta name="viewport" content="initial-scale=1, width=device-width">
 
     <title>Omni Common UI</title>
+
+    <base href="/">
+
+    {{> assets/partials/init/styles }}
+
+    {{> assets/partials/pace/config }}
+    {{> assets/partials/pace/script }}
+    {{> assets/partials/pace/styles }}
   </head>
   <body>
-    <div id="root">
-      <style>
-        body {
-          margin: 0;
-        }
-
-        .AppLoading {
-          align-items: center;
-          display: flex;
-          flex-direction: row;
-          height: 100vh;
-          justify-content: center;
-          width: 100vw;
-        }
-
-        .AppLoading-container {
-          display: block;
-          margin:49px auto;
-          width:97px;
-        }
-
-        .AppLoading-container *,
-        .AppLoading-container *:before,
-        .AppLoading-container *:after {
-          box-sizing: border-box;
-            -o-box-sizing: border-box;
-            -ms-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-        }
-
-        .AppLoading-container-circle {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          z-index: 1;
-          transform: translate(-50%, -50%);
-            -o-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            -webkit-transform: translate(-50%, -50%);
-            -moz-transform: translate(-50%, -50%);
-          transition: all 230ms ease;
-            -o-transition: all 230ms ease;
-            -ms-transition: all 230ms ease;
-            -webkit-transition: all 230ms ease;
-            -moz-transition: all 230ms ease;
-        }
-        .AppLoading-container-circle:nth-child(1) {
-          z-index: 2;
-          background: #ff0084;
-          animation-name: cssload-explode;
-            -o-animation-name: cssload-explode;
-            -ms-animation-name: cssload-explode;
-            -webkit-animation-name: cssload-explode;
-            -moz-animation-name: cssload-explode;
-          animation-duration: 1.15s;
-            -o-animation-duration: 1.15s;
-            -ms-animation-duration: 1.15s;
-            -webkit-animation-duration: 1.15s;
-            -moz-animation-duration: 1.15s;
-          animation-timing-function: ease;
-            -o-animation-timing-function: ease;
-            -ms-animation-timing-function: ease;
-            -webkit-animation-timing-function: ease;
-            -moz-animation-timing-function: ease;
-          animation-delay: 0;
-            -o-animation-delay: 0;
-            -ms-animation-delay: 0;
-            -webkit-animation-delay: 0;
-            -moz-animation-delay: 0;
-          animation-iteration-count: infinite;
-            -o-animation-iteration-count: infinite;
-            -ms-animation-iteration-count: infinite;
-            -webkit-animation-iteration-count: infinite;
-            -moz-animation-iteration-count: infinite;
-        }
-        .AppLoading-container-circle:nth-child(2) {
-          background: #074360;
-          animation-name: cssload-explode;
-            -o-animation-name: cssload-explode;
-            -ms-animation-name: cssload-explode;
-            -webkit-animation-name: cssload-explode;
-            -moz-animation-name: cssload-explode;
-          animation-duration: 1.15s;
-            -o-animation-duration: 1.15s;
-            -ms-animation-duration: 1.15s;
-            -webkit-animation-duration: 1.15s;
-            -moz-animation-duration: 1.15s;
-          animation-timing-function: ease;
-            -o-animation-timing-function: ease;
-            -ms-animation-timing-function: ease;
-            -webkit-animation-timing-function: ease;
-            -moz-animation-timing-function: ease;
-          animation-delay: 0.58s;
-            -o-animation-delay: 0.58s;
-            -ms-animation-delay: 0.58s;
-            -webkit-animation-delay: 0.58s;
-            -moz-animation-delay: 0.58s;
-          animation-iteration-count: infinite;
-            -o-animation-iteration-count: infinite;
-            -ms-animation-iteration-count: infinite;
-            -webkit-animation-iteration-count: infinite;
-            -moz-animation-iteration-count: infinite;
-        }
-
-        @keyframes cssload-explode {
-          0% {
-            width: 0;
-            height: 0;
-            z-index: 1;
-          }
-          50% {
-            width: 10em;
-            height: 10em;
-            z-index: 1;
-          }
-          100% {
-            display: none;
-          }
-        }
-
-        @-o-keyframes cssload-explode {
-          0% {
-            width: 0;
-            height: 0;
-            z-index: 1;
-          }
-          50% {
-            width: 10em;
-            height: 10em;
-            z-index: 1;
-          }
-          100% {
-            display: none;
-          }
-        }
-
-        @-ms-keyframes cssload-explode {
-          0% {
-            width: 0;
-            height: 0;
-            z-index: 1;
-          }
-          50% {
-            width: 10em;
-            height: 10em;
-            z-index: 1;
-          }
-          100% {
-            display: none;
-          }
-        }
-
-        @-webkit-keyframes cssload-explode {
-          0% {
-            width: 0;
-            height: 0;
-            z-index: 1;
-          }
-          50% {
-            width: 10em;
-            height: 10em;
-            z-index: 1;
-          }
-          100% {
-            display: none;
-          }
-        }
-
-        @-moz-keyframes cssload-explode {
-          0% {
-            width: 0;
-            height: 0;
-            z-index: 1;
-          }
-          50% {
-            width: 10em;
-            height: 10em;
-            z-index: 1;
-          }
-          100% {
-            display: none;
-          }
-        }
-      </style>
-
-      <div class="AppLoading">
-        <div class="AppLoading-container">
-        	<div class="AppLoading-container-circle"></div>
-        	<div class="AppLoading-container-circle"></div>
-        </div>
-      </div>
-    </div>
+    <div id="root"></div>
   </body>
 </html>
