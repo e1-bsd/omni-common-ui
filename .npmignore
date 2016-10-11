@@ -1,4 +1,6 @@
 /*
+!/ci.karma.conf.js
+!/karma.conf.js
 !/package.json
 !/lib
 !/.eslintrc.json
