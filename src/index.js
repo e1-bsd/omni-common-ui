@@ -25,6 +25,7 @@ import {
   routes as _singleSignOnRoutes,
 } from 'containers/SingleSignOn';
 import _Header from 'components/Header';
+import _Store from 'domain/Store';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -53,3 +54,4 @@ export const setupApp = _setupApp;
 export const SingleSignOnHandler = _SingleSignOnHandler;
 export const singleSignOnRoutes = _singleSignOnRoutes;
 export const Header = _Header;
+export const Store = _Store;
