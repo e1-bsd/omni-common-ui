@@ -159,9 +159,14 @@ module.exports = {
       ],
       extensions: ['', '.js', '.jsx', '.json'],
     },
-    isCommon ?
-        { alias: { 'omni-common-ui$': 'src/index.js' } } :
-        {}
+    {
+      alias: Object.assign(
+        isCommon ?
+            { 'omni-common-ui$': 'src/index.js' } :
+            {},
+        { react: path.resolve('node_modules', 'react') }
+      ),
+    }
   ),
   postcss: (webpackInstance) => ([
     stylelint(),
