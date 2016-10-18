@@ -6,7 +6,7 @@ import Store from 'domain/Store';
 export const buildUrl = (path) => Config.apiBase + path;
 
 export const fetch = (url, options = {}) => {
-  const finalOptions = Object.assign({}, getTokenHeader(), options);
+  const finalOptions = Object.assign({}, options, getTokenHeader(options));
   return isomorphicFetch(url, finalOptions)
     .then(checkResponseStatus)
     .then((response) => response.text())
@@ -29,15 +29,18 @@ function checkResponseStatus(response) {
   throw error;
 }
 
-function getTokenHeader() {
+function getTokenHeader(options) {
   const user = Store.get().getState().get('singleSignOn').get('oidc').user || {};
   const token = user.access_token;
   return {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
+    headers: Object.assign(
+      {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      is.not.object(options) ? undefined : options.headers
+    ),
   };
 }
 
