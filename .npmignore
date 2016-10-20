@@ -1,3 +1,10 @@
 /*
+!/dev.karma.conf.js
+!/ci.karma.conf.js
+!/karma.conf.js
 !/package.json
 !/lib
+!/.eslintrc.json
+!/.stylelintrc
+!/build.js
+!/webpack.config.js

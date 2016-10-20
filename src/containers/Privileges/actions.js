@@ -42,9 +42,20 @@ function shouldFetchPrivileges(state) {
 
 function fetchPrivilegesRequest(userId) {
   const url = buildUrl(`/users/${userId}/privileges`);
+  const MOCK = false;
+  const payload = MOCK ?
+      new Promise((resolve) => resolve([
+        'BU_1_P020101',
+        'BU_1_P020102',
+        'BU_1_P020103',
+        'BU_1_P020104',
+        'BU_1_P020105',
+        'BU_1_P020106',
+      ])) :
+      fetch(url);
   return {
     type: FETCH_PRIVILEGES_REQUEST,
-    payload: fetch(url),
+    payload,
     url,
   };
 }

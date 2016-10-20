@@ -1,3 +1,6 @@
+/* eslint strict: "off" */
+'use strict';
+
 const path = require('path');
 const webpack = require('webpack');
 const Clean = require('clean-webpack-plugin');
@@ -17,16 +20,17 @@ const postcssUrl = require('postcss-url');
 const postcssPxToRem = require('postcss-pxtorem');
 const stylelint = require('stylelint');
 const combineLoaders = require('webpack-combine-loaders');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const git = require('git-rev-sync');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const packageInfo = require(path.resolve('package.json'));
+const version = packageInfo.version;
+const isCommon = packageInfo.name === 'omni-common-ui';
+const srcFolder = isCommon ? 'src' : 'app';
+const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isProd = nodeEnv === 'production';
-
-const version = require('./package.json').version;
-const commitHash = git.long();
-const Config = require(`./sample/domain/Config/${nodeEnv}.json`);
-
+const Config = require(path.resolve(`${contextFolder}/domain/Config/${nodeEnv}.json`));
+const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
 const esLintShouldGiveError = (() => {
   if (nodeEnv === 'development') {
     return false;
@@ -39,19 +43,34 @@ const esLintShouldGiveError = (() => {
   return true;
 })();
 
+const commitHash = git.long();
+const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
+const outputPath = process.env.OUTPUT_PATH || 'dist';
+
 module.exports = {
-  context: path.join(__dirname, 'sample'),
+  context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
   entry: ['babel-polyfill', 'app.jsx'],
   output: {
-    path: path.join(__dirname, 'dist-sample'),
-    filename: '[name].js',
+    path: path.resolve(outputPath),
+    filename: '[name].[hash].js',
   },
   module: {
-    loaders: [
+    preLoaders: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|omni-common-ui)/,
+        loader: 'eslint',
+      },
+    ],
+    loaders: [
+      {
+        test: /\.(html|hbs)$/,
+        loader: 'handlebars',
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: excluded,
         loader: combineLoaders([
           {
             loader: 'babel',
@@ -60,7 +79,6 @@ module.exports = {
               cacheDirectory: true,
             },
           },
-          { loader: 'eslint' },
         ]),
       },
       {
@@ -69,7 +87,6 @@ module.exports = {
       },
       {
         test: /\.postcss$/,
-        exclude: /node_modules/,
         loader: combineLoaders([
           { loader: 'style' },
           {
@@ -86,12 +103,10 @@ module.exports = {
       },
       {
         test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
-        exclude: /node_modules/,
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: /node_modules/,
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
@@ -104,46 +119,59 @@ module.exports = {
     ],
   },
   plugins: [
-    new Clean(['dist']),
+    new Clean([outputPath]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${nodeEnv}'`,
+      'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
       DEVELOPMENT: nodeEnv === 'development',
       TEST: nodeEnv === 'test',
-      PRODUCTION: nodeEnv === 'production',
+      PRODUCTION: isProd,
+      PRODUCTION_SG: nodeEnv === 'production-sg',
+      PRODUCTION_CN: nodeEnv === 'production-cn',
+      QA: nodeEnv === 'qa',
+      STAGING: /^staging/i.test(nodeEnv),
+      STAGING_SG: nodeEnv === 'staging-sg',
+      STAGING_CN: nodeEnv === 'staging-cn',
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
       inject: 'body',
       version,
       commit: commitHash,
-      baseUrl: Config.baseUrl,
+      appInsights: Config.appInsights,
     }),
-  ],
+  ].concat(addOptionalPlugins()),
   devServer: {
-    hot: true,
-    contentBase: 'sample',
+    contentBase: srcFolder,
     noInfo: false,
     stats: { colors: true },
     historyApiFallback: true,
   },
-  resolve: {
-    root: [
-      path.resolve('sample'),
-      path.resolve('src'),
-    ]
-    .concat([
-      path.resolve('./'),
-    ]),
-    extensions: ['', '.js', '.jsx', '.json'],
-    alias: {
-      'omni-common-ui$': 'src/index.js',
+  resolve: Object.assign(
+    {
+      root: [
+        path.resolve(contextFolder),
+        path.resolve(srcFolder),
+        process.cwd(),
+      ],
+      fallback: [
+        path.resolve('node_modules/omni-common-ui/node_modules'),
+      ],
+      extensions: ['', '.js', '.jsx', '.json'],
     },
-  },
-  postcss: (webpackInstance) => [
+    {
+      alias: Object.assign(
+        isCommon ?
+            { 'omni-common-ui$': 'src/index.js' } :
+            {},
+        { react: path.resolve('node_modules', 'react') }
+      ),
+    }
+  ),
+  postcss: (webpackInstance) => ([
     stylelint(),
     postcssImport({
-      path: ['node_modules', 'sample', 'sample/assets/styles', './'],
+      path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
       addDependencyTo: webpackInstance,
       plugins: [
         stylelint(),
@@ -179,7 +207,7 @@ module.exports = {
     }),
     postcssCalc,
     postcssReporter({ clearMessages: true }),
-  ],
+  ]),
   eslint: {
     configFile: '.eslintrc.json',
     failOnError: esLintShouldGiveError,
@@ -194,11 +222,53 @@ module.exports = {
 
 function getSourceMapType() {
   switch (nodeEnv) {
-    case 'production':
-      return 'hidden-source-map';
-    default:
     case 'test':
     case 'development':
       return 'inline-source-map';
+    default:
+      return 'hidden-source-map';
   }
+}
+
+function addOptionalPlugins() {
+  /* eslint global-require: "off" */
+  const plugins = [];
+
+  if (! isCommon && nodeEnv === 'development') {
+    plugins.concat([
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require(path.resolve('.dlls/react.json')),
+      }),
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require(path.resolve('.dlls/redux.json')),
+      }),
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require(path.resolve('.dlls/others.json')),
+      }),
+    ]);
+  }
+
+  if (nodeEnv !== 'development' && nodeEnv !== 'test') {
+    plugins.concat([
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+        },
+        sourceMap: nodeEnv !== 'development',
+      }),
+    ]);
+  }
+
+  return [];
+}
+
+function getNodeEnvForCode() {
+  if (nodeEnv === 'development' || nodeEnv === 'test') {
+    return 'development';
+  }
+
+  return 'production';
 }

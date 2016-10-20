@@ -9,6 +9,7 @@ import { SingleSignOnProvider } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
 import Store from 'domain/Store';
+import parseRoutes from 'domain/parseRoutes';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -23,7 +24,7 @@ export function setupApp(routes, reducer) {
   render(
     <Provider store={store}>
       <SingleSignOnProvider store={store}>
-        <Router history={syncBrowserHistory} routes={routes} />
+        <Router history={syncBrowserHistory} routes={parseRoutes(routes, store)} />
       </SingleSignOnProvider>
     </Provider>,
     document.getElementById('root')
