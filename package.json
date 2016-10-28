@@ -7,7 +7,9 @@
     "build": "gulp build",
     "test:start": "karma start dev.karma.conf.js --no-single-run --browsers Chrome",
     "test:once": "karma start ci.karma.conf.js --single-run",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "lint:css": "stylelint src/**/*.postcss sample/**/*.postcss",
+    "lint:js": "eslint src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx"
   },
   "main": "lib/index.js",
   "repository": {
