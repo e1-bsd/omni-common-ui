@@ -119,7 +119,8 @@ describe('createBuildRoute', () => {
 
         it('allows use with a relative path passed as a string', () => {
           const ownProps = {
-            routes: [{ path: 'group/:view(/:mode)' }], params: { view: 'day', mode: '' },
+            routes: [{ path: 'group/:view(/:mode)' }],
+            params: { view: 'day', mode: '' },
             location: { pathname: '/group/day' },
           };
           const buildRoute = createBuildRoute(ownProps);
@@ -128,7 +129,8 @@ describe('createBuildRoute', () => {
 
         it('explodes when there is a mandatory param omitted', () => {
           const ownProps = {
-            routes: [{ path: 'group/:view(/:mode)' }], params: { },
+            routes: [{ path: 'group/:view(/:mode)' }],
+            params: { },
             location: { pathname: '/group/day' },
           };
           const buildRoute = createBuildRoute(ownProps);

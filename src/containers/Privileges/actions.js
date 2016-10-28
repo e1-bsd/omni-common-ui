@@ -42,12 +42,12 @@ function shouldFetchPrivileges(state) {
 
 function fetchPrivilegesRequest(userId) {
   const url = buildUrl(`/users/${userId}/privileges`);
-  const MOCK = false;
+  const MOCK = true;
   const payload = MOCK ?
       new Promise((resolve) => resolve([
-        'BU_1_P020101',
+        'BU_1_P020101no',
         'BU_1_P020102',
-        'BU_1_P020103',
+        'BU_1_P020103no',
         'BU_1_P020104',
         'BU_1_P020105',
         'BU_1_P020106',

@@ -6,3 +6,4 @@ if (TEST) {
 }
 
 export const testClass = _testClass;
+export default testClass;
