@@ -18,7 +18,6 @@ const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
 const postcssPxToRem = require('postcss-pxtorem');
-const stylelint = require('stylelint');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -31,17 +30,6 @@ const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const Config = require(path.resolve(`${contextFolder}/domain/Config/${nodeEnv}.json`));
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
-const esLintShouldGiveError = (() => {
-  if (nodeEnv === 'development') {
-    return false;
-  }
-
-  if (nodeEnv === 'test' && process.env.ALLOW_ESLINT_ERRORS === 'true') {
-    return false;
-  }
-
-  return true;
-})();
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
@@ -56,13 +44,6 @@ module.exports = {
     filename: '[name].[hash].js',
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|omni-common-ui)/,
-        loader: 'eslint',
-      },
-    ],
     loaders: [
       {
         test: /\.(html|hbs)$/,
@@ -169,13 +150,9 @@ module.exports = {
     }
   ),
   postcss: (webpackInstance) => ([
-    stylelint(),
     postcssImport({
       path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
       addDependencyTo: webpackInstance,
-      plugins: [
-        stylelint(),
-      ],
     }),
     postcssUrl({ url: 'rebase' }),
     postcssContainerQueries,
@@ -208,10 +185,6 @@ module.exports = {
     postcssCalc,
     postcssReporter({ clearMessages: true }),
   ]),
-  eslint: {
-    configFile: '.eslintrc.json',
-    failOnError: esLintShouldGiveError,
-  },
   externals: {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
