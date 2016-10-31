@@ -38,7 +38,10 @@ const outputPath = process.env.OUTPUT_PATH || 'dist';
 module.exports = {
   context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
-  entry: ['babel-polyfill', 'app.jsx'],
+  entry: {
+    app: 'app.jsx',
+    vendor: ['babel-polyfill', 'omni-common-ui'],
+  },
   output: {
     path: path.resolve(outputPath),
     filename: '[name].[hash].js',
@@ -232,6 +235,13 @@ function addOptionalPlugins() {
         },
         sourceMap: nodeEnv !== 'development',
       }),
+    ]);
+  }
+
+  if (nodeEnv !== 'test') {
+    // Otherwise the tests will not be able to run :(
+    plugins.concat([
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js'),
     ]);
   }
 
