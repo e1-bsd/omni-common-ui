@@ -2,37 +2,44 @@ import styles from './style.postcss';
 
 import React from 'react';
 import is from 'is_js';
+import classnames from 'classnames';
 
 const ProgressBar = (props) => {
-  return <div className={styles.ProgressBar}>
+  return <div className={classnames(styles.ProgressBar, {
+    [styles.__rounded]: !! props.rounded,
+    [styles.__larger]: !! props.larger,
+  }, props.className)}>
     <div className={styles.ProgressBar_progress}
         style={{ width: `${calculateProgress() * 100}%` }} />
   </div>;
 
   function calculateProgress() {
-    const { total } = props;
-    let { progress } = props;
-    progress = progress || 0;
+    const { max } = props;
+    let { value } = props;
+    value = value || 0;
 
-    if (progress < 0) {
-      progress = 0;
+    if (value < 0) {
+      value = 0;
     }
 
-    if (is.number(total)) {
-      return progress / total;
+    if (is.number(max)) {
+      return value / max;
     }
 
-    if (progress > 100) {
-      progress = 100;
+    if (value > 100) {
+      value = 100;
     }
 
-    return progress / 100;
+    return value / 100;
   }
 };
 
 ProgressBar.propTypes = {
-  progress: React.PropTypes.number,
-  total: React.PropTypes.number,
+  className: React.PropTypes.string,
+  value: React.PropTypes.number,
+  max: React.PropTypes.number,
+  rounded: React.PropTypes.bool,
+  larger: React.PropTypes.bool,
 };
 
 export default ProgressBar;
