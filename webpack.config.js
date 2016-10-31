@@ -102,29 +102,31 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
-      DEVELOPMENT: nodeEnv === 'development',
-      TEST: nodeEnv === 'test',
-      PRODUCTION: isProd,
-      PRODUCTION_SG: nodeEnv === 'production-sg',
-      PRODUCTION_CN: nodeEnv === 'production-cn',
-      QA: nodeEnv === 'qa',
-      STAGING: /^staging/i.test(nodeEnv),
-      STAGING_SG: nodeEnv === 'staging-sg',
-      STAGING_CN: nodeEnv === 'staging-cn',
-    }),
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-      inject: 'body',
-      version,
-      commit: commitHash,
-      appInsights: Config.appInsights,
-    }),
-    new Visualizer({ filename: '../package-stats.html' }),
-  ].concat(addOptionalPlugins()),
+  plugins: (nodeEnv !== 'test' ?
+      [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
+      []).concat([
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
+          DEVELOPMENT: nodeEnv === 'development',
+          TEST: nodeEnv === 'test',
+          PRODUCTION: isProd,
+          PRODUCTION_SG: nodeEnv === 'production-sg',
+          PRODUCTION_CN: nodeEnv === 'production-cn',
+          QA: nodeEnv === 'qa',
+          STAGING: /^staging/i.test(nodeEnv),
+          STAGING_SG: nodeEnv === 'staging-sg',
+          STAGING_CN: nodeEnv === 'staging-cn',
+        }),
+        new HtmlWebpackPlugin({
+          template: 'index.html',
+          inject: 'body',
+          version,
+          commit: commitHash,
+          appInsights: Config.appInsights,
+        }),
+        new Visualizer({ filename: '../package-stats.html' }),
+      ]).concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
     noInfo: false,
@@ -235,13 +237,6 @@ function addOptionalPlugins() {
         },
         sourceMap: nodeEnv !== 'development',
       }),
-    ]);
-  }
-
-  if (nodeEnv !== 'test') {
-    // Otherwise the tests will not be able to run :(
-    plugins.concat([
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js'),
     ]);
   }
 
