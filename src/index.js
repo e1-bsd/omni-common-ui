@@ -26,6 +26,7 @@ import {
 } from 'containers/SingleSignOn';
 import _Header from 'components/Header';
 import _Store from 'domain/Store';
+import _testClass from 'domain/testClass';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -55,3 +56,4 @@ export const SingleSignOnHandler = _SingleSignOnHandler;
 export const singleSignOnRoutes = _singleSignOnRoutes;
 export const Header = _Header;
 export const Store = _Store;
+export const testClass = _testClass;
