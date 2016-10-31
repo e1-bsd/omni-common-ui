@@ -21,6 +21,7 @@ const postcssPxToRem = require('postcss-pxtorem');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -121,6 +122,7 @@ module.exports = {
       commit: commitHash,
       appInsights: Config.appInsights,
     }),
+    new Visualizer({ filename: '../package-stats.html' }),
   ].concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
