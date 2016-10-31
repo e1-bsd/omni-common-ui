@@ -19,8 +19,13 @@ When all your dependencies are installed, you can follow this steps to build the
 
 1. Open a terminal at the root folder of the project.
 2. Run `npm run start` or `npm start`.
-3. You can see the site running on `http://localhost:3000`.  
+3. You can see the site running on `http://localhost:3000`.
 The project will get recompiled automatically when you change the code.
+
+### Running our linting tools
+
+1. Run `npm run lint:css` to run Stylelint.
+2. Run `npm run lint:js` to run ESLint.
 
 ### Testing during development
 
