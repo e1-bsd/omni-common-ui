@@ -3,7 +3,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const Clean = require('clean-webpack-plugin');
 const postcssCalc = require('postcss-calc');
 const postcssCssnext = require('postcss-cssnext');
 const postcssNesting = require('postcss-nesting');
@@ -101,7 +100,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new Clean([outputPath]),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,

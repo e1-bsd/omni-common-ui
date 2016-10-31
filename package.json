@@ -29,7 +29,6 @@
     "chai-enzyme": "0.5.0",
     "cheerio": "0.20.0",
     "classnames": "2.2.5",
-    "clean-webpack-plugin": "0.1.10",
     "cq-prolyfill": "0.3.2",
     "css-element-queries": "0.3.2",
     "css-loader": "0.23.1",
