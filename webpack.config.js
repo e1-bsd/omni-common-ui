@@ -28,12 +28,13 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const Config = require(path.resolve(`${contextFolder}/domain/Config/${nodeEnv}.json`));
+const CONFIG = require(path.resolve(`config/${nodeEnv}.json`));
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 const outputPath = process.env.OUTPUT_PATH || 'dist';
+const buildConfig = require('./config/build');
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -106,7 +107,7 @@ module.exports = {
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin({
+        new webpack.DefinePlugin(Object.assign({
           'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
           DEVELOPMENT: nodeEnv === 'development',
           TEST: nodeEnv === 'test',
@@ -117,13 +118,13 @@ module.exports = {
           STAGING: /^staging/i.test(nodeEnv),
           STAGING_SG: nodeEnv === 'staging-sg',
           STAGING_CN: nodeEnv === 'staging-cn',
-        }),
+        }, buildConfig(CONFIG, 'CONFIG'))),
         new HtmlWebpackPlugin({
           template: 'index.html',
           inject: 'body',
           version,
           commit: commitHash,
-          appInsights: Config.appInsights,
+          appInsights: CONFIG.appInsights,
         }),
         new Visualizer({ filename: '../package-stats.html' }),
       ]).concat(addOptionalPlugins()),

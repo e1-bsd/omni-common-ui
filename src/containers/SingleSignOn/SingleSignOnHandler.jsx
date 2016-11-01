@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import * as singleSignOnActions from './actions';
 import { actions as privilegesActions } from 'containers/Privileges';
 import userManager from './userManager';
-import Config from 'domain/Config';
 import log from 'loglevel';
 import routes from './routes';
 
@@ -26,7 +25,7 @@ class SingleSignOnHandler extends Component {
       userManager.signinRedirect();
       return null;
     } else if (user && user.expires_in) {
-      storeTokenLifeTime(Config.defaultTokenLifeTime);
+      storeTokenLifeTime(CONFIG.defaultTokenLifeTime);
     }
 
     if (user &&
@@ -106,6 +105,6 @@ function mapDispatchToProps(dispatch) {
       bindActionCreators(privilegesActions, dispatch));
 }
 
-export default Config.featureLogin !== true ?
+export default CONFIG.featureLogin !== true ?
     MockSingleSignOnHandler :
     connect(mapStateToProps, mapDispatchToProps)(SingleSignOnHandler);

@@ -1,9 +1,8 @@
-import Config from 'domain/Config';
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
 import Store from 'domain/Store';
 
-export const buildUrl = (path) => Config.apiBase + path;
+export const buildUrl = (path) => CONFIG.apiBase + path;
 
 export const fetch = (url, options = {}) => {
   const finalOptions = Object.assign({}, options, getTokenHeader(options));
