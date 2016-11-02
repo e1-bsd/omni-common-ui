@@ -1,30 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import connect from 'domain/connect';
+import PrivilegeChecker from 'domain/PrivilegeChecker';
 
 const Permission = (props) => {
-  const { permissionId, user } = props;
-  if (user &&
-      Object.keys(user).length > 0 &&
-      user.privileges.indexOf(permissionId) < 0) {
+  if (! PrivilegeChecker.hasPrivilege(props.state, props.permissionId)) {
     return null;
   }
-  if (user &&
-      Object.keys(user).length > 0) {
-    return <span>{props.children}</span>;
-  }
-  return null;
+
+  return props.children;
 };
 
 function mapStateToProps(state) {
-  const user = state.get('rootReducer').get('privileges').items;
-  return {
-    user,
-  };
+  return { state };
 }
 
 Permission.propTypes = {
   permissionId: React.PropTypes.string,
-  user: React.PropTypes.object,
   children: React.PropTypes.node,
 };
 
