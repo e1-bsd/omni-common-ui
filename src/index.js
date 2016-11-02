@@ -24,7 +24,7 @@ import {
   SingleSignOnHandler as _SingleSignOnHandler,
   routes as _singleSignOnRoutes,
 } from 'containers/SingleSignOn';
-import _Header from 'components/Header';
+import _Header from 'containers/Header';
 import _Store from 'domain/Store';
 import _testClass from 'domain/testClass';
 
