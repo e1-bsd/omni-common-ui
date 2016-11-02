@@ -7,7 +7,7 @@ export default class PrivilegeChecker {
       return true;
     }
 
-    const privileges = state.get('rootReducer').get('privileges');
+    const privileges = state.get('privileges');
     if (ApiResponseHelper.shouldFetch(privileges) || ApiResponseHelper.isLoading(privileges)) {
       // This should never happen, since the privileges are fetched before anything is rendered
       log.warn('PrivilegeChecker - privileges are being loaded, returning true for now');

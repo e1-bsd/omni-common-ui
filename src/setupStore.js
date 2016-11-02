@@ -12,7 +12,6 @@ import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
 import routerReducer from './routerReducer';
-import is from 'is_js';
 
 if (DEVELOPMENT) {
   installDevTools(Immutable);
@@ -46,18 +45,12 @@ export function setupStore(reducer) {
 
 function createReducer(reducer) {
   return combineReducers({
-    rootReducer: buildRootReducer(reducer),
+    rootReducer: combineReducers(reducer),
     routing: routerReducer,
     singleSignOn,
+    privileges,
+    impersonate,
   });
-}
-
-function buildRootReducer(reducer) {
-  if (is.not.object(reducer) || is.empty(reducer)) {
-    return combineReducers({ privileges });
-  }
-
-  return combineReducers(Object.assign({ privileges, impersonate }, reducer));
 }
 
 export default setupStore;

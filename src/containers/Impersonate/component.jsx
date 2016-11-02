@@ -125,9 +125,7 @@ Impersonate.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    postImpersonateState: state
-      .get('rootReducer')
-      .get('impersonate')
+    postImpersonateState: state.get('impersonate')
       .get('postedImpersonate')
       .get('impersonate'),
   };

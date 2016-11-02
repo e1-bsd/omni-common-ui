@@ -25,7 +25,7 @@ function fetchPrivileges() {
 }
 
 function shouldFetchPrivileges(state) {
-  const privileges = state.get('rootReducer').get('privileges');
+  const privileges = state.get('privileges');
   if (! ApiResponseHelper.shouldFetch(privileges)) {
     log.debug('shouldFetchPrivileges - shouldFetch() returned false');
     return false;
