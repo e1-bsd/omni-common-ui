@@ -22,6 +22,7 @@ import _moment from 'domain/moment';
 import _setupApp from './setupApp';
 import _Store from 'domain/Store';
 import _testClass from 'domain/testClass';
+import _PrivilegeChecker from 'domain/PrivilegeChecker';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -49,3 +50,4 @@ export const moment = _moment;
 export const setupApp = _setupApp;
 export const Store = _Store;
 export const testClass = _testClass;
+export const PrivilegeChecker = _PrivilegeChecker;
