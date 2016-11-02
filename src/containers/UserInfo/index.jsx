@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import Dialog from 'components/Dialog';
 import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
-import Permission, { permissionList } from 'containers/Permission';
+import Permission from 'containers/Permission';
 import ApiResponseHelper from 'domain/ApiResponseHelper';
 
 const {
@@ -15,6 +15,8 @@ const {
   removeImpersonate,
   unimpersonateRequest,
 } = impersonateActions;
+
+const FOUNDATION_IMPERSONATE_PERMISSION = 'P011001';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -96,8 +98,7 @@ class UserInfo extends Component {
 
     const userName = this.props.user.profile.name;
     return <div className={styles.userInfo}>
-      <div className={styles.userInfo_container}
-          onClick={() => this._toggleFeatures()}>
+      <div className={styles.userInfo_container} onClick={() => this._toggleFeatures()}>
         <div className={classnames(styles.userInfo_container_expand,
             this.state.impersonateData ? styles.userInfo_container_expand_impersonate : null)} />
         <div className={classnames(styles.userInfo_container_username,
@@ -105,24 +106,21 @@ class UserInfo extends Component {
           {userName}
           {this.state.impersonateData ? ` as ${this.state.impersonateData.userName}` : ''}
         </div>
-
       </div>
-      <div className={classnames(
-            styles.userInfo_features,
-            this.state.isShowFeatures ? '' : styles.userInfo_hide)}>
+      <div className={classnames(styles.userInfo_features,
+          this.state.isShowFeatures ? '' : styles.userInfo_hide)}>
         {
           this.state.impersonateData ?
             <div className={styles.userInfo_features_item}>
               <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
             </div> :
-            <Permission permissionId={permissionList.CanImpersonateUser}>
+            <Permission permissionId={FOUNDATION_IMPERSONATE_PERMISSION}>
               <div className={styles.userInfo_features_item}>
                 <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
               </div>
             </Permission>
         }
-        <div className={classnames(
-            styles.userInfo_features_item,
+        <div className={classnames(styles.userInfo_features_item,
             styles.userInfo_features_item_last)}>
           <div onClick={this._onLogoutButtonClicked}>Log Out</div>
         </div>
