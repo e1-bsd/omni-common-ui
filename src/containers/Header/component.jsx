@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import style from './style.postcss';
-import UserInfo, { getImpersonate } from 'containers/UserInfo';
+import { actions as impersonateActions } from 'containers/Impersonate';
+import UserInfo from 'containers/UserInfo';
 import log from 'loglevel';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      impersonateData: getImpersonate(),
+      impersonateData: impersonateActions.getImpersonate(),
     };
   }
 
   componentWillReceiveProps() {
-    this.setState({ impersonateData: getImpersonate() });
+    this.setState({ impersonateData: impersonateActions.getImpersonate() });
   }
 
   render() {

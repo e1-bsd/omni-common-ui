@@ -1,13 +1,20 @@
 import styles from './style.postcss';
 
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import connect from 'domain/connect';
 import classnames from 'classnames';
 import Dialog from 'components/Dialog';
-import Impersonate, { unimpersonateRequest } from 'containers/Impersonate';
+import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
-import { setImpersonate, getImpersonate, removeImpersonate } from './UserInfoStorageManager';
 import Permission, { permissionList } from 'containers/Permission';
+import ApiResponseHelper from 'domain/ApiResponseHelper';
+
+const {
+  setImpersonate,
+  getImpersonate,
+  removeImpersonate,
+  unimpersonateRequest,
+} = impersonateActions;
 
 class UserInfo extends Component {
   constructor(props) {
@@ -83,9 +90,10 @@ class UserInfo extends Component {
       this._redirectToPortal();
     }
 
-    if (! privileges || Object.keys(privileges).length < 0) {
+    if (! ApiResponseHelper.hasSucceeded(privileges)) {
       return null;
     }
+
     const userName = this.props.user.profile.name;
     return <div className={styles.userInfo}>
       <div className={styles.userInfo_container}
@@ -95,9 +103,7 @@ class UserInfo extends Component {
         <div className={classnames(styles.userInfo_container_username,
             this.state.impersonateData ? styles.userInfo_container_username_impersonate : null)}>
           {userName}
-          {
-            this.state.impersonateData ? ` as ${this.state.impersonateData.userName}` : ''
-          }
+          {this.state.impersonateData ? ` as ${this.state.impersonateData.userName}` : ''}
         </div>
 
       </div>
@@ -128,7 +134,7 @@ class UserInfo extends Component {
 
 function mapStateToProps(state) {
   return {
-    privileges: state.get('rootReducer').get('privileges').items,
+    privileges: state.get('rootReducer').get('privileges'),
     user: state.get('singleSignOn').get('oidc').user,
     unimpersonateState: state
       .get('rootReducer')

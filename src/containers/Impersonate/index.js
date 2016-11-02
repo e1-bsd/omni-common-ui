@@ -1,10 +1,8 @@
-import _Impersonate from './component';
+import Impersonate from './component';
 import _reducer from './reducer';
-import { unimpersonate as _unimpersonateRequest } from './actions';
-
-const Impersonate = _Impersonate;
+import * as _actions from './actions';
 
 export const reducer = _reducer;
-export const unimpersonateRequest = _unimpersonateRequest;
+export const actions = _actions;
 
 export default Impersonate;
