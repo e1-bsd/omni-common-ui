@@ -20,11 +20,6 @@ import { ApiResponse as _ApiResponse } from 'domain/ApiResponse';
 import { ApiResponseHelper as _ApiResponseHelper } from 'domain/ApiResponseHelper';
 import _moment from 'domain/moment';
 import _setupApp from './setupApp';
-import {
-  SingleSignOnHandler as _SingleSignOnHandler,
-  routes as _singleSignOnRoutes,
-} from 'containers/SingleSignOn';
-import _Header from 'containers/Header';
 import _Store from 'domain/Store';
 import _testClass from 'domain/testClass';
 
@@ -52,8 +47,5 @@ export const ApiResponse = _ApiResponse;
 export const ApiResponseHelper = _ApiResponseHelper;
 export const moment = _moment;
 export const setupApp = _setupApp;
-export const SingleSignOnHandler = _SingleSignOnHandler;
-export const singleSignOnRoutes = _singleSignOnRoutes;
-export const Header = _Header;
 export const Store = _Store;
 export const testClass = _testClass;

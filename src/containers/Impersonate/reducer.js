@@ -10,8 +10,14 @@ import {
 } from './actions';
 import { Map } from 'immutable';
 import { ApiResponse } from 'domain/Api';
+import { combineReducers } from 'redux-immutable';
 
-export function postedImpersonate(state = Map({}), action) {
+export default combineReducers({
+  postedImpersonate,
+  unimpersonate,
+});
+
+function postedImpersonate(state = Map({}), action) {
   switch (action.type) {
     case POST_IMPERSONATE_REQUEST:
       return state.set('impersonate', new ApiResponse().setLoading());
@@ -26,7 +32,7 @@ export function postedImpersonate(state = Map({}), action) {
   }
 }
 
-export function unimpersonate(state = Map({}), action) {
+function unimpersonate(state = Map({}), action) {
   switch (action.type) {
     case UNIMPERSONATE_REQUEST:
       return state.set('unimpersonate', new ApiResponse().setLoading());
