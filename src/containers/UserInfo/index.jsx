@@ -8,6 +8,7 @@ import Impersonate, { actions as impersonateActions } from 'containers/Impersona
 import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
 import ApiResponseHelper from 'domain/ApiResponseHelper';
+import is from 'is_js';
 
 const {
   setImpersonate,
@@ -92,7 +93,7 @@ class UserInfo extends Component {
       this._redirectToPortal();
     }
 
-    if (! ApiResponseHelper.hasSucceeded(privileges)) {
+    if (is.not.object(this.props.user) || ! ApiResponseHelper.hasSucceeded(privileges)) {
       return null;
     }
 
