@@ -9,7 +9,6 @@ import TextInput from 'components/TextInput';
 const suffix = '@ef.com';
 
 class Impersonate extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -72,9 +71,7 @@ class Impersonate extends Component {
   }
 
   render() {
-    const {
-      postImpersonateState,
-    } = this.props;
+    const { postImpersonateState } = this.props;
     const errorCode = postImpersonateState ? postImpersonateState.get('error') : undefined;
     const data = postImpersonateState ? postImpersonateState.get('data') : undefined;
 

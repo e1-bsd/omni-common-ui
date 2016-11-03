@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as singleSignOnActions from './actions';
 import { actions as privilegesActions } from 'containers/Privileges';
 import userManager from './userManager';
 import log from 'loglevel';
@@ -14,42 +13,35 @@ MockSingleSignOnHandler.propTypes = {
 };
 
 class SingleSignOnHandler extends Component {
-  componentDidMount() {
-    const { user, storeTokenLifeTime, isExpiring, resetUserExpiring } = this.props;
-    this._checkPrivileges(this.props);
+  constructor(props) {
+    super(props);
+    this._onUserIsExpiring.bind(this);
+  }
 
+  componentDidMount() {
+    this._checkUser(this.props);
+    this._checkPrivileges(this.props);
+    userManager.events.addAccessTokenExpiring(this._onUserIsExpiring);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._checkUser(nextProps);
+    this._checkPrivileges(nextProps);
+  }
+
+  componentWillUnmount() {
+    userManager.events.removeAccessTokenExpired(this._onUserIsExpiring);
+  }
+
+  _checkUser(props) {
+    const { user } = props;
     if (! user || user.expired) {
       this._setLastUrlPath();
       log.debug('SingleSignOnHandler - User is not valid', user);
       log.debug('SingleSignOnHandler - lastUrlPath', localStorage.lastUrlPath);
       userManager.signinRedirect();
-      return null;
-    } else if (user && user.expires_in) {
-      storeTokenLifeTime(CONFIG.defaultTokenLifeTime);
+      return;
     }
-
-    if (user &&
-        ! user.expired &&
-        user.expires_in &&
-        this.props.tokenLifeTime > - 1 &&
-        this.props.tokenLifeTime !== user.expires_in &&
-        user.expires_in !== 60) {
-      log.debug('SingleSignOnHandler - User expires in…', user);
-      const expiresAt = parseInt((new Date().getTime() / 1000) + this.props.tokenLifeTime, 10);
-      user.expires_at = expiresAt;
-      userManager._storeUser(user);
-      userManager.events.load(user);
-    }
-
-    if (isExpiring) {
-      log.debug('SingleSignOnHandler - isExpiring', isExpiring);
-      resetUserExpiring();
-      userManager.signoutRedirect();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._checkPrivileges(nextProps);
   }
 
   _checkPrivileges(props) {
@@ -59,6 +51,10 @@ class SingleSignOnHandler extends Component {
       log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
       props.fetchPrivilegesIfNeeded();
     }
+  }
+
+  _onUserIsExpiring() {
+    userManager.signoutRedirect();
   }
 
   _setLastUrlPath() {
@@ -83,26 +79,17 @@ class SingleSignOnHandler extends Component {
 
 SingleSignOnHandler.propTypes = {
   children: React.PropTypes.node,
-  resetUserExpiring: React.PropTypes.func.isRequired,
-  tokenLifeTime: React.PropTypes.number,
-  isExpiring: React.PropTypes.bool,
-  storeTokenLifeTime: React.PropTypes.func.isRequired,
   user: React.PropTypes.object,
-  userInfo: React.PropTypes.object,
   fetchPrivilegesIfNeeded: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  const user = state.get('singleSignOn').get('oidc').user;
-  const tokenLifeTime = state.get('singleSignOn').get('tokenLifeTime');
-  const isExpiring = state.get('singleSignOn').get('subscriptions').isExpiring;
-  return { user, tokenLifeTime, isExpiring, userInfo: null };
+  const user = state.get('singleSignOn').user;
+  return { user };
 }
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({},
-      bindActionCreators(singleSignOnActions, dispatch),
-      bindActionCreators(privilegesActions, dispatch));
+  return bindActionCreators(privilegesActions, dispatch);
 }
 
 export default CONFIG.featureLogin !== true ?

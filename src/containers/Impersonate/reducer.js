@@ -9,7 +9,7 @@ import {
   UNIMPERSONATE_FAILURE,
 } from './actions';
 import { Map } from 'immutable';
-import { ApiResponse } from 'domain/Api';
+import ApiResponseHelper from 'domain/ApiResponseHelper';
 import { combineReducers } from 'redux-immutable';
 
 export default combineReducers({
@@ -20,11 +20,11 @@ export default combineReducers({
 function postedImpersonate(state = Map({}), action) {
   switch (action.type) {
     case POST_IMPERSONATE_REQUEST:
-      return state.set('impersonate', new ApiResponse().setLoading());
+      return state.set('impersonate', ApiResponseHelper.create({ loading: true }));
     case POST_IMPERSONATE_SUCCESS:
-      return state.update('impersonate', (impersonate) => impersonate.setData(action.payload));
+      return state.set('impersonate', ApiResponseHelper.create(action.payload));
     case POST_IMPERSONATE_FAILURE:
-      return state.update('impersonate', (impersonate) => impersonate.setError(action.payload));
+      return state.set('impersonate', ApiResponseHelper.create(new Error(action.payload)));
     case CLEAR_IMPERSONATE_DATA:
       return Map({});
     default:
@@ -35,13 +35,11 @@ function postedImpersonate(state = Map({}), action) {
 function unimpersonate(state = Map({}), action) {
   switch (action.type) {
     case UNIMPERSONATE_REQUEST:
-      return state.set('unimpersonate', new ApiResponse().setLoading());
+      return state.set('unimpersonate', ApiResponseHelper.create({ loading: true }));
     case UNIMPERSONATE_SUCCESS:
-      return state.update(
-        'unimpersonate',
-        (impersonate) => impersonate.setData(action.payload || 'success'));
+      return state.set('unimpersonate', ApiResponseHelper.create(action.payload || 'success'));
     case UNIMPERSONATE_FAILURE:
-      return state.update('unimpersonate', (impersonate) => impersonate.setError(action.payload));
+      return state.set('unimpersonate', ApiResponseHelper.create(new Error(action.payload)));
     default:
       return state;
   }

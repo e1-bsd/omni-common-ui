@@ -17,7 +17,7 @@ export function fetchPrivilegesIfNeeded() {
 
 function fetchPrivileges() {
   return (dispatch, getState) => {
-    const user = getState().get('singleSignOn').get('oidc').user;
+    const user = getState().get('singleSignOn').user;
     return dispatch(fetchPrivilegesRequest(user.profile.sub)).payload
       .then((json) => dispatch(fetchPrivilegesSuccess(json)))
       .catch((error) => dispatch(fetchPrivilegesFailure(error)));
