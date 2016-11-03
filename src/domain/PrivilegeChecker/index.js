@@ -1,10 +1,15 @@
 import ApiResponseHelper from 'domain/ApiResponseHelper';
 import log from 'loglevel';
+import is from 'is_js';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
     if (! CONFIG.featureLogin) {
       return true;
+    }
+
+    if (is.not.string(privilege) || is.empty(privilege)) {
+      return false;
     }
 
     const privileges = state.get('privileges');
