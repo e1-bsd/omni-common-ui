@@ -17,8 +17,6 @@ const {
   unimpersonateRequest,
 } = impersonateActions;
 
-const FOUNDATION_IMPERSONATE_PERMISSION = 'P011001';
-
 class UserInfo extends Component {
   constructor(props) {
     super(props);
@@ -115,7 +113,7 @@ class UserInfo extends Component {
             <div className={styles.userInfo_features_item}>
               <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
             </div> :
-            <Permission permissionId={FOUNDATION_IMPERSONATE_PERMISSION}>
+            <Permission permissionId={CONFIG.impersonatePermission}>
               <div className={styles.userInfo_features_item}>
                 <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
               </div>
