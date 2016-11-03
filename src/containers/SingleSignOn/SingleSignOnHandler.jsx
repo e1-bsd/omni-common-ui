@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
-import userManager from './userManager';
 import log from 'loglevel';
 import routes from './routes';
 
@@ -13,48 +12,20 @@ MockSingleSignOnHandler.propTypes = {
 };
 
 class SingleSignOnHandler extends Component {
-  constructor(props) {
-    super(props);
-    this._onUserIsExpiring.bind(this);
-  }
-
   componentDidMount() {
     this._checkUser(this.props);
-    this._checkPrivileges(this.props);
-    userManager.events.addAccessTokenExpiring(this._onUserIsExpiring);
   }
 
   componentWillReceiveProps(nextProps) {
     this._checkUser(nextProps);
-    this._checkPrivileges(nextProps);
-  }
-
-  componentWillUnmount() {
-    userManager.events.removeAccessTokenExpired(this._onUserIsExpiring);
   }
 
   _checkUser(props) {
     const { user } = props;
-    if (! user || user.expired) {
-      this._setLastUrlPath();
-      log.debug('SingleSignOnHandler - User is not valid', user);
-      log.debug('SingleSignOnHandler - lastUrlPath', localStorage.lastUrlPath);
-      userManager.signinRedirect();
-      return;
-    }
-  }
-
-  _checkPrivileges(props) {
-    const { user } = props;
-
     if (user && ! user.expired) {
       log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
       props.fetchPrivilegesIfNeeded();
     }
-  }
-
-  _onUserIsExpiring() {
-    userManager.signoutRedirect();
   }
 
   _setLastUrlPath() {

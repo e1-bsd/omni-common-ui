@@ -8,5 +8,5 @@ import _SingleSignOnProvider from './SingleSignOnProvider';
 export const SingleSignOnHandler = _SingleSignOnHandler;
 export const reducer = _reducer;
 export const routes = _routes;
-export const singleSignOnMiddleware = createOidcMiddleware(userManager, null, false);
+export const singleSignOnMiddleware = createOidcMiddleware(userManager, null, true);
 export const SingleSignOnProvider = _SingleSignOnProvider;

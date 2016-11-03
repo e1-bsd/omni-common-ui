@@ -10,11 +10,16 @@ const SingleSignOnCallback = (props) => {
 
   function successCallback() {
     log.debug('SingleSignOnCallback - lastUrlPath', localStorage.lastUrlPath);
-    props.dispatch(replace(localStorage.lastUrlPath || ''));
+    redirect();
   }
 
   function errorCallback(error) {
     log.error('SingleSignOnCallback - errorCallback', error);
+    redirect();
+  }
+
+  function redirect() {
+    props.dispatch(replace(localStorage.lastUrlPath || ''));
   }
 };
 
