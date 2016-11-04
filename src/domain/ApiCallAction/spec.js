@@ -38,9 +38,30 @@ describe('ApiCallAction', () => {
     expect(callAction.otherProp).to.equal(1);
   });
 
+  it('throws an error if a _SUCCESS action does not have a .data property', () => {
+    expect(() => new ApiCallAction({ type: 'CALL_SUCCESS', apiCallId: 'apiCallId' })).to.throw();
+    expect(() => new ApiCallAction({ type: 'CALL_SUCCESS', apiCallId: 'apiCallId', data: '' }))
+        .to.not.throw();
+  });
+
+  it('throws an error ' +
+      'if a _FAILURE action does not have a .error property that is an Error', () => {
+    expect(() => new ApiCallAction({ type: 'CALL_FAILURE', apiCallId: 'apiCallId' })).to.throw();
+    expect(() => new ApiCallAction({ type: 'CALL_FAILURE', apiCallId: 'apiCallId', error: {} }))
+        .to.throw();
+    expect(() => new ApiCallAction({
+      type: 'CALL_FAILURE',
+      apiCallId: 'apiCallId',
+      error: new Error(),
+    })).to.not.throw();
+  });
+
   context('#isRequestStarted()', () => {
     it('returns true if action.type ends with _REQUEST', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_REQUEST', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({
+        type: 'CALL_REQUEST',
+        apiCallId: 'apiCallId',
+      });
       expect(callAction.isRequestStarted()).to.be.true;
       expect(callAction.isRequestSuccess()).to.be.false;
       expect(callAction.isRequestFailure()).to.be.false;
@@ -49,7 +70,11 @@ describe('ApiCallAction', () => {
 
   context('#isRequestSuccess()', () => {
     it('returns true if action.type ends with _SUCCESS', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_SUCCESS', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({
+        type: 'CALL_SUCCESS',
+        apiCallId: 'apiCallId',
+        data: '',
+      });
       expect(callAction.isRequestStarted()).to.be.false;
       expect(callAction.isRequestSuccess()).to.be.true;
       expect(callAction.isRequestFailure()).to.be.false;
@@ -58,7 +83,11 @@ describe('ApiCallAction', () => {
 
   context('#isRequestFailure()', () => {
     it('returns true if action.type ends with _FAILURE', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_FAILURE', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({
+        type: 'CALL_FAILURE',
+        apiCallId: 'apiCallId',
+        error: new Error(),
+      });
       expect(callAction.isRequestStarted()).to.be.false;
       expect(callAction.isRequestSuccess()).to.be.false;
       expect(callAction.isRequestFailure()).to.be.true;
@@ -67,17 +96,25 @@ describe('ApiCallAction', () => {
 
   context('apiCallType', () => {
     it('is the original action type, removing the _REQUEST', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_FAILURE', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({ type: 'CALL_REQUEST', apiCallId: 'apiCallId' });
       expect(callAction.apiCallType).to.be.equal('CALL');
     });
 
     it('is the original action type, removing the _SUCCESS', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_SUCCESS', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({
+        type: 'CALL_SUCCESS',
+        apiCallId: 'apiCallId',
+        data: '',
+      });
       expect(callAction.apiCallType).to.be.equal('CALL');
     });
 
     it('is the original action type, removing the _FAILURE', () => {
-      const callAction = new ApiCallAction({ type: 'CALL_FAILURE', apiCallId: 'apiCallId' });
+      const callAction = new ApiCallAction({
+        type: 'CALL_FAILURE',
+        apiCallId: 'apiCallId',
+        error: new Error(),
+      });
       expect(callAction.apiCallType).to.be.equal('CALL');
     });
   });
