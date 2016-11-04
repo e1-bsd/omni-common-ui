@@ -12,6 +12,7 @@ import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
 import routerReducer from './routerReducer';
+import { reducer as apiCalls } from 'containers/ApiCalls';
 
 if (DEVELOPMENT) {
   installDevTools(Immutable);
@@ -50,6 +51,7 @@ function createReducer(reducer) {
     singleSignOn,
     privileges,
     impersonate,
+    apiCalls,
   });
 }
 

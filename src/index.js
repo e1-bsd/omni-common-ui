@@ -23,6 +23,8 @@ import _setupApp from './setupApp';
 import _Store from 'domain/Store';
 import _testClass from 'domain/testClass';
 import _PrivilegeChecker from 'domain/PrivilegeChecker';
+import _ApiCallAction from 'domain/ApiCallAction';
+import { ApiCallKey as _ApiCallKey } from 'containers/ApiCalls';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -51,3 +53,5 @@ export const setupApp = _setupApp;
 export const Store = _Store;
 export const testClass = _testClass;
 export const PrivilegeChecker = _PrivilegeChecker;
+export const ApiCallAction = _ApiCallAction;
+export const ApiCallKey = _ApiCallKey;
