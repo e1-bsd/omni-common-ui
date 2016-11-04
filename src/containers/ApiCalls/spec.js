@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import reducer from './';
+import { reducer } from './';
 import { Map } from 'immutable';
 import ApiCallAction from 'domain/ApiCallAction';
 import ApiCallKey from './ApiCallKey';
@@ -17,7 +17,7 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to loading when received a _REQUEST action', () => {
-    const action = new ApiCallAction({
+    const action = ApiCallAction.create({
       type: 'FETCH_REQUEST',
       apiCallId: 'apiCallId',
     });
@@ -31,7 +31,7 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to success when received a _SUCCESS action', () => {
-    const action = new ApiCallAction({
+    const action = ApiCallAction.create({
       type: 'FETCH_SUCCESS',
       apiCallId: 'apiCallId',
       data: 'thedata',
@@ -46,7 +46,7 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to error when received a _FAILURE action', () => {
-    const action = new ApiCallAction({
+    const action = ApiCallAction.create({
       type: 'FETCH_FAILURE',
       apiCallId: 'apiCallId',
       error: new Error(),

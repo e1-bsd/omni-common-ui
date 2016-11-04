@@ -9,15 +9,15 @@ export default function apiCalls(state = Map(), action) {
   }
 
   const key = new ApiCallKey({ id: action.apiCallId, type: action.apiCallType });
-  if (action.isRequestStarted()) {
+  if (ApiCallAction.isRequestStarted(action)) {
     return state.set(key, ApiResponseHelper.create({ loading: true }));
   }
 
-  if (action.isRequestSuccess()) {
+  if (ApiCallAction.isRequestSuccess(action)) {
     return state.set(key, ApiResponseHelper.create({ data: action.data }));
   }
 
-  if (action.isRequestFailure()) {
+  if (ApiCallAction.isRequestFailure(action)) {
     return state.set(key, ApiResponseHelper.create({ error: action.error }));
   }
 

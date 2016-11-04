@@ -8,52 +8,55 @@ const TYPE_ANY = /(_REQUEST|_SUCCESS|_FAILURE)$/i;
 class InvalidAction extends Error { }
 
 class ApiCallAction {
-  static isApiCallAction(object) {
-    return object instanceof ApiCallAction;
-  }
-
-  constructor(action) {
-    Object.assign(this, action);
-
+  static create(action) {
     if (is.not.object(action)) {
       throw new InvalidAction('An action should be an object');
     }
 
-    if (is.not.string(this.type)) {
+    if (is.not.string(action.type)) {
       throw new InvalidAction('action.type should be a string');
     }
 
-    if (! TYPE_ANY.test(this.type)) {
+    if (! TYPE_ANY.test(action.type)) {
       throw new InvalidAction('action.type should end with _REQUEST, _SUCCESS or _FAILURE');
     }
 
-    if (is.not.existy(this.apiCallId)) {
+    if (is.not.existy(action.apiCallId)) {
       throw new InvalidAction('action.apiCallId is not defined');
     }
 
-    if (this.isRequestSuccess() && is.not.existy(this.data)) {
+    if (ApiCallAction.isRequestSuccess(action) && is.not.existy(action.data)) {
       throw new InvalidAction('action.data should be defined for successful calls');
     }
 
-    if (this.isRequestFailure() && ! (this.error instanceof Error)) {
+    if (ApiCallAction.isRequestFailure(action) && ! (action.error instanceof Error)) {
       throw new InvalidAction('action.error should be defined as an Error for failed calls');
     }
+
+    return Object.assign({}, action, {
+      __apiCallAction__: true,
+      apiCallType: ApiCallAction.getApiCallType(action),
+    });
   }
 
-  isRequestStarted() {
-    return TYPE_REQUEST.test(this.type);
+  static isApiCallAction(object) {
+    return object.__apiCallAction__ === true;
   }
 
-  isRequestSuccess() {
-    return TYPE_SUCCESS.test(this.type);
+  static isRequestStarted(action) {
+    return TYPE_REQUEST.test(action.type);
   }
 
-  isRequestFailure() {
-    return TYPE_FAILURE.test(this.type);
+  static isRequestSuccess(action) {
+    return TYPE_SUCCESS.test(action.type);
   }
 
-  get apiCallType() {
-    return this.type.replace(TYPE_ANY, '');
+  static isRequestFailure(action) {
+    return TYPE_FAILURE.test(action.type);
+  }
+
+  static getApiCallType(action) {
+    return action.type.replace(TYPE_ANY, '');
   }
 }
 
