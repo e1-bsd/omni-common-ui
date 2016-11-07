@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import style from './style.postcss';
 import { actions as impersonateActions } from 'containers/Impersonate';
-import UserInfo from 'containers/UserInfo';
+import UserInfo from './UserInfo';
 import log from 'loglevel';
 
 class Header extends Component {
