@@ -23,7 +23,6 @@ class UserInfo extends Component {
     this.state = {
       isShowFeatures: false,
       isShowImpersonate: false,
-      impersonateData: getImpersonate(),
     };
 
     this._toggleFeatures.bind(this);
@@ -32,10 +31,6 @@ class UserInfo extends Component {
     this._renderImpersonateDialog.bind(this);
     this._handleImpersonateSuccess.bind(this);
     this._onSwitchBackClicked.bind(this);
-  }
-
-  componentWillReceiveProps() {
-    this.setState({ impersonateData: getImpersonate() });
   }
 
   _onLogoutButtonClicked() {
@@ -82,6 +77,34 @@ class UserInfo extends Component {
     </div>;
   }
 
+  _renderImpersonateOption() {
+    if (this.props.impersonateData) {
+      return <div className={styles.userInfo_features_item}>
+        <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
+      </div>;
+    }
+
+    return <Permission permissionId={CONFIG.impersonatePermission}>
+      <div className={styles.userInfo_features_item}>
+        <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
+      </div>
+    </Permission>;
+  }
+
+  _renderDropdown() {
+    if (this.state.isShowFeatures !== true) {
+      return null;
+    }
+
+    return <div className={classnames(styles.userInfo_features)}>
+      {this._renderImpersonateOption()}
+      <div className={classnames(styles.userInfo_features_item,
+          styles.userInfo_features_item_last)}>
+        <div onClick={this._onLogoutButtonClicked}>Log Out</div>
+      </div>
+    </div>;
+  }
+
   render() {
     const { privileges, unimpersonateState } = this.props;
     const errorCode = unimpersonateState ? unimpersonateState.get('error') : undefined;
@@ -99,38 +122,26 @@ class UserInfo extends Component {
     return <div className={styles.userInfo}>
       <div className={styles.userInfo_container} onClick={() => this._toggleFeatures()}>
         <div className={classnames(styles.userInfo_container_expand,
-            this.state.impersonateData ? styles.userInfo_container_expand_impersonate : null)} />
+            { [styles.userInfo_container_expand_impersonate]: this.props.impersonateData })} />
         <div className={classnames(styles.userInfo_container_username,
-            this.state.impersonateData ? styles.userInfo_container_username_impersonate : null)}>
+            { [styles.userInfo_container_username_impersonate]: this.props.impersonateData })}>
           {userName}
-          {this.state.impersonateData ? ` as ${this.state.impersonateData.userName}` : ''}
+          {this.props.impersonateData ? ` as ${this.props.impersonateData.userName}` : ''}
         </div>
       </div>
-      <div className={classnames(styles.userInfo_features,
-          this.state.isShowFeatures ? '' : styles.userInfo_hide)}>
-        {
-          this.state.impersonateData ?
-            <div className={styles.userInfo_features_item}>
-              <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
-            </div> :
-            <Permission permissionId={CONFIG.impersonatePermission}>
-              <div className={styles.userInfo_features_item}>
-                <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
-              </div>
-            </Permission>
-        }
-        <div className={classnames(styles.userInfo_features_item,
-            styles.userInfo_features_item_last)}>
-          <div onClick={this._onLogoutButtonClicked}>Log Out</div>
-        </div>
-      </div>
+      {this._renderDropdown()}
       {this._renderImpersonateDialog()}
     </div>;
   }
 }
 
+UserInfo.propTypes = {
+  impersonateData: React.PropTypes.object,
+};
+
 function mapStateToProps(state) {
   return {
+    impersonateData: getImpersonate(),
     privileges: state.get('privileges'),
     user: state.get('singleSignOn').user,
     unimpersonateState: state.get('impersonate')

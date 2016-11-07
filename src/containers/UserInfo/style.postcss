@@ -1,12 +1,10 @@
+@import 'main.postcss';
+
 .userInfo {
   float: right;
   height: 100%;
   padding-right: 40px;
   position: relative;
-
-  &_hide {
-    display: none;
-  }
 
   &_container {
     cursor: pointer;
@@ -47,6 +45,7 @@
     position: absolute;
     right: 0;
     top: calc(100% + 1px);
+    z-index: var(--zIndex-7--headerDropdown);
 
     & > span {
       display: block;
