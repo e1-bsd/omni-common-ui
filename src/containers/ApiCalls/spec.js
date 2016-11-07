@@ -17,12 +17,11 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to loading when received a _REQUEST action', () => {
-    const action = ApiCallAction.create({
+    const action = ApiCallAction.create('apiCallId', {
       type: 'FETCH_REQUEST',
-      apiCallId: 'apiCallId',
     });
 
-    const key = new ApiCallKey({ id: action.apiCallId, type: action.apiCallType });
+    const key = new ApiCallKey({ id: action.__apiCallId__, type: action.__apiCallType__ });
     const result = reducer(state, action);
     expect(result.get(key)).to.be.an.instanceof(ApiResponse);
     expect(result.get(key).loading).to.be.true;
@@ -31,13 +30,12 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to success when received a _SUCCESS action', () => {
-    const action = ApiCallAction.create({
+    const action = ApiCallAction.create('apiCallId', {
       type: 'FETCH_SUCCESS',
-      apiCallId: 'apiCallId',
       data: 'thedata',
     });
 
-    const key = new ApiCallKey({ id: action.apiCallId, type: action.apiCallType });
+    const key = new ApiCallKey({ id: action.__apiCallId__, type: action.__apiCallType__ });
     const result = reducer(state, action);
     expect(result.get(key)).to.be.an.instanceof(ApiResponse);
     expect(result.get(key).loading).to.be.false;
@@ -46,13 +44,12 @@ describe('apiCalls reducer', () => {
   });
 
   it('sets the proper map item to error when received a _FAILURE action', () => {
-    const action = ApiCallAction.create({
+    const action = ApiCallAction.create('apiCallId', {
       type: 'FETCH_FAILURE',
-      apiCallId: 'apiCallId',
       error: new Error(),
     });
 
-    const key = new ApiCallKey({ id: action.apiCallId, type: action.apiCallType });
+    const key = new ApiCallKey({ id: action.__apiCallId__, type: action.__apiCallType__ });
     const result = reducer(state, action);
     expect(result.get(key)).to.be.an.instanceof(ApiResponse);
     expect(result.get(key).loading).to.be.false;

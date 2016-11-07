@@ -8,7 +8,7 @@ export default function apiCalls(state = Map(), action) {
     return state;
   }
 
-  const key = new ApiCallKey({ id: action.apiCallId, type: action.apiCallType });
+  const key = new ApiCallKey({ id: action.__apiCallId__, type: action.__apiCallType__ });
   if (ApiCallAction.isRequestStarted(action)) {
     return state.set(key, ApiResponseHelper.create({ loading: true }));
   }

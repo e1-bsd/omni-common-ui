@@ -8,7 +8,11 @@ const TYPE_ANY = /(_REQUEST|_SUCCESS|_FAILURE)$/i;
 class InvalidAction extends Error { }
 
 class ApiCallAction {
-  static create(action) {
+  static create(apiCallId, action) {
+    if (is.not.existy(apiCallId)) {
+      throw new InvalidAction('apiCallId is not defined');
+    }
+
     if (is.not.object(action)) {
       throw new InvalidAction('An action should be an object');
     }
@@ -21,10 +25,6 @@ class ApiCallAction {
       throw new InvalidAction('action.type should end with _REQUEST, _SUCCESS or _FAILURE');
     }
 
-    if (is.not.existy(action.apiCallId)) {
-      throw new InvalidAction('action.apiCallId is not defined');
-    }
-
     if (ApiCallAction.isRequestSuccess(action) && is.not.existy(action.data)) {
       throw new InvalidAction('action.data should be defined for successful calls');
     }
@@ -35,7 +35,8 @@ class ApiCallAction {
 
     return Object.assign({}, action, {
       __apiCallAction__: true,
-      apiCallType: ApiCallAction.getApiCallType(action),
+      __apiCallType__: ApiCallAction.getApiCallType(action),
+      __apiCallId__: apiCallId,
     });
   }
 
