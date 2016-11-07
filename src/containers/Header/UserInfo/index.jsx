@@ -17,13 +17,6 @@ class UserInfo extends Component {
       isShowFeatures: false,
       isShowImpersonate: false,
     };
-
-    this._toggleFeatures.bind(this);
-    this._showImpersonateDialog.bind(this);
-    this._closeImpersonateDialog.bind(this);
-    this._renderImpersonateDialog.bind(this);
-    this._handleImpersonateSuccess.bind(this);
-    this._onSwitchBackClicked.bind(this);
   }
 
   _onLogoutButtonClicked() {
