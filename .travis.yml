@@ -14,6 +14,7 @@ before_install:
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
   - npm install -g npm@3.10.x
+  - npm install -g cnpm
 
 install:
   - npm install
@@ -40,6 +41,9 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+
+after_deploy:
+  - cnpm sync omni-common-ui
 
 notifications:
   email:
