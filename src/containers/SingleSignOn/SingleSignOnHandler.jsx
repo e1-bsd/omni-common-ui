@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
 import log from 'loglevel';
 import routes from './routes';
+import userManager from './userManager';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -17,19 +18,20 @@ class SingleSignOnHandler extends Component {
   }
 
   componentDidMount() {
-    this._checkUser(this.props);
+    this._checkUserAndPrivileges(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this._checkUser(nextProps);
+    this._checkUserAndPrivileges(nextProps);
   }
 
-  _checkUser(props) {
-    const { user } = props;
-    if (user && ! user.expired) {
-      log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
-      props.fetchPrivilegesIfNeeded();
+  _checkUserAndPrivileges(props) {
+    if (! this._isUserValid()) {
+      return userManager.signinRedirect();
     }
+
+    log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
+    props.fetchPrivilegesIfNeeded();
   }
 
   _setLastUrlPath() {
@@ -41,10 +43,14 @@ class SingleSignOnHandler extends Component {
     localStorage.lastUrlPath = location.pathname + location.search;
   }
 
-  render() {
+  _isUserValid() {
     const { user } = this.props;
-    if (user && ! user.expired) {
-      log.debug('SingleSignOnHandler - User is valid', user);
+    return user && ! user.expired;
+  }
+
+  render() {
+    if (this._isUserValid()) {
+      log.debug('SingleSignOnHandler - User is valid', this.props.user);
       return this.props.children;
     }
 
