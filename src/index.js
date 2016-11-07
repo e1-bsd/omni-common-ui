@@ -24,7 +24,7 @@ import _Store from 'domain/Store';
 import _testClass from 'domain/testClass';
 import _PrivilegeChecker from 'domain/PrivilegeChecker';
 import _ApiCallAction from 'domain/ApiCallAction';
-import { ApiCallKey as _ApiCallKey } from 'domain/ApiCalls';
+import { ApiCallKey as _ApiCallKey } from 'containers/ApiCalls';
 
 export const Button = _Button;
 export const Card = _Card;
