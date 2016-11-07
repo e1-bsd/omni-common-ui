@@ -17,6 +17,23 @@ class UserInfo extends Component {
       isDropdownOpen: false,
       isShowImpersonate: false,
     };
+    this._onClickedOutside = this._onClickedOutside.bind(this);
+  }
+
+  componentWillUnmount() {
+    this._removeClickOutsideEvent();
+  }
+
+  _onClickedOutside(evt) {
+    if (this._node.contains(evt.target)) {
+      return;
+    }
+
+    this.setState({ isDropdownOpen: false }, () => this._removeClickOutsideEvent());
+  }
+
+  _removeClickOutsideEvent() {
+    document.body.removeEventListener('click', this._onClickedOutside);
   }
 
   _onLogoutButtonClicked() {
@@ -34,8 +51,16 @@ class UserInfo extends Component {
     this.setState({ impersonateData: undefined });
   }
 
-  _toggleFeatures() {
-    this.setState({ isDropdownOpen: ! this.state.isDropdownOpen });
+  _toggleDropdown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState({ isDropdownOpen: ! this.state.isDropdownOpen }, () => {
+      if (this.state.isDropdownOpen) {
+        document.body.addEventListener('click', this._onClickedOutside);
+      } else {
+        this._removeClickOutsideEvent();
+      }
+    });
   }
 
   _showImpersonateDialog() {
@@ -92,6 +117,7 @@ class UserInfo extends Component {
   }
 
   render() {
+    /* eslint no-return-assign: "off" */
     const { privileges, unimpersonateState } = this.props;
     const errorCode = unimpersonateState ? unimpersonateState.get('error') : undefined;
     const data = unimpersonateState ? unimpersonateState.get('data') : undefined;
@@ -105,9 +131,10 @@ class UserInfo extends Component {
     }
 
     const userName = this.props.user.profile.name;
-    return <div className={classnames(styles.UserInfo,
-        { [styles.__impersonating]: this.props.impersonate })}>
-      <div className={styles.UserInfo_container} onClick={() => this._toggleFeatures()}>
+    return <div ref={(c) => this._node = c}
+        className={classnames(styles.UserInfo,
+            { [styles.__impersonating]: this.props.impersonate })}>
+      <div className={styles.UserInfo_container} onClick={(e) => this._toggleDropdown(e)}>
         <div className={classnames(styles.UserInfo_container_expand)} />
         <div className={classnames(styles.UserInfo_container_username)}>
           {userName}
