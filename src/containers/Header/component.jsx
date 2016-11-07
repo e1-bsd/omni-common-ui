@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import style from './style.postcss';
+import styles from './style.postcss';
 import { actions as impersonateActions } from 'containers/Impersonate';
 import UserInfo from './UserInfo';
 import log from 'loglevel';
@@ -8,10 +8,9 @@ import { connect } from 'domain/connect';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
-  return <div className={classnames(style.header,
-      { [style.impersonate]: props.impersonate })}>
-    <div className={classnames(style.header_logo,
-        { [style.impersonate]: props.impersonate })} />
+  const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
+  return <div className={classes}>
+    <div className={classnames(styles.Header_logo)} />
     <UserInfo />
   </div>;
 };
