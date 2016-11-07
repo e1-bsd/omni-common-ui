@@ -14,7 +14,7 @@ class UserInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShowFeatures: false,
+      isDropdownOpen: false,
       isShowImpersonate: false,
     };
   }
@@ -35,11 +35,11 @@ class UserInfo extends Component {
   }
 
   _toggleFeatures() {
-    this.setState({ isShowFeatures: ! this.state.isShowFeatures });
+    this.setState({ isDropdownOpen: ! this.state.isDropdownOpen });
   }
 
   _showImpersonateDialog() {
-    this.setState({ isShowImpersonate: true, isShowFeatures: false });
+    this.setState({ isShowImpersonate: true, isDropdownOpen: false });
   }
 
   _closeImpersonateDialog() {
@@ -78,7 +78,7 @@ class UserInfo extends Component {
   }
 
   _renderDropdown() {
-    if (this.state.isShowFeatures !== true) {
+    if (this.state.isDropdownOpen !== true) {
       return null;
     }
 
