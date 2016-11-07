@@ -12,6 +12,10 @@ MockSingleSignOnHandler.propTypes = {
 };
 
 class SingleSignOnHandler extends Component {
+  componentWillMount() {
+    this._setLastUrlPath();
+  }
+
   componentDidMount() {
     this._checkUser(this.props);
   }
