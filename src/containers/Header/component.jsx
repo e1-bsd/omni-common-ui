@@ -5,6 +5,7 @@ import { actions as impersonateActions } from 'containers/Impersonate';
 import UserInfo from './UserInfo';
 import log from 'loglevel';
 import { connect } from 'domain/connect';
+import { bindActionCreators } from 'redux';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
@@ -19,8 +20,14 @@ Header.propTypes = {
   impersonate: React.PropTypes.object,
 };
 
-function mapStateToProps() {
-  return { impersonate: true };//impersonateActions.getImpersonate() };
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(impersonateActions, dispatch);
 }
 
-export default connect(mapStateToProps)(Header);
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  return Object.assign({}, ownProps, stateProps, dispatchProps, {
+    impersonate: dispatchProps.getImpersonate(),
+  });
+}
+
+export default connect(null, mapDispatchToProps, mergeProps)(Header);

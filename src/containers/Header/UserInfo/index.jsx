@@ -9,12 +9,7 @@ import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
 import ApiResponseHelper from 'domain/ApiResponseHelper';
 import is from 'is_js';
-
-const {
-  setImpersonate,
-  removeImpersonate,
-  unimpersonateRequest,
-} = impersonateActions;
+import { bindActionCreators } from 'redux';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -43,7 +38,7 @@ class UserInfo extends Component {
 
   _onSwitchBackClicked() {
     this.props.unimpersonate();
-    removeImpersonate();
+    this.props.removeImpersonate();
     this.setState({ impersonateData: undefined });
   }
 
@@ -60,7 +55,7 @@ class UserInfo extends Component {
   }
 
   _handleImpersonateSuccess(data) {
-    setImpersonate(data);
+    this.props.setImpersonate(data);
     this._redirectToPortal();
   }
 
@@ -134,6 +129,8 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
+  setImpersonate: React.PropTypes.func.isRequired,
+  removeImpersonate: React.PropTypes.func.isRequired,
   impersonate: React.PropTypes.object,
 };
 
@@ -148,9 +145,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    unimpersonate: () => dispatch(unimpersonateRequest()),
-  };
+  return bindActionCreators(impersonateActions, dispatch);
 }
 
 UserInfo.propTypes = {
