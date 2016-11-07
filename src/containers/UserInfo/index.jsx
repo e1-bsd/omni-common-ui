@@ -119,12 +119,11 @@ class UserInfo extends Component {
     }
 
     const userName = this.props.user.profile.name;
-    return <div className={styles.UserInfo}>
+    return <div className={classnames(styles.UserInfo,
+        { [styles.__impersonating]: this.props.impersonateData })}>
       <div className={styles.UserInfo_container} onClick={() => this._toggleFeatures()}>
-        <div className={classnames(styles.UserInfo_container_expand,
-            { [styles.UserInfo_container_expand_impersonate]: this.props.impersonateData })} />
-        <div className={classnames(styles.UserInfo_container_username,
-            { [styles.UserInfo_container_username_impersonate]: this.props.impersonateData })}>
+        <div className={classnames(styles.UserInfo_container_expand)} />
+        <div className={classnames(styles.UserInfo_container_username)}>
           {userName}
           {this.props.impersonateData ? ` as ${this.props.impersonateData.userName}` : ''}
         </div>

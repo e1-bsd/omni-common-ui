@@ -15,12 +15,6 @@
       vertical-align: middle;
     }
 
-    &_username {
-      &_impersonate {
-        color: #fff;
-      }
-    }
-
     &_expand {
       background-position: center;
       background-repeat: no-repeat;
@@ -31,10 +25,6 @@
 
       &:global {
         background-image: url('chevron-small-down.svg');
-      }
-
-      &_impersonate:global {
-        background-image: url('chevron-small-down-white.svg');
       }
     }
   }
@@ -71,6 +61,16 @@
       &_last > div {
         border-bottom: none;
       }
+    }
+  }
+
+  &.__impersonating {
+    & .UserInfo_container_expand:global {
+      background-image: url('chevron-small-down-white.svg');
+    }
+
+    & .UserInfo_container_username:global {
+      color: #fff;
     }
   }
 }
