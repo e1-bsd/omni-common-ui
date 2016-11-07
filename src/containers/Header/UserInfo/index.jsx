@@ -80,12 +80,11 @@ class UserInfo extends Component {
     if (! this.state.isShowImpersonate) {
       return null;
     }
-    return <div>
-      <Dialog isOpen={this.state.isShowImpersonate}>
-        <Impersonate close={() => this._closeImpersonateDialog()}
-            success={(data) => this._handleImpersonateSuccess(data)} />
-      </Dialog>
-    </div>;
+
+    return <Dialog isOpen={this.state.isShowImpersonate}>
+      <Impersonate close={() => this._closeImpersonateDialog()}
+          success={(data) => this._handleImpersonateSuccess(data)} />
+    </Dialog>;
   }
 
   _renderImpersonateOption() {
