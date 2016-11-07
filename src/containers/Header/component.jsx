@@ -11,7 +11,7 @@ const Header = (props) => {
   const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
     <div className={classnames(styles.Header_logo)} />
-    <UserInfo />
+    <UserInfo impersonate={props.impersonate} />
   </div>;
 };
 
@@ -20,7 +20,7 @@ Header.propTypes = {
 };
 
 function mapStateToProps() {
-  return { impersonate: impersonateActions.getImpersonate() };
+  return { impersonate: true };//impersonateActions.getImpersonate() };
 }
 
 export default connect(mapStateToProps)(Header);

@@ -12,7 +12,6 @@ import is from 'is_js';
 
 const {
   setImpersonate,
-  getImpersonate,
   removeImpersonate,
   unimpersonateRequest,
 } = impersonateActions;
@@ -78,7 +77,7 @@ class UserInfo extends Component {
   }
 
   _renderImpersonateOption() {
-    if (this.props.impersonateData) {
+    if (this.props.impersonate) {
       return <div className={styles.UserInfo_features_item}>
         <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
       </div>;
@@ -120,12 +119,12 @@ class UserInfo extends Component {
 
     const userName = this.props.user.profile.name;
     return <div className={classnames(styles.UserInfo,
-        { [styles.__impersonating]: this.props.impersonateData })}>
+        { [styles.__impersonating]: this.props.impersonate })}>
       <div className={styles.UserInfo_container} onClick={() => this._toggleFeatures()}>
         <div className={classnames(styles.UserInfo_container_expand)} />
         <div className={classnames(styles.UserInfo_container_username)}>
           {userName}
-          {this.props.impersonateData ? ` as ${this.props.impersonateData.userName}` : ''}
+          {this.props.impersonate ? ` as ${this.props.impersonate.userName}` : ''}
         </div>
       </div>
       {this._renderDropdown()}
@@ -135,12 +134,11 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
-  impersonateData: React.PropTypes.object,
+  impersonate: React.PropTypes.object,
 };
 
 function mapStateToProps(state) {
   return {
-    impersonateData: getImpersonate(),
     privileges: state.get('privileges'),
     user: state.get('singleSignOn').user,
     unimpersonateState: state.get('impersonate')
