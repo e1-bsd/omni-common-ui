@@ -79,13 +79,13 @@ class UserInfo extends Component {
 
   _renderImpersonateOption() {
     if (this.props.impersonateData) {
-      return <div className={styles.userInfo_features_item}>
+      return <div className={styles.UserInfo_features_item}>
         <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
       </div>;
     }
 
     return <Permission permissionId={CONFIG.impersonatePermission}>
-      <div className={styles.userInfo_features_item}>
+      <div className={styles.UserInfo_features_item}>
         <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
       </div>
     </Permission>;
@@ -96,10 +96,10 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <div className={classnames(styles.userInfo_features)}>
+    return <div className={classnames(styles.UserInfo_features)}>
       {this._renderImpersonateOption()}
-      <div className={classnames(styles.userInfo_features_item,
-          styles.userInfo_features_item_last)}>
+      <div className={classnames(styles.UserInfo_features_item,
+          styles.UserInfo_features_item_last)}>
         <div onClick={this._onLogoutButtonClicked}>Log Out</div>
       </div>
     </div>;
@@ -119,12 +119,12 @@ class UserInfo extends Component {
     }
 
     const userName = this.props.user.profile.name;
-    return <div className={styles.userInfo}>
-      <div className={styles.userInfo_container} onClick={() => this._toggleFeatures()}>
-        <div className={classnames(styles.userInfo_container_expand,
-            { [styles.userInfo_container_expand_impersonate]: this.props.impersonateData })} />
-        <div className={classnames(styles.userInfo_container_username,
-            { [styles.userInfo_container_username_impersonate]: this.props.impersonateData })}>
+    return <div className={styles.UserInfo}>
+      <div className={styles.UserInfo_container} onClick={() => this._toggleFeatures()}>
+        <div className={classnames(styles.UserInfo_container_expand,
+            { [styles.UserInfo_container_expand_impersonate]: this.props.impersonateData })} />
+        <div className={classnames(styles.UserInfo_container_username,
+            { [styles.UserInfo_container_username_impersonate]: this.props.impersonateData })}>
           {userName}
           {this.props.impersonateData ? ` as ${this.props.impersonateData.userName}` : ''}
         </div>
