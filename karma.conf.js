@@ -15,7 +15,7 @@ module.exports = (config) => {
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require(path.resolve(process.cwd(), './webpack.config.js')),
+    webpack: require(path.resolve('./webpack.config.js')),
     webpackServer: {
       noInfo: true,
     },
