@@ -1,31 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import style from './style.postcss';
 import { actions as impersonateActions } from 'containers/Impersonate';
 import UserInfo from './UserInfo';
 import log from 'loglevel';
+import { connect } from 'domain/connect';
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      impersonateData: impersonateActions.getImpersonate(),
-    };
-  }
+const Header = (props) => {
+  log.debug('Header - impersonateData', props.impersonate);
+  return <div className={classnames(style.header,
+      { [style.impersonate]: props.impersonate })}>
+    <div className={classnames(style.header_logo,
+        { [style.impersonate]: props.impersonate })} />
+    <UserInfo />
+  </div>;
+};
 
-  componentWillReceiveProps() {
-    this.setState({ impersonateData: impersonateActions.getImpersonate() });
-  }
+Header.propTypes = {
+  impersonate: React.PropTypes.object,
+};
 
-  render() {
-    log.debug('Header - impersonateData', this.state.impersonateData);
-    return <div className={classnames(style.header,
-        { [style.impersonate]: this.state.impersonateData })}>
-      <div className={classnames(style.header_logo,
-          { [style.impersonate]: this.state.impersonateData })} />
-      <UserInfo />
-    </div>;
-  }
+function mapStateToProps() {
+  return { impersonate: impersonateActions.getImpersonate() };
 }
 
-export default Header;
+export default connect(mapStateToProps)(Header);
