@@ -4,12 +4,11 @@ import React, { Component } from 'react';
 import connect from 'domain/connect';
 import classnames from 'classnames';
 import Dialog from 'components/Dialog';
-import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
+import Impersonate from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
 import ApiResponseHelper from 'domain/ApiResponseHelper';
 import is from 'is_js';
-import { bindActionCreators } from 'redux';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -131,7 +130,11 @@ class UserInfo extends Component {
 UserInfo.propTypes = {
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,
+  unimpersonate: React.PropTypes.func,
   impersonate: React.PropTypes.object,
+  privileges: React.PropTypes.object,
+  unimpersonateState: React.PropTypes.object,
+  user: React.PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -144,15 +147,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(impersonateActions, dispatch);
-}
-
-UserInfo.propTypes = {
-  user: React.PropTypes.object,
-  privileges: React.PropTypes.object,
-  unimpersonateState: React.PropTypes.object,
-  unimpersonate: React.PropTypes.func,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
+export default connect(mapStateToProps)(UserInfo);

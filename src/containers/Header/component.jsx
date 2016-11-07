@@ -12,11 +12,17 @@ const Header = (props) => {
   const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
     <div className={classnames(styles.Header_logo)} />
-    <UserInfo impersonate={props.impersonate} />
+    <UserInfo impersonate={props.impersonate}
+        setImpersonate={props.setImpersonate}
+        removeImpersonate={props.removeImpersonate}
+        unimpersonate={props.unimpersonate} />
   </div>;
 };
 
 Header.propTypes = {
+  setImpersonate: React.PropTypes.func.isRequired,
+  removeImpersonate: React.PropTypes.func.isRequired,
+  unimpersonate: React.PropTypes.func.isRequired,
   impersonate: React.PropTypes.object,
 };
 
