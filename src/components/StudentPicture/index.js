@@ -1,8 +1,5 @@
-import _StudentPicture from './component';
-import _Gender from 'domain/Gender';
-
-export const StudentPicture = _StudentPicture;
-export const Gender = _Gender;
+import StudentPicture from './component';
+import Gender from 'domain/Gender';
 
 StudentPicture.Gender = Gender;
 

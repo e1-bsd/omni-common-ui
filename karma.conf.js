@@ -15,7 +15,7 @@ module.exports = (config) => {
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require(path.resolve(process.cwd(), './webpack.config.js')),
+    webpack: require(path.resolve('./webpack.config.js')),
     webpackServer: {
       noInfo: true,
     },
@@ -28,7 +28,7 @@ module.exports = (config) => {
     autoWatch: true,
     singleRun: false,
     concurrency: 1,
-    browsers: ['Chrome', 'Firefox', 'IE_no_addons'],
+    browsers: ['Chrome', /* 'Firefox', */ 'IE_no_addons'],
     customLaunchers: {
       IE_no_addons: {
         base: 'IE',

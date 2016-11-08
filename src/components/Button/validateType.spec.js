@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import { Type } from './';
-import { validateType } from './type';
+import { Type, validateType } from './type';
 
 describe('Button', () => {
   describe('validateType', () => {

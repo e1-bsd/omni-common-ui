@@ -1,14 +1,10 @@
 @import 'main.postcss';
 
-.header {
+.Header {
   background-color: #fff;
   box-shadow: 0 0 5px 0 #999;
   height: 65px;
   position: relative;
-
-  &.impersonate {
-    background-color: #f5a623;
-  }
 
   &_logo {
     display: inline-block;
@@ -20,8 +16,12 @@
       background-image: url('ef-header.svg');
       background-repeat: no-repeat;
     }
+  }
 
-    &.impersonate:global {
+  &.__impersonating {
+    background-color: var(--colorImpersonating);
+
+    & .Header_logo:global {
       background-image: url('ef-header-white.svg');
       background-repeat: no-repeat;
     }

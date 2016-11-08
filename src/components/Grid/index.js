@@ -1,10 +1,6 @@
-import _Grid from './Grid';
-import _Group from './Group';
-import _Item from './Item';
-
-export const Grid = _Grid;
-export const Group = _Group;
-export const Item = _Item;
+import Grid from './Grid';
+import Group from './Group';
+import Item from './Item';
 
 Grid.Group = Group;
 Grid.Item = Item;

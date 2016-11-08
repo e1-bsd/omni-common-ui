@@ -39,7 +39,7 @@ StudentCard.childContextTypes = {
 StudentCard.propTypes = {
   backgroundless: React.PropTypes.bool,
   borderless: React.PropTypes.bool,
-  className: React.PropTypes.String,
+  className: React.PropTypes.string,
   withSeparatorLine: React.PropTypes.bool,
   statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),
   statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),

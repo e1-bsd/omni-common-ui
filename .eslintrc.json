@@ -51,12 +51,10 @@
   },
   "globals": {
     "PRODUCTION": false,
-    "PRODUCTION_CN": false,
-    "PRODUCTION_SG": false,
     "DEVELOPMENT": false,
     "TEST": false,
     "QA": false,
-    "STAGING": false,
+    "CONFIG": false,
     "describe": false,
     "context": false,
     "it": false,

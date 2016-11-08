@@ -12,6 +12,10 @@ export const createBuildRoute = (ownProps) => (...args) => {
 
   let newRoute = '';
   ownProps.routes.forEach((routePiece) => {
+    if (is.not.string(routePiece.path)) {
+      return;
+    }
+
     newRoute = path.join(newRoute, routePiece.path);
   });
 

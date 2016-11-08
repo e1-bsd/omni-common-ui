@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CallbackComponent } from 'redux-oidc';
-import { push } from 'react-router-redux';
+import { replace } from 'react-router-redux';
 import log from 'loglevel';
 
 const SingleSignOnCallback = (props) => {
@@ -10,11 +10,16 @@ const SingleSignOnCallback = (props) => {
 
   function successCallback() {
     log.debug('SingleSignOnCallback - lastUrlPath', localStorage.lastUrlPath);
-    props.dispatch(push(localStorage.lastUrlPath || ''));
+    redirect();
   }
 
   function errorCallback(error) {
     log.error('SingleSignOnCallback - errorCallback', error);
+    redirect();
+  }
+
+  function redirect() {
+    props.dispatch(replace(localStorage.lastUrlPath || ''));
   }
 };
 

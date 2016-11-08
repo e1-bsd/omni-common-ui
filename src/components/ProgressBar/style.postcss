@@ -2,8 +2,9 @@
 
 :root {
   --colorBg: var(--colorBorder);
-  --colorProgress: var(--colorPrimary);
+  --colorProgress: var(--colorActive);
   --height: 0.25em;
+  --largerHeight: 12px;
 }
 
 .ProgressBar {
@@ -12,11 +13,25 @@
   overflow: hidden;
   position: relative;
 
+  &.__larger {
+    height: var(--largerHeight);
+  }
+
   &_progress {
     background-color: var(--colorProgress);
     bottom: 0;
     left: 0;
     position: absolute;
     top: 0;
+  }
+
+  &.__rounded,
+  &.__rounded .ProgressBar_progress {
+    border-radius: 3px / 70%;
+  }
+
+  &.__larger.__rounded,
+  &.__larger.__rounded .ProgressBar_progress {
+    border-radius: 8.5px / 70%;
   }
 }

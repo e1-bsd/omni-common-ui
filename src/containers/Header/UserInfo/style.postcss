@@ -1,12 +1,10 @@
-.userInfo {
+@import 'main.postcss';
+
+.UserInfo {
   float: right;
   height: 100%;
   padding-right: 40px;
   position: relative;
-
-  &_hide {
-    display: none;
-  }
 
   &_container {
     cursor: pointer;
@@ -15,12 +13,6 @@
     & > div {
       display: inline-block;
       vertical-align: middle;
-    }
-
-    &_username {
-      &_impersonate {
-        color: #fff;
-      }
     }
 
     &_expand {
@@ -34,10 +26,6 @@
       &:global {
         background-image: url('chevron-small-down.svg');
       }
-
-      &_impersonate:global {
-        background-image: url('chevron-small-down-white.svg');
-      }
     }
   }
 
@@ -47,6 +35,7 @@
     position: absolute;
     right: 0;
     top: calc(100% + 1px);
+    z-index: var(--zIndex-7--headerDropdown);
 
     & > span {
       display: block;
@@ -72,6 +61,16 @@
       &_last > div {
         border-bottom: none;
       }
+    }
+  }
+
+  &.__impersonating {
+    & .UserInfo_container_expand:global {
+      background-image: url('chevron-small-down-white.svg');
+    }
+
+    & .UserInfo_container_username:global {
+      color: #fff;
     }
   }
 }

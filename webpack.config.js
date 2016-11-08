@@ -3,7 +3,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const Clean = require('clean-webpack-plugin');
 const postcssCalc = require('postcss-calc');
 const postcssCssnext = require('postcss-cssnext');
 const postcssNesting = require('postcss-nesting');
@@ -18,10 +17,10 @@ const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
 const postcssPxToRem = require('postcss-pxtorem');
-const stylelint = require('stylelint');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -29,40 +28,26 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const Config = require(path.resolve(`${contextFolder}/domain/Config/${nodeEnv}.json`));
+const CONFIG = require(path.resolve(`config/${nodeEnv}.json`));
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
-const esLintShouldGiveError = (() => {
-  if (nodeEnv === 'development') {
-    return false;
-  }
-
-  if (nodeEnv === 'test' && process.env.ALLOW_ESLINT_ERRORS === 'true') {
-    return false;
-  }
-
-  return true;
-})();
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 const outputPath = process.env.OUTPUT_PATH || 'dist';
+const buildConfig = require('./config/build');
 
 module.exports = {
   context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
-  entry: ['babel-polyfill', 'app.jsx'],
+  entry: {
+    app: 'app.jsx',
+    vendor: ['babel-polyfill', 'omni-common-ui'],
+  },
   output: {
     path: path.resolve(outputPath),
     filename: '[name].[hash].js',
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|omni-common-ui)/,
-        loader: 'eslint',
-      },
-    ],
     loaders: [
       {
         test: /\.(html|hbs)$/,
@@ -118,29 +103,26 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new Clean([outputPath]),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
-      DEVELOPMENT: nodeEnv === 'development',
-      TEST: nodeEnv === 'test',
-      PRODUCTION: isProd,
-      PRODUCTION_SG: nodeEnv === 'production-sg',
-      PRODUCTION_CN: nodeEnv === 'production-cn',
-      QA: nodeEnv === 'qa',
-      STAGING: /^staging/i.test(nodeEnv),
-      STAGING_SG: nodeEnv === 'staging-sg',
-      STAGING_CN: nodeEnv === 'staging-cn',
-    }),
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-      inject: 'body',
-      version,
-      commit: commitHash,
-      appInsights: Config.appInsights,
-    }),
-  ].concat(addOptionalPlugins()),
+  plugins: (nodeEnv !== 'test' ?
+      [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
+      []).concat([
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin(Object.assign({
+          'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
+          DEVELOPMENT: nodeEnv === 'development',
+          TEST: nodeEnv === 'test',
+          QA: nodeEnv === 'qa',
+          PRODUCTION: isProd,
+        }, buildConfig(CONFIG, 'CONFIG'))),
+        new HtmlWebpackPlugin({
+          template: 'index.html',
+          inject: 'body',
+          version,
+          commit: commitHash,
+          appInsights: CONFIG.appInsights,
+        }),
+        new Visualizer({ filename: '../package-stats.html' }),
+      ]).concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
     noInfo: false,
@@ -169,13 +151,9 @@ module.exports = {
     }
   ),
   postcss: (webpackInstance) => ([
-    stylelint(),
     postcssImport({
       path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
       addDependencyTo: webpackInstance,
-      plugins: [
-        stylelint(),
-      ],
     }),
     postcssUrl({ url: 'rebase' }),
     postcssContainerQueries,
@@ -208,10 +186,6 @@ module.exports = {
     postcssCalc,
     postcssReporter({ clearMessages: true }),
   ]),
-  eslint: {
-    configFile: '.eslintrc.json',
-    failOnError: esLintShouldGiveError,
-  },
   externals: {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,

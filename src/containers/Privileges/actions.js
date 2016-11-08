@@ -17,7 +17,7 @@ export function fetchPrivilegesIfNeeded() {
 
 function fetchPrivileges() {
   return (dispatch, getState) => {
-    const user = getState().get('singleSignOn').get('oidc').user;
+    const user = getState().get('singleSignOn').user;
     return dispatch(fetchPrivilegesRequest(user.profile.sub)).payload
       .then((json) => dispatch(fetchPrivilegesSuccess(json)))
       .catch((error) => dispatch(fetchPrivilegesFailure(error)));
@@ -25,7 +25,7 @@ function fetchPrivileges() {
 }
 
 function shouldFetchPrivileges(state) {
-  const privileges = state.get('rootReducer').get('privileges');
+  const privileges = state.get('privileges');
   if (! ApiResponseHelper.shouldFetch(privileges)) {
     log.debug('shouldFetchPrivileges - shouldFetch() returned false');
     return false;
@@ -45,9 +45,9 @@ function fetchPrivilegesRequest(userId) {
   const MOCK = false;
   const payload = MOCK ?
       new Promise((resolve) => resolve([
-        'BU_1_P020101',
+        'BU_1_P020101no',
         'BU_1_P020102',
-        'BU_1_P020103',
+        'BU_1_P020103no',
         'BU_1_P020104',
         'BU_1_P020105',
         'BU_1_P020106',
