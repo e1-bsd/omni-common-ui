@@ -136,9 +136,6 @@ module.exports = {
         path.resolve(srcFolder),
         process.cwd(),
       ],
-      fallback: [
-        path.resolve('node_modules/omni-common-ui/node_modules'),
-      ],
       extensions: ['', '.js', '.jsx', '.json'],
     },
     {
