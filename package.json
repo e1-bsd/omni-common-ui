@@ -50,7 +50,6 @@
     "git-rev-sync": "1.8.0",
     "glob": "7.1.1",
     "handlebars-loader": "1.4.0",
-    "history": "2.1.2",
     "html-webpack-plugin": "2.24.1",
     "image-webpack-loader": "3.0.0",
     "immutable": "3.8.1",
