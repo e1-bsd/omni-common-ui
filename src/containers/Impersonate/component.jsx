@@ -65,7 +65,7 @@ class Impersonate extends Component {
       },
     ];
 
-    const error = errorMappings.find(item => item.code === erroCode);
+    const error = errorMappings.find((item) => item.code === erroCode);
 
     return error ? error.message : 'undefined';
   }

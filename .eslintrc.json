@@ -8,10 +8,15 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "comma-dangle": ["warn", "always-multiline"],
+    "arrow-parens": ["error", "always"],
+    "no-plusplus": ["off"],
+    "class-methods-use-this": ["warn"],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "import/imports-first": ["off"],
     "import/no-named-as-default": ["off"],
+    "import/extensions": ["off"],
+    "import/first": ["off"],
     "no-underscore-dangle": ["off"],
     "consistent-return": ["off"],
     "padded-blocks": ["warn", "never"],
@@ -34,6 +39,8 @@
     "react/wrap-multilines": ["off"],
     "react/jsx-closing-bracket-location": ["error", "after-props"],
     "react/jsx-wrap-multilines": ["off"],
+    "react/forbid-prop-types": ["warn"],
+    "react/no-unused-prop-types": ["off"],
     "react/sort-comp": ["error", {
       "order": [
         "static-methods",
@@ -43,7 +50,8 @@
         "/^render.+$/"
       ]
     }],
-    "jsx-a11y/label-has-for": "off"
+    "jsx-a11y/label-has-for": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["warn"]
   },
   "env": {
     "browser": true,
