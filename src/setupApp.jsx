@@ -1,4 +1,3 @@
-import 'normalize.css/normalize.css';
 import 'assets/styles/base/base.postcss';
 
 import { setupStore } from './setupStore';
