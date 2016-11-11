@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import connect from 'domain/connect';
-import log from 'loglevel';
 import is from 'is_js';
 
 export class PermissionHandler extends Component {
@@ -17,11 +16,7 @@ export class PermissionHandler extends Component {
       return;
     }
 
-    const { checkPrivileges } = props.shouldRedirect;
-    if (is.function(checkPrivileges)) {
-      log.debug('PermissionHandler - will call checkPrivileges');
-      return checkPrivileges(props);
-    }
+    props.shouldRedirect.find(({ checkPrivileges }) => checkPrivileges(props));
   }
 
   render() {
@@ -34,14 +29,14 @@ export class PermissionHandler extends Component {
 }
 
 PermissionHandler.propTypes = {
-  shouldRedirect: React.PropTypes.shape({
+  shouldRedirect: React.PropTypes.arrayOf(React.PropTypes.shape({
     checkPrivileges: React.PropTypes.func.isRequired,
-  }),
+  })),
   children: React.PropTypes.node,
 };
 
 export function mapStateToProps(state, { routes }) {
-  const shouldRedirect = routes.find((route) => {
+  const shouldRedirect = routes.filter((route) => {
     if (is.not.existy(route.checkPrivileges)) {
       return false;
     }
