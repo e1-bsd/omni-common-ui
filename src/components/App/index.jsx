@@ -1,13 +1,10 @@
 import React from 'react';
-import { SingleSignOnHandler } from 'containers/SingleSignOn';
 import Header from 'containers/Header';
 
-const App = (props) => <SingleSignOnHandler>
-  <div>
-    <Header />
-    <div>{props.children}</div>
-  </div>
-</SingleSignOnHandler>;
+const App = (props) => <div>
+  <Header />
+  <div>{props.children}</div>
+</div>;
 
 App.propTypes = {
   children: React.PropTypes.node,
