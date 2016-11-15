@@ -143,9 +143,9 @@ module.exports = {
         isCommon ?
             { 'omni-common-ui$': 'src/index.js' } :
             {}
-        , { 
+        , {
           react: path.resolve('node_modules', 'react'),
-          'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation')
+          'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
         }
       ),
     }
