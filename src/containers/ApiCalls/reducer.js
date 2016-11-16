@@ -1,24 +1,22 @@
 import { Map } from 'immutable';
-import ApiCallAction from 'domain/ApiCallAction';
-import ApiCallKey from './ApiCallKey';
-import ApiResponseHelper from 'domain/ApiResponseHelper';
+import ApiCall from './';
 
 export default function apiCalls(state = Map(), action) {
-  if (! ApiCallAction.isApiCallAction(action)) {
+  if (! ApiCall.Action.isApiCallAction(action)) {
     return state;
   }
 
-  const key = new ApiCallKey({ id: action.__apiCallId__, type: action.__apiCallType__ });
-  if (ApiCallAction.isRequestStarted(action)) {
-    return state.set(key, ApiResponseHelper.create({ loading: true }));
+  const key = ApiCall.Key.create({ id: action.__apiCallId__, type: action.__apiCallType__ });
+  if (ApiCall.Action.isRequestStarted(action)) {
+    return state.set(key, ApiCall.Value.createLoading());
   }
 
-  if (ApiCallAction.isRequestSuccess(action)) {
-    return state.set(key, ApiResponseHelper.create({ data: true }));
+  if (ApiCall.Action.isRequestSuccess(action)) {
+    return state.set(key, ApiCall.Value.createSucceeded());
   }
 
-  if (ApiCallAction.isRequestFailure(action)) {
-    return state.set(key, ApiResponseHelper.create({ error: action.error }));
+  if (ApiCall.Action.isRequestFailure(action)) {
+    return state.set(key, ApiCall.Value.createFailed(action.error));
   }
 
   return state;
