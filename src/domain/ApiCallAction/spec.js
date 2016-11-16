@@ -37,21 +37,19 @@ describe('ApiCallAction', () => {
     expect(callAction.otherProp).to.equal(1);
   });
 
-  it('throws an error if a _SUCCESS action does not have a .data property', () => {
-    expect(() => ApiCallAction.create('apiCallId', { type: 'CALL_SUCCESS' })).to.throw();
-    expect(() => ApiCallAction.create('apiCallId', { type: 'CALL_SUCCESS', data: '' }))
-        .to.not.throw();
-  });
-
-  it('throws an error ' +
-      'if a _FAILURE action does not have a .error property that is an Error', () => {
+  it('throws an error if a _FAILURE action does not have a .error', () => {
     expect(() => ApiCallAction.create('apiCallId', { type: 'CALL_FAILURE' })).to.throw();
-    expect(() => ApiCallAction.create('apiCallId', { type: 'CALL_FAILURE', error: {} }))
+    expect(() => ApiCallAction.create('apiCallId', { type: 'CALL_FAILURE', error: null }))
         .to.throw();
     expect(() => ApiCallAction.create('apiCallId', {
       type: 'CALL_FAILURE',
-      error: new Error(),
+      error: '',
     })).to.not.throw();
+  });
+
+  it('converts action.error into an instance of Error if it\'s not already the case', () => {
+    expect(ApiCallAction.create('apiCallId', { type: 'CALL_FAILURE', error: '' }).error)
+        .to.be.an.instanceof(Error);
   });
 
   context('#isRequestStarted()', () => {
