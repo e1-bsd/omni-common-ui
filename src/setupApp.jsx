@@ -28,6 +28,9 @@ export function setupApp(routes, reducer) {
   Store.set(store);
 
   const parsedRoutes = parseRoutes([
+    {
+      path: '/health-check',
+    },
     singleSignOnRoutes,
     {
       component: SingleSignOnHandler,
