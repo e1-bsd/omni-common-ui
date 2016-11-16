@@ -14,7 +14,7 @@ export default function apiCalls(state = Map(), action) {
   }
 
   if (ApiCallAction.isRequestSuccess(action)) {
-    return state.set(key, ApiResponseHelper.create({ data: action.data }));
+    return state.set(key, ApiResponseHelper.create({ data: true }));
   }
 
   if (ApiCallAction.isRequestFailure(action)) {

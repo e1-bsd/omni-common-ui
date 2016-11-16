@@ -39,7 +39,7 @@ describe('apiCalls reducer', () => {
     const result = reducer(state, action);
     expect(result.get(key)).to.be.an.instanceof(ApiResponse);
     expect(result.get(key).loading).to.be.false;
-    expect(result.get(key).data).to.equal('thedata');
+    expect(result.get(key).data).to.equal(true);
     expect(result.get(key).error).to.be.undefined;
   });
 
