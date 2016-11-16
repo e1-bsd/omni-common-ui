@@ -134,7 +134,7 @@
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-postcss": "6.2.0",
-    "gulp-replace": "e1-bsd/gulp-replace",
+    "omni-gulp-replace": "1.0.0",
     "gulp-sequence": "0.4.6",
     "gulp-sourcemaps": "2.2.0"
   },
