@@ -31,12 +31,10 @@ class TextInput extends Component {
     const inputClasses = ! suffix ?
       classnames(styles.TextInput_input, this.props.inputClassName) :
       classnames(styles.TextInput_input, this.props.inputClassName, styles.TextInput_suffixInput);
-    return (
-      <div className={classes} style={this.props.myStyle}>
-        <span className={styles.TextInput_name}>{this.props.labelName}</span>
-        {renderInputText()}
-      </div>
-      );
+    return <div className={classes} style={this.props.myStyle}>
+      <span className={styles.TextInput_name}>{this.props.labelName}</span>
+      {renderInputText()}
+    </div>;
 
     function renderInputText() {
       if (suffix) {

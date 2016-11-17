@@ -9,7 +9,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const postcssImport = require('postcss-import');
 const babel = require('gulp-babel');
 const sequence = require('gulp-sequence');
-const replace = require('gulp-replace');
+const replace = require('omni-gulp-replace');
 
 const modulesDir = path.resolve('node_modules');
 const libDir = path.resolve('lib');

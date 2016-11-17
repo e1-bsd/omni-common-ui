@@ -1,3 +1,4 @@
+@import 'normalize.css/normalize.css';
 @import 'main.postcss';
 @import './_fonts.postcss';
 
@@ -20,6 +21,15 @@ body {
   font-family: inherit;
 }
 
+a,
+a:active {
+  color: var(--colorTextBase);
+}
+
+a:hover {
+  color: var(--colorActive);
+}
+
 p {
   line-height: 1.5;
 }
@@ -30,4 +40,13 @@ input {
 
 img {
   max-width: 100%;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  /* Overriding a style coming from normalize.css */
+  font-family: inherit;
 }

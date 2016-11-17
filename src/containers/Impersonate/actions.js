@@ -83,7 +83,7 @@ export function unimpersonate() {
     const successPostCallBack = (response) => dispatch(unimpersonateSuccess(response));
     dispatch(unimpersonateRequest()).payload
       .then((response) => successPostCallBack(response))
-      .catch((error) => error.response.then(json => failurePostCallBack(json.ErrorCode)));
+      .catch((error) => error.response.then((json) => failurePostCallBack(json.ErrorCode)));
   };
 }
 

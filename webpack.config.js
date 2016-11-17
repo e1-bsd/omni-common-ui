@@ -136,17 +136,17 @@ module.exports = {
         path.resolve(srcFolder),
         process.cwd(),
       ],
-      fallback: [
-        path.resolve('node_modules/omni-common-ui/node_modules'),
-      ],
       extensions: ['', '.js', '.jsx', '.json'],
     },
     {
       alias: Object.assign(
         isCommon ?
             { 'omni-common-ui$': 'src/index.js' } :
-            {},
-        { react: path.resolve('node_modules', 'react') }
+            {}
+        , {
+          react: path.resolve('node_modules', 'react'),
+          'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
+        }
       ),
     }
   ),

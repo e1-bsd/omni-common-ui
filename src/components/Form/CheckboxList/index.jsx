@@ -6,6 +6,10 @@ import Field from '../Field';
 import Checkbox from './Checkbox';
 
 class CheckboxList extends Component {
+  static cmp(a, b) {
+    return a === b;
+  }
+
   componentDidMount() {
     this.props.setValue([]);
   }
@@ -17,14 +21,10 @@ class CheckboxList extends Component {
     if (checked) {
       newValue = this.props.getValue().concat(option);
     } else {
-      newValue = this.props.getValue().filter((it) => ! this.cmp(it, option));
+      newValue = this.props.getValue().filter((it) => ! CheckboxList.cmp(it, option));
     }
 
     this.props.setValue(newValue);
-  }
-
-  cmp(a, b) {
-    return a === b;
   }
 
   render() {

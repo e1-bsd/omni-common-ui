@@ -1,17 +1,21 @@
-import 'normalize.css/normalize.css';
 import 'assets/styles/base/base.postcss';
 
 import { setupStore } from './setupStore';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { SingleSignOnProvider, routes as singleSignOnRoutes } from 'containers/SingleSignOn';
+import {
+  SingleSignOnHandler,
+  SingleSignOnProvider,
+  routes as singleSignOnRoutes,
+} from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
+import PermissionHandler from 'containers/PermissionHandler';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -24,10 +28,19 @@ export function setupApp(routes, reducer) {
   Store.set(store);
 
   const parsedRoutes = parseRoutes([
+    {
+      path: '/health-check',
+    },
     singleSignOnRoutes,
     {
-      component: App,
-      childRoutes: is.array(routes) ? routes : [routes],
+      component: SingleSignOnHandler,
+      childRoutes: [{
+        component: PermissionHandler,
+        childRoutes: [{
+          component: App,
+          childRoutes: is.array(routes) ? routes : [routes],
+        }],
+      }],
     },
   ], store);
 
