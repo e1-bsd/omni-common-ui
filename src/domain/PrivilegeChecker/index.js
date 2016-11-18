@@ -21,5 +21,5 @@ export default class PrivilegeChecker {
 }
 
 function arePrivilegesLoaded(privileges) {
-  return is.object(privileges) && is.array(privileges.items);
+  return is.object(privileges) && is.existy(privileges.items);
 }
