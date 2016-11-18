@@ -7,7 +7,6 @@ import Dialog from 'components/Dialog';
 import Impersonate from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
-import ApiResponseHelper from 'domain/ApiResponseHelper';
 import is from 'is_js';
 
 class UserInfo extends Component {
@@ -125,7 +124,7 @@ class UserInfo extends Component {
       this._redirectToPortal();
     }
 
-    if (is.not.object(this.props.user) || ! ApiResponseHelper.hasSucceeded(privileges)) {
+    if (is.not.object(this.props.user) || ! privileges) {
       return null;
     }
 
@@ -151,14 +150,14 @@ UserInfo.propTypes = {
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func,
   impersonate: React.PropTypes.object,
-  privileges: React.PropTypes.object,
+  privileges: React.PropTypes.arrayOf(React.PropTypes.string),
   unimpersonateState: React.PropTypes.object,
   user: React.PropTypes.object,
 };
 
 function mapStateToProps(state) {
   return {
-    privileges: state.get('privileges'),
+    privileges: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     unimpersonateState: state.get('impersonate')
       .get('unimpersonate')

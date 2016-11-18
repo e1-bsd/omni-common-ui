@@ -1,5 +1,3 @@
-import ApiResponseHelper from 'domain/ApiResponseHelper';
-import log from 'loglevel';
 import is from 'is_js';
 
 export default class PrivilegeChecker {
@@ -13,18 +11,15 @@ export default class PrivilegeChecker {
     }
 
     const privileges = state.get('privileges');
-    if (ApiResponseHelper.shouldFetch(privileges) || ApiResponseHelper.isLoading(privileges)) {
-      // This should never happen, since the privileges are fetched before anything is rendered
-      log.warn('PrivilegeChecker - privileges are being loaded, returning true for now');
+    if (! arePrivilegesLoaded(privileges)) {
       return true;
     }
 
-    if (! ApiResponseHelper.hasSucceeded(privileges)) {
-      log.error('PrivilegeChecker - privileges were not fetched successfully');
-      return false;
-    }
-
     const regEx = new RegExp(`${privilege}$`, 'i');
-    return !! privileges.data.items.find((item) => regEx.test(item));
+    return !! privileges.items.find((item) => regEx.test(item));
   }
+}
+
+function arePrivilegesLoaded(privileges) {
+  return is.object(privileges) && is.array(privileges.items);
 }
