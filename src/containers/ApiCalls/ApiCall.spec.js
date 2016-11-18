@@ -40,6 +40,10 @@ describe('ApiCall', () => {
       const key = ApiCall.Key.create({ method: 'GET', url: '/path/1' });
       expect(ApiCall.find(state, key)).to.equal(call1);
     });
+
+    it('builds the key by itself if provided an object', () => {
+      expect(ApiCall.find(state, { method: 'POST', url: '/path/1' })).to.equal(call2);
+    });
   });
 
   describe('#shouldPerform()', () => {
@@ -60,6 +64,10 @@ describe('ApiCall', () => {
       expect(ApiCall.shouldPerform(state, 'POST /path/1')).to.equal(false, 'succeeded');
       expect(ApiCall.shouldPerform(state, 'GET /path/2')).to.equal(false, 'failed');
       expect(ApiCall.shouldPerform(state, 'GET /path/3')).to.equal(true, 'should fetch');
+    });
+
+    it('builds the key by itself if provided an object', () => {
+      expect(ApiCall.shouldPerform(state, { method: 'POST', url: '/path/1' })).to.equal(call2);
     });
   });
 });

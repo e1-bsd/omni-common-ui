@@ -1,9 +1,15 @@
 import ApiKey from './ApiKey';
 import ApiAction from './ApiAction';
 import ApiState from './ApiState';
+import is from 'is_js';
 
 export default class ApiCall {
   static find(state, key) {
+    if (is.object(key)) {
+      const builtKey = ApiCall.Key.create(key);
+      return ApiCall.find(state, builtKey);
+    }
+
     return state.get('apiCalls').get(key);
   }
 
