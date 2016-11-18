@@ -13,5 +13,4 @@ if (process.platform === 'win32') {
   cmdLine = `NODE_ENV=${env} ${cmdLine}`;
 }
 
-execSync('npm run clean:dists', { stdio: [0, 1, 2] });
 execSync(cmdLine, { stdio: [0, 1, 2] });
