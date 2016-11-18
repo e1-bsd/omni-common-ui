@@ -50,7 +50,7 @@ export default class ApiAction {
       throw new InvalidAction('action.error should be defined for failed calls');
     }
 
-    if (! (action.error instanceof Error)) {
+    if (is.existy(action.error) && ! (action.error instanceof Error)) {
       action.error = new Error(action.error);
     }
 
