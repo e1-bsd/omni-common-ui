@@ -65,6 +65,7 @@ describe('ApiCall', () => {
       expect(ApiCall.shouldPerform(state, 'POST /path/1')).to.equal(false, 'succeeded');
       expect(ApiCall.shouldPerform(state, 'GET /path/2')).to.equal(false, 'failed');
       expect(ApiCall.shouldPerform(state, 'GET /path/3')).to.equal(true, 'should fetch');
+      expect(ApiCall.shouldPerform(state, 'GET /new/path')).to.equal(true, 'should fetch new');
     });
 
     it('builds the key by itself if provided an object', () => {
