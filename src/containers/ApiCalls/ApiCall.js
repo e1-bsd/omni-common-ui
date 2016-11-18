@@ -1,6 +1,6 @@
-import ApiKey from './ApiKey';
-import ApiAction from './ApiAction';
-import ApiState from './ApiState';
+import _ApiKey from './ApiKey';
+import _ApiAction from './ApiAction';
+import _ApiState from './ApiState';
 import is from 'is_js';
 
 export default class ApiCall {
@@ -14,19 +14,23 @@ export default class ApiCall {
   }
 
   static shouldPerform(state, key) {
-    return ApiState.shouldPerform(ApiCall.find(state, key));
+    return ApiCall.State.shouldPerform(ApiCall.find(state, key));
+  }
+
+  static createAction(action) {
+    return ApiCall.Action.create(action);
   }
 
   static get Action() {
-    return ApiAction;
+    return _ApiAction;
   }
 
   static get Key() {
-    return ApiKey;
+    return _ApiKey;
   }
 
   static get State() {
-    return ApiState;
+    return _ApiState;
   }
 
   static set Action(param) {

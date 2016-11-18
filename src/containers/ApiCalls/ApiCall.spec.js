@@ -4,6 +4,7 @@ import _ApiKey from './ApiKey';
 import _ApiAction from './ApiAction';
 import _ApiState from './ApiState';
 import { Map } from 'immutable';
+import Sinon from 'sinon';
 
 describe('ApiCall', () => {
   it('exposes ApiKey as Key', () => {
@@ -67,7 +68,22 @@ describe('ApiCall', () => {
     });
 
     it('builds the key by itself if provided an object', () => {
-      expect(ApiCall.shouldPerform(state, { method: 'POST', url: '/path/1' })).to.equal(call2);
+      expect(ApiCall.shouldPerform(state, { method: 'POST', url: '/path/1' })).to.be.false;
+    });
+  });
+
+  describe('#createAction()', () => {
+    const originalCreate = ApiCall.Action.create;
+
+    afterEach(() => {
+      ApiCall.Action.create = originalCreate;
+    });
+
+    it('calls ApiCall.Action.create()', () => {
+      ApiCall.Action.create = Sinon.spy();
+      const originalAction = { type: 'CALL_REQUEST', url: '/path', method: 'GET' };
+      ApiCall.createAction(originalAction);
+      expect(ApiCall.Action.create.args[0]).to.eql([originalAction]);
     });
   });
 });
