@@ -4,29 +4,35 @@ const STATE_LOADING = 'loading';
 const STATE_SUCCEEDED = 'succeeded';
 const STATE_FAILED = 'failed';
 
-class NotAnInstanceOfApiCallValue extends Error { }
+export class NotAnInstanceOfApiCallValue extends Error { }
 
-class ApiCallValue extends Record({
+class ApiStateRecord extends Record({
   status: undefined,
   error: undefined,
-}) {
+}) { }
+
+export default class ApiState {
   static createSucceeded() {
-    return new ApiCallValue({ status: STATE_SUCCEEDED });
+    return new ApiStateRecord({ status: STATE_SUCCEEDED });
   }
 
   static createFailed(error) {
-    return new ApiCallValue({
+    return new ApiStateRecord({
       status: STATE_FAILED,
       error,
     });
   }
 
   static createLoading() {
-    return new ApiCallValue({ status: STATE_LOADING });
+    return new ApiStateRecord({ status: STATE_LOADING });
+  }
+
+  static isValue(value) {
+    return value instanceof ApiStateRecord;
   }
 
   static isLoading(value) {
-    if (! (value instanceof ApiCallValue)) {
+    if (! ApiState.isValue(value)) {
       throw new NotAnInstanceOfApiCallValue();
     }
 
@@ -34,7 +40,7 @@ class ApiCallValue extends Record({
   }
 
   static hasSucceeded(value) {
-    if (! (value instanceof ApiCallValue)) {
+    if (! ApiState.isValue(value)) {
       throw new NotAnInstanceOfApiCallValue();
     }
 
@@ -42,12 +48,20 @@ class ApiCallValue extends Record({
   }
 
   static hasFailed(value) {
-    if (! (value instanceof ApiCallValue)) {
+    if (! ApiState.isValue(value)) {
       throw new NotAnInstanceOfApiCallValue();
     }
 
     return value.status === STATE_FAILED;
   }
-}
 
-export default ApiCallValue;
+  static shouldPerform(state) {
+    if (! ApiState.isValue(state)) {
+      return true;
+    }
+
+    return ! ApiState.isLoading(state) &&
+        ! ApiState.hasSucceeded(state) &&
+        ! ApiState.hasFailed(state);
+  }
+}

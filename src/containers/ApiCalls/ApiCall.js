@@ -1,11 +1,37 @@
-import Key from './Key';
-import Action from './Action';
-import Value from './Value';
+import ApiKey from './ApiKey';
+import ApiAction from './ApiAction';
+import ApiState from './ApiState';
 
-class ApiCall { }
+export default class ApiCall {
+  static find(state, key) {
+    return state.get('apiCalls').get(key);
+  }
 
-ApiCall.Key = Key;
-ApiCall.Action = Action;
-ApiCall.Value = Value;
+  static shouldPerform(state, key) {
+    return ApiState.shouldPerform(ApiCall.find(state, key));
+  }
 
-export default ApiCall;
+  static get Action() {
+    return ApiAction;
+  }
+
+  static get Key() {
+    return ApiKey;
+  }
+
+  static get State() {
+    return ApiState;
+  }
+
+  static set Action(param) {
+    throw new Error('Not allowed to reassign!');
+  }
+
+  static set Key(param) {
+    throw new Error('Not allowed to reassign!');
+  }
+
+  static set State(param) {
+    throw new Error('Not allowed to reassign!');
+  }
+}
