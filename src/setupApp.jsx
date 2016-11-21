@@ -16,6 +16,7 @@ import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
+import { actions as Privileges } from 'containers/Privileges';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -27,7 +28,7 @@ export function setupApp(routes, reducer) {
   const { store, syncBrowserHistory } = setupStore(reducer);
   Store.set(store);
 
-  const parsedRoutes = parseRoutes([
+  const parsedRoutes = parseRoutes(({ getState }) => [
     {
       path: '/health-check',
     },
@@ -38,6 +39,8 @@ export function setupApp(routes, reducer) {
         component: PermissionHandler,
         childRoutes: [{
           component: App,
+          // This will block calling any other checkPrivileges() until the privileges are loaded.
+          checkPrivileges: () => Privileges.isLoading(getState()),
           childRoutes: is.array(routes) ? routes : [routes],
         }],
       }],

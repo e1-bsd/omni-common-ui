@@ -68,3 +68,11 @@ export function fetchPrivilegesIfNeeded() {
     }
   };
 }
+
+export function isLoading(state) {
+  const userId = state.get('singleSignOn').user.profile.sub;
+  const keyConfig = { method: 'GET', url: buildUrl(`/users/${userId}/privileges`) };
+  const apiCallState = ApiCall.find(state, keyConfig);
+
+  return ! ApiCall.State.isValue(apiCallState) || ApiCall.State.isLoading(apiCallState);
+}
