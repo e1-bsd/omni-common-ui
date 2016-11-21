@@ -17,6 +17,7 @@ import App from 'components/App';
 import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
+import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import { actions as Privileges } from 'containers/Privileges';
 
 if (! PRODUCTION) {
@@ -44,7 +45,10 @@ export function setupApp(routes, reducer) {
           checkPrivileges: () => Privileges.isLoading(getState()),
           childRoutes: [{
             component: ErrorPageHandler,
-            childRoutes: is.array(routes) ? routes : [routes],
+            childRoutes: [{
+              component: LoadingOverlayHandler,
+              childRoutes: is.array(routes) ? routes : [routes],
+            }],
           }],
         }],
       }],
