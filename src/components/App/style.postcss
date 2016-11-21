@@ -4,7 +4,13 @@
   min-height: 100vh;
 
   &_content {
+    align-items: stretch;
     display: flex;
     flex: 1;
+    flex-direction: column;
+
+    & > div {
+      flex: 1;
+    }
   }
 }
