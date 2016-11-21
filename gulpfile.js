@@ -30,7 +30,7 @@ gulp.task('build:css', () => gulp.src('src/**/*.postcss')
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib')));
 
-gulp.task('build:js', () => gulp.src(['src/**/*.js', 'src/**/*.jsx'])
+gulp.task('build:js', () => gulp.src(['src/*.js', 'src/**/*.js', 'src/**/*.jsx'])
     .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['react', 'es2015', 'stage-2'],
