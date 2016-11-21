@@ -9,7 +9,14 @@ export class NotAnInstanceOfApiCallValue extends Error { }
 class ApiStateRecord extends Record({
   status: undefined,
   error: undefined,
-}) { }
+  timestamp: undefined,
+}) {
+  constructor(values = {}) {
+    super(Object.assign({}, values, {
+      timestamp: new Date(),
+    }));
+  }
+}
 
 export default class ApiState {
   static createSucceeded() {
@@ -63,5 +70,9 @@ export default class ApiState {
     return ! ApiState.isLoading(state) &&
         ! ApiState.hasSucceeded(state) &&
         ! ApiState.hasFailed(state);
+  }
+
+  static getTimestamp(state) {
+    state.get('timestamp');
   }
 }
