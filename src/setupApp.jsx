@@ -16,6 +16,7 @@ import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
+import ErrorPageHandler from 'containers/ErrorPageHandler';
 import { actions as Privileges } from 'containers/Privileges';
 
 if (! PRODUCTION) {
@@ -41,7 +42,10 @@ export function setupApp(routes, reducer) {
           component: App,
           // This will block calling any other checkPrivileges() until the privileges are loaded.
           checkPrivileges: () => Privileges.isLoading(getState()),
-          childRoutes: is.array(routes) ? routes : [routes],
+          childRoutes: [{
+            component: ErrorPageHandler,
+            childRoutes: is.array(routes) ? routes : [routes],
+          }],
         }],
       }],
     },

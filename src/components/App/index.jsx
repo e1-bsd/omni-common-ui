@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import Header from 'containers/Header';
 
@@ -7,9 +9,9 @@ const App = (props) => {
     return null;
   }
 
-  return <div>
+  return <div className={styles.App}>
     <Header />
-    <div>{props.children}</div>
+    <div className={styles.App_content}>{props.children}</div>
   </div>;
 };
 
