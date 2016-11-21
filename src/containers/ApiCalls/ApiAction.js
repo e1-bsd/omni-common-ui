@@ -8,6 +8,7 @@ const TYPE_ANY = /(_REQUEST|_SUCCESS|_FAILURE)$/i;
 class InvalidAction extends Error { }
 
 const FINGERPRINT = Symbol('ApiAction');
+const TIMESTAMP = Symbol('ApiAction/Timestamp');
 
 export default class ApiAction {
   static create(originalAction) {
@@ -54,7 +55,12 @@ export default class ApiAction {
       action.error = new Error(action.error);
     }
 
-    return Object.assign(action, { [FINGERPRINT]: true });
+    const newAction = Object.assign(action, {
+      [FINGERPRINT]: true,
+      [TIMESTAMP]: new Date(),
+    });
+
+    return Object.freeze(newAction);
   }
 
   static isApiAction(object) {
@@ -79,5 +85,9 @@ export default class ApiAction {
 
   static getApiType(action) {
     return action.type.replace(TYPE_ANY, '');
+  }
+
+  static getTimestamp(action) {
+    return action[TIMESTAMP];
   }
 }
