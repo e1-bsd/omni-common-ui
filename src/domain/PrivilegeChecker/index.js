@@ -1,4 +1,6 @@
 import is from 'is_js';
+import ApiCall from 'containers/ApiCalls';
+import { buildUrl } from 'domain/Api';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
@@ -11,7 +13,7 @@ export default class PrivilegeChecker {
     }
 
     const privileges = state.get('privileges');
-    if (! arePrivilegesLoaded(privileges)) {
+    if (arePrivilegesLoading(state, privileges)) {
       return true;
     }
 
@@ -20,6 +22,13 @@ export default class PrivilegeChecker {
   }
 }
 
-function arePrivilegesLoaded(privileges) {
-  return is.object(privileges) && is.existy(privileges.items);
+function arePrivilegesLoading(state, privileges) {
+  const userId = state.get('singleSignOn').user.profile.sub;
+  const keyConfig = { method: 'GET', url: buildUrl(`/users/${userId}/privileges`) };
+  const apiCallState = ApiCall.find(state, keyConfig);
+
+  return ! ApiCall.State.isValue(apiCallState) ||
+      ApiCall.State.isLoading(apiCallState) ||
+      is.not.object(privileges) ||
+      is.not.existy(privileges.items);
 }
