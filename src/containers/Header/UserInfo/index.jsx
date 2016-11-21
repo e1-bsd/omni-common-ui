@@ -150,7 +150,7 @@ UserInfo.propTypes = {
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func,
   impersonate: React.PropTypes.object,
-  privileges: React.PropTypes.arrayOf(React.PropTypes.string),
+  privileges: React.PropTypes.object,
   unimpersonateState: React.PropTypes.object,
   user: React.PropTypes.object,
 };
