@@ -8,9 +8,10 @@ import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 
 const LoadingOverlayHandler = ({ isAnyApiCallLoading, children }) => {
+  const { Pace } = window;
   if (isAnyApiCallLoading) {
-    log.info('Loading throbber restarted.');
-    Pace.restart();
+    log.debug('Loading throbber restarted unless running.');
+    Pace && (Pace.running || Pace.restart());
   }
   return children;
 };
@@ -25,7 +26,9 @@ function mapStateToProps(state) {
 }
 
 function getIsAnyApiCallLoading(state) {
-  const loadingApi = state.get('apiCalls').find((call) => ApiCall.State.isLoading(call));
+  const loadingApi = state.get('apiCalls')
+    .filter((call, key) => key.startsWith('GET'))
+    .find((call) => ApiCall.State.isLoading(call));
   if (is.object(loadingApi)) {
     return true;
   }
