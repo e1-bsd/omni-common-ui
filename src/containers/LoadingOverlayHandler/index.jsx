@@ -15,14 +15,14 @@ class LoadingOverlayHandler extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isApiCallsLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
-    if (isApiCallsLoadingBeyondThreshold) {
+    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
+    if (isAnyApiCallLoadingBeyondThreshold) {
       this.setState({ isThrobberShown: true });
     } else if (isAnyApiCallLoading) {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         const { loadingApiCalls } = this.props;
-        if (! getIsApiCallsLoadingBeyondThreshold(loadingApiCalls)) return;
+        if (! getIsAnyApiCallLoadingBeyondThreshold(loadingApiCalls)) return;
         this.setState({ isThrobberShown: true });
       }, REQUEST_DURATION_THRESHOLD_MS);
     } else if (! isAnyApiCallLoading) {
@@ -51,18 +51,18 @@ LoadingOverlayHandler.propTypes = {
     filter: React.PropTypes.func,
   }),
   isAnyApiCallLoading: React.PropTypes.bool.isRequired,
-  isApiCallsLoadingBeyondThreshold: React.PropTypes.bool.isRequired,
+  isAnyApiCallLoadingBeyondThreshold: React.PropTypes.bool.isRequired,
   children: React.PropTypes.node.isRequired,
 };
 
 function mapStateToProps(state) {
   const loadingApiCalls = getLoadingApiCalls(state);
-  const isApiCallsLoadingBeyondThreshold =
-      Boolean(loadingApiCalls && getIsApiCallsLoadingBeyondThreshold(loadingApiCalls));
+  const isAnyApiCallLoadingBeyondThreshold =
+      Boolean(loadingApiCalls && getIsAnyApiCallLoadingBeyondThreshold(loadingApiCalls));
   return {
     loadingApiCalls,
     isAnyApiCallLoading: !! loadingApiCalls,
-    isApiCallsLoadingBeyondThreshold,
+    isAnyApiCallLoadingBeyondThreshold,
   };
 }
 
@@ -76,7 +76,7 @@ function getLoadingApiCalls(state) {
   return null;
 }
 
-function getIsApiCallsLoadingBeyondThreshold(apiCalls) {
+function getIsAnyApiCallLoadingBeyondThreshold(apiCalls) {
   if (! apiCalls) return false;
   return !! apiCalls.filter((call) =>
       new Date().getTime() - call.timestamp.getTime() >= REQUEST_DURATION_THRESHOLD_MS)
