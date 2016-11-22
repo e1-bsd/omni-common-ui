@@ -4,14 +4,14 @@ import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
 
-
 const ErrorPage = (props) => {
-  const { erroredApi, config, replace, afterButtonClicked } = props;
+  const { erroredApi, config, afterButtonClicked } = props;
   return <div className={styles.ErrorPage}>
     <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
     <div className={styles.ErrorPage_text}>{renderMessage()}</div>
     <Button type={Button.Type.primary}
-        onClick={() => onButtonClick()}>
+        onClick={() => afterButtonClicked()}
+        linkTo={linkTo()}>
       {renderButtonText()}
     </Button>
   </div>;
@@ -24,16 +24,12 @@ const ErrorPage = (props) => {
     return config.message(erroredApi, props);
   }
 
-  function onButtonClick() {
-    try {
-      if (is.not.object(config) || is.not.function(config.onClickButton)) {
-        return replace('/');
-      }
-
-      return replace(config.onClickButton(erroredApi, props));
-    } finally {
-      afterButtonClicked();
+  function linkTo() {
+    if (is.not.object(config) || is.not.function(config.buttonLink)) {
+      return '/';
     }
+
+    return config.buttonLink(erroredApi, props);
   }
 
   function renderButtonText() {
@@ -54,7 +50,7 @@ ErrorPage.propTypes = {
   config: React.PropTypes.shape({
     message: React.PropTypes.func,
     buttonText: React.PropTypes.func,
-    onClickButton: React.PropTypes.func,
+    buttonLink: React.PropTypes.func,
   }),
 };
 

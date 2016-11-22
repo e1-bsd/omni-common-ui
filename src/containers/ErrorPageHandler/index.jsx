@@ -31,7 +31,7 @@ ErrorPageHandler.propTypes = {
   config: React.PropTypes.shape({
     message: React.PropTypes.func,
     buttonText: React.PropTypes.func,
-    onClickButton: React.PropTypes.func,
+    buttonLink: React.PropTypes.func,
   }),
 };
 

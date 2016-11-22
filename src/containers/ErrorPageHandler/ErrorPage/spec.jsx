@@ -3,8 +3,8 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Sinon from 'sinon';
-import ErrorPage from './';
 import Button from 'components/Button';
+import ErrorPage from './';
 
 describe('<ErrorPageHandler />', () => {
   describe('<ErrorPage />', () => {
@@ -12,7 +12,6 @@ describe('<ErrorPageHandler />', () => {
 
     beforeEach(() => {
       props = {
-        replace: Sinon.spy(),
         afterButtonClicked: Sinon.spy(),
         erroredApi: {
           error: new Error('an error'),
@@ -23,15 +22,12 @@ describe('<ErrorPageHandler />', () => {
     it('uses the default behaviour if no config is passed', () => {
       const wrapper = shallow(<ErrorPage {...props} />);
       expect(wrapper.find(`.${styles.ErrorPage_text}`)).to.contain('an error');
-      expect(wrapper.find(Button)).to.contain('Back');
-
-      wrapper.find(Button).simulate('click');
-      expect(props.replace.calledOnce).to.equal(true, 'replace called once');
-      expect(props.replace.args[0]).to.eql(['/']);
+      expect(wrapper.find(Button)).to.have.prop('children', 'Back');
+      expect(wrapper.find(Button)).to.have.prop('linkTo', '/');
     });
 
     it('calls afterButtonClicked after clicking the button even ' +
-        'if no config.onClickButton is provided', () => {
+        'if no config.buttonLink is provided', () => {
       const wrapper = shallow(<ErrorPage {...props} />);
       wrapper.find(Button).simulate('click');
       expect(props.afterButtonClicked.calledOnce).to.be.true;
@@ -49,25 +45,23 @@ describe('<ErrorPageHandler />', () => {
       expect(wrapper.find(Button)).to.contain('my custom button');
     });
 
-    it('allows to customise the button\'s onClick if config.onClickButton is provided', () => {
-      props.config = { onClickButton: () => '/custom/path' };
+    it('allows to customise the button\'s link if config.buttonLink is provided', () => {
+      props.config = { buttonLink: () => '/custom/path' };
       const wrapper = shallow(<ErrorPage {...props} />);
-      wrapper.find(Button).simulate('click');
-      expect(props.replace.calledOnce).to.equal(true, 'replace called once');
-      expect(props.replace.args[0]).to.eql(['/custom/path']);
+      expect(wrapper.find(Button)).to.have.prop('linkTo', '/custom/path');
     });
 
     it('calls all config functions with (erroredApi, props)', () => {
-      props.config = { message: Sinon.spy(), buttonText: Sinon.spy(), onClickButton: Sinon.spy() };
+      props.config = { message: Sinon.spy(), buttonText: Sinon.spy(), buttonLink: Sinon.spy() };
       const wrapper = shallow(<ErrorPage {...props} />);
       wrapper.find(Button).simulate('click');
       expect(props.config.message.calledOnce).to.equal(true, 'message called once');
       expect(props.config.message.args).to.eql([[props.erroredApi, props]], 'message params');
       expect(props.config.buttonText.calledOnce).to.equal(true, 'buttonText called once');
       expect(props.config.buttonText.args).to.eql([[props.erroredApi, props]], 'buttonText params');
-      expect(props.config.onClickButton.calledOnce).to.equal(true, 'onClickButton called once');
-      expect(props.config.onClickButton.args)
-          .to.eql([[props.erroredApi, props]], 'onClickButton params');
+      expect(props.config.buttonLink.calledOnce).to.equal(true, 'buttonLink called once');
+      expect(props.config.buttonLink.args)
+          .to.eql([[props.erroredApi, props]], 'buttonLink params');
     });
   });
 });
