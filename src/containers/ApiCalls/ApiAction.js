@@ -34,17 +34,18 @@ export default class ApiAction {
     action.method = action.method.toUpperCase();
 
     if (is.not.string(action.type)) {
-      throw new InvalidAction('The action should have a type property of type string');
+      throw new InvalidAction('The action should have a type property of type string. ' +
+          `Got one with a type of ${typeof action.type}`);
     }
 
     if (! TYPE_ANY.test(action.type)) {
       throw new InvalidAction('The type property of an action should end ' +
-          'with _REQUEST, _SUCCESS or _FAILURE');
+          `with _REQUEST, _SUCCESS or _FAILURE. Got ${action.type}`);
     }
 
     if (/[a-z]/.test(action.type)) {
       throw new InvalidAction('The type property of an action ' +
-          'should not contain lower case letters');
+          `should not contain lower case letter. Got ${action.type}`);
     }
 
     if (ApiAction.isFailure(action) && is.not.existy(action.error)) {
