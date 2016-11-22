@@ -16,6 +16,11 @@ describe('ApiCalls', () => {
       expect(reducer(state, {})).to.equal(state);
     });
 
+    it('removes an entry when API_CALL_CLEAN action is received', () => {
+      state = state.set('key', 'value');
+      expect(reducer(state, ApiCall.clean('key')).get('key')).to.be.undefined;
+    });
+
     it('sets the proper map item to loading when received a _REQUEST action', () => {
       const action = ApiCall.createAction({
         type: 'FETCH_REQUEST',

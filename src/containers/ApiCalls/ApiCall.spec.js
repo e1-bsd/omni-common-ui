@@ -7,6 +7,10 @@ import { Map } from 'immutable';
 import Sinon from 'sinon';
 
 describe('ApiCall', () => {
+  it('exposes API_CALL_CLEAN action type', () => {
+    expect(ApiCall.API_CALL_CLEAN).to.equal('API_CALL_CLEAN');
+  });
+
   it('exposes ApiKey as Key', () => {
     expect(ApiCall.Key).to.equal(_ApiKey);
   });
@@ -85,6 +89,14 @@ describe('ApiCall', () => {
       const originalAction = { type: 'CALL_REQUEST', url: '/path', method: 'GET' };
       ApiCall.createAction(originalAction);
       expect(ApiCall.Action.create.args[0]).to.eql([originalAction]);
+    });
+  });
+
+  describe('#clean()', () => {
+    it('returns an action of API_CALL_CLEAN type with the passed key', () => {
+      const action = ApiCall.clean('key');
+      expect(action.type).to.equal(ApiCall.API_CALL_CLEAN);
+      expect(action.key).to.equal('key');
     });
   });
 });

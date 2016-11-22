@@ -21,6 +21,17 @@ export default class ApiCall {
     return ApiCall.Action.create(action);
   }
 
+  static clean(key) {
+    return Object.freeze({
+      type: ApiCall.API_CALL_CLEAN,
+      key,
+    });
+  }
+
+  static get API_CALL_CLEAN() {
+    return 'API_CALL_CLEAN';
+  }
+
   static get Action() {
     return _ApiAction;
   }

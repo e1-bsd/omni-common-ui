@@ -2,6 +2,10 @@ import { Map } from 'immutable';
 import ApiCall from './';
 
 export default function apiCalls(state = Map(), action) {
+  if (action.type === ApiCall.API_CALL_CLEAN) {
+    return state.remove(action.key);
+  }
+
   if (! ApiCall.Action.isApiAction(action)) {
     return state;
   }
