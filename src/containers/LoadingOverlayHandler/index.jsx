@@ -1,38 +1,86 @@
-/* global Pace: true */
-
-import React from 'react';
-import log from 'loglevel';
+import React, { Component } from 'react';
+import classnames from 'classnames';
 import is from 'is_js';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 
-const LoadingOverlayHandler = ({ isAnyApiCallLoading, children }) => {
-  const { Pace } = window;
-  if (isAnyApiCallLoading) {
-    log.debug('Loading throbber restarted unless running.');
-    Pace && (Pace.running || Pace.restart());
+const HTTP_METHOD_TRIGGERS = 'GET';
+const REQUEST_DURATION_THRESHOLD_MS = 100;
+
+class LoadingOverlayHandler extends Component {
+  constructor() {
+    super();
+    this.state = { isThrobberShown: false };
   }
-  return children;
-};
+
+  componentWillReceiveProps(nextProps) {
+    const { isApiCallsLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
+    if (isApiCallsLoadingBeyondThreshold) {
+      this.setState({ isThrobberShown: true });
+    } else if (isAnyApiCallLoading) {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        const { loadingApiCalls } = this.props;
+        if (! getIsApiCallsLoadingBeyondThreshold(loadingApiCalls)) return;
+        this.setState({ isThrobberShown: true });
+      }, REQUEST_DURATION_THRESHOLD_MS);
+    } else if (! isAnyApiCallLoading) {
+      clearTimeout(this.timer);
+      this.setState({ isThrobberShown: false });
+    }
+  }
+
+  render() {
+    const { children } = this.props;
+    const classes = {
+      pace: true,
+      'pace-inactive': ! this.state.isThrobberShown,
+    };
+    return <div>
+      <div className={classnames(classes)}>
+        <div className="pace-activity" />
+      </div>
+      {children}
+    </div>;
+  }
+}
 
 LoadingOverlayHandler.propTypes = {
-  children: React.PropTypes.node,
-  isAnyApiCallLoading: React.PropTypes.bool,
+  loadingApiCalls: React.PropTypes.shape({
+    filter: React.PropTypes.func,
+  }),
+  isAnyApiCallLoading: React.PropTypes.bool.isRequired,
+  isApiCallsLoadingBeyondThreshold: React.PropTypes.bool.isRequired,
+  children: React.PropTypes.node.isRequired,
 };
 
 function mapStateToProps(state) {
-  return { isAnyApiCallLoading: getIsAnyApiCallLoading(state) };
+  const loadingApiCalls = getLoadingApiCalls(state);
+  const isApiCallsLoadingBeyondThreshold =
+      Boolean(loadingApiCalls && getIsApiCallsLoadingBeyondThreshold(loadingApiCalls));
+  return {
+    loadingApiCalls,
+    isAnyApiCallLoading: !! loadingApiCalls,
+    isApiCallsLoadingBeyondThreshold,
+  };
 }
 
-function getIsAnyApiCallLoading(state) {
-  const loadingApi = state.get('apiCalls')
-    .filter((call, key) => key.startsWith('GET'))
-    .find((call) => ApiCall.State.isLoading(call));
-  if (is.object(loadingApi)) {
-    return true;
+function getLoadingApiCalls(state) {
+  const loadingApiCalls = state.get('apiCalls')
+    .filter((call, key) => key.startsWith(HTTP_METHOD_TRIGGERS))
+    .filter((call) => ApiCall.State.isLoading(call));
+  if (is.object(loadingApiCalls) && loadingApiCalls.size) {
+    return loadingApiCalls;
   }
-  return false;
+  return null;
+}
+
+function getIsApiCallsLoadingBeyondThreshold(apiCalls) {
+  if (! apiCalls) return false;
+  return !! apiCalls.filter((call) =>
+      new Date().getTime() - call.timestamp.getTime() >= REQUEST_DURATION_THRESHOLD_MS)
+    .find(() => true);
 }
 
 export default connect(mapStateToProps)(LoadingOverlayHandler);
