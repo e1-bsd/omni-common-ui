@@ -1,4 +1,5 @@
 import is from 'is_js';
+import { List } from 'immutable';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
@@ -11,6 +12,10 @@ export default class PrivilegeChecker {
     }
 
     const privileges = state.get('privileges');
+    if (is.not.object(privileges) || ! List.isList(privileges.items)) {
+      return false;
+    }
+
     const regEx = new RegExp(`${privilege}$`, 'i');
     return !! privileges.items.find((item) => regEx.test(item));
   }
