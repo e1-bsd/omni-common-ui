@@ -5,7 +5,8 @@ import Button from 'components/Button';
 import is from 'is_js';
 
 
-const ErrorPage = ({ erroredApi, config, replace, afterButtonClicked }) => {
+const ErrorPage = (props) => {
+  const { erroredApi, config, replace, afterButtonClicked } = props;
   return <div className={styles.ErrorPage}>
     <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
     <div className={styles.ErrorPage_text}>{renderMessage()}</div>
@@ -20,7 +21,7 @@ const ErrorPage = ({ erroredApi, config, replace, afterButtonClicked }) => {
       return erroredApi.error.message;
     }
 
-    return config.message(erroredApi);
+    return config.message(erroredApi, props);
   }
 
   function onButtonClick() {
@@ -29,7 +30,7 @@ const ErrorPage = ({ erroredApi, config, replace, afterButtonClicked }) => {
         return replace('/');
       }
 
-      return config.onClickButton(erroredApi);
+      return replace(config.onClickButton(erroredApi, props));
     } finally {
       afterButtonClicked();
     }
@@ -40,7 +41,7 @@ const ErrorPage = ({ erroredApi, config, replace, afterButtonClicked }) => {
       return 'Back';
     }
 
-    return config.buttonText(erroredApi);
+    return config.buttonText(erroredApi, props);
   }
 };
 

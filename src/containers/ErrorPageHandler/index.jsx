@@ -7,7 +7,8 @@ import ApiCall from 'containers/ApiCalls';
 import is from 'is_js';
 import { List } from 'immutable';
 
-const ErrorPageHandler = ({ children, config, erroredApi, replace, clean }) => {
+export const ErrorPageHandler = (props) => {
+  const { children, config, erroredApi, clean } = props;
   if (! ApiCall.State.isValue(erroredApi)) {
     return children;
   }
@@ -15,8 +16,8 @@ const ErrorPageHandler = ({ children, config, erroredApi, replace, clean }) => {
   return <div className={styles.ErrorPageHandler}>
     <ErrorPage erroredApi={erroredApi}
         config={config}
-        replace={replace}
-        afterButtonClicked={() => clean(erroredApi.id)} />
+        afterButtonClicked={() => clean(erroredApi.id)}
+        {...props} />
   </div>;
 };
 
@@ -34,7 +35,7 @@ ErrorPageHandler.propTypes = {
   }),
 };
 
-function mapStateToProps(state, { routes }) {
+export function mapStateToProps(state, { routes }) {
   return { erroredApi: getApiError(state), config: getConfig(routes) };
 }
 
