@@ -1,4 +1,5 @@
 import { fetch, buildUrl } from 'domain/Api';
+import ApiCall from 'containers/ApiCalls';
 
 export const POST_IMPERSONATE_REQUEST = 'POST_IMPERSONATE_REQUEST';
 export const POST_IMPERSONATE_SUCCESS = 'POST_IMPERSONATE_SUCCESS';
@@ -38,9 +39,43 @@ export function removeImpersonate() {
 
 export function postImpersonate(email) {
   return (dispatch) => {
-    dispatch(postImpersonateRequest(email)).payload
+    const url = buildUrl(`/users/${email}/impersonate`);
+    const method = 'PUT';
+
+    dispatch(postImpersonateRequest()).payload
       .then((response) => dispatch(postImpersonateSuccess(response)))
-      .catch((error) => dispatch(postImpersonateFailure(new Error(error))));
+      .catch((error) => dispatch(postImpersonateFailure(error)));
+
+    function postImpersonateRequest() {
+      const param = {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+      };
+      return ApiCall.createAction({
+        type: POST_IMPERSONATE_REQUEST,
+        payload: fetch(url, param),
+        url,
+        method,
+      });
+    }
+
+    function postImpersonateSuccess(response) {
+      return ApiCall.createAction({
+        type: POST_IMPERSONATE_SUCCESS,
+        payload: response,
+        url,
+        method,
+      });
+    }
+
+    function postImpersonateFailure(error) {
+      return ApiCall.createAction({
+        type: POST_IMPERSONATE_FAILURE,
+        error,
+        url,
+        method,
+      });
+    }
   };
 }
 
@@ -50,66 +85,44 @@ export function clearImpersonateData() {
   };
 }
 
-function postImpersonateRequest(email) {
-  const url = buildUrl(`/users/${email}/impersonate`);
-  const param = {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-  };
-  return {
-    type: POST_IMPERSONATE_REQUEST,
-    payload: fetch(url, param),
-    url,
-  };
-}
-
-function postImpersonateSuccess(response) {
-  return {
-    type: POST_IMPERSONATE_SUCCESS,
-    payload: response,
-  };
-}
-
-function postImpersonateFailure(error) {
-  return {
-    type: POST_IMPERSONATE_FAILURE,
-    payload: error,
-  };
-}
-
 export function unimpersonate() {
   return (dispatch) => {
-    const failurePostCallBack = (e) => dispatch(unimpersonateFailure(e));
-    const successPostCallBack = (response) => dispatch(unimpersonateSuccess(response));
+    const url = buildUrl('/users/unimpersonate');
+    const method = 'PUT';
+
     dispatch(unimpersonateRequest()).payload
-      .then((response) => successPostCallBack(response))
-      .catch((error) => error.response.then((json) => failurePostCallBack(json.ErrorCode)));
-  };
-}
+      .then((response) => dispatch(unimpersonateSuccess(response)))
+      .catch((error) => dispatch(unimpersonateFailure(error)));
 
-function unimpersonateRequest() {
-  const url = buildUrl('/users/unimpersonate');
-  const param = {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-  };
-  return {
-    type: UNIMPERSONATE_REQUEST,
-    payload: fetch(url, param),
-    url,
-  };
-}
+    function unimpersonateRequest() {
+      const param = {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+      };
+      return ApiCall.createAction({
+        type: UNIMPERSONATE_REQUEST,
+        payload: fetch(url, param),
+        url,
+        method,
+      });
+    }
 
-function unimpersonateSuccess(response) {
-  return {
-    type: UNIMPERSONATE_SUCCESS,
-    payload: response,
-  };
-}
+    function unimpersonateSuccess(response) {
+      return ApiCall.createAction({
+        type: UNIMPERSONATE_SUCCESS,
+        payload: response,
+        url,
+        method,
+      });
+    }
 
-function unimpersonateFailure(error) {
-  return {
-    type: UNIMPERSONATE_FAILURE,
-    payload: error,
+    function unimpersonateFailure(error) {
+      return ApiCall.createAction({
+        type: UNIMPERSONATE_FAILURE,
+        error,
+        url,
+        method,
+      });
+    }
   };
 }
