@@ -10,6 +10,7 @@ class ApiStateRecord extends Record({
   status: undefined,
   error: undefined,
   timestamp: undefined,
+  id: undefined,
 }) {
   constructor(values = {}) {
     super(Object.assign({}, values, {
@@ -19,19 +20,20 @@ class ApiStateRecord extends Record({
 }
 
 export default class ApiState {
-  static createSucceeded() {
-    return new ApiStateRecord({ status: STATE_SUCCEEDED });
+  static createSucceeded(id) {
+    return new ApiStateRecord({ id, status: STATE_SUCCEEDED });
   }
 
-  static createFailed(error) {
+  static createFailed(id, error) {
     return new ApiStateRecord({
+      id,
       status: STATE_FAILED,
       error,
     });
   }
 
-  static createLoading() {
-    return new ApiStateRecord({ status: STATE_LOADING });
+  static createLoading(id) {
+    return new ApiStateRecord({ id, status: STATE_LOADING });
   }
 
   static isValue(value) {

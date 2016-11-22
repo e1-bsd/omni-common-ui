@@ -28,7 +28,7 @@ describe('ApiCall', () => {
 
       it('saves the error received as parameter', () => {
         const error = 'some error';
-        const apiState = ApiState.createFailed(error);
+        const apiState = ApiState.createFailed('key', error);
         expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
         expect(apiState.status).to.equal('failed');
         expect(apiState.error).to.equal(error);
