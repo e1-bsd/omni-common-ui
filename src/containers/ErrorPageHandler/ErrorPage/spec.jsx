@@ -13,6 +13,7 @@ describe('<ErrorPageHandler />', () => {
     beforeEach(() => {
       props = {
         afterButtonClicked: Sinon.spy(),
+        location: { pathname: '/current/path' },
         erroredApi: {
           error: new Error('an error'),
         },
@@ -21,7 +22,8 @@ describe('<ErrorPageHandler />', () => {
 
     it('uses the default behaviour if no config is passed', () => {
       const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_text}`)).to.contain('an error');
+      expect(wrapper.find(`.${styles.ErrorPage_text}`))
+          .to.contain('Omni could not load this page.');
       expect(wrapper.find(Button)).to.have.prop('children', 'Back');
       expect(wrapper.find(Button)).to.have.prop('linkTo', '/');
     });
@@ -62,6 +64,12 @@ describe('<ErrorPageHandler />', () => {
       expect(props.config.buttonLink.calledOnce).to.equal(true, 'buttonLink called once');
       expect(props.config.buttonLink.args)
           .to.eql([[props.erroredApi, props]], 'buttonLink params');
+    });
+
+    it('hides the button if its link points to the current URL', () => {
+      props.config = { buttonLink: () => 'current/Path/' };
+      const wrapper = shallow(<ErrorPage {...props} />);
+      expect(wrapper.find(Button)).to.have.length(0);
     });
   });
 });
