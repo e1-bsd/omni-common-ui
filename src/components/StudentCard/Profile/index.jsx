@@ -21,7 +21,12 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     }
     return <div className={nameClasses} data-prop={prop}>{name}</div>;
   };
-  const getStr = (name) => is.undefined(name) ? '' : `${name}`;
+  const getStr = (name) => {
+    if (is.undefined(name)) {
+      return '';
+    }
+    return name;
+  };
   return <Card.Content withoutBottomPadding>
     <div className={classes}>
       <StudentPicture src={props.avatarUrl}
