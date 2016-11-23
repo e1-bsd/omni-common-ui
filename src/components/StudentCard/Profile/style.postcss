@@ -6,7 +6,7 @@
   --nameLineHeight: 19px;
   --nameFontWeight: 500;
   --nameFontSize: 15px;
-  --surnameFontSize: 12.5px;
+  --localNameFontSize: 12.5px;
   --statusSize: 20px;
 }
 
@@ -48,7 +48,7 @@
   }
 
   &_name,
-  &_surname {
+  &_localName {
     line-height: var(--nameLineHeight);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -60,8 +60,9 @@
     font-weight: var(--nameFontWeight);
   }
 
-  &_surname {
-    font-size: var(--surnameFontSize);
+  &_localName {
+    color: var(--colorTextSecondary);
+    font-size: var(--localNameFontSize);
   }
 
   &.__separated {
@@ -69,7 +70,6 @@
   }
 
   &_status {
-    align-self: flex-start;
-    margin-top: 7px;
+    width: fit-content;
   }
 }

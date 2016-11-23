@@ -10,6 +10,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard>
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="male"
               statusInitial="s"
               avatarUrl="error" />
@@ -19,6 +20,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="grey">
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               status="studying"
               statusInitial="s"
@@ -30,6 +32,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="green" statusAccentPosition="left">
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               status="On Hold"
               statusInitial="H"
@@ -40,6 +43,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="red">
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               avatarUrl={testImage} />
         </StudentCard>
@@ -48,6 +52,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="amber" statusAccentPosition="left">
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               status="On Hold"
               avatarUrl={testImage} />
@@ -57,6 +62,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard statusAccentColor="invalid">
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               avatarUrl={testImage} />
         </StudentCard>
@@ -65,6 +71,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard withSeparatorLine>
           <StudentCard.Profile name="Jane"
               surname="Bloggs"
+              localName="王呆呆"
               gender="female"
               avatarUrl={testImage} />
           <StudentCard.Content>
@@ -87,6 +94,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard borderless statusAccentColor="grey">
           <StudentCard.Profile name="Jane"
               surname="Borderless"
+              localName="王呆呆"
               gender="male"
               avatarUrl={testImage} />
         </StudentCard>
@@ -95,6 +103,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard backgroundless statusAccentColor="grey">
           <StudentCard.Profile name="Jane"
               surname="Backgroundless"
+              localName="王呆呆"
               gender="male"
               avatarUrl={testImage} />
         </StudentCard>
@@ -103,6 +112,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard backgroundless borderless>
           <StudentCard.Profile name="Jane"
               surname="Barebones"
+              localName="王呆呆"
               gender="male"
               avatarUrl={testImage} />
         </StudentCard>
@@ -111,6 +121,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard borderless>
           <StudentCard.Profile name="Jane"
               surname="Bigger Avatar"
+              localName="王呆呆"
               gender="male"
               avatarUrl={testImage}
               withBiggerAvatar />
