@@ -8,6 +8,14 @@ import ApiCall from 'containers/ApiCalls';
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
 
+// config feature flag
+let IS_ACTIVE;
+try {
+  IS_ACTIVE = !! CONFIG.showLoadingOverlayForApiGets; // replaced by webpack
+} catch (e) {
+  IS_ACTIVE = false;
+}
+
 class LoadingOverlayHandler extends Component {
   constructor() {
     super();
@@ -16,6 +24,8 @@ class LoadingOverlayHandler extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
+    // CONFIG flag check
+    if (! IS_ACTIVE) return;
     if (isAnyApiCallLoadingBeyondThreshold) {
       this.setState({ isThrobberShown: true });
     } else if (isAnyApiCallLoading) {
