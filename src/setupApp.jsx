@@ -15,10 +15,11 @@ import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
+import { actions as Privileges } from 'containers/Privileges';
 import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
-import { actions as Privileges } from 'containers/Privileges';
+import SavingBarHandler from 'containers/SavingBarHandler';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -46,8 +47,11 @@ export function setupApp(routes, reducer) {
           childRoutes: [{
             component: ErrorPageHandler,
             childRoutes: [{
-              component: LoadingOverlayHandler,
-              childRoutes: is.array(routes) ? routes : [routes],
+              component: SavingBarHandler,
+              childRoutes: [{
+                component: LoadingOverlayHandler,
+                childRoutes: is.array(routes) ? routes : [routes],
+              }],
             }],
           }],
         }],

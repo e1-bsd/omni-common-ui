@@ -19,7 +19,7 @@ try {
 class LoadingOverlayHandler extends Component {
   constructor() {
     super();
-    this.state = { isThrobberShown: false };
+    this.state = { isThrobberVisible: false };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,17 +27,17 @@ class LoadingOverlayHandler extends Component {
     // CONFIG flag check
     if (! IS_ACTIVE) return;
     if (isAnyApiCallLoadingBeyondThreshold) {
-      this.setState({ isThrobberShown: true });
+      this.setState({ isThrobberVisible: true });
     } else if (isAnyApiCallLoading) {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         const { loadingApiCalls } = this.props;
         if (! getIsAnyApiCallLoadingBeyondThreshold(loadingApiCalls)) return;
-        this.setState({ isThrobberShown: true });
+        this.setState({ isThrobberVisible: true });
       }, REQUEST_DURATION_THRESHOLD_MS);
     } else if (! isAnyApiCallLoading) {
       clearTimeout(this.timer);
-      this.setState({ isThrobberShown: false });
+      this.setState({ isThrobberVisible: false });
     }
   }
 
@@ -45,9 +45,9 @@ class LoadingOverlayHandler extends Component {
     const { children } = this.props;
     const classes = {
       pace: true,
-      'pace-inactive': ! this.state.isThrobberShown,
+      'pace-inactive': ! this.state.isThrobberVisible,
     };
-    return <div>
+    return <div data-component="LoadingOverlayHandler">
       <div className={classnames(classes)}>
         <div className="pace-activity" />
       </div>
