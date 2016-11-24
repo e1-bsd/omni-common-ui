@@ -4,23 +4,46 @@
   --space: 20px;
   --normalWidth: 50px;
   --itemHeight: 40px;
-  --iconSize: 25px;
+  --iconSize: 12px;
+  --iconPadding: 5px;
   --expandedWidth: 252px;
+  --closeHeight: var(--normalWidth);
 }
 
 .Sidebar {
   background-color: var(--colorSideNavBgOperation);
-  display: inline-block;
   text-align: left;
   vertical-align: top;
-  width: var(--normalWidth);
 
-  @media (--lg-viewport) {
-    width: var(--expandedWidth);
-  }
+  &_close {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: var(--closeHeight);
+    justify-content: flex-end;
 
-  @media (--xs-viewport) {
-    display: none;
+    &_button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: calc(var(--iconSize) + var(--iconPadding) * 2);
+      margin-right: calc((var(--closeHeight) - var(--iconSize) * 2) / 2);
+      outline: none;
+      padding: var(--iconPadding);
+      width: calc(var(--iconSize) + var(--iconPadding) * 2);
+
+      &:hover,
+      &:active {
+        background-color: #0006;
+      }
+
+      &_icon {
+        display: block;
+        height: var(--iconSize);
+        width: var(--iconSize);
+      }
+    }
   }
 
   &_item {
@@ -33,35 +56,31 @@
     flex-direction: row;
     font-size: var(--fontSize-md);
     height: var(--itemHeight);
-    justify-content: center;
+    justify-content: flex-start;
     letter-spacing: 1px;
     line-height: 1.4;
     min-height: var(--touchableMinHeight);
     outline: none;
-    padding: 0;
+    padding: 0 var(--touchablePaddingHorizontal);
+  }
+
+  &:not(.__expanded) {
+    cursor: pointer;
     width: var(--normalWidth);
 
-    &_icon {
-      height: var(--iconSize);
-      width: var(--iconSize);
-
-      @media (--lg-viewport) {
-        margin-right: calc(var(--touchablePaddingHorizontal) / 2);
-      }
-    }
-
-    &_text {
-      display: none;
-
-      @media (--lg-viewport) {
+    &:hover,
+    &:active {
+      &::after {
+        background-color: #0006;
+        content: '';
         display: block;
+        height: 100%;
+        width: 100%;
       }
     }
+  }
 
-    @media (--lg-viewport) {
-      justify-content: flex-start;
-      padding: 0 var(--touchablePaddingHorizontal);
-      width: var(--expandedWidth);
-    }
+  &.__expanded {
+    width: auto;
   }
 }
