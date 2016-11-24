@@ -32,7 +32,8 @@ const Sidebar = ({ routes, location: { pathname } }) => {
 
       return reduction.merge(value.sidebar);
     }, new OrderedMap())
-        .filter((item) => item instanceof Map && ! item.isEmpty());
+        .filter((item) => item instanceof Map && ! item.isEmpty())
+        .sortBy((item) => item.order);
   }
 };
 
