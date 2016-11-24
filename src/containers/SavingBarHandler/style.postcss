@@ -1,26 +1,27 @@
 @import 'main.postcss';
 
 :root {
-  --barVerticalPaddingWithButton: 1.5em;
+  --barVerticalPadding: 15px;
   --loadingThrobberHeight: 18px;
-  --exitButtonHeight: 35px;
+  --buttonHeight: 35px;
+  --borderHeight: 10px;
 }
 
 .SavingBar {
-  bottom: -100%;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 0;
+  bottom: 0;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 var(--borderHeight) 0;
   cursor: default;
   left: 0;
   position: fixed;
   right: 0;
-  transform: translateZ(0); /* render on GPU layer */
-  transition: bottom 0.3s ease 0s;
+  transform: translate3d(0, calc((var(--barVerticalPadding) * 2) + var(--buttonHeight) + var(--borderHeight)), 0);
+  transition: transform 0.3s ease 0.1s;
   width: 100%;
-  will-change: bottom, transform;
+  will-change: transform;
   z-index: var(--zIndex-10-savingBar);
 
   &.__visible {
-    bottom: 0;
+    transform: translate3d(0, 0, 0);
   }
 
   &_overlay {
@@ -42,7 +43,7 @@
     cursor: default;
     display: flex;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: var(--barVerticalPadding) 30px;
   }
 
   &_text {
@@ -53,7 +54,8 @@
     font-size: 15px;
     font-weight: var(--fontWeight-medium);
     letter-spacing: 1px;
-    min-height: var(--exitButtonHeight); /* matches the button */
+    min-height: var(--buttonHeight); /* matches the button */
+    user-select: none;
 
     &::before {
       animation: spin 0.5s linear infinite;
@@ -75,7 +77,7 @@
 
   &_button {
     & > button {
-      min-height: var(--exitButtonHeight);
+      min-height: var(--buttonHeight);
 
       &:hover {
         background-color: white !important;
@@ -83,14 +85,6 @@
       }
     }
   }
-}
-
-@-webkit-keyframes spin {
-  100% { -webkit-transform: translateZ(0) rotate(359deg); }
-}
-
-@-moz-keyframes spin {
-  100% { -moz-transform: translateZ(0) rotate(359deg); }
 }
 
 @keyframes spin {
