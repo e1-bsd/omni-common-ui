@@ -37,7 +37,7 @@ class Sidebar extends Component {
     }
 
     const { location: { pathname } } = this.props;
-    return <div>
+    return <div className={styles.Sidebar_expanded}>
       <div className={styles.Sidebar_close}>
         <button onClick={() => this.setState({ expanded: false })}
             className={styles.Sidebar_close_button}>

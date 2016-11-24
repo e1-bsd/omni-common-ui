@@ -12,8 +12,33 @@
 
 .Sidebar {
   background-color: var(--colorSideNavBgOperation);
+  cursor: pointer;
+  position: relative;
   text-align: left;
   vertical-align: top;
+  width: var(--normalWidth);
+
+  &:hover,
+  &:active {
+    &::after {
+      background-color: #0006;
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &_expanded {
+    background-color: var(--colorSideNavBgOperation);
+    cursor: auto;
+    left: 0;
+    min-height: 100%;
+    min-width: 200px;
+    position: absolute;
+    top: 0;
+    z-index: var(--zIndex-7--sidebar);
+  }
 
   &_close {
     align-items: center;
@@ -62,25 +87,5 @@
     min-height: var(--touchableMinHeight);
     outline: none;
     padding: 0 var(--touchablePaddingHorizontal);
-  }
-
-  &:not(.__expanded) {
-    cursor: pointer;
-    width: var(--normalWidth);
-
-    &:hover,
-    &:active {
-      &::after {
-        background-color: #0006;
-        content: '';
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }
-
-  &.__expanded {
-    width: auto;
   }
 }
