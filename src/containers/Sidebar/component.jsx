@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import Link from './Link';
 import is from 'is_js';
-import { OrderedMap, List } from 'immutable';
+import { OrderedMap, List, Map } from 'immutable';
 
 const Sidebar = ({ routes, location: { pathname } }) => {
   const items = getItems();
@@ -31,7 +31,8 @@ const Sidebar = ({ routes, location: { pathname } }) => {
       }
 
       return reduction.merge(value.sidebar);
-    }, new OrderedMap());
+    }, new OrderedMap())
+        .filter((item) => item instanceof Map && ! item.isEmpty());
   }
 };
 
