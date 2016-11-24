@@ -7,8 +7,7 @@
   --normalWidth: 60px;
 }
 
-
-.sideNavContainer {
+.Sidebar {
   background-color: var(--colorSideNavBgOperation);
   display: inline-block;
   vertical-align: top;
@@ -21,57 +20,47 @@
   @media (--xs-viewport) {
     display: none;
   }
-}
 
-.sideNavItem {
-  background-color: var(--colorSideNavBg);
-  border: none;
-  color: var(--colorTextInverse);
-  cursor: pointer;
-  display: block;
-  font-size: 14px;
-  height: 60px;
-  letter-spacing: 1px;
-  line-height: 1.4;
-  min-height: var(--touchableMinHeight);
-  outline: none;
-  width: var(--normalWidth);
+  &_item {
+    background-color: var(--colorSideNavBg);
+    border: none;
+    color: var(--colorTextInverse);
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    height: 60px;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    min-height: var(--touchableMinHeight);
+    outline: none;
+    width: var(--normalWidth);
 
-  &_homeIcon,
-  &_OrganizationIcon,
-  &_RegionsIcon,
-  &_CentresIcon,
-  &_ProfilesIcon,
-  &_PermissionSetsIcon,
-  &_UsersIcon,
-  &_PositionsIcon,
-  &_InvestorsIcon,
-  &_rolesIcon,
-  &_LegalEntitiesIcon {
-    background-position: center;
-    background-repeat: no-repeat;
-    display: var(--iconDisplay);
-    height: 100%;
-    vertical-align: middle;
-    width: var(--iconWidth);
-
-    @media (--lg-viewport) {
-      margin-right: var(--iconMarginRight);
-    }
-  }
-
-  &_displayName {
-    display: none;
-
-    @media (--lg-viewport) {
-      display: inline-block;
+    &_icon {
+      background-position: center;
+      background-repeat: no-repeat;
+      display: var(--iconDisplay);
+      height: 100%;
       vertical-align: middle;
-    }
-  }
+      width: var(--iconWidth);
 
-  @media (--lg-viewport) {
-    padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal) var(--touchablePaddingVertical) 40px;
-    text-align: left;
-    width: var(--layoutLeft);
+      @media (--lg-viewport) {
+        margin-right: var(--iconMarginRight);
+      }
+    }
+
+    &_text {
+      display: none;
+
+      @media (--lg-viewport) {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    @media (--lg-viewport) {
+      padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal) var(--touchablePaddingVertical) 40px;
+      text-align: left;
+      width: var(--layoutLeft);
+    }
   }
 }
