@@ -21,14 +21,26 @@ class Sidebar extends Component {
         .sortBy((item) => item.order);
   }
 
+  static _getColor(props) {
+    const { routes } = props;
+    const colorConfig = new List(routes).findLast((route) => is.string(route.sidebarColor));
+    if (! colorConfig) {
+      return undefined;
+    }
+
+    return colorConfig.sidebarColor;
+  }
+
   constructor(props) {
     super(props);
     this._items = Sidebar._getItems(props);
+    this._color = Sidebar._getColor(props);
     this.state = { expanded: false };
   }
 
   componentWillReceiveProps(props) {
     this._items = Sidebar._getItems(props);
+    this._color = Sidebar._getColor(props);
   }
 
   _renderExpanded() {
@@ -37,7 +49,7 @@ class Sidebar extends Component {
     }
 
     const { location: { pathname } } = this.props;
-    return <div className={styles.Sidebar_expanded}>
+    return <div className={styles.Sidebar_expanded} style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
         <button onClick={() => this.setState({ expanded: false })}
             className={styles.Sidebar_close_button}>
@@ -60,7 +72,11 @@ class Sidebar extends Component {
     const { expanded } = this.state;
     const classes = classnames(styles.Sidebar, { [styles.__expanded]: expanded === true });
     const onClickBar = expanded === true ? undefined : () => this.setState({ expanded: true });
-    return <div className={classes} onClick={onClickBar}>{this._renderExpanded()}</div>;
+    return <div className={classes}
+        onClick={onClickBar}
+        style={{ backgroundColor: this._color }}>
+      {this._renderExpanded()}
+    </div>;
   }
 }
 
