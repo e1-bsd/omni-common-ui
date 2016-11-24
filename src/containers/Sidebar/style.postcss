@@ -1,20 +1,22 @@
 @import 'main.postcss';
 
 :root {
-  --iconDisplay: inline-block;
-  --iconMarginRight: 20px;
-  --iconWidth: 20px;
-  --normalWidth: 60px;
+  --space: 20px;
+  --normalWidth: 50px;
+  --itemHeight: 40px;
+  --iconSize: 25px;
+  --expandedWidth: 252px;
 }
 
 .Sidebar {
   background-color: var(--colorSideNavBgOperation);
   display: inline-block;
+  text-align: left;
   vertical-align: top;
   width: var(--normalWidth);
 
   @media (--lg-viewport) {
-    width: var(--layoutLeft);
+    width: var(--expandedWidth);
   }
 
   @media (--xs-viewport) {
@@ -22,29 +24,29 @@
   }
 
   &_item {
-    background-color: var(--colorSideNavBg);
+    align-items: center;
+    background: transparent;
     border: none;
     color: var(--colorTextInverse);
     cursor: pointer;
-    display: block;
-    font-size: 14px;
-    height: 60px;
+    display: flex;
+    flex-direction: row;
+    font-size: var(--fontSize-md);
+    height: var(--itemHeight);
+    justify-content: center;
     letter-spacing: 1px;
     line-height: 1.4;
     min-height: var(--touchableMinHeight);
     outline: none;
+    padding: 0;
     width: var(--normalWidth);
 
     &_icon {
-      background-position: center;
-      background-repeat: no-repeat;
-      display: var(--iconDisplay);
-      height: 100%;
-      vertical-align: middle;
-      width: var(--iconWidth);
+      height: var(--iconSize);
+      width: var(--iconSize);
 
       @media (--lg-viewport) {
-        margin-right: var(--iconMarginRight);
+        margin-right: calc(var(--touchablePaddingHorizontal) / 2);
       }
     }
 
@@ -52,15 +54,14 @@
       display: none;
 
       @media (--lg-viewport) {
-        display: inline-block;
-        vertical-align: middle;
+        display: block;
       }
     }
 
     @media (--lg-viewport) {
-      padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal) var(--touchablePaddingVertical) 40px;
-      text-align: left;
-      width: var(--layoutLeft);
+      justify-content: flex-start;
+      padding: 0 var(--touchablePaddingHorizontal);
+      width: var(--expandedWidth);
     }
   }
 }

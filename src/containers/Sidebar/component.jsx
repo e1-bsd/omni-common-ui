@@ -13,10 +13,12 @@ const Sidebar = ({ routes, location: { pathname } }) => {
 
   return <div className={styles.Sidebar}>
     {
-      items.map(({ text, icon }, link) => <Link to={link} currentPath={pathname}>
+      items.map((config, link) => <Link to={link} currentPath={pathname}>
         <button className={styles.Sidebar_item}>
-          <img src={icon} alt={text} />
-          <span className={styles.Sidebar_item_text}>{text}</span>
+          <img className={styles.Sidebar_item_icon}
+              src={config.get('icon')}
+              alt={config.get('text')} />
+          <span className={styles.Sidebar_item_text}>{config.get('text')}</span>
         </button>
       </Link>)
     }
