@@ -3,10 +3,10 @@ import warningSrc from './warning.svg';
 import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
+import PathComparator from 'domain/PathComparator';
 
 const ErrorPage = (props) => {
   const { erroredApi, config, afterButtonClicked, location: { pathname } } = props;
-  const currentPath = pathname.replace(/^\//, '').replace(/\/$/, '');
 
   return <div className={styles.ErrorPage}>
     <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
@@ -24,7 +24,7 @@ const ErrorPage = (props) => {
 
   function renderButton() {
     const link = linkTo();
-    if (new RegExp(`^/?${currentPath}/?$`, 'i').test(link)) {
+    if (PathComparator.equal(pathname, link)) {
       return null;
     }
 
