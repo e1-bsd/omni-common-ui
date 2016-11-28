@@ -20,15 +20,21 @@
   vertical-align: top;
   width: var(--normalWidth);
 
+  &::after {
+    background-color: #0006;
+    content: '';
+    display: block;
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+  }
+
+  /* twiddle ::after opacity to make iOS treat first tap as a click */
+
+  /* see: http://stackoverflow.com/a/32706770 */
   &:hover,
   &:active {
-    &::after {
-      background-color: #0006;
-      content: '';
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
+    opacity: 1;
   }
 
   &_expanded {
