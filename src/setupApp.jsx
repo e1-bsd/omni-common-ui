@@ -35,7 +35,7 @@ export function setupApp(routes, reducer) {
     {
       path: '/health-check',
     },
-    singleSignOnRoutes,
+    ...singleSignOnRoutes,
     {
       component: SingleSignOnHandler,
       childRoutes: [{
