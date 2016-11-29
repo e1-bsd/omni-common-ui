@@ -17,6 +17,15 @@ const Button = (props) => {
 
   const classes = classnames(styles.Button, type, modeClasses, props.className);
 
+  // case: link to URL (absolute href)
+  if (is.existy(props.linkHref)) {
+    return <a href={props.linkHref}
+        className={classnames(styles.ButtonLink, modeClasses, props.className)}>
+      {renderButton()}
+    </a>;
+  }
+
+  // case: link to route
   if (is.existy(props.linkTo)) {
     return <Link to={props.linkTo}
         className={classnames(styles.ButtonLink, modeClasses, props.className)}>
@@ -29,7 +38,7 @@ const Button = (props) => {
   function renderButton() {
     return <button className={classes}
         disabled={props.disabled}
-        onClick={handleClick}>
+        onClick={props.onClick && handleClick}>
       {props.children}
     </button>;
   }
@@ -51,6 +60,7 @@ Button.propTypes = {
   disabled: React.PropTypes.bool,
   children: React.PropTypes.node,
   linkTo: React.PropTypes.string,
+  linkHref: React.PropTypes.string,
   block: React.PropTypes.bool,
   autoWidth: React.PropTypes.bool,
   active: React.PropTypes.bool,
