@@ -1,9 +1,15 @@
 import React from 'react';
 import connect from 'domain/connect';
 import is from 'is_js';
+import { actions as privilegesActions } from 'containers/Privileges';
+import { bindActionCreators } from 'redux';
 
 export const PermissionHandler = (props) => {
-  const { permissionChecks, children } = props;
+  const { permissionChecks, children, havePrivilegesLoaded } = props;
+  if (! havePrivilegesLoaded()) {
+    return null;
+  }
+
   if (is.undefined(permissionChecks)) {
     return children;
   }
@@ -21,6 +27,7 @@ PermissionHandler.propTypes = {
     canAccess: React.PropTypes.func.isRequired,
   })),
   children: React.PropTypes.node,
+  havePrivilegesLoaded: React.PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state, { routes }) {
@@ -41,4 +48,8 @@ export function mapStateToProps(state, { routes }) {
   return { permissionChecks };
 }
 
-export default connect(mapStateToProps)(PermissionHandler);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(privilegesActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PermissionHandler);

@@ -7,18 +7,27 @@ import Sinon from 'sinon';
 describe('<PermissionHandler />', () => {
   describe('component', () => {
     it('does nothing if no route is provided', () => {
-      const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
+        <div id="inner" />
+      </PermissionHandler>);
       expect(wrapper).to.contain(<div id="inner" />);
     });
 
+    it('renders nothing if privileges have not been loaded', () => {
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
+        <div id="inner" />
+      </PermissionHandler>);
+      expect(wrapper).to.be.empty;
+    });
+
     it('throws if permissionChecks.canAccess is not a function', () => {
-      expect(() => shallow(<PermissionHandler permissionChecks={[{}]} />))
-          .to.throw();
+      expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
+          havePrivilegesLoaded={() => true} />)).to.throw();
     });
 
     it('calls permissionChecks.canAccess passing all props if it is a function', () => {
       const canAccess = Sinon.spy();
-      const props = { permissionChecks: [{ canAccess }] };
+      const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
       shallow(<PermissionHandler {...props} />);
       expect(canAccess.called).to.be.true;
       expect(canAccess.args[0]).to.eql([props]);
@@ -31,6 +40,7 @@ describe('<PermissionHandler />', () => {
           { canAccess: Sinon.stub().returns(false) },
           { canAccess: Sinon.stub().returns(false) },
         ],
+        havePrivilegesLoaded: () => true,
       };
       shallow(<PermissionHandler {...props} />);
       expect(props.permissionChecks[0].canAccess.called).to.equal(true, 'first');
