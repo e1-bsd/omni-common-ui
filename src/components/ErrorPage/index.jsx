@@ -10,11 +10,19 @@ const ErrorPage = (props) => {
 
   return <div className={styles.ErrorPage}>
     <div className={styles.ErrorPage_content}>
-      <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
+      <img className={styles.ErrorPage_image} src={renderIcon()} role="presentation" />
       <div className={styles.ErrorPage_text}>{renderMessage()}</div>
       {renderButton()}
     </div>
   </div>;
+
+  function renderIcon() {
+    if (is.not.object(config) || is.not.function(config.icon)) {
+      return warningSrc;
+    }
+
+    return config.icon(props);
+  }
 
   function renderMessage() {
     if (is.not.object(config) || is.not.function(config.message)) {

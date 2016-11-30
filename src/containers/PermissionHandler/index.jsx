@@ -3,6 +3,7 @@ import connect from 'domain/connect';
 import is from 'is_js';
 import { actions as privilegesActions } from 'containers/Privileges';
 import { bindActionCreators } from 'redux';
+import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
 
 export const PermissionHandler = (props) => {
   const { permissionChecks, children, havePrivilegesLoaded } = props;
@@ -19,7 +20,7 @@ export const PermissionHandler = (props) => {
     return children;
   }
 
-  return <div>UNAUTHORISED!</div>;
+  return <AuthorisationErrorPage {...props} />;
 };
 
 PermissionHandler.propTypes = {
