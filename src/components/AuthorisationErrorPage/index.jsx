@@ -15,7 +15,7 @@ const AuthorisationErrorPage = (props) => {
 };
 
 AuthorisationErrorPage.propTypes = {
-  config: ErrorPage.propTypes.config,
+  config: React.PropTypes.object,
 };
 
 export default AuthorisationErrorPage;

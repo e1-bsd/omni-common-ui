@@ -24,7 +24,7 @@ ErrorPageHandler.propTypes = {
   erroredApi: React.PropTypes.shape({
     error: React.PropTypes.instanceOf(Error).isRequired,
   }),
-  config: ErrorPage.propTypes.config,
+  config: React.PropTypes.object,
 };
 
 export function mapStateToProps(state, { routes }) {
