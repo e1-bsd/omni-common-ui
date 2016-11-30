@@ -13,7 +13,7 @@ const ErrorPage = (props) => {
       <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
       <div className={styles.ErrorPage_text}>{renderMessage()}</div>
       {renderButton()}
-    </div>;
+    </div>
   </div>;
 
   function renderMessage() {
