@@ -20,6 +20,7 @@ import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SavingBarHandler from 'containers/SavingBarHandler';
+import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -44,16 +45,22 @@ export function setupApp(routes, reducer) {
           component: App,
           // This will block calling any other checkPrivileges() until the privileges are loaded.
           checkPrivileges: () => Privileges.isLoading(getState()),
-          childRoutes: [{
-            component: ErrorPageHandler,
-            childRoutes: [{
-              component: SavingBarHandler,
+          childRoutes: [
+            {
+              component: ErrorPageHandler,
               childRoutes: [{
-                component: LoadingOverlayHandler,
-                childRoutes: is.array(routes) ? routes : [routes],
+                component: SavingBarHandler,
+                childRoutes: [{
+                  component: LoadingOverlayHandler,
+                  childRoutes: is.array(routes) ? routes : [routes],
+                }],
               }],
-            }],
-          }],
+            },
+            {
+              path: '*',
+              component: NoMatchingRouteErrorHandler,
+            },
+          ],
         }],
       }],
     },
