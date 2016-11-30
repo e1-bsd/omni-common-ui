@@ -4,6 +4,7 @@ import is from 'is_js';
 import { actions as privilegesActions } from 'containers/Privileges';
 import { bindActionCreators } from 'redux';
 import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
+import ErrorPageConfig from 'domain/ErrorPageConfig';
 
 export const PermissionHandler = (props) => {
   const { permissionChecks, children, havePrivilegesLoaded } = props;
@@ -46,7 +47,7 @@ export function mapStateToProps(state, { routes }) {
     return true;
   });
 
-  return { permissionChecks };
+  return { permissionChecks, config: ErrorPageConfig.get(routes) };
 }
 
 function mapDispatchToProps(dispatch) {

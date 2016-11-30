@@ -3,7 +3,7 @@ import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import is from 'is_js';
-import { List } from 'immutable';
+import ErrorPageConfig from 'domain/ErrorPageConfig';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApi, clean } = props;
@@ -24,15 +24,11 @@ ErrorPageHandler.propTypes = {
   erroredApi: React.PropTypes.shape({
     error: React.PropTypes.instanceOf(Error).isRequired,
   }),
-  config: React.PropTypes.shape({
-    message: React.PropTypes.func,
-    buttonText: React.PropTypes.func,
-    buttonLink: React.PropTypes.func,
-  }),
+  config: ErrorPage.propTypes.config,
 };
 
 export function mapStateToProps(state, { routes }) {
-  return { erroredApi: getApiError(state), config: getConfig(routes) };
+  return { erroredApi: getApiError(state), config: ErrorPageConfig.get(routes) };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -48,13 +44,5 @@ function getApiError(state) {
   return undefined;
 }
 
-function getConfig(routes) {
-  const routeWithConfig = new List(routes).findLast((route) => is.object(route.errorPage));
-  if (is.undefined(routeWithConfig)) {
-    return undefined;
-  }
-
-  return routeWithConfig.errorPage;
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorPageHandler);

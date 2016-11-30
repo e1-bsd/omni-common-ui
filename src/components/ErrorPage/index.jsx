@@ -71,6 +71,7 @@ ErrorPage.propTypes = {
   }).isRequired,
   afterButtonClicked: React.PropTypes.func.isRequired,
   config: React.PropTypes.shape({
+    icon: React.PropTypes.func,
     message: React.PropTypes.func,
     buttonText: React.PropTypes.func,
     buttonLink: React.PropTypes.func,

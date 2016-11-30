@@ -3,14 +3,19 @@ import ErrorPage from 'components/ErrorPage';
 import lockSrc from './lock.svg';
 
 const AuthorisationErrorPage = (props) => {
-  const config = {
-    icon: () => lockSrc,
-    message: () => 'You have no permission to access this page',
-  };
+  const parsedProps = Object.assign({}, props);
+  parsedProps.config = Object.assign(
+    {
+      icon: () => lockSrc,
+      message: () => 'You have no permission to access this page',
+    },
+    props.config);
 
-  return <ErrorPage config={config} {...props} />;
+  return <ErrorPage {...parsedProps} />;
 };
 
-AuthorisationErrorPage.propTypes = { };
+AuthorisationErrorPage.propTypes = {
+  config: ErrorPage.propTypes.config,
+};
 
 export default AuthorisationErrorPage;
