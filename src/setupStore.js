@@ -6,12 +6,11 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import createLogger from 'redux-logger';
 import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { useRouterHistory } from 'react-router';
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
 import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
-import routerReducer from './routerReducer';
 import { reducer as apiCalls } from 'containers/ApiCalls';
 
 if (DEVELOPMENT) {
@@ -47,12 +46,22 @@ export function setupStore(reducer) {
 function createReducer(reducer) {
   return combineReducers({
     rootReducer: combineReducers(reducer),
-    routing: routerReducer,
+    routing,
     singleSignOn,
     privileges,
     impersonate,
     apiCalls,
   });
+}
+
+function routing(state = Immutable.fromJS({ locationBeforeTransitions: null }), action) {
+  if (action.type === LOCATION_CHANGE) {
+    return state.merge({
+      locationBeforeTransitions: action.payload,
+    });
+  }
+
+  return state;
 }
 
 export default setupStore;
