@@ -1,7 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import ErrorPage from './ErrorPage';
+import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import is from 'is_js';

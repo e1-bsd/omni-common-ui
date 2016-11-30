@@ -6,8 +6,8 @@ import ApiCall from 'containers/ApiCalls';
 import { Map } from 'immutable';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-const { ErrorPageHandler, mapStateToProps } = require('inject?./ErrorPage!./')({
-  './ErrorPage': () => null,
+const { ErrorPageHandler, mapStateToProps } = require('inject?components/ErrorPage!./')({
+  'components/ErrorPage': () => null,
 });
 
 describe('<ErrorPageHandler />', () => {
