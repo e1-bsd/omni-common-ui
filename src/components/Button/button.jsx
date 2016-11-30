@@ -17,6 +17,16 @@ const Button = (props) => {
 
   const classes = classnames(styles.Button, type, modeClasses, props.className);
 
+  // case: link to URL via `linkHref` OR disabled with `linkTo`
+  if (is.existy(props.linkHref) || (is.existy(props.linkTo) && props.disabled)) {
+    // eslint-disable-next-line no-script-url
+    return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
+        className={classnames(styles.ButtonLink, modeClasses, props.className)}>
+      {renderButton()}
+    </a>;
+  }
+
+  // case: link to route via `linkTo`
   if (is.existy(props.linkTo)) {
     return <Link to={props.linkTo}
         className={classnames(styles.ButtonLink, modeClasses, props.className)}>
@@ -29,7 +39,7 @@ const Button = (props) => {
   function renderButton() {
     return <button className={classes}
         disabled={props.disabled}
-        onClick={handleClick}>
+        onClick={props.onClick && handleClick}>
       {props.children}
     </button>;
   }
@@ -51,6 +61,7 @@ Button.propTypes = {
   disabled: React.PropTypes.bool,
   children: React.PropTypes.node,
   linkTo: React.PropTypes.string,
+  linkHref: React.PropTypes.string,
   block: React.PropTypes.bool,
   autoWidth: React.PropTypes.bool,
   active: React.PropTypes.bool,

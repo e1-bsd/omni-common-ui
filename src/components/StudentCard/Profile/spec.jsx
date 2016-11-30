@@ -26,19 +26,19 @@ describe('StudentCard.Profile', () => {
     );
   });
   it('renders profile info with the given name', () => {
-    const wrapper = shallow(<Profile name="John" surname="Doe" />);
+    const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
       wrapper.find(`.${styles.StudentCard_profile_name}`)
     ).to.have.text(
-      'John'
+      'John Doe'
     );
   });
   it('renders profile info with the given surname', () => {
-    const wrapper = shallow(<Profile name="John" surname="Doe" />);
+    const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
-      wrapper.find(`.${styles.StudentCard_profile_surname}`)
+      wrapper.find(`.${styles.StudentCard_profile_localName}`)
     ).to.have.text(
-      'Doe'
+      '王呆呆'
     );
   });
 });

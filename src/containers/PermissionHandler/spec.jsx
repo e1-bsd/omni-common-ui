@@ -7,63 +7,73 @@ import Sinon from 'sinon';
 describe('<PermissionHandler />', () => {
   describe('component', () => {
     it('does nothing if no route is provided', () => {
-      const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
+        <div id="inner" />
+      </PermissionHandler>);
       expect(wrapper).to.contain(<div id="inner" />);
     });
 
-    it('throws if shouldRedirect.checkPrivileges is not a function', () => {
-      expect(() => shallow(<PermissionHandler shouldRedirect={{}} />))
-          .to.throw();
+    it('renders nothing if privileges have not been loaded', () => {
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
+        <div id="inner" />
+      </PermissionHandler>);
+      expect(wrapper).to.be.empty;
     });
 
-    it('calls shouldRedirect.checkPrivileges passing all props if it is a function', () => {
-      const checkPrivileges = Sinon.spy();
-      const props = { shouldRedirect: [{ checkPrivileges }] };
+    it('throws if permissionChecks.canAccess is not a function', () => {
+      expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
+          havePrivilegesLoaded={() => true} />)).to.throw();
+    });
+
+    it('calls permissionChecks.canAccess passing all props if it is a function', () => {
+      const canAccess = Sinon.spy();
+      const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
       shallow(<PermissionHandler {...props} />);
-      expect(checkPrivileges.called).to.be.true;
-      expect(checkPrivileges.args[0]).to.eql([props]);
+      expect(canAccess.called).to.be.true;
+      expect(canAccess.args[0]).to.eql([props]);
     });
 
-    it('calls checkPrivileges() for all routes until one returns true', () => {
+    it('calls canAccess() for all routes until one returns false', () => {
       const props = {
-        shouldRedirect: [
-          { checkPrivileges: Sinon.stub().returns(false) },
-          { checkPrivileges: Sinon.stub().returns(true) },
-          { checkPrivileges: Sinon.stub().returns(true) },
+        permissionChecks: [
+          { canAccess: Sinon.stub().returns(true) },
+          { canAccess: Sinon.stub().returns(false) },
+          { canAccess: Sinon.stub().returns(false) },
         ],
+        havePrivilegesLoaded: () => true,
       };
       shallow(<PermissionHandler {...props} />);
-      expect(props.shouldRedirect[0].checkPrivileges.called).to.equal(true, 'first');
-      expect(props.shouldRedirect[1].checkPrivileges.called).to.equal(true, 'second');
-      expect(props.shouldRedirect[2].checkPrivileges.called).to.equal(false, 'third');
+      expect(props.permissionChecks[0].canAccess.called).to.equal(true, 'first');
+      expect(props.permissionChecks[1].canAccess.called).to.equal(true, 'second');
+      expect(props.permissionChecks[2].canAccess.called).to.equal(false, 'third');
     });
   });
 
   describe('mapStateToProps()', () => {
-    it('returns shouldRedirect as an array with all routes that have a checkPrivileges()', () => {
-      const shouldRedirect1 = { checkPrivileges: () => {} };
-      const shouldRedirect2 = { checkPrivileges: () => {} };
-      const routes = [{}, shouldRedirect1, {}, shouldRedirect2];
+    it('returns permissionChecks as an array with all routes that have a canAccess()', () => {
+      const permissionChecks1 = { canAccess: () => {} };
+      const permissionChecks2 = { canAccess: () => {} };
+      const routes = [{}, permissionChecks1, {}, permissionChecks2];
       const result = mapStateToProps(null, { routes });
-      expect(result.shouldRedirect).to.eql([shouldRedirect1, shouldRedirect2]);
+      expect(result.permissionChecks).to.eql([permissionChecks1, permissionChecks2]);
     });
 
-    it('returns shouldRedirect as an array with one route ' +
-        'if there is only one that has a checkPrivileges()', () => {
-      const shouldRedirect1 = { checkPrivileges: () => {} };
-      const routes = [{}, shouldRedirect1, {}];
+    it('returns permissionChecks as an array with one route ' +
+        'if there is only one that has a canAccess()', () => {
+      const permissionChecks1 = { canAccess: () => {} };
+      const routes = [{}, permissionChecks1, {}];
       const result = mapStateToProps(null, { routes });
-      expect(result.shouldRedirect).to.eql([shouldRedirect1]);
+      expect(result.permissionChecks).to.eql([permissionChecks1]);
     });
 
-    it('throws if shouldRedirect has a checkPrivileges property that is not a function', () => {
-      const shouldRedirect = { checkPrivileges: '' };
-      const routes = [{}, shouldRedirect, {}];
+    it('throws if permissionChecks has a canAccess property that is not a function', () => {
+      const permissionChecks = { canAccess: '' };
+      const routes = [{}, permissionChecks, {}];
       expect(() => mapStateToProps(null, { routes })).to.throw();
     });
 
-    it('returns shouldRedirect as an empty array if no route has checkPrivileges()', () => {
-      expect(mapStateToProps(null, { routes: [{}, {}, {}] }).shouldRedirect).to.eql([]);
+    it('returns permissionChecks as an empty array if no route has canAccess()', () => {
+      expect(mapStateToProps(null, { routes: [{}, {}, {}] }).permissionChecks).to.eql([]);
     });
   });
 });

@@ -1,6 +1,5 @@
-import ApiResponseHelper from 'domain/ApiResponseHelper';
-import log from 'loglevel';
 import is from 'is_js';
+import { List } from 'immutable';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
@@ -13,18 +12,11 @@ export default class PrivilegeChecker {
     }
 
     const privileges = state.get('privileges');
-    if (ApiResponseHelper.shouldFetch(privileges) || ApiResponseHelper.isLoading(privileges)) {
-      // This should never happen, since the privileges are fetched before anything is rendered
-      log.warn('PrivilegeChecker - privileges are being loaded, returning true for now');
-      return true;
-    }
-
-    if (! ApiResponseHelper.hasSucceeded(privileges)) {
-      log.error('PrivilegeChecker - privileges were not fetched successfully');
+    if (is.not.object(privileges) || ! List.isList(privileges.items)) {
       return false;
     }
 
     const regEx = new RegExp(`${privilege}$`, 'i');
-    return !! privileges.data.items.find((item) => regEx.test(item));
+    return !! privileges.items.find((item) => regEx.test(item));
   }
 }

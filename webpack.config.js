@@ -173,6 +173,7 @@ module.exports = {
       mediaQuery: false,
       minPixelValue: 0,
     }),
+    postcssCalc,
     postcssCssnext({
       browsers: [
         '> 0%',
@@ -183,7 +184,6 @@ module.exports = {
         'iOS 7',
       ],
     }),
-    postcssCalc,
     postcssReporter({ clearMessages: true }),
   ]),
   externals: {

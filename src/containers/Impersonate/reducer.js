@@ -24,7 +24,7 @@ function postedImpersonate(state = Map({}), action) {
     case POST_IMPERSONATE_SUCCESS:
       return state.set('impersonate', ApiResponseHelper.create(action.payload));
     case POST_IMPERSONATE_FAILURE:
-      return state.set('impersonate', ApiResponseHelper.create(new Error(action.payload)));
+      return state.set('impersonate', ApiResponseHelper.create(action.error));
     case CLEAR_IMPERSONATE_DATA:
       return Map({});
     default:
@@ -39,7 +39,7 @@ function unimpersonate(state = Map({}), action) {
     case UNIMPERSONATE_SUCCESS:
       return state.set('unimpersonate', ApiResponseHelper.create(action.payload || 'success'));
     case UNIMPERSONATE_FAILURE:
-      return state.set('unimpersonate', ApiResponseHelper.create(new Error(action.payload)));
+      return state.set('unimpersonate', ApiResponseHelper.create(action.error));
     default:
       return state;
   }

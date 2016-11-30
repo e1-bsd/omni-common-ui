@@ -16,6 +16,10 @@ import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
+import ErrorPageHandler from 'containers/ErrorPageHandler';
+import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
+import SavingBarHandler from 'containers/SavingBarHandler';
+import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -35,11 +39,26 @@ export function setupApp(routes, reducer) {
     {
       component: SingleSignOnHandler,
       childRoutes: [{
-        component: PermissionHandler,
-        childRoutes: [{
-          component: App,
-          childRoutes: is.array(routes) ? routes : [routes],
-        }],
+        component: App,
+        childRoutes: [
+          {
+            component: PermissionHandler,
+            childRoutes: [{
+              component: ErrorPageHandler,
+              childRoutes: [{
+                component: SavingBarHandler,
+                childRoutes: [{
+                  component: LoadingOverlayHandler,
+                  childRoutes: is.array(routes) ? routes : [routes],
+                }],
+              }],
+            }],
+          },
+          {
+            path: '*',
+            component: NoMatchingRouteErrorHandler,
+          },
+        ],
       }],
     },
   ], store);

@@ -1,0 +1,101 @@
+@import 'main.postcss';
+
+:root {
+  --space: 20px;
+  --normalWidth: 50px;
+  --itemHeight: 40px;
+  --iconSize: 12px;
+  --iconPadding: 5px;
+  --expandedWidth: 252px;
+  --closeHeight: var(--normalWidth);
+}
+
+.Sidebar {
+  background-color: var(--colorPrimary);
+  cursor: pointer;
+  flex: 0;
+  min-width: 50px;
+  position: relative;
+  text-align: left;
+  vertical-align: top;
+  width: var(--normalWidth);
+
+  &::after {
+    background-color: #0006;
+    content: '';
+    display: block;
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+  }
+
+  /* twiddle ::after opacity to make iOS treat first tap as a click */
+
+  /* see: http://stackoverflow.com/a/32706770 */
+  &:hover,
+  &:active {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &_expanded {
+    background-color: var(--colorPrimary);
+    cursor: auto;
+    left: 0;
+    min-height: 100%;
+    min-width: 200px;
+    position: absolute;
+    top: 0;
+    z-index: var(--zIndex-7--sidebar);
+  }
+
+  &_close {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: var(--closeHeight);
+    justify-content: flex-end;
+
+    &_button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      height: calc(var(--iconSize) + var(--iconPadding) * 2);
+      margin-right: calc((var(--closeHeight) - var(--iconSize) * 2) / 2);
+      outline: none;
+      padding: var(--iconPadding);
+      width: calc(var(--iconSize) + var(--iconPadding) * 2);
+
+      &:hover,
+      &:active {
+        background-color: #0006;
+      }
+
+      &_icon {
+        display: block;
+        height: var(--iconSize);
+        width: var(--iconSize);
+      }
+    }
+  }
+
+  &_item {
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: var(--colorTextInverse);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-size: var(--fontSize-md);
+    height: var(--itemHeight);
+    justify-content: flex-start;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    min-height: var(--touchableMinHeight);
+    outline: none;
+    padding: 0 var(--touchablePaddingHorizontal);
+  }
+}

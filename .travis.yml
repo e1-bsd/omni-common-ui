@@ -13,17 +13,17 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
-  - npm install -g npm@3.10.x
+  - npm install -g yarn
   - npm install -g cnpm
 
 install:
-  - npm install
+  - yarn
 
 script:
-  - npm run lint:css
-  - npm run lint:js
-  - npm run test:once
-  - npm run build
+  - yarn run lint:css
+  - yarn run lint:js
+  - yarn run test:once
+  - yarn run build
 
 before_deploy:
   - node ci.bump-version.js

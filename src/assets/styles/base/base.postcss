@@ -9,6 +9,11 @@
   font-family: var(--fontFamily);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: inherit;
   font-size: 0.875rem;
@@ -49,4 +54,8 @@ select,
 textarea {
   /* Overriding a style coming from normalize.css */
   font-family: inherit;
+}
+
+#root {
+  min-height: 100vh;
 }

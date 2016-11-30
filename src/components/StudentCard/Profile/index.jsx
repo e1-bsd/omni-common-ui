@@ -1,13 +1,14 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import is from 'is_js';
 import StudentPicture from 'components/StudentPicture';
 import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 
 const Profile = (props, { withSeparatorLine, backgroundless }) => {
-  const { status, statusInitial, statusHighlighted } = props;
+  const { status, statusHighlighted } = props;
   const classes = classnames(styles.StudentCard_profile,
       styles.__1, {
         [styles.__separated]: withSeparatorLine,
@@ -20,7 +21,12 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     }
     return <div className={nameClasses} data-prop={prop}>{name}</div>;
   };
-
+  const getStr = (name) => {
+    if (is.undefined(name)) {
+      return '';
+    }
+    return name;
+  };
   return <Card.Content withoutBottomPadding>
     <div className={classes}>
       <StudentPicture src={props.avatarUrl}
@@ -29,13 +35,12 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
             [styles.__bigger]: !! props.withBiggerAvatar,
           })} />
       <div className={styles.StudentCard_profile_info}>
-        {renderName('name', props.name, styles.StudentCard_profile_name)}
-        {renderName('surname', props.surname, styles.StudentCard_profile_surname)}
+        {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
+        {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
+        <ProductionStatus className={styles.StudentCard_profile_status}
+            status={status}
+            highlighted={statusHighlighted} />
       </div>
-      <ProductionStatus className={styles.StudentCard_profile_status}
-          status={status}
-          initial={statusInitial}
-          highlighted={statusHighlighted} />
     </div>
   </Card.Content>;
 };
@@ -49,6 +54,7 @@ Profile.propTypes = {
   className: React.PropTypes.string,
   name: React.PropTypes.string,
   surname: React.PropTypes.string,
+  localName: React.PropTypes.string,
   gender: React.PropTypes.string,
   avatarUrl: React.PropTypes.string,
   status: React.PropTypes.string,
