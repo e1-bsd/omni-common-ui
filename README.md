@@ -7,38 +7,39 @@
 
 Follow this steps to setup your development environment.
 
-1. Install [NodeJS](https://nodejs.org/) (**6.6.x**).  
-It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).  
+1. Install [NodeJS](https://nodejs.org/) (**^6.6.0**).
+It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).
 A [Windows](https://github.com/coreybutler/nvm-windows) version is also available.
-2. Open a terminal at the root folder of the project.
-3. Run `npm update`.
+2. Install [Yarn](https://yarnpkg.com/) running `npm install -g yarn`.
+3. Open a terminal at the root folder of the project.
+4. Run `yarn`.
 
 ## Starting the development environment
 
 When all your dependencies are installed, you can follow this steps to build the project on your machine for development.
 
 1. Open a terminal at the root folder of the project.
-2. Run `npm run start` or `npm start`.
+2. Run `yarn start`.
 3. You can see the site running on `http://localhost:3000`.
 The project will get recompiled automatically when you change the code.
 
 ### Running our linting tools
 
-1. Run `npm run lint:css` to run Stylelint.
-2. Run `npm run lint:js` to run ESLint.
+1. Run `yarn run lint:css` to run Stylelint.
+2. Run `yarn run lint:js` to run ESLint.
 
 ### Testing during development
 
 1. Open a terminal at the root folder of the project.
-2. Run `npm run test:start`.
+2. Run `yarn run test:start`.
 3. The project will be built and a special Chrome window will be opened.
 4. The tests will be run.
 5. The tests will run again automatically when you change the code.
 
 ## Frequent problems
 
-### `npm run start` is broken :(
+### `yarn start` is broken :(
 
-If you meet some error when trying to run `npm run start` or `npm run test:start`, the most common cause is that someone has added or updated some new dependency into the project.
+If you meet some error when trying to run `yarn start` or `yarn run test:start`, the most common cause is that someone has added or updated some new dependency into the project.
 
-Run `npm update` to get your environment up to date.
+Run `yarn` to get your environment up to date.
