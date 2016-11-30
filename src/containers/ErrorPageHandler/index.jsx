@@ -1,5 +1,3 @@
-import styles from './style.postcss';
-
 import React from 'react';
 import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
@@ -13,12 +11,10 @@ export const ErrorPageHandler = (props) => {
     return children;
   }
 
-  return <div className={styles.ErrorPageHandler}>
-    <ErrorPage erroredApi={erroredApi}
-        config={config}
-        afterButtonClicked={() => clean(erroredApi.id)}
-        {...props} />
-  </div>;
+  return <ErrorPage erroredApi={erroredApi}
+      config={config}
+      afterButtonClicked={() => clean(erroredApi.id)}
+      {...props} />;
 };
 
 ErrorPageHandler.propTypes = {

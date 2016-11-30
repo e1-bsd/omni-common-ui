@@ -1,4 +1,3 @@
-import styles from './style.postcss';
 import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
@@ -14,7 +13,6 @@ describe('<ErrorPageHandler />', () => {
   describe('component', () => {
     it('renders its children if no failed ApiCall.State is received as erroredApi', () => {
       const wrapper = mount(<ErrorPageHandler><div id="inner" /></ErrorPageHandler>);
-      expect(wrapper).to.not.have.descendants(`.${styles.ErrorPageHandler}`);
       expect(wrapper).to.have.descendants('#inner');
     });
 
@@ -22,7 +20,6 @@ describe('<ErrorPageHandler />', () => {
       const wrapper = mount(<ErrorPageHandler erroredApi={ApiCall.State.createFailed()}>
         <div id="inner" />
       </ErrorPageHandler>);
-      expect(wrapper).to.have.descendants(`.${styles.ErrorPageHandler}`);
       expect(wrapper).to.not.have.descendants('#inner');
     });
   });

@@ -9,9 +9,11 @@ const ErrorPage = (props) => {
   const { erroredApi, config, afterButtonClicked, location: { pathname } } = props;
 
   return <div className={styles.ErrorPage}>
-    <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
-    <div className={styles.ErrorPage_text}>{renderMessage()}</div>
-    {renderButton()}
+    <div className={styles.ErrorPage_content}>
+      <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
+      <div className={styles.ErrorPage_text}>{renderMessage()}</div>
+      {renderButton()}
+    </div>;
   </div>;
 
   function renderMessage() {

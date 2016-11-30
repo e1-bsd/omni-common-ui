@@ -2,13 +2,21 @@
 
 .ErrorPage {
   align-items: center;
-  color: var(--colorTextSecondary);
   display: flex;
-  flex-direction: column;
-  font-size: var(--fontSize-lg);
   justify-content: center;
-  padding: var(--spaceBase);
-  text-align: center;
+  min-height: 100%;
+  width: 100%;
+
+  &_content {
+    align-items: center;
+    color: var(--colorTextSecondary);
+    display: flex;
+    flex-direction: column;
+    font-size: var(--fontSize-lg);
+    justify-content: center;
+    padding: var(--spaceBase);
+    text-align: center;
+  }
 
   &_image {
     height: 40px;
