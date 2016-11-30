@@ -53,17 +53,16 @@ describe('<ErrorPageHandler />', () => {
       expect(wrapper.find(Button)).to.have.prop('linkTo', '/custom/path');
     });
 
-    it('calls all config functions with (erroredApi, props)', () => {
+    it('calls all config functions with props', () => {
       props.config = { message: Sinon.spy(), buttonText: Sinon.spy(), buttonLink: Sinon.spy() };
       const wrapper = shallow(<ErrorPage {...props} />);
       wrapper.find(Button).simulate('click');
       expect(props.config.message.calledOnce).to.equal(true, 'message called once');
-      expect(props.config.message.args).to.eql([[props.erroredApi, props]], 'message params');
+      expect(props.config.message.args).to.eql([[props]], 'message params');
       expect(props.config.buttonText.calledOnce).to.equal(true, 'buttonText called once');
-      expect(props.config.buttonText.args).to.eql([[props.erroredApi, props]], 'buttonText params');
+      expect(props.config.buttonText.args).to.eql([[props]], 'buttonText params');
       expect(props.config.buttonLink.calledOnce).to.equal(true, 'buttonLink called once');
-      expect(props.config.buttonLink.args)
-          .to.eql([[props.erroredApi, props]], 'buttonLink params');
+      expect(props.config.buttonLink.args).to.eql([[props]], 'buttonLink params');
     });
 
     it('hides the button if its link points to the current URL', () => {

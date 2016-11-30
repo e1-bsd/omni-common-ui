@@ -6,7 +6,7 @@ import is from 'is_js';
 import PathComparator from 'domain/PathComparator';
 
 const ErrorPage = (props) => {
-  const { erroredApi, config, afterButtonClicked, location: { pathname } } = props;
+  const { config, afterButtonClicked, location: { pathname } } = props;
 
   return <div className={styles.ErrorPage}>
     <div className={styles.ErrorPage_content}>
@@ -21,7 +21,7 @@ const ErrorPage = (props) => {
       return 'Omni could not load this page.';
     }
 
-    return config.message(erroredApi, props);
+    return config.message(props);
   }
 
   function renderButton() {
@@ -44,7 +44,7 @@ const ErrorPage = (props) => {
       return '/';
     }
 
-    return config.buttonLink(erroredApi, props);
+    return config.buttonLink(props);
   }
 
   function renderButtonText() {
@@ -52,7 +52,7 @@ const ErrorPage = (props) => {
       return 'Back';
     }
 
-    return config.buttonText(erroredApi, props);
+    return config.buttonText(props);
   }
 };
 
@@ -62,9 +62,6 @@ ErrorPage.propTypes = {
     pathname: React.PropTypes.string.isRequired,
   }).isRequired,
   afterButtonClicked: React.PropTypes.func.isRequired,
-  erroredApi: React.PropTypes.shape({
-    error: React.PropTypes.instanceOf(Error).isRequired,
-  }).isRequired,
   config: React.PropTypes.shape({
     message: React.PropTypes.func,
     buttonText: React.PropTypes.func,
