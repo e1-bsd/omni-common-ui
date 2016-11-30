@@ -34,7 +34,9 @@
   /* see: http://stackoverflow.com/a/32706770 */
   &:hover,
   &:active {
-    opacity: 1;
+    &::after {
+      opacity: 1;
+    }
   }
 
   &_expanded {
