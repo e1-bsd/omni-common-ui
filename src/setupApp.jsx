@@ -42,13 +42,13 @@ export function setupApp(routes, reducer) {
         component: App,
         childRoutes: [
           {
-            component: PermissionHandler,
+            component: LoadingOverlayHandler,
             childRoutes: [{
-              component: ErrorPageHandler,
+              component: PermissionHandler,
               childRoutes: [{
-                component: SavingBarHandler,
+                component: ErrorPageHandler,
                 childRoutes: [{
-                  component: LoadingOverlayHandler,
+                  component: SavingBarHandler,
                   childRoutes: is.array(routes) ? routes : [routes],
                 }],
               }],

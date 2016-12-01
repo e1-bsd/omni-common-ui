@@ -22,10 +22,17 @@ class LoadingOverlayHandler extends Component {
     this.state = { isThrobberVisible: false };
   }
 
+  componentWillMount() {
+    this._updateState();
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
-    // CONFIG flag check
-    if (! IS_ACTIVE) return;
+    this._updateState(nextProps);
+  }
+
+  _updateState(props = this.props) {
+    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = props;
+    if (! IS_ACTIVE) return; // CONFIG flag check
     if (isAnyApiCallLoadingBeyondThreshold) {
       this.setState({ isThrobberVisible: true });
     } else if (isAnyApiCallLoading) {
