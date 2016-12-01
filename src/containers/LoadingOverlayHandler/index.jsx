@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
@@ -54,7 +56,7 @@ class LoadingOverlayHandler extends Component {
       pace: true,
       'pace-inactive': ! this.state.isThrobberVisible,
     };
-    return <div data-component="LoadingOverlayHandler">
+    return <div className={styles.LoadingOverlayHandler}>
       <div className={classnames(classes)}>
         <div className="pace-activity" />
       </div>
