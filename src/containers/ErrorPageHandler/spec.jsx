@@ -21,7 +21,6 @@ describe('<ErrorPageHandler />', () => {
           ApiCall.State.createFailed('id1', new Error()),
           ApiCall.State.createFailed('id2', new Error()),
         ]),
-        location: { pathname: '/current/path' },
         clean: Sinon.spy(),
       };
     });
