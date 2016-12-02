@@ -4,18 +4,33 @@ import Store from 'domain/Store';
 
 export const buildUrl = (path) => CONFIG.apiBase + path;
 
+class FetchTimedOutError extends Error { }
+
 export const fetch = (url, options = {}) => {
   const finalOptions = Object.assign({}, options, getTokenHeader(options));
-  return isomorphicFetch(url, finalOptions)
-    .then(checkResponseStatus)
-    .then((response) => response.text())
-    .then((response) => {
-      if (is.empty(response)) {
-        return response;
-      }
+  return new Promise((resolve, reject) => {
+    const onTimeout = () => reject(new FetchTimedOutError(`Call to ${url} has taken too long!`));
+    const timeout = setTimeout(onTimeout, CONFIG.fetchTimeout);
 
-      return JSON.parse(response);
-    });
+    isomorphicFetch(url, finalOptions)
+      .then(checkResponseStatus)
+      .then((response) => response.text())
+      .then((response) => {
+        if (is.empty(response)) {
+          return response;
+        }
+
+        return JSON.parse(response);
+      })
+      .then((response) => {
+        clearTimeout(timeout);
+        resolve(response);
+      })
+      .catch((error) => {
+        clearTimeout(timeout);
+        reject(error);
+      });
+  });
 };
 
 function checkResponseStatus(response) {
