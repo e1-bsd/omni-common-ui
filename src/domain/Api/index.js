@@ -43,6 +43,9 @@ function getTokenHeader(options) {
   };
 }
 
-export const Api = { fetch };
+class Api { }
+
+Api.fetch = fetch;
+Api.buildUrl = buildUrl;
 
 export default Api;
