@@ -7,7 +7,7 @@ import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Button from 'components/Button';
 
-const HTTP_METHOD_TRIGGERS = ['POST', 'PUT'];
+const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 
 // config feature flag
 let IS_ACTIVE;

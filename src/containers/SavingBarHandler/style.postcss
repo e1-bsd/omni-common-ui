@@ -17,15 +17,18 @@
   right: 0;
   transform: translate3d(0, calc((var(--barVerticalPadding) * 2) + var(--buttonHeight) + var(--borderHeight)), 0);
   transition: transform 0.2s ease 0.1s;
-  visibility: hidden;
   width: 100%;
-  will-change: transform, visibility;
+  will-change: animation, transform, visibility;
   z-index: var(--zIndex-10-savingBar);
 
   &.__visible {
     pointer-events: auto;
     transform: translate3d(0, 0, 0);
     visibility: visible;
+  }
+
+  &:not(.__visible) {
+    animation: goInvisible 0.01s 0.3s linear forwards;
   }
 
   &_overlay {
@@ -93,4 +96,8 @@
 
 @keyframes spin {
   100% { transform: translateZ(0) rotate(359deg); }
+}
+
+@keyframes goInvisible {
+  100% { visibility: hidden; }
 }
