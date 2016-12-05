@@ -27,6 +27,18 @@ export const fetch = (url, options = {}) => {
         resolve(response);
       })
       .catch((error) => {
+        try {
+          return error.response.json()
+            .then((apiError) => {
+              // eslint-disable-next-line no-param-reassign
+              error.apiResponse = apiError;
+              throw error;
+            });
+        } catch (e) {
+          throw error;
+        }
+      })
+      .catch((error) => {
         clearTimeout(timeout);
         reject(error);
       });
