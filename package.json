@@ -33,6 +33,7 @@
     "css-element-queries": "0.3.2",
     "css-loader": "0.25.0",
     "decimal.js": "7.1.0",
+    "deep-extend": "~0.4.0",
     "enzyme": "2.5.1",
     "es6-promise": "4.0.5",
     "eslint": "3.9.1",
