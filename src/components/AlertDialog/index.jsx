@@ -1,7 +1,7 @@
 import styles from './style.postcss';
 import React from 'react';
 import Dialog from 'components/Dialog';
-import { Button } from 'components/Button';
+import Button from 'components/Button';
 
 const AlertDialog = ({
   iswarning,
