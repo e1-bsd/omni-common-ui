@@ -1,3 +1,4 @@
+import styles from './style.postcss';
 import React from 'react';
 import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
@@ -7,28 +8,49 @@ import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
 
 export const ErrorPageHandler = (props) => {
-  const { children, config, erroredApis, clean } = props;
-  if (erroredApis.size <= 0) {
+  const { children, config, erroredApis, erroredApi, clean } = props;
+  const cleanErrors = () => erroredApis.forEach((api) => clean(api.id));
+
+  return <div className={styles.ErrorPageHandler}>
+    {renderError()}
+    {renderChildren()}
+  </div>;
+
+  function renderError() {
+    if (! erroredApi) {
+      return null;
+    }
+
+    if (shouldShowPopUp()) {
+      const { apiResponse } = erroredApi.error;
+      return <AlertDialog iswarning
+          content1={apiResponse.message}
+          okButtonContent="OK"
+          onButtonClick={cleanErrors} />;
+    }
+
+    return <ErrorPage erroredApi={erroredApi}
+        config={config}
+        afterButtonClicked={cleanErrors}
+        {...props} />;
+  }
+
+  function renderChildren() {
+    if (erroredApi && ! shouldShowPopUp()) {
+      return null; // Because the error page will be rendered.
+    }
+
     return children;
   }
 
-  const cleanErrors = () => erroredApis.forEach((api) => clean(api.id));
-  const erroredApi = erroredApis.first();
-  const { apiResponse } = erroredApi.error;
-  if (is.object(apiResponse) && apiResponse.code !== 500) {
-    return <div>
-      <AlertDialog iswarning
-          content1={apiResponse.message}
-          okButtonContent="OK"
-          onButtonClick={cleanErrors} />
-      {children}
-    </div>;
-  }
+  function shouldShowPopUp() {
+    if (! erroredApi) {
+      return false;
+    }
 
-  return <ErrorPage erroredApi={erroredApi}
-      config={config}
-      afterButtonClicked={cleanErrors}
-      {...props} />;
+    const { apiResponse } = erroredApi.error;
+    return is.object(apiResponse) && apiResponse.code !== 500;
+  }
 };
 
 ErrorPageHandler.propTypes = {
@@ -36,11 +58,14 @@ ErrorPageHandler.propTypes = {
   replace: React.PropTypes.func.isRequired,
   clean: React.PropTypes.func.isRequired,
   erroredApis: React.PropTypes.object,
+  erroredApi: React.PropTypes.object,
   config: React.PropTypes.object,
 };
 
 export function mapStateToProps(state, { routes }) {
-  return { erroredApis: getApiErrors(state), config: ErrorPageConfig.get(routes) };
+  const erroredApis = getApiErrors(state);
+  const erroredApi = getApiError(erroredApis);
+  return { erroredApis, erroredApi, config: ErrorPageConfig.get(routes) };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -51,5 +76,12 @@ function getApiErrors(state) {
   return state.get('apiCalls').filter((call) => ApiCall.State.hasFailed(call)).toList();
 }
 
+function getApiError(erroredApis) {
+  if (erroredApis.size <= 0) {
+    return undefined;
+  }
+
+  return erroredApis.first();
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorPageHandler);
