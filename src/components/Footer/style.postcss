@@ -1,0 +1,64 @@
+@import 'main.postcss';
+
+:root {
+  --footerText: #c6c6c6;
+  --footerBg: #4d4d4d;
+}
+
+.Footer {
+  background: var(--footerBg);
+  color: var(--footerText);
+  font-size: 12px;
+  height: 120px;
+  left: 0;
+  letter-spacing: 0;
+  padding: 45px 0 30px 40px;
+  width: 100%;
+
+  & p {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &_logo {
+    background-repeat: no-repeat;
+    float: left;
+    font-size: 12px;
+    height: 42px;
+    margin-right: 40px;
+    width: 61px;
+
+    &:global {
+      background-image: url('ef-footer.svg');
+    }
+
+    @media (--xs-viewport) {
+      float: none;
+      margin-bottom: 15px;
+    }
+  }
+
+  &_content {
+    &_row {
+      margin-top: 0;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    &_link {
+      color: var(--footerText);
+      text-decoration: none;
+    }
+
+    &_separator::before {
+      content: '|';
+      margin: 8px;
+    }
+  }
+
+  @media (--xs-viewport) {
+    height: auto;
+  }
+}
