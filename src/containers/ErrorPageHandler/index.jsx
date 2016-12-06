@@ -6,6 +6,7 @@ import ApiCall from 'containers/ApiCalls';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
 import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
+import ErrorMessage from 'components/ErrorMessage';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
@@ -23,8 +24,9 @@ export const ErrorPageHandler = (props) => {
 
     if (shouldShowPopUp()) {
       const { apiResponse } = erroredApi.error;
+      const message = ErrorMessage.for(apiResponse.code) || apiResponse.message;
       return <AlertDialog iswarning
-          content1={apiResponse.message}
+          content1={message}
           okButtonContent="OK"
           onButtonClick={cleanErrors} />;
     }
