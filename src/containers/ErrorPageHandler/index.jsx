@@ -3,6 +3,8 @@ import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
+import is from 'is_js';
+import AlertDialog from 'components/AlertDialog';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, clean } = props;
@@ -10,9 +12,22 @@ export const ErrorPageHandler = (props) => {
     return children;
   }
 
-  return <ErrorPage erroredApi={erroredApis.get(0)}
+  const cleanErrors = () => erroredApis.forEach((api) => clean(api.id));
+  const erroredApi = erroredApis.first();
+  const { apiResponse } = erroredApi.error;
+  if (is.object(apiResponse) && apiResponse.code !== 500) {
+    return <div>
+      <AlertDialog iswarning
+          content1={apiResponse.message}
+          okButtonContent="OK"
+          onButtonClick={cleanErrors} />
+      {children}
+    </div>;
+  }
+
+  return <ErrorPage erroredApi={erroredApi}
       config={config}
-      afterButtonClicked={() => erroredApis.forEach((erroredApi) => clean(erroredApi.id))}
+      afterButtonClicked={cleanErrors}
       {...props} />;
 };
 
