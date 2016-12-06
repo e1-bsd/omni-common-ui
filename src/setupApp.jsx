@@ -20,6 +20,7 @@ import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SavingBarHandler from 'containers/SavingBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
+import ErrorMessage from 'domain/ErrorMessage';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -27,9 +28,11 @@ if (! PRODUCTION) {
   log.setLevel('error');
 }
 
-export function setupApp(routes, reducer) {
+export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
+
   Store.set(store);
+  ErrorMessage.setMap(errorMessageMap);
 
   const parsedRoutes = parseRoutes([
     {
