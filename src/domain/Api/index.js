@@ -1,6 +1,7 @@
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
 import Store from 'domain/Store';
+import camelCase from 'camelcase';
 
 export const buildUrl = (path) => CONFIG.apiBase + path;
 
@@ -30,8 +31,12 @@ export const fetch = (url, options = {}) => {
         try {
           return error.response.json()
             .then((apiError) => {
+              const apiResponse = {};
+              Object.keys(apiError).forEach((key) => {
+                apiResponse[camelCase(key)] = apiError[key];
+              });
               // eslint-disable-next-line no-param-reassign
-              error.apiResponse = apiError;
+              error.apiResponse = apiResponse;
               throw error;
             });
         } catch (e) {
