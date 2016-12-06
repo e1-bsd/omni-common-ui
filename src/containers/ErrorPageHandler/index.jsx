@@ -6,7 +6,7 @@ import ApiCall from 'containers/ApiCalls';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
 import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
-import ErrorMessage from 'components/ErrorMessage';
+import ErrorMessage from 'domain/ErrorMessage';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
