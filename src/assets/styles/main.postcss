@@ -1,8 +1,19 @@
 @import './zIndex.postcss';
 
 :root {
-  --colorBg: #efefef;
+  --colorBg: #f2f2f2;
+  --colorCardBg: #fbfbfb;
   --colorBase: #fff;
+  --colorNavSectionBg: #f3f5f7;
+  --colorSideNavBgFoundation: #42667e;
+  --colorSideNavBgOperation: #008a8a;
+  --colorTableLayer1: #e8ebef;
+  --colorTableLayer2: #e5eef3;
+  --colorTableLayer3: #6799ba;
+  --colorTableLayer4: #456981;
+}
+
+:root {
   --colorEf: #174361;
   --colorPrimary: #456981;
   --colorPrimaryDisabled: #c7d2d9;
@@ -17,10 +28,7 @@
   --colorSuspended: #f7932d;
   --colorImpersonating: #f5a623;
   --colorOnHold: #898989;
-  --colorSideNavBgFoundation: #42667e;
-  --colorSideNavBgOperation: #008a8a;
   --colorHintMessage: #b4b4b4;
-  --opacityHintMessage: 1;
 }
 
 :root {
@@ -73,6 +81,11 @@
   --zIndex-8--modalPopup: var(--zIndex-8);
   --zIndex-9-savingBarOverlay: var(--zIndex-9);
   --zIndex-10-savingBar: var(--zIndex-10);
+}
+
+:root {
+  /* why? */
+  --opacityHintMessage: 1;
 }
 
 @custom-media --sm-viewport only screen and (min-width: 480px);
