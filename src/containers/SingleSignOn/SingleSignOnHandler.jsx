@@ -5,6 +5,7 @@ import { actions as privilegesActions } from 'containers/Privileges';
 import log from 'loglevel';
 import routes from './routes';
 import userManager from './userManager';
+import Config from 'domain/Config';
 
 const MockSingleSignOnHandler = (props) => props.children;
 

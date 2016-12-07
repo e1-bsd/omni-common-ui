@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Button from 'components/Button';
+import Config from 'domain/Config';
 
 const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 

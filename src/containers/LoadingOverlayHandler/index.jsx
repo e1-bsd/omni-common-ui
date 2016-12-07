@@ -6,6 +6,7 @@ import is from 'is_js';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
+import Config from 'domain/Config';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;

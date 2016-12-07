@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timer from './Timer';
 import userManager from './userManager';
 import log from 'loglevel';
+import Config from 'domain/Config';
 
 export default class IdleTimeoutHandler extends Component {
   componentWillMount() {

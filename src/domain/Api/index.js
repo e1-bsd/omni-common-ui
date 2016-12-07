@@ -2,6 +2,7 @@ import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
 import Store from 'domain/Store';
 import camelCase from 'camelcase';
+import Config from 'domain/Config';
 
 export const buildUrl = (path) => Config.get('apiBase') + path;
 
