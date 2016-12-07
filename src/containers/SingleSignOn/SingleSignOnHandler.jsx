@@ -5,6 +5,7 @@ import { actions as privilegesActions } from 'containers/Privileges';
 import log from 'loglevel';
 import routes from './routes';
 import userManager from './userManager';
+import Config from 'domain/Config';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -73,6 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(privilegesActions, dispatch);
 }
 
-export default CONFIG.featureLogin !== true ?
+export default Config.get('featureLogin') !== true ?
     MockSingleSignOnHandler :
     connect(mapStateToProps, mapDispatchToProps)(SingleSignOnHandler);

@@ -1,4 +1,6 @@
 /* eslint strict: "off" */
+/* eslint import/no-dynamic-require: "off" */
+
 'use strict';
 
 const path = require('path');
@@ -28,13 +30,10 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const CONFIG = require(path.resolve(`config/${nodeEnv}.json`));
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
-const outputPath = process.env.OUTPUT_PATH || 'dist';
-const buildConfig = require('./config/build');
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -44,7 +43,7 @@ module.exports = {
     vendor: ['babel-polyfill', 'omni-common-ui'],
   },
   output: {
-    path: path.resolve(outputPath),
+    path: path.resolve('dist'),
     filename: '[name].[hash].js',
   },
   module: {
@@ -107,19 +106,24 @@ module.exports = {
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.DefinePlugin(Object.assign({
+        new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
-          DEVELOPMENT: nodeEnv === 'development',
-          TEST: nodeEnv === 'test',
-          QA: nodeEnv === 'qa',
           PRODUCTION: isProd,
-        }, buildConfig(CONFIG, 'CONFIG'))),
+        }),
+      ]).concat(! isProd ?
+        [
+          new webpack.ProvidePlugin({
+            __CONFIG__: path.resolve(`config/${nodeEnv}.json`),
+          }),
+        ] :
+        [])
+      .concat([
         new HtmlWebpackPlugin({
-          template: 'index.html',
+          template: path.join(__dirname, 'src/index.html'),
           inject: 'body',
           version,
           commit: commitHash,
-          appInsights: CONFIG.appInsights,
+          title: process.env.TITLE,
         }),
         new Visualizer({ filename: '../package-stats.html' }),
       ]).concat(addOptionalPlugins()),
@@ -195,26 +199,24 @@ module.exports = {
 };
 
 function getSourceMapType() {
-  switch (nodeEnv) {
-    case 'test':
-    case 'development':
-      return 'inline-source-map';
-    default:
-      return 'hidden-source-map';
+  if (isProd) {
+    return 'hidden-source-map';
   }
+
+  return 'inline-source-map';
 }
 
 function addOptionalPlugins() {
   /* eslint global-require: "off" */
   const plugins = [];
 
-  if (nodeEnv !== 'development' && nodeEnv !== 'test') {
+  if (isProd) {
     plugins.concat([
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
         },
-        sourceMap: nodeEnv !== 'development',
+        sourceMap: true,
       }),
     ]);
   }
@@ -223,7 +225,7 @@ function addOptionalPlugins() {
 }
 
 function getNodeEnvForCode() {
-  if (nodeEnv === 'development' || nodeEnv === 'test') {
+  if (! isProd) {
     return 'development';
   }
 

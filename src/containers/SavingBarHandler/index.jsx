@@ -6,13 +6,14 @@ import classnames from 'classnames';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Button from 'components/Button';
+import Config from 'domain/Config';
 
 const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 
 // config feature flag
 let IS_ACTIVE;
 try {
-  IS_ACTIVE = !! CONFIG.showSavingBarForApiPostsPuts; // replaced by webpack
+  IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts'); // replaced by webpack
 } catch (e) {
   IS_ACTIVE = false;
 }

@@ -1,9 +1,10 @@
 import is from 'is_js';
 import { List } from 'immutable';
+import Config from 'domain/Config';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
-    if (! CONFIG.featureLogin) {
+    if (! Config.get('featureLogin')) {
       return true;
     }
 

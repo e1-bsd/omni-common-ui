@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Timer from './Timer';
 import userManager from './userManager';
 import log from 'loglevel';
+import Config from 'domain/Config';
 
 export default class IdleTimeoutHandler extends Component {
   componentWillMount() {
@@ -23,7 +24,7 @@ export default class IdleTimeoutHandler extends Component {
 
   _invokeIdleTimer() {
     log.debug('IdleTimeoutHandler - Will start a new timer');
-    this.timer.invoke(this._signOut, CONFIG.idleTimeout * 1000);
+    this.timer.invoke(this._signOut, Config.get('idleTimeout') * 1000);
   }
 
   _signOut() {

@@ -13,7 +13,7 @@ import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
 import { reducer as apiCalls } from 'containers/ApiCalls';
 
-if (DEVELOPMENT) {
+if (! PRODUCTION) {
   installDevTools(Immutable);
 }
 

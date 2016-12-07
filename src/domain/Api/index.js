@@ -2,8 +2,9 @@ import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
 import Store from 'domain/Store';
 import camelCase from 'camelcase';
+import Config from 'domain/Config';
 
-export const buildUrl = (path) => CONFIG.apiBase + path;
+export const buildUrl = (path) => Config.get('apiBase') + path;
 
 class FetchTimedOutError extends Error { }
 
@@ -11,7 +12,7 @@ export const fetch = (url, options = {}) => {
   const finalOptions = Object.assign({}, options, getTokenHeader(options));
   return new Promise((resolve, reject) => {
     const onTimeout = () => reject(new FetchTimedOutError(`Call to ${url} has taken too long!`));
-    const timeout = setTimeout(onTimeout, CONFIG.fetchTimeout);
+    const timeout = setTimeout(onTimeout, Config.get('fetchTimeout'));
 
     isomorphicFetch(url, finalOptions)
       .then(checkResponseStatus)

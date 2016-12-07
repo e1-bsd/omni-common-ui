@@ -6,6 +6,7 @@ import is from 'is_js';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
+import Config from 'domain/Config';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -13,7 +14,7 @@ const REQUEST_DURATION_THRESHOLD_MS = 100;
 // config feature flag
 let IS_ACTIVE;
 try {
-  IS_ACTIVE = !! CONFIG.showLoadingOverlayForApiGets; // replaced by webpack
+  IS_ACTIVE = !! Config.get('showLoadingOverlayForApiGets'); // replaced by webpack
 } catch (e) {
   IS_ACTIVE = false;
 }

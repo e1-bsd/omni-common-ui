@@ -11,19 +11,4 @@ const Store = {
   },
 };
 
-if (TEST) {
-  Store.Test = {
-    set: (newStore) => {
-      store = newStore;
-    },
-    clear: () => {
-      if (! TEST) {
-        throw Error('Store.clear() can only be used in tests!');
-      }
-
-      store = null;
-    },
-  };
-}
-
 export default Store;
