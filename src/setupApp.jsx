@@ -8,6 +8,7 @@ import {
   SingleSignOnHandler,
   SingleSignOnProvider,
   routes as singleSignOnRoutes,
+  IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
@@ -42,26 +43,29 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
     {
       component: SingleSignOnHandler,
       childRoutes: [{
-        component: App,
-        childRoutes: [
-          {
-            component: LoadingOverlayHandler,
-            childRoutes: [{
-              component: PermissionHandler,
+        component: IdleTimeoutHandler,
+        childRoutes: [{
+          component: App,
+          childRoutes: [
+            {
+              component: LoadingOverlayHandler,
               childRoutes: [{
-                component: ErrorPageHandler,
+                component: PermissionHandler,
                 childRoutes: [{
-                  component: SavingBarHandler,
-                  childRoutes: is.array(routes) ? routes : [routes],
+                  component: ErrorPageHandler,
+                  childRoutes: [{
+                    component: SavingBarHandler,
+                    childRoutes: is.array(routes) ? routes : [routes],
+                  }],
                 }],
               }],
-            }],
-          },
-          {
-            path: '*',
-            component: NoMatchingRouteErrorHandler,
-          },
-        ],
+            },
+            {
+              path: '*',
+              component: NoMatchingRouteErrorHandler,
+            },
+          ],
+        }],
       }],
     },
   ], store);
