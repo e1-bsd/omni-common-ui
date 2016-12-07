@@ -9,11 +9,15 @@
   background: var(--footerBg);
   color: var(--footerText);
   font-size: 12px;
-  height: 120px;
   left: 0;
   letter-spacing: 0;
+  min-height: 120px; /* INTERNET EXPLORER */
   padding: 45px 0 30px 40px;
   width: 100%;
+
+  @media (--xs-viewport) {
+    height: auto;
+  }
 
   & p {
     margin-bottom: 0;
@@ -28,19 +32,23 @@
     margin-right: 40px;
     width: 61px;
 
-    &:global {
-      background-image: url('ef-footer.svg');
-    }
-
     @media (--xs-viewport) {
       float: none;
       margin-bottom: 15px;
+    }
+
+    &:global {
+      background-image: url('ef-footer.svg');
     }
   }
 
   &_content {
     &_row {
+      /* wrap the copyright nicely */
+      display: flex;
+      flex-wrap: wrap;
       margin-top: 0;
+      white-space: nowrap;
 
       &:last-of-type {
         margin-bottom: 0;
@@ -56,9 +64,5 @@
       content: '|';
       margin: 8px;
     }
-  }
-
-  @media (--xs-viewport) {
-    height: auto;
   }
 }
