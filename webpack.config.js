@@ -23,7 +23,6 @@ const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
-const { Map } = require('immutable');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -32,194 +31,168 @@ const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
-const configs = getConfigs();
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 const outputPath = process.env.OUTPUT_PATH || 'dist';
 
-module.exports = [
-  {
-    context: path.resolve(contextFolder),
-    entry: Object.assign({}, configs, { config: `config/${nodeEnv}` }),
-    output: {
-      path: path.resolve(outputPath),
-      filename: '[name].js',
-      libraryTarget: 'var',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.json$/,
-          loader: 'json',
-        },
-      ],
-    },
-    resolve: {
-      root: [path.resolve()],
-      extensions: ['', '.js', '.jsx', '.json'],
-    },
-    externals: {
-      config: 'CONFIG',
-    },
+module.exports = {
+  context: path.resolve(contextFolder),
+  devtool: getSourceMapType(),
+  entry: {
+    app: 'app.jsx',
+    vendor: ['babel-polyfill', 'omni-common-ui'],
   },
-  {
-    context: path.resolve(contextFolder),
-    devtool: getSourceMapType(),
-    entry: {
-      app: 'app.jsx',
-      vendor: ['babel-polyfill', 'omni-common-ui'],
-    },
-    output: {
-      path: path.resolve(outputPath),
-      filename: '[name].[hash].js',
-    },
-    module: {
-      loaders: [
-        {
-          test: /\.(html|hbs)$/,
-          loader: 'handlebars',
-        },
-        {
-          test: /\.jsx?$/,
-          exclude: excluded,
-          loader: combineLoaders([
-            {
-              loader: 'babel',
-              query: {
-                presets: ['react', 'es2015', 'stage-2'],
-                cacheDirectory: true,
-              },
-            },
-          ]),
-        },
-        {
-          test: /\.css$/,
-          loader: 'style!css?root=.',
-        },
-        {
-          test: /\.postcss$/,
-          loader: combineLoaders([
-            { loader: 'style' },
-            {
-              loader: 'css',
-              query: {
-                root: '.',
-                modules: true,
-                importLoaders: 1,
-                localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
-              },
-            },
-            { loader: 'postcss' },
-          ]),
-        },
-        {
-          test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
-          loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
-        },
-        {
-          test: /\.(jpe?g|png|gif|svg)$/,
-          loaders: [
-            'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
-            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-          ],
-        },
-        {
-          test: /\.json$/,
-          loader: 'json',
-        },
-      ],
-    },
-    plugins: (nodeEnv !== 'test' ?
-        [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
-        []).concat([
-          new webpack.optimize.OccurenceOrderPlugin(),
-          new webpack.DefinePlugin({
-            'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
-            DEVELOPMENT: nodeEnv === 'development',
-            TEST: nodeEnv === 'test',
-            QA: nodeEnv === 'qa',
-            PRODUCTION: isProd,
-          }),
-          new HtmlWebpackPlugin({
-            template: 'index.html',
-            inject: 'body',
-            version,
-            commit: commitHash,
-          }),
-          new Visualizer({ filename: '../package-stats.html' }),
-        ]).concat(addOptionalPlugins()),
-    devServer: {
-      contentBase: srcFolder,
-      noInfo: false,
-      stats: { colors: true },
-      historyApiFallback: true,
-    },
-    resolve: Object.assign(
+  output: {
+    path: path.resolve(outputPath),
+    filename: '[name].[hash].js',
+  },
+  module: {
+    loaders: [
       {
-        root: [
-          path.resolve(contextFolder),
-          path.resolve(srcFolder),
-          process.cwd(),
-        ],
-        extensions: ['', '.js', '.jsx', '.json'],
+        test: /\.(html|hbs)$/,
+        loader: 'handlebars',
       },
       {
-        alias: Object.assign(
-          isCommon ?
-              { 'omni-common-ui$': 'src/index.js' } :
-              {}
-          , {
-            react: path.resolve('node_modules', 'react'),
-            'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
-          }
-        ),
-      }
-    ),
-    postcss: (webpackInstance) => ([
-      postcssImport({
-        path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
-        addDependencyTo: webpackInstance,
-      }),
-      postcssUrl({ url: 'rebase' }),
-      postcssContainerQueries,
-      postcssSimpleMixin,
-      postcssCustomSelectors,
-      postcssCustomProperties,
-      postcssSelectorNot,
-      postcssColorFunctions,
-      postcssColorHexAlpha,
-      postcssNesting,
-      postcssPxToRem({
-        rootValue: 16,
-        unitPrecision: 5,
-        propWhiteList: [],
-        selectorBlackList: [],
-        replace: true,
-        mediaQuery: false,
-        minPixelValue: 0,
-      }),
-      postcssCalc,
-      postcssCssnext({
-        browsers: [
-          '> 0%',
-          'last 2 versions',
-          'Firefox ESR',
-          'Opera 12.1',
-          'Android 2.3',
-          'iOS 7',
+        test: /\.jsx?$/,
+        exclude: excluded,
+        loader: combineLoaders([
+          {
+            loader: 'babel',
+            query: {
+              presets: ['react', 'es2015', 'stage-2'],
+              cacheDirectory: true,
+            },
+          },
+        ]),
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css?root=.',
+      },
+      {
+        test: /\.postcss$/,
+        loader: combineLoaders([
+          { loader: 'style' },
+          {
+            loader: 'css',
+            query: {
+              root: '.',
+              modules: true,
+              importLoaders: 1,
+              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
+            },
+          },
+          { loader: 'postcss' },
+        ]),
+      },
+      {
+        test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
+        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loaders: [
+          'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
         ],
-      }),
-      postcssReporter({ clearMessages: true }),
-    ]),
-    externals: {
-      cheerio: 'window',
-      'react/lib/ExecutionEnvironment': true,
-      'react/lib/ReactContext': true,
-      'react/addons': true,
-    },
+      },
+      {
+        test: /\.json$/,
+        loader: 'json',
+      },
+    ],
   },
-];
+  plugins: (nodeEnv !== 'test' ?
+      [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
+      []).concat([
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
+          DEVELOPMENT: nodeEnv === 'development',
+          TEST: nodeEnv === 'test',
+          QA: nodeEnv === 'qa',
+          PRODUCTION: isProd,
+        }),
+        new HtmlWebpackPlugin({
+          template: path.join(__dirname, 'src/index.html'),
+          inject: 'body',
+          version,
+          commit: commitHash,
+          title: process.env.TITLE,
+        }),
+        new Visualizer({ filename: '../package-stats.html' }),
+      ]).concat(addOptionalPlugins()),
+  devServer: {
+    contentBase: srcFolder,
+    noInfo: false,
+    stats: { colors: true },
+    historyApiFallback: true,
+  },
+  resolve: Object.assign(
+    {
+      root: [
+        path.resolve(contextFolder),
+        path.resolve(srcFolder),
+        process.cwd(),
+      ],
+      extensions: ['', '.js', '.jsx', '.json'],
+    },
+    {
+      alias: Object.assign(
+        isCommon ?
+            { 'omni-common-ui$': 'src/index.js' } :
+            {}
+        , {
+          react: path.resolve('node_modules', 'react'),
+          'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
+        }
+      ),
+    }
+  ),
+  postcss: (webpackInstance) => ([
+    postcssImport({
+      path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
+      addDependencyTo: webpackInstance,
+    }),
+    postcssUrl({ url: 'rebase' }),
+    postcssContainerQueries,
+    postcssSimpleMixin,
+    postcssCustomSelectors,
+    postcssCustomProperties,
+    postcssSelectorNot,
+    postcssColorFunctions,
+    postcssColorHexAlpha,
+    postcssNesting,
+    postcssPxToRem({
+      rootValue: 16,
+      unitPrecision: 5,
+      propWhiteList: [],
+      selectorBlackList: [],
+      replace: true,
+      mediaQuery: false,
+      minPixelValue: 0,
+    }),
+    postcssCalc,
+    postcssCssnext({
+      browsers: [
+        '> 0%',
+        'last 2 versions',
+        'Firefox ESR',
+        'Opera 12.1',
+        'Android 2.3',
+        'iOS 7',
+      ],
+    }),
+    postcssReporter({ clearMessages: true }),
+  ]),
+  externals: {
+    cheerio: 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+    'react/addons': true,
+  },
+};
 
 function getSourceMapType() {
   switch (nodeEnv) {
@@ -246,6 +219,14 @@ function addOptionalPlugins() {
     ]);
   }
 
+  if (nodeEnv === 'development' || nodeEnv === 'test') {
+    plugins.concat([
+      new webpack.ProvidePlugin({
+        CONFIG: path.resolve(`config/${nodeEnv}.json`),
+      }),
+    ]);
+  }
+
   return [];
 }
 
@@ -255,14 +236,4 @@ function getNodeEnvForCode() {
   }
 
   return 'production';
-}
-
-function getConfigs() {
-  return new Map(require('require-all')({
-    dirname: path.resolve('config'),
-    filter: /\.json$/i,
-    recursive: false,
-    map: (name, filePath) => path.basename(filePath, '.json'),
-  })).map((value, key) => `config/${key}.json`)
-      .toJS();
 }
