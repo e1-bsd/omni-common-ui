@@ -25,6 +25,10 @@ if (process.platform === 'win32') {
 
 execSync(cmdLine, { stdio: [0, 1, 2] });
 
+const distDir = path.resolve('dist-configs');
+fs.mkdirSync(distDir);
+
 configs.forEach((config, environment) => {
-  fs.writeFileSync(path.join('dist', `${environment}.js`), `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
+  const fileDir = path.join(distDir, `${environment}.js`);
+  fs.writeFileSync(fileDir, `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
 });
