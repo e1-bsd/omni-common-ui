@@ -34,7 +34,6 @@ const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
 
 const commitHash = git.long();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
-const outputPath = process.env.OUTPUT_PATH || 'dist';
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -44,7 +43,7 @@ module.exports = {
     vendor: ['babel-polyfill', 'omni-common-ui'],
   },
   output: {
-    path: path.resolve(outputPath),
+    path: path.resolve('dist'),
     filename: '[name].[hash].js',
   },
   module: {

@@ -16,17 +16,15 @@ const configs = new Map(requireAll({
 }));
 
 let cmdLine = 'node node_modules/webpack/bin/webpack.js -p --bail --progress --colors';
-const env = process.argv[2] ? process.argv[2].toLowerCase() : 'production';
-process.env.OUTPUT_PATH = `dist-${env}`;
 
 if (process.platform === 'win32') {
-  cmdLine = `set NODE_ENV=${env}&& ${cmdLine}`;
+  cmdLine = `set NODE_ENV=production&& ${cmdLine}`;
 } else {
-  cmdLine = `NODE_ENV=${env} ${cmdLine}`;
+  cmdLine = `NODE_ENV=production ${cmdLine}`;
 }
 
 execSync(cmdLine, { stdio: [0, 1, 2] });
 
 configs.forEach((config, environment) => {
-  fs.writeFileSync(path.join(dir, `${environment}.js`), `var CONFIG = Object.freeze(${JSON.stringify(config)})`);
+  fs.writeFileSync(path.join('dist', `${environment}.js`), `var CONFIG = Object.freeze(${JSON.stringify(config)})`);
 });
