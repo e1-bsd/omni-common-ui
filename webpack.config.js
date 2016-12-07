@@ -110,6 +110,9 @@ module.exports = {
           'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
           PRODUCTION: isProd,
         }),
+        new webpack.ProvidePlugin({
+          Config: path.join(__dirname, 'src/domain/Config/index.js'),
+        }),
       ]).concat(! isProd ?
         [
           new webpack.ProvidePlugin({

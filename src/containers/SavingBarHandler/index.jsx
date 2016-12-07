@@ -12,7 +12,7 @@ const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 // config feature flag
 let IS_ACTIVE;
 try {
-  IS_ACTIVE = !! CONFIG.showSavingBarForApiPostsPuts; // replaced by webpack
+  IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts'); // replaced by webpack
 } catch (e) {
   IS_ACTIVE = false;
 }

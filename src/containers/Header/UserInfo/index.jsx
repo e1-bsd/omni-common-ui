@@ -93,7 +93,7 @@ class UserInfo extends Component {
       </div>;
     }
 
-    return <Permission permissionId={CONFIG.impersonatePermission}>
+    return <Permission permissionId={Config.get('impersonatePermission')}>
       <div className={styles.UserInfo_features_item}>
         <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
       </div>

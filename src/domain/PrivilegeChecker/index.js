@@ -3,7 +3,7 @@ import { List } from 'immutable';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
-    if (! CONFIG.featureLogin) {
+    if (! Config.get('featureLogin')) {
       return true;
     }
 

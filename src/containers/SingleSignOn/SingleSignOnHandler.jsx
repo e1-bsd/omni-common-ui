@@ -73,6 +73,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(privilegesActions, dispatch);
 }
 
-export default CONFIG.featureLogin !== true ?
+export default Config.get('featureLogin') !== true ?
     MockSingleSignOnHandler :
     connect(mapStateToProps, mapDispatchToProps)(SingleSignOnHandler);

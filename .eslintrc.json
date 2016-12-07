@@ -60,7 +60,7 @@
   },
   "globals": {
     "PRODUCTION": false,
-    "CONFIG": false,
+    "Config": false,
     "describe": false,
     "context": false,
     "it": false,
