@@ -108,12 +108,9 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
-          DEVELOPMENT: nodeEnv === 'development',
-          TEST: nodeEnv === 'test',
-          QA: nodeEnv === 'qa',
           PRODUCTION: isProd,
         }),
-      ]).concat(nodeEnv === 'development' || nodeEnv === 'test' ?
+      ]).concat(! isProd ?
         [
           new webpack.ProvidePlugin({
             CONFIG: path.resolve(`config/${nodeEnv}.json`),
@@ -202,26 +199,24 @@ module.exports = {
 };
 
 function getSourceMapType() {
-  switch (nodeEnv) {
-    case 'test':
-    case 'development':
-      return 'inline-source-map';
-    default:
-      return 'hidden-source-map';
+  if (isProd) {
+    return 'hidden-source-map';
   }
+
+  return 'inline-source-map';
 }
 
 function addOptionalPlugins() {
   /* eslint global-require: "off" */
   const plugins = [];
 
-  if (nodeEnv !== 'development' && nodeEnv !== 'test') {
+  if (isProd) {
     plugins.concat([
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
         },
-        sourceMap: nodeEnv !== 'development',
+        sourceMap: true,
       }),
     ]);
   }
@@ -230,7 +225,7 @@ function addOptionalPlugins() {
 }
 
 function getNodeEnvForCode() {
-  if (nodeEnv === 'development' || nodeEnv === 'test') {
+  if (! isProd) {
     return 'development';
   }
 

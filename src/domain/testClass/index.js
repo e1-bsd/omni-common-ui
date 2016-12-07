@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 let _testClass = () => {};
-if (DEVELOPMENT || TEST || QA) {
+if (! PRODUCTION) {
   _testClass = (name) => classnames(`test-${name}`);
 }
 
