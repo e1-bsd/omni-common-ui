@@ -114,6 +114,14 @@ module.exports = {
           QA: nodeEnv === 'qa',
           PRODUCTION: isProd,
         }),
+      ]).concat(nodeEnv === 'development' || nodeEnv === 'test' ?
+        [
+          new webpack.ProvidePlugin({
+            CONFIG: path.resolve(`config/${nodeEnv}.json`),
+          }),
+        ] :
+        [])
+      .concat([
         new HtmlWebpackPlugin({
           template: path.join(__dirname, 'src/index.html'),
           inject: 'body',
@@ -215,14 +223,6 @@ function addOptionalPlugins() {
           warnings: false,
         },
         sourceMap: nodeEnv !== 'development',
-      }),
-    ]);
-  }
-
-  if (nodeEnv === 'development' || nodeEnv === 'test') {
-    plugins.concat([
-      new webpack.ProvidePlugin({
-        CONFIG: path.resolve(`config/${nodeEnv}.json`),
       }),
     ]);
   }
