@@ -8,6 +8,7 @@ import {
   SingleSignOnHandler,
   SingleSignOnProvider,
   routes as singleSignOnRoutes,
+  IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
@@ -15,12 +16,12 @@ import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
-import { actions as Privileges } from 'containers/Privileges';
 import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SavingBarHandler from 'containers/SavingBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
+import ErrorMessage from 'domain/ErrorMessage';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -28,31 +29,34 @@ if (! PRODUCTION) {
   log.setLevel('error');
 }
 
-export function setupApp(routes, reducer) {
+export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
-  Store.set(store);
 
-  const parsedRoutes = parseRoutes(({ getState }) => [
+  Store.set(store);
+  ErrorMessage.setMap(errorMessageMap);
+
+  const parsedRoutes = parseRoutes([
     {
       path: '/health-check',
     },
-    singleSignOnRoutes,
+    ...singleSignOnRoutes,
     {
       component: SingleSignOnHandler,
       childRoutes: [{
-        component: PermissionHandler,
+        component: IdleTimeoutHandler,
         childRoutes: [{
           component: App,
-          // This will block calling any other checkPrivileges() until the privileges are loaded.
-          checkPrivileges: () => Privileges.isLoading(getState()),
           childRoutes: [
             {
-              component: ErrorPageHandler,
+              component: LoadingOverlayHandler,
               childRoutes: [{
-                component: SavingBarHandler,
+                component: PermissionHandler,
                 childRoutes: [{
-                  component: LoadingOverlayHandler,
-                  childRoutes: is.array(routes) ? routes : [routes],
+                  component: ErrorPageHandler,
+                  childRoutes: [{
+                    component: SavingBarHandler,
+                    childRoutes: is.array(routes) ? routes : [routes],
+                  }],
                 }],
               }],
             },

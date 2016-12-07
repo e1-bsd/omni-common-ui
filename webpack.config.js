@@ -235,23 +235,6 @@ function addOptionalPlugins() {
   /* eslint global-require: "off" */
   const plugins = [];
 
-  if (! isCommon && nodeEnv === 'development') {
-    plugins.concat([
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require(path.resolve('.dlls/react.json')),
-      }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require(path.resolve('.dlls/redux.json')),
-      }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require(path.resolve('.dlls/others.json')),
-      }),
-    ]);
-  }
-
   if (nodeEnv !== 'development' && nodeEnv !== 'test') {
     plugins.concat([
       new webpack.optimize.UglifyJsPlugin({

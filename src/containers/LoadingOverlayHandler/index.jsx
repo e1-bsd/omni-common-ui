@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
@@ -22,10 +24,17 @@ class LoadingOverlayHandler extends Component {
     this.state = { isThrobberVisible: false };
   }
 
+  componentWillMount() {
+    this._updateState();
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
-    // CONFIG flag check
-    if (! IS_ACTIVE) return;
+    this._updateState(nextProps);
+  }
+
+  _updateState(props = this.props) {
+    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = props;
+    if (! IS_ACTIVE) return; // CONFIG flag check
     if (isAnyApiCallLoadingBeyondThreshold) {
       this.setState({ isThrobberVisible: true });
     } else if (isAnyApiCallLoading) {
@@ -47,7 +56,7 @@ class LoadingOverlayHandler extends Component {
       pace: true,
       'pace-inactive': ! this.state.isThrobberVisible,
     };
-    return <div data-component="LoadingOverlayHandler">
+    return <div className={styles.LoadingOverlayHandler}>
       <div className={classnames(classes)}>
         <div className="pace-activity" />
       </div>

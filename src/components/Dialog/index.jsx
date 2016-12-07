@@ -8,7 +8,7 @@ const Dialog = (props) => <Modal className={styles.Dialog}
     overlayClassName={styles.Overlay}
     onRequestClose={props.onRequestClose}
     isOpen={props.isOpen}>
-  <Card>
+  <Card className={props.className}>
     <Card.Content>
       {props.children}
     </Card.Content>
@@ -19,6 +19,7 @@ Dialog.propTypes = {
   isOpen: React.PropTypes.bool.isRequired,
   onRequestClose: React.PropTypes.func.isRequired,
   children: React.PropTypes.node,
+  className: React.PropTypes.string,
 };
 
 export default Dialog;

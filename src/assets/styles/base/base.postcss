@@ -9,6 +9,7 @@
   font-family: var(--fontFamily);
 }
 
+/* INTERNET EXPLORER */
 html,
 body {
   height: 100%;
@@ -56,6 +57,12 @@ textarea {
   font-family: inherit;
 }
 
-#root {
-  min-height: 100vh;
+option,
+option::after,
+option::before {
+  transition: none;
+}
+
+::-ms-clear {
+  display: none;
 }

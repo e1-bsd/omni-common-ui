@@ -1,0 +1,68 @@
+@import 'main.postcss';
+
+:root {
+  --footerText: #c6c6c6;
+  --footerBg: #4d4d4d;
+}
+
+.Footer {
+  background: var(--footerBg);
+  color: var(--footerText);
+  font-size: 12px;
+  left: 0;
+  letter-spacing: 0;
+  min-height: 120px; /* INTERNET EXPLORER */
+  padding: 45px 0 30px 40px;
+  width: 100%;
+
+  @media (--xs-viewport) {
+    height: auto;
+  }
+
+  & p {
+    margin-top: 0;
+  }
+
+  &_logo {
+    background-repeat: no-repeat;
+    float: left;
+    font-size: 12px;
+    height: 42px;
+    margin-right: 40px;
+    width: 61px;
+
+    @media (--xs-viewport) {
+      float: none;
+      margin-bottom: 15px;
+    }
+
+    &:global {
+      background-image: url('ef-footer.svg');
+    }
+  }
+
+  &_content {
+    &_row {
+      /* wrap the copyright nicely */
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+      margin-top: 0;
+      white-space: nowrap;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    &_link {
+      color: var(--footerText);
+      text-decoration: none;
+    }
+
+    &_separator::before {
+      content: '|';
+      margin: 8px;
+    }
+  }
+}

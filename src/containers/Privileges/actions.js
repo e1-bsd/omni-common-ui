@@ -7,12 +7,37 @@ export const FETCH_PRIVILEGES_SUCCESS = 'FETCH_PRIVILEGES_SUCCESS';
 export const FETCH_PRIVILEGES_FAILURE = 'FETCH_PRIVILEGES_FAILURE';
 export const FETCH_PRIVILEGES_INVALIDATE = 'FETCH_PRIVILEGES_INVALIDATE';
 
+const buildPrivilegesUrl = (userId) => buildUrl(`/users/${userId}/privileges`);
+const method = 'GET';
+
+function getSSOUserId(state) {
+  const user = state.get('singleSignOn').user;
+
+  // logging out?
+  if (! user) return null;
+
+  const userId = user.profile.sub;
+  return userId;
+}
+
+export function havePrivilegesLoaded() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const userId = getSSOUserId(state);
+    if (! userId) return false;
+    const url = buildPrivilegesUrl(userId);
+    const callState = ApiCall.find(state, { url, method });
+    return ApiCall.State.isValue(callState) && ApiCall.State.hasSucceeded(callState);
+  };
+}
+
 export function fetchPrivilegesIfNeeded() {
   return (dispatch, getState) => {
     const state = getState();
-    const userId = state.get('singleSignOn').user.profile.sub;
-    const url = buildUrl(`/users/${userId}/privileges`);
-    const keyConfig = { method: 'GET', url };
+    const userId = getSSOUserId(state);
+    if (! userId) return false;
+    const url = buildPrivilegesUrl(userId);
+    const keyConfig = { method, url };
     const apiStateKey = ApiCall.Key.create(keyConfig);
 
     if (! shouldFetchPrivileges(getState())) {
@@ -70,7 +95,8 @@ export function fetchPrivilegesIfNeeded() {
 }
 
 export function isLoading(state) {
-  const userId = state.get('singleSignOn').user.profile.sub;
+  const userId = getSSOUserId(state);
+  if (! userId) return false;
   const keyConfig = { method: 'GET', url: buildUrl(`/users/${userId}/privileges`) };
   const apiCallState = ApiCall.find(state, keyConfig);
 

@@ -3,18 +3,31 @@ import warningSrc from './warning.svg';
 import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
-import PathComparator from 'domain/PathComparator';
 
 const ErrorPage = (props) => {
-  const { config, afterButtonClicked, location: { pathname } } = props;
+  const { config, afterButtonClicked } = props;
 
   return <div className={styles.ErrorPage}>
     <div className={styles.ErrorPage_content}>
-      <img className={styles.ErrorPage_image} src={warningSrc} role="presentation" />
+      <img className={styles.ErrorPage_image} src={renderIcon()} role="presentation" />
       <div className={styles.ErrorPage_text}>{renderMessage()}</div>
-      {renderButton()}
+      <div className={styles.ErrorPage_button}>
+        <Button type={Button.Type.primary}
+            onClick={() => afterButtonClicked()}
+            linkTo={linkTo()}>
+          {renderButtonText()}
+        </Button>
+      </div>
     </div>
   </div>;
+
+  function renderIcon() {
+    if (is.not.object(config) || is.not.function(config.icon)) {
+      return warningSrc;
+    }
+
+    return config.icon(props);
+  }
 
   function renderMessage() {
     if (is.not.object(config) || is.not.function(config.message)) {
@@ -22,21 +35,6 @@ const ErrorPage = (props) => {
     }
 
     return config.message(props);
-  }
-
-  function renderButton() {
-    const link = linkTo();
-    if (PathComparator.equal(pathname, link)) {
-      return null;
-    }
-
-    return <div className={styles.ErrorPage_button}>
-      <Button type={Button.Type.primary}
-          onClick={() => afterButtonClicked()}
-          linkTo={link}>
-        {renderButtonText()}
-      </Button>
-    </div>;
   }
 
   function linkTo() {
@@ -63,6 +61,7 @@ ErrorPage.propTypes = {
   }).isRequired,
   afterButtonClicked: React.PropTypes.func.isRequired,
   config: React.PropTypes.shape({
+    icon: React.PropTypes.func,
     message: React.PropTypes.func,
     buttonText: React.PropTypes.func,
     buttonLink: React.PropTypes.func,
