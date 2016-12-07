@@ -26,5 +26,5 @@ if (process.platform === 'win32') {
 execSync(cmdLine, { stdio: [0, 1, 2] });
 
 configs.forEach((config, environment) => {
-  fs.writeFileSync(path.join('dist', `${environment}.js`), `var CONFIG = Object.freeze(${JSON.stringify(config)})`);
+  fs.writeFileSync(path.join('dist', `${environment}.js`), `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
 });

@@ -1,3 +1,4 @@
 import { Map } from 'immutable';
 
-export default Map(CONFIG);
+// eslint-disable-next-line no-undef
+export default Map(__CONFIG__);

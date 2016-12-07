@@ -116,7 +116,7 @@ module.exports = {
       ]).concat(! isProd ?
         [
           new webpack.ProvidePlugin({
-            CONFIG: path.resolve(`config/${nodeEnv}.json`),
+            __CONFIG__: path.resolve(`config/${nodeEnv}.json`),
           }),
         ] :
         [])
