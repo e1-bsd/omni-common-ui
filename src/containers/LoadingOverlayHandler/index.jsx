@@ -25,7 +25,7 @@ class LoadingOverlayHandler extends Component {
     this.state = { isThrobberVisible: false };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._updateState();
   }
 
