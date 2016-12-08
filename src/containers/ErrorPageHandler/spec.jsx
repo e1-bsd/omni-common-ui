@@ -5,16 +5,22 @@ import ApiCall from 'containers/ApiCalls';
 import { Map, List } from 'immutable';
 import Sinon from 'sinon';
 import AlertDialog from 'components/AlertDialog';
+import _Config from 'domain/Config';
 
 const ErrorPage = () => null;
-// eslint-disable-next-line import/no-webpack-loader-syntax
-const { ErrorPageHandler, mapStateToProps } = require('inject?components/ErrorPage!./')({
+// eslint-disable-next-line import/no-webpack-loader-syntax, global-require
+const requireComponent = (Config) => require('inject?components/ErrorPage&domain/Config!./')({
   'components/ErrorPage': ErrorPage,
+  'domain/Config': _Config.merge(Config),
 });
+
+const getComponent = (Config) => requireComponent(Config).ErrorPageHandler;
+const getMapStateToProps = (Config) => requireComponent(Config).mapStateToProps;
 
 describe('<ErrorPageHandler />', () => {
   describe('component', () => {
     let props;
+    let ErrorPageHandler;
 
     const buildProps = (apiResponse) => {
       const error = new Error();
@@ -33,6 +39,7 @@ describe('<ErrorPageHandler />', () => {
 
     beforeEach(() => {
       props = buildProps();
+      ErrorPageHandler = getComponent();
     });
 
     it('renders its children if no failed ApiCall.State is received as erroredApi', () => {
@@ -48,31 +55,58 @@ describe('<ErrorPageHandler />', () => {
       expect(wrapper).to.not.have.descendants('#inner');
     });
 
-    it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
-      props = buildProps({ code: 500 });
-      const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
-      expect(wrapper).to.have.descendants(ErrorPage);
-      expect(wrapper).to.not.have.descendants('#inner');
-    });
-
-    it('renders the error dialog if a failed ApiCall.State is received as erroredApi and its code is not 500', () => {
-      props = buildProps({ code: 400 });
-      const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
-      expect(wrapper).to.have.descendants(AlertDialog);
-      expect(wrapper).to.have.descendants('#inner');
-    });
-
     it('calls clean() for all the failed API calls received', () => {
       const wrapper = mount(<ErrorPageHandler {...props} />);
       const afterButtonClicked = wrapper.find(ErrorPage).prop('afterButtonClicked');
       afterButtonClicked();
       expect(props.clean.args).to.eql([['id1'], ['id2']]);
     });
+
+    context('when errorHandlerRendersPopUps config option is true', () => {
+      beforeEach(() => {
+        ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: true }));
+      });
+
+      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
+        props = buildProps({ code: 500 });
+        const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
+        expect(wrapper).to.have.descendants(ErrorPage);
+        expect(wrapper).to.not.have.descendants('#inner');
+      });
+
+      it('renders the error dialog if a failed ApiCall.State is received as erroredApi and its code is not 500', () => {
+        props = buildProps({ code: 400 });
+        const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
+        expect(wrapper).to.have.descendants(AlertDialog);
+        expect(wrapper).to.have.descendants('#inner');
+      });
+    });
+
+    context('when errorHandlerRendersPopUps config option is not true', () => {
+      beforeEach(() => {
+        ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: false }));
+      });
+
+      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
+        props = buildProps({ code: 500 });
+        const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
+        expect(wrapper).to.have.descendants(ErrorPage);
+        expect(wrapper).to.not.have.descendants('#inner');
+      });
+
+      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is not 500', () => {
+        props = buildProps({ code: 400 });
+        const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
+        expect(wrapper).to.have.descendants(ErrorPage);
+        expect(wrapper).to.not.have.descendants('#inner');
+      });
+    });
   });
 
   describe('mapStateToProps', () => {
     let state;
     let ownProps;
+    let mapStateToProps;
 
     const buildState = (apiCalls = {}) => new Map({
       apiCalls: new Map({
@@ -82,6 +116,7 @@ describe('<ErrorPageHandler />', () => {
 
     beforeEach(() => {
       state = buildState();
+      mapStateToProps = getMapStateToProps();
       ownProps = {
         routes: [
           {},
