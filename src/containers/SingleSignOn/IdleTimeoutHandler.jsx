@@ -3,9 +3,14 @@ import Timer from './Timer';
 import userManager from './userManager';
 import log from 'loglevel';
 import Config from 'domain/Config';
+import is from 'is_js';
 
 export default class IdleTimeoutHandler extends Component {
   componentWillMount() {
+    if (is.not.number(Config.get('autoSignOutTimeout'))) {
+      return false;
+    }
+
     this.timer = new Timer();
 
     this._signOut = this._signOut.bind(this);
@@ -17,6 +22,10 @@ export default class IdleTimeoutHandler extends Component {
   }
 
   componentWillUnmount() {
+    if (is.not.number(Config.get('autoSignOutTimeout'))) {
+      return false;
+    }
+
     this.timer.cancel();
     window.document.removeEventListener('click', this._invokeIdleTimer);
     window.document.removeEventListener('keypress', this._invokeIdleTimer);
@@ -24,7 +33,7 @@ export default class IdleTimeoutHandler extends Component {
 
   _invokeIdleTimer() {
     log.debug('IdleTimeoutHandler - Will start a new timer');
-    this.timer.invoke(this._signOut, Config.get('idleTimeout') * 1000);
+    this.timer.invoke(this._signOut, Config.get('autoSignOutTimeout') * 1000);
   }
 
   _signOut() {
