@@ -1,55 +1,85 @@
 import React from 'react';
-import { PermissionHandler, mapStateToProps } from './';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import Sinon from 'sinon';
+import _Config from 'domain/Config';
 
 describe('<PermissionHandler />', () => {
+  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
+  const doRequire = (Config) => require('inject?domain/Config!./')({
+    'domain/Config': _Config.merge(Config),
+  });
+
   describe('component', () => {
-    it('does nothing if no route is provided', () => {
-      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
-        <div id="inner" />
-      </PermissionHandler>);
-      expect(wrapper).to.contain(<div id="inner" />);
+    let PermissionHandler;
+
+    context('when featureLogin is not true', () => {
+      before(() => {
+        PermissionHandler = doRequire({ featureLogin: false }).PermissionHandler;
+      });
+
+      it('renders its children', () => {
+        const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
+        expect(wrapper).to.have.descendants('#inner');
+      });
     });
 
-    it('renders nothing if privileges have not been loaded', () => {
-      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
-        <div id="inner" />
-      </PermissionHandler>);
-      expect(wrapper).to.be.empty;
-    });
+    context('when featureLogin is true', () => {
+      before(() => {
+        PermissionHandler = doRequire({ featureLogin: true }).PermissionHandler;
+      });
 
-    it('throws if permissionChecks.canAccess is not a function', () => {
-      expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
-          havePrivilegesLoaded={() => true} />)).to.throw();
-    });
+      it('does nothing if no route is provided', () => {
+        const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
+          <div id="inner" />
+        </PermissionHandler>);
+        expect(wrapper).to.contain(<div id="inner" />);
+      });
 
-    it('calls permissionChecks.canAccess passing all props if it is a function', () => {
-      const canAccess = Sinon.spy();
-      const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
-      shallow(<PermissionHandler {...props} />);
-      expect(canAccess.called).to.be.true;
-      expect(canAccess.args[0]).to.eql([props]);
-    });
+      it('renders nothing if privileges have not been loaded', () => {
+        const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
+          <div id="inner" />
+        </PermissionHandler>);
+        expect(wrapper).to.be.empty;
+      });
 
-    it('calls canAccess() for all routes until one returns false', () => {
-      const props = {
-        permissionChecks: [
-          { canAccess: Sinon.stub().returns(true) },
-          { canAccess: Sinon.stub().returns(false) },
-          { canAccess: Sinon.stub().returns(false) },
-        ],
-        havePrivilegesLoaded: () => true,
-      };
-      shallow(<PermissionHandler {...props} />);
-      expect(props.permissionChecks[0].canAccess.called).to.equal(true, 'first');
-      expect(props.permissionChecks[1].canAccess.called).to.equal(true, 'second');
-      expect(props.permissionChecks[2].canAccess.called).to.equal(false, 'third');
+      it('throws if permissionChecks.canAccess is not a function', () => {
+        expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
+            havePrivilegesLoaded={() => true} />)).to.throw();
+      });
+
+      it('calls permissionChecks.canAccess passing all props if it is a function', () => {
+        const canAccess = Sinon.spy();
+        const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
+        shallow(<PermissionHandler {...props} />);
+        expect(canAccess.called).to.be.true;
+        expect(canAccess.args[0]).to.eql([props]);
+      });
+
+      it('calls canAccess() for all routes until one returns false', () => {
+        const props = {
+          permissionChecks: [
+            { canAccess: Sinon.stub().returns(true) },
+            { canAccess: Sinon.stub().returns(false) },
+            { canAccess: Sinon.stub().returns(false) },
+          ],
+          havePrivilegesLoaded: () => true,
+        };
+        shallow(<PermissionHandler {...props} />);
+        expect(props.permissionChecks[0].canAccess.called).to.equal(true, 'first');
+        expect(props.permissionChecks[1].canAccess.called).to.equal(true, 'second');
+        expect(props.permissionChecks[2].canAccess.called).to.equal(false, 'third');
+      });
     });
   });
 
   describe('mapStateToProps()', () => {
+    let mapStateToProps;
+
+    before(() => {
+      mapStateToProps = doRequire({ featureLogin: true }).mapStateToProps;
+    });
+
     it('returns permissionChecks as an array with all routes that have a canAccess()', () => {
       const permissionChecks1 = { canAccess: () => {} };
       const permissionChecks2 = { canAccess: () => {} };
