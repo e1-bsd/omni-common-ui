@@ -13,7 +13,7 @@ MockSingleSignOnHandler.propTypes = {
   children: React.PropTypes.node,
 };
 
-class SingleSignOnHandler extends Component {
+class SingleSignOnHandlerImpl extends Component {
   componentWillMount() {
     this._setLastUrlPath();
   }
@@ -59,7 +59,7 @@ class SingleSignOnHandler extends Component {
   }
 }
 
-SingleSignOnHandler.propTypes = {
+SingleSignOnHandlerImpl.propTypes = {
   children: React.PropTypes.node,
   user: React.PropTypes.object,
   fetchPrivilegesIfNeeded: React.PropTypes.func.isRequired,
@@ -74,6 +74,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(privilegesActions, dispatch);
 }
 
-export default Config.get('featureLogin') !== true ?
+export const SingleSignOnHandler = Config.get('featureLogin') !== true ?
     MockSingleSignOnHandler :
-    connect(mapStateToProps, mapDispatchToProps)(SingleSignOnHandler);
+    SingleSignOnHandlerImpl;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleSignOnHandler);
