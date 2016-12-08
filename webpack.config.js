@@ -119,7 +119,7 @@ module.exports = {
         [])
       .concat([
         new HtmlWebpackPlugin({
-          template: path.join(__dirname, 'src/index.html'),
+          template: path.join(__dirname, 'lib/index.html'),
           inject: 'body',
           version,
           commit: commitHash,
