@@ -7,6 +7,7 @@ import ErrorPageConfig from 'domain/ErrorPageConfig';
 import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
+import Config from 'domain/Config';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
@@ -45,7 +46,7 @@ export const ErrorPageHandler = (props) => {
   }
 
   function shouldShowPopUp() {
-    if (! erroredApi) {
+    if (Config.get('errorHandlerRendersPopUps') !== true || ! erroredApi) {
       return false;
     }
 
