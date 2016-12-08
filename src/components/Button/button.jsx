@@ -15,7 +15,7 @@ const Button = (props) => {
     [styles.__active]: !! props.active,
   };
 
-  const classes = classnames(styles.Button, type, modeClasses, props.className);
+  const classes = classnames(type, modeClasses, props.className);
 
   // case: link to URL via `linkHref` OR disabled with `linkTo`
   if (is.existy(props.linkHref) || (is.existy(props.linkTo) && props.disabled)) {
@@ -29,7 +29,9 @@ const Button = (props) => {
   // case: link to route via `linkTo`
   if (is.existy(props.linkTo)) {
     return <Link to={props.linkTo}
-        className={classnames(styles.ButtonLink, modeClasses, props.className)}>
+        className={classnames(styles.ButtonLink, modeClasses, props.className, {
+          [styles.__neo]: type === Type.neoPrimary || type === Type.neo,
+        })}>
       {renderButton()}
     </Link>;
   }

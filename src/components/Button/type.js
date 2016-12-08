@@ -1,28 +1,22 @@
 import styles from './style.postcss';
 
+import classnames from 'classnames';
+
 export const Type = {
-  default: styles.__default,
-  primary: styles.__primary,
-  defaultInverse: styles.__defaultInverse,
-  primaryInverse: styles.__primaryInverse,
+  neoPrimary: classnames(styles.NeoButton, styles.NeoButton_primary),
+  neoSecondary: classnames(styles.NeoButton, styles.NeoButton_secondary),
+  default: classnames(styles.Button, styles.Button_default),
+  primary: classnames(styles.Button, styles.Button_primary),
+  defaultInverse: classnames(styles.Button, styles.Button_defaultInverse),
+  primaryInverse: classnames(styles.Button, styles.Button_primaryInverse),
 };
 
+// `neo` is shorthand for `neoSecondary`
+Type.neo = Type.neoSecondary;
+
 export function validateType(type) {
-  if (type === Type.default) {
+  if (Object.keys(Type).some((k) => Type[k] === type)) {
     return true;
   }
-
-  if (type === Type.primary) {
-    return true;
-  }
-
-  if (type === Type.defaultInverse) {
-    return true;
-  }
-
-  if (type === Type.primaryInverse) {
-    return true;
-  }
-
   throw new Error(`Type "${type}" is not valid! Use the Type object provided`);
 }

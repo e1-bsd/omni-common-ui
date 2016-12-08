@@ -8,16 +8,85 @@
   }
 }
 
-.Button {
+/* shared styles */
+.Button,
+.NeoButton {
   border: none;
   cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+  user-select: none;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &.__block {
+    display: block;
+    width: 100%;
+  }
+
+  &.__autoWidth {
+    /* ... */
+  }
+}
+
+/* new button styles */
+.NeoButton {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  min-height: 35px;
+  min-width: 100px;
+  padding: 0 15px;
+  text-align: center;
+  transition: all 0.2s ease;
+  will-change: background, border, box-shadow, color, opacity;
+
+  &_primary {
+    background-color: var(--colorActive);
+    color: var(--colorTextInverse);
+  }
+
+  &_secondary {
+    background-color: transparent;
+    border-color: var(--colorActive);
+    color: var(--colorActive);
+
+    &:hover:not([disabled]),
+    &.__active {
+      border-color: transparent;
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &:hover:not([disabled]) {
+    background-color: var(--colorButtonHover);
+    box-shadow: 0 1px 2px 1px var(--colorBorder);
+  }
+
+  &.__active {
+    background-color: var(--colorButtonActive);
+  }
+
+  &[disabled] {
+    opacity: 0.4;
+  }
+
+  & + &,
+  & + .ButtonLink {
+    margin-left: 10px;
+  }
+}
+
+/* deprecated button styles */
+.Button {
   min-height: var(--touchableMinHeight);
   min-width: var(--buttonMinWidth);
-  outline: none;
   padding: var(--touchablePaddingVertical) var(--touchablePaddingHorizontal);
-  text-transform: uppercase;
 
-  &.__default {
+  &_default {
     background-color: transparent;
     border: var(--hairThin) solid var(--colorPrimary);
     color: var(--colorPrimary);
@@ -36,25 +105,24 @@
     }
 
     &[disabled] {
-      background-color: transparent;
+      background-color: transparent !important;
       border: var(--hairThin) solid var(--colorPrimaryDisabled);
-      color: var(--colorPrimaryDisabled);
+      color: var(--colorPrimaryDisabled) !important;
       cursor: not-allowed;
 
-      &:active,
-      &:hover {
+      &:active {
         background-color: transparent;
         color: var(--colorPrimaryDisabled);
       }
 
       &.__active {
-        background-color: var(--colorPrimaryDisabled);
-        color: var(--colorTextInverse);
+        background-color: var(--colorPrimaryDisabled) !important;
+        color: var(--colorTextInverse) !important;
       }
     }
   }
 
-  &.__primary {
+  &_primary {
     background-color: var(--colorPrimary);
     color: var(--colorTextInverse);
 
@@ -73,7 +141,7 @@
     }
   }
 
-  &.__defaultInverse {
+  &_defaultInverse {
     background-color: transparent;
     border: var(--hairThin) solid var(--colorBase);
     color: var(--colorBase);
@@ -92,15 +160,17 @@
     }
 
     &[disabled] {
-      background-color: transparent;
       border: var(--hairThin) solid var(--colorPrimaryDisabled);
       color: var(--colorPrimaryDisabled);
       cursor: not-allowed;
 
+      &:not(.__active) {
+        background-color: transparent !important;
+      }
+
       &:active,
       &:hover {
         background-color: transparent;
-        color: var(--colorPrimaryDisabled);
       }
 
       &.__active {
@@ -110,7 +180,7 @@
     }
   }
 
-  &.__primaryInverse {
+  &_primaryInverse {
     background-color: var(--colorBase);
     color: var(--colorPrimary);
 
@@ -133,7 +203,6 @@
 
   &[disabled] {
     background-color: var(--colorPrimaryDisabled);
-    border: none;
     color: var(--colorTextInverse);
     cursor: not-allowed;
 
@@ -142,17 +211,18 @@
       color: var(--colorTextInverse);
     }
   }
-
-  &.__block {
-    display: block;
-    width: 100%;
-  }
-
-  &.__autoWidth { /* - */ }
 }
 
+/* when a <Button> becomes a <Link> */
 .ButtonLink {
   text-decoration: none;
+
+  &.__neo {
+    & + &,
+    & + .NeoButton {
+      margin-left: 10px;
+    }
+  }
 
   &.__block {
     display: block;

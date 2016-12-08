@@ -1,10 +1,97 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import { Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 import log from 'loglevel';
 
-const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
-  <div>
+const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
+    className={styles.ButtonShowcase_wrap}>
+  <div> {/* neoPrimary */}
+    <Button type={Button.Type.neoPrimary}
+        onClick={() => log.info('Primary button clicked')}>
+      Primary
+    </Button>
+    <Button active
+        type={Button.Type.neoPrimary}
+        onClick={() => log.info('Active primary button clicked')}>
+      Active primary
+    </Button>
+    <Button active disabled
+        type={Button.Type.neoPrimary}
+        onClick={() => log.info('Active primary button clicked')}>
+      Disabled active primary
+    </Button>
+    <Button disabled
+        type={Button.Type.neoPrimary}
+        onClick={() => log.info('Disabled primary button clicked')}>
+      Disabled primary
+    </Button>
+  </div>
+  <div> {/* neoSecondary */}
+    <Button type={Button.Type.neoSecondary}
+        onClick={() => log.info('Normal button clicked')}>
+      Normal
+    </Button>
+    <Button active
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Active button clicked')}>
+      Active
+    </Button>
+    <Button active disabled
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Active button clicked')}>
+      Disabled active
+    </Button>
+    <Button disabled
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Disabled button clicked')}>
+      Disabled
+    </Button>
+  </div>
+  <div> {/* neo link buttons */}
+    <Button type={Button.Type.neoPrimary}
+        linkTo="buttons"
+        onClick={() => log.info('Link to /buttons clicked')}>
+      Link to /buttons
+    </Button>
+    <Button type={Button.Type.neoSecondary}
+        onClick={() => log.info('Normal button clicked')}>
+      Normal button
+    </Button>
+    <Button type={Button.Type.neoSecondary}
+        linkTo="buttons"
+        onClick={() => log.info('Link to /buttons clicked')}>
+      Link to /buttons
+    </Button>
+  </div>
+  <div> {/* neo block */}
+    <Button type={Button.Type.neoSecondary}
+        onClick={() => log.info('Block button clicked')}
+        block>
+      Block button
+    </Button>
+  </div>
+  <div> {/* neoPrimary block */}
+    <Button block type={Button.Type.neoPrimary}
+        onClick={() => log.info('Primary block button clicked')}>
+      Primary block button
+    </Button>
+  </div>
+  <div> {/* neo active block */}
+    <Button active block type={Button.Type.neoSecondary}
+        onClick={() => log.info('Active block button clicked')}>
+      Active block button
+    </Button>
+  </div>
+  <div> {/* neo disabled block */}
+    <Button disabled block type={Button.Type.neoSecondary}
+        onClick={() => log.info('Disabled block button clicked')}>
+      Disabled block button
+    </Button>
+  </div>
+
+  <div> {/* default */}
     <Button onClick={() => log.info('Normal button clicked')}>
       Normal
     </Button>
@@ -21,7 +108,7 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Disabled
     </Button>
   </div>
-  <div>
+  <div> {/* primary */}
     <Button type={Button.Type.primary}
         onClick={() => log.info('Primary button clicked')}>
       Primary
@@ -42,7 +129,7 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Disabled primary
     </Button>
   </div>
-  <div>
+  <div> {/* defaultInverse */}
     <Button type={Button.Type.defaultInverse}
         onClick={() => log.info('DefaultInverse button clicked')}>
       DefaultInverse
@@ -63,7 +150,7 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Disabled defaultInverse
     </Button>
   </div>
-  <div>
+  <div> {/* primaryInverse */}
     <Button type={Button.Type.primaryInverse}
         onClick={() => log.info('PrimaryInverse button clicked')}>
       PrimaryInverse
@@ -84,42 +171,44 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons">
       Disabled primaryInverse
     </Button>
   </div>
-  <div>
+  <div> {/* default link buttons */}
+    <Button linkTo="/"
+        onClick={() => log.info('Link to home clicked')}>
+      Link to home
+    </Button>
     <Button type={Button.Type.primary}
         linkTo="buttons"
         onClick={() => log.info('Link to /buttons clicked')}>
       Link to /buttons
     </Button>
-    <Button linkTo="/"
-        onClick={() => log.info('Link to home clicked')}>
-      Link to home
-    </Button>
   </div>
-  <div>
+
+  <div> {/* block */}
     <Button onClick={() => log.info('Block button clicked')}
         block>
       Block button
     </Button>
   </div>
-  <div>
+  <div> {/* primary block */}
     <Button block type={Button.Type.primary}
         onClick={() => log.info('Primary block button clicked')}>
       Primary block button
     </Button>
   </div>
-  <div>
+  <div> {/* active block */}
     <Button active block
         onClick={() => log.info('Active block button clicked')}>
       Active block button
     </Button>
   </div>
-  <div>
+  <div> {/* disabled block */}
     <Button disabled block
         onClick={() => log.info('Disabled block button clicked')}>
       Disabled block button
     </Button>
   </div>
-  <div>
+
+  <div> {/* auto width */}
     <Button autoWidth
         onClick={() => log.info('Auto width button clicked')}>
       Auto width button
