@@ -4,7 +4,7 @@ import Config from 'domain/Config';
 
 export default class PrivilegeChecker {
   static hasPrivilege(state, privilege) {
-    if (! Config.get('featureLogin')) {
+    if (Config.get('featureLogin') !== true) {
       return true;
     }
 
