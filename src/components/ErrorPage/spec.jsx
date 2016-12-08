@@ -14,7 +14,6 @@ describe('<ErrorPageHandler />', () => {
     beforeEach(() => {
       props = {
         afterButtonClicked: Sinon.spy(),
-        location: { pathname: '/current/path' },
         erroredApi: {
           error: new Error('an error'),
         },
@@ -73,10 +72,10 @@ describe('<ErrorPageHandler />', () => {
       expect(props.config.buttonLink.args).to.eql([[props]], 'buttonLink params');
     });
 
-    it('hides the button if its link points to the current URL', () => {
+    it('shows the button even if its link points to the current URL', () => {
       props.config = { buttonLink: () => 'current/Path/' };
       const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(Button)).to.have.length(0);
+      expect(wrapper.find(Button)).to.have.prop('linkTo', 'current/Path/');
     });
   });
 });

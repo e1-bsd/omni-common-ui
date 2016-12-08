@@ -60,10 +60,6 @@
   },
   "globals": {
     "PRODUCTION": false,
-    "DEVELOPMENT": false,
-    "TEST": false,
-    "QA": false,
-    "CONFIG": false,
     "describe": false,
     "context": false,
     "it": false,

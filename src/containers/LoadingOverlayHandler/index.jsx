@@ -1,9 +1,12 @@
+import styles from './style.postcss';
+
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
+import Config from 'domain/Config';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -11,7 +14,7 @@ const REQUEST_DURATION_THRESHOLD_MS = 100;
 // config feature flag
 let IS_ACTIVE;
 try {
-  IS_ACTIVE = !! CONFIG.showLoadingOverlayForApiGets; // replaced by webpack
+  IS_ACTIVE = !! Config.get('showLoadingOverlayForApiGets'); // replaced by webpack
 } catch (e) {
   IS_ACTIVE = false;
 }
@@ -22,10 +25,17 @@ class LoadingOverlayHandler extends Component {
     this.state = { isThrobberVisible: false };
   }
 
+  componentDidMount() {
+    this._updateState();
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = nextProps;
-    // CONFIG flag check
-    if (! IS_ACTIVE) return;
+    this._updateState(nextProps);
+  }
+
+  _updateState(props = this.props) {
+    const { isAnyApiCallLoadingBeyondThreshold, isAnyApiCallLoading } = props;
+    if (! IS_ACTIVE) return; // CONFIG flag check
     if (isAnyApiCallLoadingBeyondThreshold) {
       this.setState({ isThrobberVisible: true });
     } else if (isAnyApiCallLoading) {
@@ -47,7 +57,7 @@ class LoadingOverlayHandler extends Component {
       pace: true,
       'pace-inactive': ! this.state.isThrobberVisible,
     };
-    return <div data-component="LoadingOverlayHandler">
+    return <div className={styles.LoadingOverlayHandler}>
       <div className={classnames(classes)}>
         <div className="pace-activity" />
       </div>

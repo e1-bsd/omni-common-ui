@@ -3,16 +3,21 @@ import warningSrc from './warning.svg';
 import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
-import PathComparator from 'domain/PathComparator';
 
 const ErrorPage = (props) => {
-  const { config, afterButtonClicked, location: { pathname } } = props;
+  const { config, afterButtonClicked } = props;
 
   return <div className={styles.ErrorPage}>
     <div className={styles.ErrorPage_content}>
       <img className={styles.ErrorPage_image} src={renderIcon()} role="presentation" />
       <div className={styles.ErrorPage_text}>{renderMessage()}</div>
-      {renderButton()}
+      <div className={styles.ErrorPage_button}>
+        <Button type={Button.Type.primary}
+            onClick={() => afterButtonClicked()}
+            linkTo={linkTo()}>
+          {renderButtonText()}
+        </Button>
+      </div>
     </div>
   </div>;
 
@@ -30,21 +35,6 @@ const ErrorPage = (props) => {
     }
 
     return config.message(props);
-  }
-
-  function renderButton() {
-    const link = linkTo();
-    if (PathComparator.equal(pathname, link)) {
-      return null;
-    }
-
-    return <div className={styles.ErrorPage_button}>
-      <Button type={Button.Type.primary}
-          onClick={() => afterButtonClicked()}
-          linkTo={link}>
-        {renderButtonText()}
-      </Button>
-    </div>;
   }
 
   function linkTo() {

@@ -8,6 +8,7 @@ import Impersonate from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
 import is from 'is_js';
+import Config from 'domain/Config';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -93,7 +94,7 @@ class UserInfo extends Component {
       </div>;
     }
 
-    return <Permission permissionId={CONFIG.impersonatePermission}>
+    return <Permission permissionId={Config.get('impersonatePermission')}>
       <div className={styles.UserInfo_features_item}>
         <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
       </div>

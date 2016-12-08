@@ -1,0 +1,53 @@
+:root {
+  --dialogMaxWidth: 400px;
+  --iconBackgroundPositionX: 50%;
+  --iconHeight: 30px;
+  --secondMessageMargin: 20px;
+  --buttonWidth: 150px;
+  --buttonHeight: 40px;
+}
+
+.AlertDialog {
+  max-width: var(--dialogMaxWidth);
+
+  &_icon {
+    margin-bottom: 40px;
+  }
+
+  &_icon:global {
+    background-image: url('success.svg');
+    background-position-x: var(--iconBackgroundPositionX);
+    background-repeat: no-repeat;
+    height: var(--iconHeight);
+  }
+
+  &_warningicon {
+    margin-bottom: 40px;
+  }
+
+  &_warningicon:global {
+    background-image: url('warning.svg');
+    background-position-x: var(--iconBackgroundPositionX);
+    background-repeat: no-repeat;
+    height: var(--iconHeight);
+  }
+
+  &_content {
+    text-align: center;
+  }
+
+  &_second_message {
+    display: inline-block;
+    margin-top: var(--secondMessageMargin);
+  }
+
+  &_buttonWrapper {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  &_button {
+    height: var(--buttonHeight);
+    width: var(--buttonWidth);
+  }
+}

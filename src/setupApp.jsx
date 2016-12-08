@@ -8,6 +8,7 @@ import {
   SingleSignOnHandler,
   SingleSignOnProvider,
   routes as singleSignOnRoutes,
+  IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router } from 'react-router';
 import log from 'loglevel';
@@ -20,6 +21,7 @@ import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SavingBarHandler from 'containers/SavingBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
+import ErrorMessage from 'domain/ErrorMessage';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -27,38 +29,43 @@ if (! PRODUCTION) {
   log.setLevel('error');
 }
 
-export function setupApp(routes, reducer) {
+export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
+
   Store.set(store);
+  ErrorMessage.setMap(errorMessageMap);
 
   const parsedRoutes = parseRoutes([
     {
       path: '/health-check',
     },
-    singleSignOnRoutes,
+    ...singleSignOnRoutes,
     {
       component: SingleSignOnHandler,
       childRoutes: [{
-        component: App,
-        childRoutes: [
-          {
-            component: PermissionHandler,
-            childRoutes: [{
-              component: ErrorPageHandler,
+        component: IdleTimeoutHandler,
+        childRoutes: [{
+          component: App,
+          childRoutes: [
+            {
+              component: LoadingOverlayHandler,
               childRoutes: [{
-                component: SavingBarHandler,
+                component: PermissionHandler,
                 childRoutes: [{
-                  component: LoadingOverlayHandler,
-                  childRoutes: is.array(routes) ? routes : [routes],
+                  component: ErrorPageHandler,
+                  childRoutes: [{
+                    component: SavingBarHandler,
+                    childRoutes: is.array(routes) ? routes : [routes],
+                  }],
                 }],
               }],
-            }],
-          },
-          {
-            path: '*',
-            component: NoMatchingRouteErrorHandler,
-          },
-        ],
+            },
+            {
+              path: '*',
+              component: NoMatchingRouteErrorHandler,
+            },
+          ],
+        }],
       }],
     },
   ], store);
