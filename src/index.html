@@ -22,7 +22,10 @@
     <script type="text/javascript">
       window.clientVersion = "{{ htmlWebpackPlugin.options.tag }}";
     </script>
-    <script type="text/javascript" src="config.js"></script>
+
+    {{#if htmlWebpackPlugin.options.isProd }}
+      <script type="text/javascript" src="config.js"></script>
+    {{/if}}
   </head>
   <body>
     <div id="root"></div>

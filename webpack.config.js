@@ -126,6 +126,7 @@ module.exports = {
           tag,
           commit: commitHash,
           title: process.env.TITLE,
+          isProd,
         }),
         new Visualizer({ filename: '../package-stats.html' }),
       ]).concat(addOptionalPlugins()),
