@@ -110,6 +110,7 @@ module.exports = {
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
           PRODUCTION: isProd,
+          VERSION: `'${version}'`,
         }),
       ]).concat(! isProd ?
         [

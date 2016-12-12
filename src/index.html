@@ -18,9 +18,6 @@
     {{> assets/partials/pace/config }}
     {{> assets/partials/pace/script }}
     {{> assets/partials/pace/styles }}
-    <script type="text/javascript">
-      window.clientVersion = "{{ htmlWebpackPlugin.options.tag }}";
-    </script>
 
     {{#if htmlWebpackPlugin.options.isProd }}
       <script type="text/javascript" src="config.js"></script>
