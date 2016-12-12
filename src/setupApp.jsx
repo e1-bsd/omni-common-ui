@@ -10,7 +10,7 @@ import {
   routes as singleSignOnRoutes,
   IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
-import { Router } from 'react-router';
+import { Router, browserHistory } from 'react-router';
 import log from 'loglevel';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
@@ -22,11 +22,14 @@ import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SavingBarHandler from 'containers/SavingBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
 import ErrorMessage from 'domain/ErrorMessage';
+import ReactAI from 'react-appinsights';
+import Config from 'domain/Config';
 
 if (! PRODUCTION) {
   log.enableAll();
 } else {
   log.setLevel('error');
+  ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
 
 export function setupApp({ routes, reducer, errorMessageMap }) {
