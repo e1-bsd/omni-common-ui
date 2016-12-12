@@ -33,6 +33,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
 
 const commitHash = git.long();
+const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
 module.exports = {
@@ -122,6 +123,7 @@ module.exports = {
           template: path.join(__dirname, 'lib/index.html'),
           inject: 'body',
           version,
+          tag,
           commit: commitHash,
           title: process.env.TITLE,
         }),
