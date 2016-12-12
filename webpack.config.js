@@ -30,7 +30,7 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
+const isProd = nodeEnv !== 'development' && nodeEnv !== 'test';
 
 const commitHash = git.long();
 const tag = git.tag();
@@ -108,7 +108,7 @@ module.exports = {
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
+          'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
           VERSION: `'${version}'`,
         }),
@@ -226,12 +226,4 @@ function addOptionalPlugins() {
   }
 
   return [];
-}
-
-function getNodeEnvForCode() {
-  if (! isProd) {
-    return 'development';
-  }
-
-  return 'production';
 }
