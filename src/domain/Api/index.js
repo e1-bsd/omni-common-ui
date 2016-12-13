@@ -3,6 +3,7 @@ import is from 'is_js';
 import Store from 'domain/Store';
 import camelCase from 'camelcase';
 import Config from 'domain/Config';
+import { actions as impersonateActions } from 'containers/Impersonate';
 
 export const buildUrl = (path) => Config.get('apiBase') + path;
 
@@ -71,9 +72,19 @@ function getTokenHeader(options) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      is.not.object(options) ? undefined : options.headers
+      is.not.object(options) ? undefined : options.headers,
+      getImpersonateHeader()
     ),
   };
+}
+
+function getImpersonateHeader() {
+  const impersonateData = impersonateActions.getImpersonate()(null, Store.get().getState);
+  if (impersonateData) {
+    return { Impersonated: impersonateData.email };
+  }
+
+  return { };
 }
 
 class Api { }
