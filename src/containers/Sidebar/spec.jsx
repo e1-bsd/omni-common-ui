@@ -53,6 +53,13 @@ describe('<Sidebar />', () => {
       expect(items.at(2)).to.have.text('Current path');
     });
 
+    it('closes itself if the user clicks outside', () => {
+      const wrapper = mountAndClick();
+      expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
+      document.body.dispatchEvent(new Event('click'));
+      expect(wrapper).to.not.have.descendants(`.${styles.Sidebar_expanded}`);
+    });
+
     it('allows deeper routes to override configuration', () => {
       props.routes.push({ sidebar: { '/link/1': { text: 'My link' } } });
       const wrapper = mountAndClick();
