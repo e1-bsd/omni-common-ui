@@ -6,9 +6,12 @@
   --impersonate-form-error-size: 12px;
   --impersonate-form-error-spacing: 1px;
   --impersonate-form-error-line: 1.8;
+  --dialogPadding: 32px 25px;
 }
 
 .Impersonate {
+  margin: var(--dialogPadding);
+
   &_errorMessage {
     color: var(--impersonate-form-error-color);
     font-size: var(--impersonate-form-error-size);
@@ -39,13 +42,6 @@
       &:active {
         background-color: var(--colorActive);
       }
-    }
-
-    &.__disabled {
-      background-color: #456981;
-      color: #fff;
-      cursor: text;
-      opacity: 0.3;
     }
 
     &.__default {
