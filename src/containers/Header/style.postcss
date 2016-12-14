@@ -1,23 +1,35 @@
 @import 'main.postcss';
 
+:root {
+  --headerSize: 50px;
+  --logoSize: 30px;
+}
+
 .Header {
   background-color: #fff;
   box-shadow: 0 0 5px 0 #999;
+  display: flex;
   flex: none;
-  height: 65px;
+  flex-direction: row;
+  height: var(--headerSize);
   position: relative;
   z-index: var(--zIndex-1--header);
 
   &_logo {
-    display: inline-block;
-    height: 40px;
-    margin: 13px 0 12px 20px;
-    width: 68px;
+    background-color: var(--colorPrimaryNew);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: var(--logoSize) var(--logoSize);
+    height: var(--headerSize);
+    width: var(--headerSize);
 
     &:global {
-      background-image: url('ef-header.svg');
-      background-repeat: no-repeat;
+      background-image: url('omni-icon.svg');
     }
+  }
+
+  &_wrap {
+    flex: 1;
   }
 
   &.__impersonating {
