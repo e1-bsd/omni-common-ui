@@ -24,6 +24,7 @@ import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler'
 import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
+import Oidc from 'oidc-client';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -31,6 +32,9 @@ if (! PRODUCTION) {
   log.setLevel('error');
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
+
+Oidc.Log.logger = log;
+Oidc.Log.level = Oidc.Log.INFO;
 
 export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
