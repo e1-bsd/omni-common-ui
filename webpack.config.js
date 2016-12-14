@@ -30,9 +30,10 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isProd = /^production/i.test(nodeEnv) || /^staging/i.test(nodeEnv);
+const isProd = nodeEnv !== 'development' && nodeEnv !== 'test';
 
 const commitHash = git.long();
+const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
 module.exports = {
@@ -107,13 +108,14 @@ module.exports = {
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': `'${getNodeEnvForCode()}'`,
+          'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
+          VERSION: `'${version}'`,
         }),
       ]).concat(! isProd ?
         [
           new webpack.ProvidePlugin({
-            __CONFIG__: path.resolve(`config/${nodeEnv}.json`),
+            __CONFIG__: path.resolve(`config/${process.env.CONFIG || nodeEnv}.json`),
           }),
         ] :
         [])
@@ -122,8 +124,10 @@ module.exports = {
           template: path.join(__dirname, 'lib/index.html'),
           inject: 'body',
           version,
+          tag,
           commit: commitHash,
           title: process.env.TITLE,
+          isProd,
         }),
         new Visualizer({ filename: '../package-stats.html' }),
       ]).concat(addOptionalPlugins()),
@@ -222,12 +226,4 @@ function addOptionalPlugins() {
   }
 
   return [];
-}
-
-function getNodeEnvForCode() {
-  if (! isProd) {
-    return 'development';
-  }
-
-  return 'production';
 }

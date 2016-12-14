@@ -5,9 +5,14 @@ import { actions as privilegesActions } from 'containers/Privileges';
 import { bindActionCreators } from 'redux';
 import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
+import Config from 'domain/Config';
 
 export const PermissionHandler = (props) => {
   const { permissionChecks, children, havePrivilegesLoaded } = props;
+  if (Config.get('featureLogin') !== true) {
+    return children;
+  }
+
   if (! havePrivilegesLoaded()) {
     return null;
   }

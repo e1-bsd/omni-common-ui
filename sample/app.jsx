@@ -1,7 +1,7 @@
 import 'assets/styles/base/base.postcss';
 
-import React from 'react';
 import is from 'is_js';
+import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import parseRoutes from 'domain/parseRoutes';

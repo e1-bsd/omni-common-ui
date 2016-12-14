@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { postImpersonate, clearImpersonateData } from './actions';
 import TextInput from 'components/TextInput';
+import Button from 'components/Button';
 
 const suffix = '@ef.com';
 
@@ -87,26 +88,18 @@ class Impersonate extends Component {
             inputClassName={! this.state.emailChanged && errorCode ? styles.error : ''}
             suffix={suffix}
             onChange={(e) => this._handleEmailChange(e)} />
-        {
-          errorCode ?
-            <div className={styles.Impersonate_errorMessage}>
-              {this._getErrorMessage(errorCode)}
-            </div> :
-            null
-        }
       </div>
       <div className={styles.Impersonate_buttonContainer}>
-        <button className={this.state.impersonateEmail ?
-              classnames(styles.button, styles.__primary) :
-              classnames(styles.button, styles.__disabled)}
+        <Button type={Button.Type.primary}
+            className={styles.button}
             disabled={! this.state.impersonateEmail}
             onClick={() => this._handleSwitchClick()}>
           SWITCH
-        </button>
-        <button className={classnames(styles.button, styles.__default)}
+        </Button>
+        <Button className={classnames(styles.button, styles.__default)}
             onClick={() => this.props.close()}>
           CANCEL
-        </button>
+        </Button>
       </div>
     </div>;
   }

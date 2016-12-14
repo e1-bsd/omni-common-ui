@@ -36,11 +36,36 @@ class Sidebar extends Component {
     this._items = Sidebar._getItems(props);
     this._color = Sidebar._getColor(props);
     this.state = { expanded: false };
+    this._onClickedOutside = this._onClickedOutside.bind(this);
   }
 
   componentWillReceiveProps(props) {
     this._items = Sidebar._getItems(props);
     this._color = Sidebar._getColor(props);
+  }
+
+  componentWillUnmount() {
+    this._removeClickOutsideEvent();
+  }
+
+  _expand() {
+    this.setState({ expanded: true }, () => document.body.addEventListener('click', this._onClickedOutside));
+  }
+
+  _contract() {
+    this.setState({ expanded: false }, () => this._removeClickOutsideEvent());
+  }
+
+  _removeClickOutsideEvent() {
+    document.body.removeEventListener('click', this._onClickedOutside);
+  }
+
+  _onClickedOutside(evt) {
+    if (this._node.contains(evt.target)) {
+      return;
+    }
+
+    this._contract();
   }
 
   _renderExpanded() {
@@ -65,16 +90,18 @@ class Sidebar extends Component {
   }
 
   render() {
+    /* eslint no-return-assign: "off" */
     if (this._items.size <= 0) {
       return null;
     }
 
     const { expanded } = this.state;
     const classes = classnames(styles.Sidebar, { [styles.__expanded]: expanded === true });
-    const onClickBar = expanded === true ? undefined : () => this.setState({ expanded: true });
+    const onClickBar = expanded === true ? undefined : () => this._expand();
     return <div className={classes}
         onClick={onClickBar}
-        style={{ backgroundColor: this._color }}>
+        style={{ backgroundColor: this._color }}
+        ref={(c) => this._node = c}>
       {this._renderExpanded()}
     </div>;
   }

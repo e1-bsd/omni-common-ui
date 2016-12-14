@@ -12,6 +12,7 @@ export const UNIMPERSONATE_FAILURE = 'UNIMPERSONATE_FAILURE';
 export function setImpersonate(data) {
   return (dispatch, getState) => {
     const user = getState().get('singleSignOn').user;
+    if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData')) || {};
     localImpersonateData[user.profile.email] = data;
     localStorage.setItem('impersonateData', JSON.stringify(localImpersonateData));
@@ -21,6 +22,7 @@ export function setImpersonate(data) {
 export function getImpersonate() {
   return (dispatch, getState) => {
     const user = getState().get('singleSignOn').user;
+    if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData'));
     return localImpersonateData ? localImpersonateData[user.profile.email] : undefined;
   };
@@ -29,6 +31,7 @@ export function getImpersonate() {
 export function removeImpersonate() {
   return (dispatch, getState) => {
     const user = getState().get('singleSignOn').user;
+    if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData'));
     if (localImpersonateData) {
       delete (localImpersonateData[user.profile.email]);
