@@ -7,6 +7,7 @@ import Card from 'components/Card';
 const Dialog = (props) => <Modal className={styles.Dialog}
     overlayClassName={styles.Overlay}
     onRequestClose={props.onRequestClose}
+	portalClassName={styles.Portal}
     isOpen={props.isOpen}>
   <Card className={props.className}>
     <Card.Content>
