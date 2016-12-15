@@ -32,10 +32,20 @@
     }
 
     &_user {
+      position: relative;
+
       &_img {
         border-radius: 50%;
         height: var(--avatarSize);
         width: var(--avatarSize);
+
+        &.__impersonated {
+          left: 0;
+          opacity: 0.6;
+          position: absolute;
+          top: 0;
+          z-index: -1;
+        }
       }
     }
   }
@@ -80,8 +90,9 @@
       background-image: url('chevron-small-down-white.svg');
     }
 
-    & .UserInfo_container_user:global {
+    & .UserInfo_container_user {
       color: #fff;
+      padding-left: 20px;
     }
   }
 }

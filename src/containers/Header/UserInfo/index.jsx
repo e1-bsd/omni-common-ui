@@ -118,15 +118,27 @@ class UserInfo extends Component {
   _renderUser() {
     const userName = this.props.user.profile.name;
     const avatarUrl = this.props.user.profile.avatar_url;
-    if (this.props.impersonate) {
-      return `${userName} as ${this.props.impersonate.userName}`;
-    }
 
     if (is.not.url(avatarUrl)) {
       return userName;
     }
 
     return <img className={styles.UserInfo_container_user_img}
+        src={avatarUrl}
+        role="presentation" />;
+  }
+
+  _renderImpersonatedUser() {
+    if (! this.props.impersonate) {
+      return null;
+    }
+
+    const { userName, avatarUrl } = this.props.impersonate;
+    if (! avatarUrl) {
+      return `as ${userName}`;
+    }
+
+    return <img className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
         src={avatarUrl}
         role="presentation" />;
   }
@@ -150,7 +162,10 @@ class UserInfo extends Component {
             { [styles.__impersonating]: this.props.impersonate })}>
       <div className={styles.UserInfo_container} onClick={(e) => this._toggleDropdown(e)}>
         <div className={classnames(styles.UserInfo_container_expand)} />
-        <div className={classnames(styles.UserInfo_container_user)}>{this._renderUser()}</div>
+        <div className={classnames(styles.UserInfo_container_user)}>
+          {this._renderUser()}
+          {this._renderImpersonatedUser()}
+        </div>
       </div>
       {this._renderDropdown()}
       {this._renderImpersonateDialog()}
