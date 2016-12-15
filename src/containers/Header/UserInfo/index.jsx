@@ -42,7 +42,12 @@ class UserInfo extends Component {
   }
 
   _redirectToPortal() {
-    window.location = '/portal';
+    const url = Config.get('afterImpersonationRedirectTo');
+    if (is.url(url)) {
+      window.location = url;
+    } else {
+      window.location.reload();
+    }
   }
 
   _onSwitchBackClicked() {
