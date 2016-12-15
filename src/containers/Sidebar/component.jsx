@@ -90,7 +90,6 @@ class Sidebar extends Component {
   }
 
   render() {
-    /* eslint no-return-assign: "off" */
     if (this._items.size <= 0) {
       return null;
     }
@@ -101,7 +100,7 @@ class Sidebar extends Component {
     return <div className={classes}
         onClick={onClickBar}
         style={{ backgroundColor: this._color }}
-        ref={(c) => this._node = c}>
+        ref={(c) => { this._node = c; }}>
       {this._renderExpanded()}
     </div>;
   }
