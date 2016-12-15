@@ -157,10 +157,13 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <div ref={(c) => this._node = c}
-        className={classnames(styles.UserInfo,
-            { [styles.__impersonating]: this.props.impersonate })}>
-      <div className={styles.UserInfo_container} onClick={(e) => this._toggleDropdown(e)}>
+    const classes = classnames(styles.UserInfo, {
+      [styles.__impersonating]: this.props.impersonate,
+      [styles.__open]: this.state.isDropdownOpen,
+    });
+
+    return <div ref={(c) => this._node = c} className={classes}>
+      <div onClick={(e) => this._toggleDropdown(e)} className={styles.UserInfo_container}>
         <div className={classnames(styles.UserInfo_container_expand)} />
         <div className={classnames(styles.UserInfo_container_user)}>
           {this._renderUser()}

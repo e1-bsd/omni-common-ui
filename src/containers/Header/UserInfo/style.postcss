@@ -10,19 +10,17 @@
   position: relative;
 
   &_container {
+    align-items: center;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
     height: 100%;
-
-    & > div {
-      display: inline-block;
-      vertical-align: middle;
-    }
 
     &_expand {
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100%;
-      height: 100%;
+      height: 15px;
       margin-right: 15px;
       width: 15px;
 
@@ -36,6 +34,7 @@
 
       &_img {
         border-radius: 50%;
+        display: block;
         height: var(--avatarSize);
         width: var(--avatarSize);
 
@@ -93,6 +92,18 @@
     & .UserInfo_container_user {
       color: #fff;
       padding-left: 20px;
+    }
+  }
+
+  &.__open {
+    & .UserInfo_container_expand:global {
+      background-image: url('chevron-small-up.svg');
+    }
+  }
+
+  &.__open.__impersonating {
+    & .UserInfo_container_expand:global {
+      background-image: url('chevron-small-up-white.svg');
     }
   }
 }
