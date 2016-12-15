@@ -1,5 +1,9 @@
 @import 'main.postcss';
 
+:root {
+  --avatarSize: 35px;
+}
+
 .UserInfo {
   float: right;
   height: 100%;
@@ -17,13 +21,21 @@
     &_expand {
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 100%;
       height: 100%;
-      margin-right: 13px;
-      width: 20px;
+      margin-right: 15px;
+      width: 15px;
 
       &:global {
         background-image: url('chevron-small-down.svg');
+      }
+    }
+
+    &_user {
+      &_img {
+        border-radius: 50%;
+        height: var(--avatarSize);
+        width: var(--avatarSize);
       }
     }
   }
@@ -68,7 +80,7 @@
       background-image: url('chevron-small-down-white.svg');
     }
 
-    & .UserInfo_container_username:global {
+    & .UserInfo_container_user:global {
       color: #fff;
     }
   }
