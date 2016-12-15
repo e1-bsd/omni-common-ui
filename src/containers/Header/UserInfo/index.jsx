@@ -9,6 +9,7 @@ import userManager from 'containers/SingleSignOn/userManager';
 import Permission from 'containers/Permission';
 import is from 'is_js';
 import Config from 'domain/Config';
+import StudentPicture from 'components/StudentPicture';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -123,14 +124,15 @@ class UserInfo extends Component {
   _renderUser() {
     const userName = this.props.user.profile.name;
     const avatarUrl = this.props.user.profile.avatar_url;
+    const gender = this.props.user.profile.gender;
 
     if (is.not.url(avatarUrl)) {
       return userName;
     }
 
-    return <img className={styles.UserInfo_container_user_img}
+    return <StudentPicture className={styles.UserInfo_container_user_img}
         src={avatarUrl}
-        role="presentation" />;
+        gender={gender} />;
   }
 
   _renderImpersonatedUser() {
@@ -138,14 +140,14 @@ class UserInfo extends Component {
       return null;
     }
 
-    const { userName, avatarUrl } = this.props.impersonate;
+    const { userName, avatarUrl, gender } = this.props.impersonate;
     if (! avatarUrl) {
       return `as ${userName}`;
     }
 
-    return <img className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
-        src={avatarUrl}
-        role="presentation" />;
+    return <StudentPicture src={avatarUrl}
+        className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
+        gender={gender} />;
   }
 
   render() {
