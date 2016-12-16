@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { postImpersonate, clearImpersonateData } from './actions';
 import TextInput from 'components/TextInput';
 import Button from 'components/Button';
+import testClass from 'domain/testClass';
 
 const suffix = '@ef.com';
 
@@ -80,18 +81,21 @@ class Impersonate extends Component {
       this.props.success(data);
     }
 
+    const inputClasses = classnames({ [styles.error]: ! this.state.emailChanged && errorCode },
+        testClass('impersonate-dialog-input'));
+
     return <div className={styles.Impersonate}>
       <p className={styles.Impersonate_title}>Switch User</p>
       <div>
         <TextInput labelName="Email"
             className={styles.Impersonate_field}
-            inputClassName={! this.state.emailChanged && errorCode ? styles.error : ''}
+            inputClassName={inputClasses}
             suffix={suffix}
             onChange={(e) => this._handleEmailChange(e)} />
       </div>
       <div className={styles.Impersonate_buttonContainer}>
         <Button type={Button.Type.primary}
-            className={styles.button}
+            className={classnames(styles.button, testClass('impersonate-dialog-switch'))}
             disabled={! this.state.impersonateEmail}
             onClick={() => this._handleSwitchClick()}>
           SWITCH

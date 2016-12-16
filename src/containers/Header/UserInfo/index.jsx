@@ -10,6 +10,7 @@ import Permission from 'containers/Permission';
 import is from 'is_js';
 import Config from 'domain/Config';
 import StudentPicture from 'components/StudentPicture';
+import testClass from 'domain/testClass';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -102,7 +103,10 @@ class UserInfo extends Component {
 
     return <Permission permissionId={Config.get('impersonatePermission')}>
       <div className={styles.UserInfo_features_item}>
-        <div onClick={() => this._showImpersonateDialog()}>Switch User</div>
+        <div onClick={() => this._showImpersonateDialog()}
+            className={testClass('header-user-dropdown-switch-user')}>
+          Switch User
+        </div>
       </div>
     </Permission>;
   }
@@ -170,7 +174,8 @@ class UserInfo extends Component {
     });
 
     return <div ref={(c) => this._node = c} className={classes}>
-      <div onClick={(e) => this._toggleDropdown(e)} className={styles.UserInfo_container}>
+      <div className={classnames(styles.UserInfo_container, testClass('header-user-dropdown'))}
+          onClick={(e) => this._toggleDropdown(e)}>
         <div className={classnames(styles.UserInfo_container_expand)} />
         <div className={classnames(styles.UserInfo_container_user)}>
           {this._renderUser()}
