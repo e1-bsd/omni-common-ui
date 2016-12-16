@@ -4,8 +4,10 @@ import React from 'react';
 import Header from 'containers/Header';
 import Sidebar from 'containers/Sidebar';
 import Footer from 'components/Footer';
+import classnames from 'classnames';
+import testClass from 'domain/testClass';
 
-const App = (props) => <div className={styles.App}>
+const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
   <Header />
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
