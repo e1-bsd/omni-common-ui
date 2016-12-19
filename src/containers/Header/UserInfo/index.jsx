@@ -93,8 +93,7 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <DropdownBox className={styles.UserInfo_features}
-        onClickOutside={() => this.setState({ isDropdownOpen: false })}>
+    return <DropdownBox className={styles.UserInfo_features}>
       {this._renderImpersonateOption()}
       <DropdownBox.Item onClick={this._onLogoutButtonClicked}>Log Out</DropdownBox.Item>
     </DropdownBox>;
@@ -148,7 +147,8 @@ class UserInfo extends Component {
       [styles.__open]: this.state.isDropdownOpen,
     });
 
-    return <div ref={(c) => this._node = c} className={classes}>
+    return <DropdownBox.Container className={classes}
+        onClickOutside={() => this.setState({ isDropdownOpen: false })}>
       <div className={classnames(styles.UserInfo_container, testClass('header-user-dropdown'))}
           onClick={(e) => this._toggleDropdown(e)}>
         <div className={classnames(styles.UserInfo_container_expand)} />
@@ -159,7 +159,7 @@ class UserInfo extends Component {
       </div>
       {this._renderDropdown()}
       {this._renderImpersonateDialog()}
-    </div>;
+    </DropdownBox.Container>;
   }
 }
 
