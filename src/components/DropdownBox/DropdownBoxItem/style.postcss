@@ -1,0 +1,18 @@
+@import 'main.postcss';
+
+.DropdownBoxItem {
+  cursor: pointer;
+  font-size: var(--fontSize-sm);
+  font-weight: var(--fontWeight-medium);
+  padding: calc(var(--spaceBase) / 2) var(--spaceBase);
+
+  &:not(:last-child) {
+    border-bottom: var(--hairThin) solid var(--colorBg);
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--colorActive);
+    color: var(--colorTextInverse);
+  }
+}

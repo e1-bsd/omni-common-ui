@@ -1,7 +1,8 @@
 import classnames from 'classnames';
+import Config from 'domain/Config';
 
 let _testClass = () => {};
-if (! PRODUCTION) {
+if (Config.get('enableTestClasses') === true) {
   _testClass = (name) => classnames(`test-${name}`);
 }
 

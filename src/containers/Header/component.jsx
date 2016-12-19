@@ -12,10 +12,12 @@ const Header = (props) => {
   const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
     <div className={classnames(styles.Header_logo)} />
-    <UserInfo impersonate={props.impersonate}
-        setImpersonate={props.setImpersonate}
-        removeImpersonate={props.removeImpersonate}
-        unimpersonate={props.unimpersonate} />
+    <div className={styles.Header_wrap}>
+      <UserInfo impersonate={props.impersonate}
+          setImpersonate={props.setImpersonate}
+          removeImpersonate={props.removeImpersonate}
+          unimpersonate={props.unimpersonate} />
+    </div>
   </div>;
 };
 
