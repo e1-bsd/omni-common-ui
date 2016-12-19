@@ -25,6 +25,7 @@ import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
 import Oidc from 'oidc-client';
+import ReactGA from 'react-ga';
 
 if (! PRODUCTION) {
   log.enableAll();
@@ -41,6 +42,11 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
 
   Store.set(store);
   ErrorMessage.setMap(errorMessageMap);
+
+  const gaKey = Config.get('gaKey');
+  if (Config.get('gaKey')) {
+    ReactGA.initialize(gaKey);
+  }
 
   const parsedRoutes = parseRoutes([
     {
@@ -80,11 +86,16 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
   render(
     <Provider store={store}>
       <SingleSignOnProvider store={store}>
-        <Router history={syncBrowserHistory} routes={parsedRoutes} />
+        <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
       </SingleSignOnProvider>
     </Provider>,
     document.getElementById('root')
   );
+}
+
+function logPageView() {
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
 }
 
 export default setupApp;
