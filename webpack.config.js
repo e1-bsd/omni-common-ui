@@ -153,6 +153,7 @@ module.exports = {
             {}
         , {
           react: path.resolve('node_modules', 'react'),
+          'react-ga': path.resolve('node_modules', 'react-ga'),
           'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
         }
       ),
