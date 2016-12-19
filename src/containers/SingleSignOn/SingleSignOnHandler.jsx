@@ -6,6 +6,7 @@ import log from 'loglevel';
 import routes from './routes';
 import userManager from './userManager';
 import Config from 'domain/Config';
+import ReactGA from 'react-ga';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -31,6 +32,7 @@ class SingleSignOnHandlerImpl extends Component {
       return userManager.signinRedirect();
     }
 
+    ReactGA.set({ userId: props.user.profile.sub });
     log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
   }
