@@ -20,23 +20,6 @@ class UserInfo extends Component {
       isDropdownOpen: false,
       isShowImpersonate: false,
     };
-    this._onClickedOutside = this._onClickedOutside.bind(this);
-  }
-
-  componentWillUnmount() {
-    this._removeClickOutsideEvent();
-  }
-
-  _onClickedOutside(evt) {
-    if (this._node.contains(evt.target)) {
-      return;
-    }
-
-    this.setState({ isDropdownOpen: false }, () => this._removeClickOutsideEvent());
-  }
-
-  _removeClickOutsideEvent() {
-    document.body.removeEventListener('click', this._onClickedOutside);
   }
 
   _onLogoutButtonClicked() {
@@ -62,13 +45,7 @@ class UserInfo extends Component {
   _toggleDropdown(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.setState({ isDropdownOpen: ! this.state.isDropdownOpen }, () => {
-      if (this.state.isDropdownOpen) {
-        document.body.addEventListener('click', this._onClickedOutside);
-      } else {
-        this._removeClickOutsideEvent();
-      }
-    });
+    this.setState({ isDropdownOpen: ! this.state.isDropdownOpen });
   }
 
   _showImpersonateDialog() {
@@ -116,7 +93,8 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <DropdownBox className={styles.UserInfo_features}>
+    return <DropdownBox className={styles.UserInfo_features}
+        onClickOutside={() => this.setState({ isDropdownOpen: false })}>
       {this._renderImpersonateOption()}
       <DropdownBox.Item onClick={this._onLogoutButtonClicked}>Log Out</DropdownBox.Item>
     </DropdownBox>;
