@@ -6,11 +6,12 @@ import classnames from 'classnames';
 import Dialog from 'components/Dialog';
 import Impersonate from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
-import Permission from 'containers/Permission';
 import is from 'is_js';
 import Config from 'domain/Config';
 import StudentPicture from 'components/StudentPicture';
 import testClass from 'domain/testClass';
+import DropdownBox from 'components/DropdownBox';
+import PrivilegeChecker from 'domain/PrivilegeChecker';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -95,20 +96,19 @@ class UserInfo extends Component {
   }
 
   _renderImpersonateOption() {
+    const { canImpersonate } = this.props;
     if (this.props.impersonate) {
-      return <div className={styles.UserInfo_features_item}>
-        <div onClick={() => this._onSwitchBackClicked()}>Switch Back</div>
-      </div>;
+      return <DropdownBox.Item className={testClass('header-user-dropdown-switch-back')}
+          onClick={() => this._onSwitchBackClicked()}>
+        Switch Back
+      </DropdownBox.Item>;
     }
 
-    return <Permission permissionId={Config.get('impersonatePermission')}>
-      <div className={styles.UserInfo_features_item}>
-        <div onClick={() => this._showImpersonateDialog()}
-            className={testClass('header-user-dropdown-switch-user')}>
-          Switch User
-        </div>
-      </div>
-    </Permission>;
+    return <DropdownBox.Item className={testClass('header-user-dropdown-switch-user')}
+        onClick={() => this._showImpersonateDialog()}
+        show={canImpersonate}>
+      Switch User
+    </DropdownBox.Item>;
   }
 
   _renderDropdown() {
@@ -116,13 +116,10 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <div className={classnames(styles.UserInfo_features)}>
+    return <DropdownBox className={styles.UserInfo_features}>
       {this._renderImpersonateOption()}
-      <div className={classnames(styles.UserInfo_features_item,
-          styles.UserInfo_features_item_last)}>
-        <div onClick={this._onLogoutButtonClicked}>Log Out</div>
-      </div>
-    </div>;
+      <DropdownBox.Item onClick={this._onLogoutButtonClicked}>Log Out</DropdownBox.Item>
+    </DropdownBox>;
   }
 
   _renderUser() {
@@ -196,12 +193,14 @@ UserInfo.propTypes = {
   privileges: React.PropTypes.object,
   unimpersonateState: React.PropTypes.object,
   user: React.PropTypes.object,
+  canImpersonate: React.PropTypes.bool,
 };
 
 function mapStateToProps(state) {
   return {
     privileges: state.get('privileges').items,
     user: state.get('singleSignOn').user,
+    canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     unimpersonateState: state.get('impersonate')
       .get('unimpersonate')
       .get('unimpersonate'),

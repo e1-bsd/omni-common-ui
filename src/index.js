@@ -26,6 +26,7 @@ import _testClass from 'domain/testClass';
 import _PrivilegeChecker from 'domain/PrivilegeChecker';
 import _ApiCall from 'containers/ApiCalls';
 import _Config from 'domain/Config';
+import _DropdownBox from 'components/DropdownBox';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -57,3 +58,4 @@ export const testClass = _testClass;
 export const PrivilegeChecker = _PrivilegeChecker;
 export const ApiCall = _ApiCall;
 export const Config = _Config;
+export const DropdownBox = _DropdownBox;
