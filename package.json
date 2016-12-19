@@ -101,6 +101,7 @@
     "react-appinsights": "^1.0.2",
     "react-daterange-picker": "1.0.0",
     "react-dom": "15.3.2",
+    "react-ga": "^2.1.2",
     "react-immutable-proptypes": "2.1.0",
     "react-modal": "1.5.2",
     "react-radial-progress-sans-animation": "0.0.1",
@@ -140,8 +141,7 @@
     "gulp-postcss": "6.2.0",
     "gulp-sequence": "0.4.6",
     "gulp-sourcemaps": "2.2.0",
-    "omni-gulp-replace": "1.0.0",
-    "react-ga": "^2.1.2"
+    "omni-gulp-replace": "1.0.0"
   },
   "engines": {
     "node": "^6.6.0"
