@@ -1,6 +1,9 @@
+import styles from './style.postcss';
+
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
+
 import Dialog from './';
 
 describe('Dialog', () => {
@@ -14,5 +17,25 @@ describe('Dialog', () => {
     const wrapper = mount(<Dialog isOpen={false}><div id="innerContent" /></Dialog>);
     expect(document.getElementById('innerContent')).to.not.exist;
     wrapper.unmount();
+  });
+
+  it('renders the loading overlay when loading', () => {
+    const wrapper = shallow(<Dialog isOpen isLoading><div /></Dialog>);
+    expect(wrapper).to.have.descendants(
+      `.${styles.LoadingOverlay}`
+    );
+    expect(wrapper).to.have.descendants(
+      `.${styles.LoadingOverlay}.${styles.__visible}`
+    );
+  });
+
+  it('does not render the loading overlay when not loading', () => {
+    const wrapper = shallow(<Dialog isOpen><div /></Dialog>);
+    expect(wrapper).to.have.descendants(
+      `.${styles.LoadingOverlay}`
+    );
+    expect(wrapper).to.not.have.descendants(
+      `.${styles.LoadingOverlay}.${styles.__visible}`
+    );
   });
 });
