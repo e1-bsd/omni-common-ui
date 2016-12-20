@@ -9,7 +9,7 @@ export const buildUrl = (path) => Config.get('apiBase') + path;
 
 class FetchTimedOutError extends Error { }
 
-class ApiError extends Error {
+export class ApiError extends Error {
   constructor(response = {}, message) {
     super(message || response.statusText);
     this.status = response.status;

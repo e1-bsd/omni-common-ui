@@ -24,9 +24,9 @@ export const ErrorPageHandler = (props) => {
     }
 
     if (shouldShowPopUp()) {
-      const { apiResponse } = erroredApi.error;
+      const { response } = erroredApi.error;
       return <AlertDialog iswarning
-          content1={buildMessage(apiResponse)}
+          content1={buildMessage(response)}
           okButtonContent="OK"
           onButtonClick={cleanErrors} />;
     }
@@ -50,17 +50,17 @@ export const ErrorPageHandler = (props) => {
       return false;
     }
 
-    const { apiResponse } = erroredApi.error;
-    return is.object(apiResponse) && apiResponse.code !== 500;
+    const { response, status } = erroredApi.error;
+    return is.object(response) && status !== 500;
   }
 
-  function buildMessage(apiResponse) {
-    let message = ErrorMessage.for(apiResponse.errorCode) || apiResponse.message;
-    if (is.not.array(apiResponse.args)) {
+  function buildMessage(response) {
+    let message = ErrorMessage.for(response.errorCode) || response.message;
+    if (is.not.array(response.args)) {
       return message;
     }
 
-    apiResponse.args.forEach((arg) => {
+    response.args.forEach((arg) => {
       message = message.replace(/{".*"}/i, arg);
     });
 
