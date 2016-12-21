@@ -2,7 +2,6 @@ import React from 'react';
 
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { Map } from 'immutable';
 import Breadcrumbs from 'components/Breadcrumbs';
 import RouteBreadcrumbs from './';
 
@@ -10,7 +9,6 @@ import RouteBreadcrumbs from './';
 
 describe('<RouteBreadcrumbs />', () => {
   const props = {
-    state: undefined,
     params: undefined,
     location: undefined,
     routes: undefined,
@@ -20,7 +18,6 @@ describe('<RouteBreadcrumbs />', () => {
   let expectedItems;
 
   beforeEach(() => {
-    props.state = new Map();
     props.params = {};
     props.location = {};
     props.routes = [];
@@ -106,7 +103,7 @@ describe('<RouteBreadcrumbs />', () => {
       };
       props.routes = [{
         path: 'group/:groupId',
-        breadcrumbLabels: (state, { params: { groupId } }) => `Group ${groupId}`,
+        breadcrumbLabels: ({ params: { groupId } }) => `Group ${groupId}`,
       }, {
         path: 'members',
         breadcrumbLabels: () => 'Members',
