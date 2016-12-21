@@ -4,7 +4,7 @@
   --statusSize: 20px;
 }
 
-.ProductionStatus {
+.ColourLabel {
   cursor: default;
   display: inline-block;
   overflow: hidden;
@@ -12,7 +12,7 @@
 
   &_inner {
     align-items: center;
-    background-color: var(--colorOnHold);
+    background-color: transparent;
     color: var(--colorTextInverse);
     display: flex;
     flex: 0;
@@ -22,10 +22,6 @@
     letter-spacing: 1px;
     padding: 5px;
     text-transform: uppercase;
-
-    &.__highlight {
-      background-color: var(--colorActive);
-    }
 
     &.__unbreakable {
       white-space: nowrap;
