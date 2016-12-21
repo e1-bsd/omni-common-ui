@@ -8,7 +8,7 @@ const ACCEPTABLE_LABELS_TYPES = new Set(['string', 'object', 'function']);
 const ALWAYS_APPLIED_PARAMS = { mode: '' };
 
 const RouteBreadcrumbs = (props) => {
-  const { params, routes, state, buildRoute } = props;
+  const { params, routes, buildRoute } = props;
 
   const getRouteSegments = () =>
     routes.filter((route) => is.string(route.path));
@@ -29,7 +29,7 @@ const RouteBreadcrumbs = (props) => {
     if (! ACCEPTABLE_LABELS_TYPES.has(typeof labels)) return;
     if (is.function(labels)) {
       try {
-        labels = labels(state, props);
+        labels = labels(props);
       } catch (err) {
         log.warn(`Error in \`breadcrumbLabels\` in route \`${routeDescriptor.path}\``, err);
       }
@@ -54,7 +54,6 @@ const RouteBreadcrumbs = (props) => {
 };
 
 RouteBreadcrumbs.propTypes = {
-  state: React.PropTypes.object.isRequired,
   params: React.PropTypes.object.isRequired,
   location: React.PropTypes.object.isRequired,
   routes: React.PropTypes.array.isRequired,

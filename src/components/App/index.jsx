@@ -15,8 +15,7 @@ const App = (props) => <div className={classnames(styles.App, testClass('app'))}
     <Sidebar {...props} />
     <div className={styles.App_content}>
       <div className={styles.App_content_breadcrumbs}>
-        <RouteBreadcrumbs state={props.state}
-            params={props.params}
+        <RouteBreadcrumbs params={props.params}
             routes={props.routes}
             location={props.location}
             buildRoute={props.buildRoute} />
