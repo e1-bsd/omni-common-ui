@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import ReactGA from 'react-ga';
 
-const Breadcrumbs = (props) => <nav className={styles.Breadcrumbs}>
+const Breadcrumbs = (props) => <nav className={classnames(styles.Breadcrumbs, props.className)}>
   <ul className={styles.Breadcrumbs_list}>
     {props.items.map((item, idx) => {
       const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
@@ -34,6 +34,7 @@ const Breadcrumbs = (props) => <nav className={styles.Breadcrumbs}>
 </nav>;
 
 Breadcrumbs.propTypes = {
+  className: React.PropTypes.string,
   items: React.PropTypes.arrayOf(React.PropTypes.shape({
     label: React.PropTypes.string.isRequired,
     href: React.PropTypes.string.isRequired,

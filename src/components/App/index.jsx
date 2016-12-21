@@ -14,12 +14,11 @@ const App = (props) => <div className={classnames(styles.App, testClass('app'))}
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
     <div className={styles.App_content}>
-      <div className={styles.App_content_breadcrumbs}>
-        <RouteBreadcrumbs params={props.params}
-            routes={props.routes}
-            location={props.location}
-            buildRoute={props.buildRoute} />
-      </div>
+      <RouteBreadcrumbs className={styles.App_content_breadcrumbs}
+          params={props.params}
+          routes={props.routes}
+          location={props.location}
+          buildRoute={props.buildRoute} />
       <div className={styles.App_content_wrap}>{props.children}</div>
     </div>
   </div>

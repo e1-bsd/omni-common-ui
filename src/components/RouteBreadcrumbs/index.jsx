@@ -8,7 +8,7 @@ const ACCEPTABLE_LABELS_TYPES = new Set(['string', 'object', 'function']);
 const ALWAYS_APPLIED_PARAMS = { mode: '' };
 
 const RouteBreadcrumbs = (props) => {
-  const { params, routes, buildRoute } = props;
+  const { params, routes, buildRoute, className } = props;
 
   const getRouteSegments = () =>
     routes.filter((route) => is.string(route.path));
@@ -43,17 +43,18 @@ const RouteBreadcrumbs = (props) => {
       })));
   });
 
-  if (! breadcrumbs.length) return null;
+  if (! breadcrumbs.length || breadcrumbs.length <= 1) return null;
 
   // the last one shouldn't be clickable
   if (breadcrumbs.length > 1) {
     breadcrumbs[breadcrumbs.length - 1].clickable = false;
   }
 
-  return <Breadcrumbs items={breadcrumbs} />;
+  return <Breadcrumbs className={className} items={breadcrumbs} />;
 };
 
 RouteBreadcrumbs.propTypes = {
+  className: React.PropTypes.string,
   params: React.PropTypes.object.isRequired,
   location: React.PropTypes.object.isRequired,
   routes: React.PropTypes.array.isRequired,
