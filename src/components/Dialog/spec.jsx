@@ -19,7 +19,7 @@ describe('Dialog', () => {
     wrapper.unmount();
   });
 
-  it('renders the loading overlay when loading', () => {
+  it('shows the loading overlay when loading', () => {
     const wrapper = shallow(<Dialog isOpen isLoading><div /></Dialog>);
     expect(wrapper).to.have.descendants(
       `.${styles.LoadingOverlay}`
@@ -29,7 +29,7 @@ describe('Dialog', () => {
     );
   });
 
-  it('does not render the loading overlay when not loading', () => {
+  it('hides the loading overlay when not loading', () => {
     const wrapper = shallow(<Dialog isOpen><div /></Dialog>);
     expect(wrapper).to.have.descendants(
       `.${styles.LoadingOverlay}`
