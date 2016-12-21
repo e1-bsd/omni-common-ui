@@ -32,21 +32,16 @@ describe('<RouteBreadcrumbs />', () => {
         path: '/group/1',
       }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.not.have.descendants(Breadcrumbs);
+      expect(mounted).to.be.blank();
     });
 
-    it('with one item when there is one labelled route segment', () => {
+    it('null when there is one labelled route segment', () => {
       props.routes = [{
         path: 'group/:groupId',
         breadcrumbLabels: 'Group',
       }];
-      expectedItems = [{
-        label: 'Group',
-        href: '/group/:groupId',
-        clickable: true,
-      }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.contain(<Breadcrumbs items={expectedItems} />);
+      expect(mounted).to.be.blank();
     });
 
     it('with two items when there are two labelled route segments', () => {
@@ -69,7 +64,7 @@ describe('<RouteBreadcrumbs />', () => {
         clickable: false,
       }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.contain(<Breadcrumbs items={expectedItems} />);
+      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
     });
 
     it('with more labels than routes when label value(s) are arrays', () => {
@@ -94,7 +89,7 @@ describe('<RouteBreadcrumbs />', () => {
         clickable: false,
       }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.contain(<Breadcrumbs items={expectedItems} />);
+      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
     });
 
     it('with labels that are functions', () => {
@@ -118,7 +113,7 @@ describe('<RouteBreadcrumbs />', () => {
         clickable: false,
       }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.contain(<Breadcrumbs items={expectedItems} />);
+      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
     });
 
     it('with labels of mixed types containing a full object definition', () => {
@@ -150,7 +145,7 @@ describe('<RouteBreadcrumbs />', () => {
         clickable: false,
       }];
       mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.contain(<Breadcrumbs items={expectedItems} />);
+      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
     });
   });
 });
