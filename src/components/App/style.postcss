@@ -1,3 +1,5 @@
+@import 'main.postcss';
+
 .App {
   display: flex;
   flex-direction: column;
@@ -10,8 +12,20 @@
   }
 
   &_content {
+    display: flex;
     flex: 1 1 auto;
+    flex-direction: column;
     overflow: auto;
     width: 100%;
+
+    &_breadcrumbs {
+      background-color: var(--colorNavSectionBg);
+      border-bottom: var(--hairThin) solid var(--colorBorder);
+      padding: var(--spaceBase);
+    }
+
+    &_wrap {
+      flex: 1 1 auto;
+    }
   }
 }
