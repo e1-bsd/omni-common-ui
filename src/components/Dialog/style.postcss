@@ -21,7 +21,6 @@
   height: 100%;
   justify-content: center;
   left: 0;
-  margin: auto;
   opacity: 0;
   pointer-events: none;
   position: absolute;
@@ -29,7 +28,7 @@
   transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   width: 100%;
   will-change: opacity, pointer-events;
-  z-index: 2000;
+  z-index: var(--zIndex-1--dialogLoadingOverlay);
 
   &_inner {
     border-color: white;
