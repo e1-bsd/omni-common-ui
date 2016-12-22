@@ -174,7 +174,7 @@ module.exports = {
     postcssColorHexAlpha,
     postcssNesting,
     postcssPxToRem({
-      rootValue: 16,
+      rootValue: 14,
       unitPrecision: 5,
       propWhiteList: [],
       selectorBlackList: [],

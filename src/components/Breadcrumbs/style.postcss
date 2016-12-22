@@ -1,14 +1,13 @@
 @import 'main.postcss';
 
 .Breadcrumbs {
-  font-size: 95%;
-  text-transform: uppercase;
   white-space: nowrap;
+
+  @mixin fontButton;
 
   &_list {
     display: flex;
     flex-wrap: wrap;
-    font-weight: var(--fontWeight-medium);
     list-style-type: none;
     margin: 0;
     padding-left: 0;

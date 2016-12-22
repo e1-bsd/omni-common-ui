@@ -103,7 +103,14 @@
 @custom-media --md-viewport only screen and (min-width: 800px);
 @custom-media --lg-viewport only screen and (min-width: 980px);
 
+@define-mixin fontNormal {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-regular);
+}
+
 @define-mixin fontButton {
+  font-family: var(--fontFamily);
   font-size: var(--fontSize-sm);
   font-weight: var(--fontWeight-medium);
   letter-spacing: 0.5px;
