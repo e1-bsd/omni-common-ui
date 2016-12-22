@@ -1,0 +1,35 @@
+@import 'main.postcss';
+
+:root {
+  --boardMarginBottom: 20px;
+  --boardMaginRight: 30px;
+  --titleLineHeight: 1.8;
+  --valueBorderBottom: 1px solid #ccc;
+  --valueFontSize: 14px;
+  --boardPaddingRight: 14px;
+}
+
+.Detailsboard {
+  &_board {
+    float: left;
+    margin-bottom: var(--boardMarginBottom);
+    margin-right: var(--boardMaginRight);
+    padding-right: var(--boardPaddingRight);
+    width: 100%;
+  }
+
+  &_h5 {
+    color: #b4b4b4;
+    font-size: var(--fontSize-sm);
+    font-weight: var(--fontWeight-medium);
+    line-height: var(--titleLineHeight);
+    margin: 0;
+  }
+
+  &_p {
+    border-bottom: var(--valueBorderBottom);
+    font-size: var(--valueFontSize);
+    margin: 0.4em 0;
+    white-space: pre-line;
+  }
+}
