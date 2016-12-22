@@ -66,6 +66,7 @@
 
 :root {
   --touchableMinHeight: 40px;
+  --touchableMinHeightNew: 35px;
   --touchablePaddingHorizontal: 16px;
   --touchablePaddingVertical: 8px;
   --hairThin: 1px;
@@ -101,3 +102,10 @@
 @custom-media --sm-viewport only screen and (min-width: 480px);
 @custom-media --md-viewport only screen and (min-width: 800px);
 @custom-media --lg-viewport only screen and (min-width: 980px);
+
+@define-mixin fontButton {
+  font-size: var(--fontSize-sm);
+  font-weight: var(--fontWeight-medium);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}

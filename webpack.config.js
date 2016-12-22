@@ -14,7 +14,7 @@ const postcssCustomSelectors = require('postcss-custom-selectors');
 const postcssSelectorNot = require('postcss-selector-not');
 const postcssColorFunctions = require('postcss-color-function');
 const postcssColorHexAlpha = require('postcss-color-hex-alpha');
-const postcssSimpleMixin = require('postcss-simple-mixin');
+const postcssMixins = require('postcss-mixins');
 const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
@@ -166,7 +166,7 @@ module.exports = {
     }),
     postcssUrl({ url: 'rebase' }),
     postcssContainerQueries,
-    postcssSimpleMixin,
+    postcssMixins,
     postcssCustomSelectors,
     postcssCustomProperties,
     postcssSelectorNot,

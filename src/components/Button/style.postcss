@@ -35,14 +35,14 @@
 .NeoButton {
   border: 1px solid transparent;
   border-radius: 5px;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  min-height: 35px;
+  min-height: var(--touchableMinHeightNew);
   min-width: 100px;
   padding: 0 15px;
   text-align: center;
   transition: all 0.1s ease;
   will-change: background, border, box-shadow, color, opacity;
+
+  @mixin fontButton;
 
   &_primary {
     background-color: var(--colorPrimaryNew);

@@ -1380,6 +1380,10 @@ camel-case@3.0.x:
     no-case "^2.2.0"
     upper-case "^1.1.1"
 
+camelcase-css@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/camelcase-css/-/camelcase-css-1.0.1.tgz#157c4238265f5cf94a1dffde86446552cbf3f705"
+
 camelcase-keys@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-2.1.0.tgz#308beeaffdf28119051efa1d932213c91b8f92e7"
@@ -6639,6 +6643,13 @@ postcss-initial@^1.3.1:
     lodash.template "^4.2.4"
     postcss "^5.0.19"
 
+postcss-js@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/postcss-js/-/postcss-js-0.1.3.tgz#8c0a5daa1c918b3073c4806a3c5b332c67250c03"
+  dependencies:
+    camelcase-css "^1.0.1"
+    postcss "^5.0.21"
+
 postcss-less@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/postcss-less/-/postcss-less-0.14.0.tgz#c631b089c6cce422b9a10f3a958d2bedd3819324"
@@ -6744,6 +6755,16 @@ postcss-minify-selectors@^2.0.4:
     has "^1.0.1"
     postcss "^5.0.14"
     postcss-selector-parser "^2.0.0"
+
+postcss-mixins@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/postcss-mixins/-/postcss-mixins-5.4.0.tgz#68b4705d1f2c505921f4a2f55bcf72a03b56fc01"
+  dependencies:
+    globby "^6.0.0"
+    postcss "^5.2.4"
+    postcss-js "^0.1.3"
+    postcss-simple-vars "^3.0.0"
+    sugarss "^0.2.0"
 
 postcss-modules-extract-imports@^1.0.0:
   version "1.0.1"
@@ -6905,9 +6926,11 @@ postcss-selector-parser@^2.0.0, postcss-selector-parser@^2.1.1, postcss-selector
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss-simple-mixin@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-simple-mixin/-/postcss-simple-mixin-0.1.1.tgz#d6e51093f3f8f7f81509be5447f6adcec190f179"
+postcss-simple-vars@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-simple-vars/-/postcss-simple-vars-3.0.0.tgz#1fa4ccb4b7151d9f0d52fb8ea19a15c1319599d6"
+  dependencies:
+    postcss "^5.0.21"
 
 postcss-svgo@^2.1.1:
   version "2.1.5"
