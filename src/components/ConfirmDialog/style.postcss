@@ -1,0 +1,57 @@
+:root {
+  --iconBackgroundPosition: 50%;
+  --dialogMaxWidth: 400px;
+  --iconHeight: 30px;
+  --contentPadding: 40px 0;
+  --secondMessageMargin: 20px;
+  --widthOfTwoButton: 320px;
+}
+
+.ConfirmDialog {
+  max-width: var(--dialogMaxWidth);
+  overflow: hidden;
+  padding: 32px 25px;
+
+  &_title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &_icon:global,
+  &_warningicon:global {
+    background-position-x: var(--iconBackgroundPosition);
+    background-repeat: no-repeat;
+    height: var(--iconHeight);
+  }
+
+  &_icon:global {
+    background-image: url('success.svg');
+  }
+
+  &_warningicon:global {
+    background-image: url('warning.svg');
+  }
+
+  &_content {
+    padding: var(--contentPadding);
+    text-align: center;
+  }
+
+  &_second_message {
+    display: inline-block;
+    margin-top: var(--secondMessageMargin);
+  }
+
+  &_buttonWrapper {
+    min-width: var(--widthOfTwoButton);
+    text-align: center;
+  }
+
+  &_button {
+    font-size: 12px;
+    height: 40px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 150px !important;
+  }
+}

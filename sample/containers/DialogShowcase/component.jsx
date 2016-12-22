@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dialog, Button } from 'omni-common-ui';
+import { Dialog, ConfirmDialog, ErrorDialog, Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 
 class DialogShowcase extends Component {
@@ -7,6 +7,8 @@ class DialogShowcase extends Component {
     super(props);
     this.state = {
       isDialogOpen: false,
+      isConfirmDialogOpen: false,
+      isErrorDialogOpen: false,
       isDialogLoading: false,
     };
   }
@@ -24,17 +26,34 @@ class DialogShowcase extends Component {
   render() {
     return <Showcase title="Dialogs" titleLink="dialogs">
       {/* Dialog Trigger */}
-      <Button type={Button.Type.neoPrimary}
+      <Button type={Button.Type.neo}
           onClick={() =>
-            this.setState({ isDialogOpen: ! this.state.isDialogOpen })}>
+            this.setState({ isDialogOpen: true })}>
         Show dialog
       </Button>
+
+      {/* ConfirmDialog Trigger */}
+      <Button type={Button.Type.neo}
+          onClick={() =>
+            this.setState({ isConfirmDialogOpen: true })}>
+        Show confirmation prompt
+      </Button>
+
+      {/* ErrorDialog Trigger */}
+      <Button type={Button.Type.neo}
+          onClick={() =>
+            this.setState({ isErrorDialogOpen: true })}>
+        Show error modal
+      </Button>
+
+      {/* --- */}
 
       {/* Dialog Component */}
       <Dialog isOpen={this.state.isDialogOpen}
           isLoading={this.state.isDialogLoading}
-          onRequestClose={() => this.setState({ isDialogOpen: false })}>
-        <h1>Dialog Title</h1>
+          onRequestClose={() => this.setState({
+            isDialogOpen: false,
+          })}>
         <p>Dialog Content</p>
         <Button type={Button.Type.neo}
             onClick={() =>
@@ -42,6 +61,25 @@ class DialogShowcase extends Component {
           Do something
         </Button>
       </Dialog>
+
+      {/* ConfirmDialog Component */}
+      <ConfirmDialog isOpen={this.state.isConfirmDialogOpen}
+          title="Dialog Title"
+          primaryButtonContent="Close"
+          secondaryButtonContent="Something else"
+          onPrimaryClick={() => this.setState({
+            isConfirmDialogOpen: false,
+          })}>
+        <p>
+          Dialog Content
+        </p>
+      </ConfirmDialog>
+
+      {/* ErrorDialog Component */}
+      <ErrorDialog isOpen={this.state.isErrorDialogOpen}
+          onConfirmClick={() => this.setState({
+            isErrorDialogOpen: false,
+          })} />
     </Showcase>;
   }
 }
