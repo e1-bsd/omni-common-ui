@@ -1,0 +1,35 @@
+@import 'main.postcss';
+
+:root {
+  --leftPadding: 20px;
+  --height: 40px;
+  --labelSpacing: 10px;
+}
+
+.InputSelect {
+  display: inline-block;
+  letter-spacing: var(--letterSpacing);
+
+  &_name {
+    display: block;
+    font-size: var(--fontSize-md);
+    font-weight: var(--fontWeight-medium);
+    letter-spacing: var(--letterSpacing);
+    line-height: 1.7;
+    margin-bottom: var(--labelSpacing);
+    text-transform: capitalize;
+  }
+
+  &_select {
+    border: 2px solid lightgray;
+    flex: 1;
+    height: var(--height);
+    letter-spacing: var(--letterSpacing);
+    padding-left: var(--leftPadding);
+    width: 100%;
+
+    &_placeholder {
+      color: lightgray;
+    }
+  }
+}
