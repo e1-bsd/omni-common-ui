@@ -1,7 +1,8 @@
 import styles from '../ConfirmDialog/style.postcss';
 
 import React from 'react';
-import { Dialog, Button } from 'omni-common-ui';
+import Dialog from 'components/Dialog';
+import Button from 'components/Button';
 
 const ErrorDialog = ({
       onConfirmClick,
