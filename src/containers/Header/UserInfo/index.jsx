@@ -100,17 +100,9 @@ class UserInfo extends Component {
   }
 
   _renderUser() {
-    const userName = this.props.user.profile.name;
-    const avatarUrl = this.props.user.profile.avatar_url;
-    const gender = this.props.user.profile.gender;
-
-    if (is.not.url(avatarUrl)) {
-      return userName;
-    }
-
     return <StudentPicture className={styles.UserInfo_container_user_img}
-        src={avatarUrl}
-        gender={gender} />;
+        src={this.props.user.profile.avatar_url}
+        gender={this.props.user.profile.gender} />;
   }
 
   _renderImpersonatedUser() {
@@ -118,14 +110,9 @@ class UserInfo extends Component {
       return null;
     }
 
-    const { userName, avatarUrl, gender } = this.props.impersonate;
-    if (! avatarUrl) {
-      return ` as ${userName}`;
-    }
-
-    return <StudentPicture src={avatarUrl}
+    return <StudentPicture src={this.props.impersonate.avatarUrl}
         className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
-        gender={gender} />;
+        gender={this.props.impersonate.gender} />;
   }
 
   render() {
