@@ -120,7 +120,7 @@ class UserInfo extends Component {
 
     const { userName, avatarUrl, gender } = this.props.impersonate;
     if (! avatarUrl) {
-      return `as ${userName}`;
+      return ` as ${userName}`;
     }
 
     return <StudentPicture src={avatarUrl}
