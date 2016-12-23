@@ -9,7 +9,7 @@ const ErrorDialog = ({
       isOpen,
     }) => <Dialog isOpen={isOpen}>
       <div className={styles.ConfirmDialog}>
-        <div className={styles.ConfirmDialog_warningicon} />
+        <div className={styles.ConfirmDialog_warningIcon} />
         <div className={styles.ConfirmDialog_content}>
           <span>An error occurred!</span>
         </div>

@@ -25,7 +25,7 @@ export const ErrorPageHandler = (props) => {
 
     if (shouldShowPopUp()) {
       const { response } = erroredApi.error;
-      return <AlertDialog iswarning
+      return <AlertDialog isWarning
           content1={buildMessage(response)}
           okButtonContent="OK"
           onButtonClick={cleanErrors} />;

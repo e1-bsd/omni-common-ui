@@ -6,6 +6,7 @@
   --buttonWidth: 150px;
   --buttonHeight: 40px;
   --dialogPadding: 32px 25px;
+  --secondContentTopMargin: 20px;
 }
 
 .AlertDialog {
@@ -23,11 +24,11 @@
     height: var(--iconHeight);
   }
 
-  &_warningicon {
+  &_warningIcon {
     margin-bottom: 40px;
   }
 
-  &_warningicon:global {
+  &_warningIcon:global {
     background-image: url('warning.svg');
     background-position-x: var(--iconBackgroundPositionX);
     background-repeat: no-repeat;
@@ -38,7 +39,11 @@
     text-align: center;
   }
 
-  &_second_message {
+  &_secondContent {
+    margin-top: var(--secondContentTopMargin);
+  }
+
+  &_secondMessage {
     display: inline-block;
     margin-top: var(--secondMessageMargin);
   }

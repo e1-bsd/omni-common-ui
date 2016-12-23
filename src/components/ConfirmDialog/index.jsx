@@ -18,7 +18,7 @@ const ConfirmDialog = ({
       <div className={styles.ConfirmDialog}>
         {title ?
           <div className={styles.ConfirmDialog_title}>{title}</div> :
-          <div className={styles.ConfirmDialog_warningicon} />}
+          <div className={styles.ConfirmDialog_warningIcon} />}
         <div className={styles.ConfirmDialog_content}>
           <span>{content}</span>
           {children}
