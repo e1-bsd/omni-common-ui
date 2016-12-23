@@ -32,7 +32,7 @@ class SingleSignOnHandlerImpl extends Component {
       return userManager.signinRedirect();
     }
 
-    ReactGA.set({ userId: props.user.profile.sub });
+    ReactGA.set({ userId: props.user && props.user.profile.sub });
     log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
   }
