@@ -3,7 +3,7 @@ import ColourLabel from 'components/ColourLabel';
 
 const ProductionStatus = (props) => {
   const { status, initial, highlighted } = props;
-  const colour = highlighted === true ? '#0087e6' : undefined;
+  const colour = highlighted === true ? '#0087e6' : '#c8c8c8';
   return <ColourLabel text={status} initial={initial} colour={colour} />;
 };
 
