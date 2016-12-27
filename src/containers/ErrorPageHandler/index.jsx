@@ -8,6 +8,7 @@ import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
+import userManager from 'containers/SingleSignOn/userManager';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
@@ -21,6 +22,11 @@ export const ErrorPageHandler = (props) => {
   function renderError() {
     if (! erroredApi) {
       return null;
+    }
+
+    if (erroredApi.error && erroredApi.error.status === 401) {
+      cleanErrors();
+      userManager.signoutRedirect();
     }
 
     if (shouldShowPopUp()) {
