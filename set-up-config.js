@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint strict: "off" */
 
 'use strict';
