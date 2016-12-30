@@ -18,12 +18,10 @@ if (options.host) {
   command.push(`${options.host}`);
 }
 
-const devServer = spawn('node', command);
-
-devServer.on('close', () => {
-  log.error(colors.red('😓  webpack-dev-server was unexpectedly closed.'));
-  process.exit(1);
+const devServer = spawn('node', command, { stdio: 'inherit' });
+devServer.on('close', (code) => {
+  if (code) {
+    log.error(colors.red('😓  webpack-dev-server was unexpectedly closed.'));
+    process.exit(code);
+  }
 });
-
-devServer.stdout.on('data', (data) => process.stdout.write(data));
-devServer.stderr.on('data', (data) => process.stderr.write(data));
