@@ -147,6 +147,8 @@
     "node": "^6.6.0"
   },
   "bin": {
-    "omni-build-bins": "./build-bins.js"
+    "omni-build-bins": "./build-bins.js",
+    "omni-start": "./start.js",
+    "omni-build": "./build.js"
   }
 }
