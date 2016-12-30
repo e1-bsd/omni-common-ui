@@ -11,3 +11,4 @@
 !/config/build.js
 !/start.js
 !/set-up-config.js
+!/build-bins.js
