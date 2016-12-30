@@ -6,8 +6,9 @@
 const path = require('path');
 const fs = require('fs');
 const { Map } = require('immutable');
-const { config } = require('./package.json');
 const log = require('loglevel');
+
+const { config } = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 
 log.enableAll();
 
