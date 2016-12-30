@@ -1,19 +1,29 @@
 #!/usr/bin/env node
-/* eslint strict: "off" */
 
-'use strict';
-
-const execSync = require('child_process').execSync;
+const log = require('loglevel');
+const colors = require('colors/safe');
+const spawn = require('child_process').spawn;
 const options = require('command-line-args')([
   { name: 'config', alias: 'c', type: String },
   { name: 'host', type: String },
 ]);
 
+log.enableAll();
+
 process.env.CONFIG = options.config || '';
 
-let command = 'node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 8080';
+const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080'];
 if (options.host) {
-  command += ` --host ${options.host}`;
+  command.push('--host');
+  command.push(`${options.host}`);
 }
 
-execSync(command, { stdio: [0, 1, 2] });
+const devServer = spawn('node', command);
+
+devServer.on('close', () => {
+  log.error(colors.red('😓  webpack-dev-server was unexpectedly closed.'));
+  process.exit(1);
+});
+
+devServer.stdout.on('data', (data) => process.stdout.write(data));
+devServer.stderr.on('data', (data) => process.stderr.write(data));

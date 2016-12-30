@@ -30,6 +30,7 @@
     "chai-enzyme": "0.6.0",
     "cheerio": "0.22.0",
     "classnames": "2.2.5",
+    "colors": "^1.1.2",
     "command-line-args": "^3.0.4",
     "cq-prolyfill": "0.3.2",
     "css-element-queries": "0.3.2",
