@@ -50,6 +50,19 @@
     color: var(--colorTextInverse);
   }
 
+  &_primaryInverse {
+    background-color: white;
+    color: var(--colorPrimaryNew);
+
+    &.__active {
+      color: var(--colorTextInverse);
+    }
+
+    &:hover:not([disabled],.__active) {
+      background-color: #ceebff !important;
+    }
+  }
+
   &_secondary {
     background-color: transparent;
     border-color: var(--colorPrimaryNew);
@@ -62,7 +75,7 @@
     }
   }
 
-  &:hover:not([disabled]) {
+  &:hover:not([disabled],.__active) {
     background-color: var(--colorButtonHover);
     box-shadow: 0 1px 2px 1px var(--colorBorder);
   }

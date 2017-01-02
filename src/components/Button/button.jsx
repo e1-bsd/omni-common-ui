@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { Type, validateType } from './type';
+import { Type, validateType, NeoTypes } from './type';
 import is from 'is_js';
 
 class Button extends Component {
@@ -80,7 +80,7 @@ class Button extends Component {
     if (is.existy(props.linkTo)) {
       return <Link to={props.linkTo}
           className={classnames(styles.ButtonLink, modeClasses, props.className, {
-            [styles.__neo]: type === Type.neoPrimary || type === Type.neo,
+            [styles.__neo]: NeoTypes.indexOf(type) !== - 1,
           })}
           ref={(c) => { this._node = c; }}
           onClick={() => { this._setActiveClassOnClick(); }}>

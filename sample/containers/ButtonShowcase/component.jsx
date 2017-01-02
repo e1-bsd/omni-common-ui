@@ -7,6 +7,27 @@ import log from 'loglevel';
 
 const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
     className={styles.ButtonShowcase_wrap}>
+  <div> {/* neoSecondary */}
+    <Button type={Button.Type.neoSecondary}
+        onClick={() => log.info('Normal button clicked')}>
+      Normal
+    </Button>
+    <Button active
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Active button clicked')}>
+      Active
+    </Button>
+    <Button active disabled
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Active button clicked')}>
+      Disabled active
+    </Button>
+    <Button disabled
+        type={Button.Type.neoSecondary}
+        onClick={() => log.info('Disabled button clicked')}>
+      Disabled
+    </Button>
+  </div>
   <div> {/* neoPrimary */}
     <Button type={Button.Type.neoPrimary}
         onClick={() => log.info('Primary button clicked')}>
@@ -28,25 +49,25 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
       Disabled primary
     </Button>
   </div>
-  <div> {/* neoSecondary */}
-    <Button type={Button.Type.neoSecondary}
-        onClick={() => log.info('Normal button clicked')}>
-      Normal
+  <div> {/* neoPrimaryInverse */}
+    <Button type={Button.Type.neoPrimaryInverse}
+        onClick={() => log.info('Primary button clicked')}>
+      Primary inv
     </Button>
     <Button active
-        type={Button.Type.neoSecondary}
-        onClick={() => log.info('Active button clicked')}>
-      Active
+        type={Button.Type.neoPrimaryInverse}
+        onClick={() => log.info('Active primary button clicked')}>
+      Active primary inv
     </Button>
     <Button active disabled
-        type={Button.Type.neoSecondary}
-        onClick={() => log.info('Active button clicked')}>
-      Disabled active
+        type={Button.Type.neoPrimaryInverse}
+        onClick={() => log.info('Active primary button clicked')}>
+      Disabled active primary inv
     </Button>
     <Button disabled
-        type={Button.Type.neoSecondary}
-        onClick={() => log.info('Disabled button clicked')}>
-      Disabled
+        type={Button.Type.neoPrimaryInverse}
+        onClick={() => log.info('Disabled primary button clicked')}>
+      Disabled primary inverse inv
     </Button>
   </div>
   <div> {/* neo link buttons */}
