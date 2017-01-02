@@ -7,25 +7,46 @@ import log from 'loglevel';
 
 const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
     className={styles.ButtonShowcase_wrap}>
-  <div> {/* neoSecondary */}
-    <Button type={Button.Type.neoSecondary}
+  <div> {/* neo */}
+    <Button type={Button.Type.neo}
         onClick={() => log.info('Normal button clicked')}>
       Normal
     </Button>
     <Button active
-        type={Button.Type.neoSecondary}
+        type={Button.Type.neo}
         onClick={() => log.info('Active button clicked')}>
       Active
     </Button>
     <Button active disabled
-        type={Button.Type.neoSecondary}
+        type={Button.Type.neo}
         onClick={() => log.info('Active button clicked')}>
       Disabled active
     </Button>
     <Button disabled
-        type={Button.Type.neoSecondary}
+        type={Button.Type.neo}
         onClick={() => log.info('Disabled button clicked')}>
       Disabled
+    </Button>
+  </div>
+  <div> {/* neoInverse */}
+    <Button type={Button.Type.neoInverse}
+        onClick={() => log.info('Normal button clicked')}>
+      Normal inv
+    </Button>
+    <Button active
+        type={Button.Type.neoInverse}
+        onClick={() => log.info('Active button clicked')}>
+      Active inv
+    </Button>
+    <Button active disabled
+        type={Button.Type.neoInverse}
+        onClick={() => log.info('Active button clicked')}>
+      Disabled active inv
+    </Button>
+    <Button disabled
+        type={Button.Type.neoInverse}
+        onClick={() => log.info('Disabled button clicked')}>
+      Disabled inv
     </Button>
   </div>
   <div> {/* neoPrimary */}

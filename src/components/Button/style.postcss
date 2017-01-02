@@ -45,6 +45,35 @@
 
   @mixin fontButton;
 
+  &_default,
+  &_inverse {
+    background-color: transparent;
+  }
+
+  &_default {
+    border-color: var(--colorPrimaryNew);
+    color: var(--colorPrimaryNew);
+
+    &:hover:not([disabled]),
+    &.__active {
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &_inverse {
+    border-color: white;
+    color: var(--colorTextInverse);
+
+    &.__active {
+      color: var(--colorTextInverse);
+    }
+
+    &:hover:not([disabled],.__active) {
+      background-color: var(--colorInverseButtonHover) !important;
+      color: var(--colorPrimaryNew);
+    }
+  }
+
   &_primary {
     background-color: var(--colorPrimaryNew);
     color: var(--colorTextInverse);
@@ -59,24 +88,17 @@
     }
 
     &:hover:not([disabled],.__active) {
-      background-color: #ceebff !important;
-    }
-  }
-
-  &_secondary {
-    background-color: transparent;
-    border-color: var(--colorPrimaryNew);
-    color: var(--colorPrimaryNew);
-
-    &:hover:not([disabled]),
-    &.__active {
-      border-color: transparent;
-      color: var(--colorTextInverse);
+      background-color: var(--colorInverseButtonHover) !important;
     }
   }
 
   &:hover:not([disabled],.__active) {
     background-color: var(--colorButtonHover);
+  }
+
+  &:hover:not([disabled]),
+  &.__active {
+    border-color: transparent;
     box-shadow: 0 1px 2px 1px var(--colorBorder);
   }
 
