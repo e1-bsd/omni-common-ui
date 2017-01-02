@@ -1,61 +1,96 @@
 import styles from './style.postcss';
 
-import React from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 import { Type, validateType } from './type';
 import is from 'is_js';
 
-const Button = (props) => {
-  const type = props.type || Type.default;
-  validateType(type);
-  const modeClasses = {
-    [styles.__block]: !! props.block,
-    [styles.__autoWidth]: !! props.autoWidth,
-    [styles.__active]: !! props.active,
-  };
-
-  const classes = classnames(type, modeClasses, props.className);
-
-  // case: link to URL via `linkHref` OR disabled with `linkTo`
-  if (is.existy(props.linkHref) || (is.existy(props.linkTo) && props.disabled)) {
-    // eslint-disable-next-line no-script-url
-    return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
-        className={classnames(styles.ButtonLink, modeClasses, props.className)}>
-      {renderButton()}
-    </a>;
-  }
-
-  // case: link to route via `linkTo`
-  if (is.existy(props.linkTo)) {
-    return <Link to={props.linkTo}
-        className={classnames(styles.ButtonLink, modeClasses, props.className, {
-          [styles.__neo]: type === Type.neoPrimary || type === Type.neo,
-        })}>
-      {renderButton()}
-    </Link>;
-  }
-
-  return renderButton();
-
-  function renderButton() {
-    return <button className={classes}
-        disabled={props.disabled}
-        onClick={props.onClick && handleClick}>
-      {props.children}
-    </button>;
-  }
-
-  function handleClick(e) {
-    if (props.disabled) {
+class Button extends Component {
+  _handleButtonClick(e) {
+    if (this.props.disabled) {
       return;
     }
 
-    if (is.function(props.onClick)) {
-      props.onClick(e);
+    if (is.function(this.props.onClick)) {
+      const ret = this.props.onClick(e);
+      this._setActiveClassOnClick(ret);
     }
   }
-};
+
+  _setActiveClassOnClick(ret) {
+    const { onClickActiveClassAddDelay, onClickActiveClassRemoveDelay } = this.props;
+
+    // defer this - we don't want to show an active state if something happens immediately
+    setTimeout(() => {
+      if (! this._node) return;
+      this._node.classList.add(styles.__active);
+      if (ret instanceof Promise) {
+        ret
+        .then(() => { this._unsetActiveClass(); })
+        .catch(() => { this._unsetActiveClass(); });
+      } else {
+        setTimeout(() => {
+          this._unsetActiveClass();
+        }, is.number(onClickActiveClassRemoveDelay) ? onClickActiveClassRemoveDelay : 1000);
+      }
+    }, is.number(onClickActiveClassAddDelay) ? onClickActiveClassAddDelay : 100);
+  }
+
+  _unsetActiveClass() {
+    if (! this._node) return;
+    this._node.classList.remove(styles.__active);
+  }
+
+  _renderButton(type, modeClasses) {
+    const classes = classnames(type, modeClasses, this.props.className);
+
+    return <button className={classes}
+        disabled={this.props.disabled}
+        onClick={this.props.onClick && ((e) => { this._handleButtonClick(e); })}
+        ref={(c) => { this._node = c; }}>
+      {this.props.children}
+    </button>;
+  }
+
+  render() {
+    const props = this.props;
+    const type = props.type || Type.default;
+
+    validateType(type);
+
+    const modeClasses = {
+      [styles.__block]: !! props.block,
+      [styles.__autoWidth]: !! props.autoWidth,
+      [styles.__active]: !! props.active,
+    };
+
+    // case: link to URL via `linkHref` OR disabled with `linkTo`
+    if (is.existy(props.linkHref) || (is.existy(props.linkTo) && props.disabled)) {
+      // eslint-disable-next-line no-script-url
+      return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
+          className={classnames(styles.ButtonLink, modeClasses, props.className)}
+          ref={(c) => { this._node = c; }}
+          onClick={() => { this._setActiveClassOnClick(); }}>
+        {this._renderButton(type, modeClasses)}
+      </a>;
+    }
+
+    // case: link to route via `linkTo`
+    if (is.existy(props.linkTo)) {
+      return <Link to={props.linkTo}
+          className={classnames(styles.ButtonLink, modeClasses, props.className, {
+            [styles.__neo]: type === Type.neoPrimary || type === Type.neo,
+          })}
+          ref={(c) => { this._node = c; }}
+          onClick={() => { this._setActiveClassOnClick(); }}>
+        {this._renderButton(type, modeClasses)}
+      </Link>;
+    }
+
+    return this._renderButton(type, modeClasses);
+  }
+}
 
 Button.propTypes = {
   onClick: React.PropTypes.func,
@@ -68,6 +103,8 @@ Button.propTypes = {
   autoWidth: React.PropTypes.bool,
   active: React.PropTypes.bool,
   className: React.PropTypes.string,
+  onClickActiveClassAddDelay: React.PropTypes.number,  // default: 100ms
+  onClickActiveClassRemoveDelay: React.PropTypes.number,  // default: 1000ms
 };
 
 export default Button;
