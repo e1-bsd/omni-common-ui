@@ -7,7 +7,7 @@
   --borderHeight: 10px;
 }
 
-.SavingBar {
+.SaveBar {
   bottom: 0;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 var(--borderHeight) 0;
   cursor: default;
@@ -16,10 +16,10 @@
   position: fixed;
   right: 0;
   transform: translate3d(0, calc((var(--barVerticalPadding) * 2) + var(--buttonHeight) + var(--borderHeight)), 0);
-  transition: transform 0.2s ease 0.1s;
+  transition: transform 0.2s ease 0.3s; /* keep it open long enough for saving to begin */
   width: 100%;
   will-change: animation, transform, visibility;
-  z-index: var(--zIndex-10-savingBar);
+  z-index: var(--zIndex-9--savingBar);
 
   &.__visible {
     pointer-events: auto;
@@ -28,7 +28,7 @@
   }
 
   &:not(.__visible) {
-    animation: goInvisible 0.01s 0.3s linear forwards;
+    animation: goInvisible 0.01s linear 0.5s forwards; /* wait for the main visibility transition to finish */
   }
 
   &_overlay {
@@ -38,7 +38,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: var(--zIndex-9-savingBarOverlay);
+    z-index: var(--zIndex-8--savingBarOverlay);
 
     &.__visible {
       pointer-events: auto;
@@ -51,6 +51,10 @@
     display: flex;
     justify-content: space-between;
     padding: var(--barVerticalPadding) 30px;
+
+    &_buttons {
+      flex-shrink: 0;
+    }
   }
 
   &_text {
@@ -58,11 +62,18 @@
     color: white;
     cursor: default;
     display: flex;
+    flex: 1;
     font-size: 15px;
     font-weight: var(--fontWeight-medium);
     letter-spacing: 1px;
     min-height: var(--buttonHeight); /* matches the button */
+    opacity: 0;
+    overflow: visible;
+    transition: opacity 0.1s ease;
     user-select: none;
+    white-space: nowrap;
+    width: 1px; /* don't occupy layout space; content will overflow */
+    will-change: opacity;
 
     &::before {
       animation: spin 0.5s linear infinite;
@@ -73,12 +84,17 @@
       border-width: 3px;
       content: '';
       display: block;
+      flex-shrink: 0;
       height: var(--loadingThrobberHeight);
       margin-right: 0.5rem;
       transform: translateZ(0) rotate(0deg);
       width: var(--loadingThrobberHeight);
       will-change: transform;
       z-index: 2000;
+    }
+
+    &.__visible {
+      opacity: 1;
     }
   }
 

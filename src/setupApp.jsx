@@ -19,7 +19,7 @@ import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
-import SavingBarHandler from 'containers/SavingBarHandler';
+import SaveBarHandler from 'containers/SaveBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
 import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
@@ -67,7 +67,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
                 childRoutes: [{
                   component: ErrorPageHandler,
                   childRoutes: [{
-                    component: SavingBarHandler,
+                    component: SaveBarHandler,
                     childRoutes: is.array(routes) ? routes : [routes],
                   }],
                 }],
