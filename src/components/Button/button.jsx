@@ -27,17 +27,18 @@ class Button extends Component {
       this._node.classList.add(styles.__active);
       if (ret instanceof Promise) {
         ret
-        .then(() => { this._unsetActiveClass(); })
-        .catch(() => { this._unsetActiveClass(); });
+        .then(() => { this._unsetActiveClassIfNonActive(); })
+        .catch(() => { this._unsetActiveClassIfNonActive(); });
       } else {
         setTimeout(() => {
-          this._unsetActiveClass();
+          this._unsetActiveClassIfNonActive();
         }, is.number(onClickActiveClassRemoveDelay) ? onClickActiveClassRemoveDelay : 1000);
       }
     }, is.number(onClickActiveClassAddDelay) ? onClickActiveClassAddDelay : 100);
   }
 
-  _unsetActiveClass() {
+  _unsetActiveClassIfNonActive() {
+    if (this.props.active) return;
     if (! this._node) return;
     this._node.classList.remove(styles.__active);
   }
