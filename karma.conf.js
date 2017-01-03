@@ -28,7 +28,7 @@ module.exports = (config) => {
     autoWatch: true,
     singleRun: false,
     concurrency: 1,
-    browsers: ['Chrome', /* 'Firefox', */ 'IE_no_addons'],
+    browsers: ['Chrome'/* , 'Firefox', 'IE_no_addons' */],
     customLaunchers: {
       IE_no_addons: {
         base: 'IE',
