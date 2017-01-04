@@ -1,5 +1,8 @@
 import styles from './style.postcss';
+
 import React from 'react';
+import is from 'is_js';
+
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 
@@ -15,8 +18,8 @@ const ConfirmDialog = ({
       isOpen,
       isLoading,
       isButtonless,
-    }) => <Dialog withCloseButton
-        isOpen={isOpen}
+    }) => <Dialog isOpen={isOpen}
+        withCloseButton={is.function(onRequestClose)}
         isLoading={isLoading}
         onRequestClose={(source) =>
           (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
