@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { push } from 'react-router-redux';
 import { Map } from 'immutable';
 import is from 'is_js';
-import log from 'loglevel';
+import log from 'domain/log';
 import ReactGA from 'react-ga';
 import classnames from 'classnames';
 

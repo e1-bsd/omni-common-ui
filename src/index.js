@@ -36,6 +36,7 @@ import _SolidRadio from 'components/SolidRadio';
 import _Detailsboard from 'components/Detailsboard';
 import _InputSelect from 'components/InputSelect';
 import _NumberInput from 'components/NumberInput';
+import _log from 'domain/log';
 
 export const Button = _Button;
 export const Card = _Card;
@@ -77,3 +78,4 @@ export const SolidRadio = _SolidRadio;
 export const Detailsboard = _Detailsboard;
 export const InputSelect = _InputSelect;
 export const NumberInput = _NumberInput;
+export const log = _log;

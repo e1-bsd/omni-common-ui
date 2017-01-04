@@ -61,6 +61,8 @@
   "globals": {
     "PRODUCTION": false,
     "VERSION": false,
+    "SENTRY_ENV": false,
+    "COMMIT": false,
     "describe": false,
     "context": false,
     "it": false,

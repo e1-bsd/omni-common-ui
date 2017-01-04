@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Timer from './Timer';
 import userManager from './userManager';
-import log from 'loglevel';
+import log from 'domain/log';
 import Config from 'domain/Config';
 import is from 'is_js';
 

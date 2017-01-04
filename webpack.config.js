@@ -111,6 +111,8 @@ module.exports = {
           'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
           VERSION: `'${version}'`,
+          COMMIT: `'${commitHash}'`,
+          SENTRY_ENV: `'${nodeEnv}'`,
         }),
       ]).concat(! isProd ?
         [

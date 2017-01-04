@@ -1,5 +1,5 @@
 import { fetch, buildUrl } from 'domain/Api';
-import log from 'loglevel';
+import log from 'domain/log';
 import ApiCall from 'containers/ApiCalls';
 
 export const FETCH_PRIVILEGES_REQUEST = 'FETCH_PRIVILEGES_REQUEST';

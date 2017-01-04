@@ -3,7 +3,7 @@ import sampleImage from './sample-image.jpg';
 import React from 'react';
 import { Card, Button, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
-import log from 'loglevel';
+import log from 'domain/log';
 
 const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
   <Grid>

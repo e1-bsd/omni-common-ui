@@ -1,5 +1,5 @@
 import { createUserManager } from 'redux-oidc';
-import log from 'loglevel';
+import log from 'domain/log';
 import Config from 'domain/Config';
 
 const protocol = window.location.protocol;

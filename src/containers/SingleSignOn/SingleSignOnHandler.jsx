@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
-import log from 'loglevel';
+import log from 'domain/log';
 import routes from './routes';
 import userManager from './userManager';
 import Config from 'domain/Config';

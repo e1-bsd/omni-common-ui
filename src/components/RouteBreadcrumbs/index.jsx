@@ -1,5 +1,5 @@
 import React from 'react';
-import log from 'loglevel';
+import log from 'domain/log';
 import is from 'is_js';
 
 import Breadcrumbs from 'components/Breadcrumbs';

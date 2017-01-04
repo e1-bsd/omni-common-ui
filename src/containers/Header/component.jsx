@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import styles from './style.postcss';
 import { actions as impersonateActions } from 'containers/Impersonate';
 import UserInfo from './UserInfo';
-import log from 'loglevel';
+import log from 'domain/log';
 import { connect } from 'domain/connect';
 import { bindActionCreators } from 'redux';
 

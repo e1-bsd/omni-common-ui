@@ -11,7 +11,8 @@ import {
   IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
-import log from 'loglevel';
+import loglevel from 'loglevel';
+import log from 'domain/log';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
@@ -26,16 +27,24 @@ import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
 import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 
 if (! PRODUCTION) {
-  log.enableAll();
+  loglevel.enableAll();
 } else {
-  log.setLevel('error');
+  loglevel.setLevel('error');
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
 
 Oidc.Log.logger = log;
 Oidc.Log.level = Oidc.Log.INFO;
+
+Raven.config(Config.get('sentryDsn'), {
+  release: COMMIT,
+  environment: SENTRY_ENV,
+  tags: { version: VERSION },
+  debug: ! PRODUCTION,
+}).install();
 
 export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
