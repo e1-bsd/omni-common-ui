@@ -2,7 +2,7 @@
   --iconBackgroundPosition: 50%;
   --dialogMaxWidth: 400px;
   --iconHeight: 30px;
-  --contentPadding: 40px 0;
+  --contentPadding: 20px 0 30px 0;
   --secondMessageMargin: 20px;
   --widthOfTwoButton: 320px;
 }
@@ -17,6 +17,7 @@
   }
 
   &_icon:global,
+  &_infoIcon:global,
   &_warningIcon:global {
     background-position-x: var(--iconBackgroundPosition);
     background-repeat: no-repeat;
@@ -25,6 +26,10 @@
 
   &_icon:global {
     background-image: url('success.svg');
+  }
+
+  &_infoIcon:global {
+    background-image: url('info.svg');
   }
 
   &_warningIcon:global {
@@ -46,11 +51,5 @@
     text-align: center;
   }
 
-  &_button {
-    font-size: 12px;
-    height: 40px !important;
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 150px !important;
-  }
+  &_button { /* ... */ }
 }

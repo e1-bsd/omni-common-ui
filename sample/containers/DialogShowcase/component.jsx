@@ -51,10 +51,13 @@ class DialogShowcase extends Component {
       {/* Dialog Component */}
       <Dialog isOpen={this.state.isDialogOpen}
           isLoading={this.state.isDialogLoading}
+          withCloseButton
           onRequestClose={() => this.setState({
             isDialogOpen: false,
           })}>
-        <p>Dialog Content</p>
+        <p>
+          Dialog Content
+        </p>
         <Button type={Button.Type.neo}
             onClick={() =>
               this.setState({ isDialogLoading: true })}>
@@ -64,15 +67,17 @@ class DialogShowcase extends Component {
 
       {/* ConfirmDialog Component */}
       <ConfirmDialog isOpen={this.state.isConfirmDialogOpen}
-          title="Dialog Title"
           primaryButtonContent="Close"
-          secondaryButtonContent="Something else"
+          secondaryButtonContent="Other"
           onPrimaryClick={() => this.setState({
             isConfirmDialogOpen: false,
+          })}
+          onRequestClose={() => this.setState({
+            isConfirmDialogOpen: false,
           })}>
-        <p>
+        <div>
           Dialog Content
-        </p>
+        </div>
       </ConfirmDialog>
 
       {/* ErrorDialog Component */}

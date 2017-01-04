@@ -63,6 +63,21 @@
   max-height: 100%;
   max-width: 100%;
   outline: none;
+
+  &_closeIcon {
+    background-position-x: var(--iconBackgroundPosition);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 10px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 10px;
+  }
+
+  &_closeIcon:global {
+    background-image: url('close.svg');
+  }
 }
 
 .Portal {

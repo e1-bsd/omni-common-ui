@@ -11,26 +11,33 @@ const ConfirmDialog = ({
       secondaryButtonContent,
       onPrimaryClick,
       onSecondaryClick,
+      onRequestClose,
       isOpen,
       isLoading,
       isButtonless,
-    }) => <Dialog isOpen={isOpen} isLoading={isLoading}>
+    }) => <Dialog withCloseButton
+        isOpen={isOpen}
+        isLoading={isLoading}
+        onRequestClose={(source) =>
+          (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
       <div className={styles.ConfirmDialog}>
         {title ?
-          <div className={styles.ConfirmDialog_title}>{title}</div> :
-          <div className={styles.ConfirmDialog_warningIcon} />}
+          <div className={styles.ConfirmDialog_title}>
+            {title}
+          </div> :
+          <div className={styles.ConfirmDialog_infoIcon} />}
         <div className={styles.ConfirmDialog_content}>
           <span>{content}</span>
           {children}
         </div>
         {! isButtonless ? <div className={styles.ConfirmDialog_buttonWrapper}>
-          <Button type={Button.Type.primary}
+          <Button type={Button.Type.neoPrimary}
               className={styles.ConfirmDialog_button}
               onClick={() => onPrimaryClick()}>
             {primaryButtonContent}
           </Button>
           {secondaryButtonContent ?
-            <Button type={Button.Type.default}
+            <Button type={Button.Type.neo}
                 className={styles.ConfirmDialog_button}
                 onClick={() => onSecondaryClick()} >
               {secondaryButtonContent}
@@ -51,6 +58,7 @@ ConfirmDialog.propTypes = {
   secondaryButtonContent: React.PropTypes.string,
   onPrimaryClick: React.PropTypes.func,
   onSecondaryClick: React.PropTypes.func,
+  onRequestClose: React.PropTypes.func,
 };
 
 export default ConfirmDialog;
