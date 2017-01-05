@@ -1,4 +1,5 @@
 import is from 'is_js';
+import log from 'domain/log';
 
 const TYPE_REQUEST = /_REQUEST$/i;
 const TYPE_SUCCESS = /_SUCCESS$/i;
@@ -60,6 +61,10 @@ export default class ApiAction {
       [FINGERPRINT]: true,
       [TIMESTAMP]: new Date(),
     });
+
+    if (ApiAction.isFailure(newAction)) {
+      log.error(newAction.error);
+    }
 
     return Object.freeze(newAction);
   }
