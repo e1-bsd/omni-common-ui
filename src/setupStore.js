@@ -22,7 +22,9 @@ export function setupStore(reducer) {
     basename: '/',
   });
 
-  const loggerMiddleware = createLogger();
+  const loggerMiddleware = createLogger(Object.assign({},
+      PRODUCTION && { stateTransformer: () => undefined }));
+
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
     applyMiddleware(
