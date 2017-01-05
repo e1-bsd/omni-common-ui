@@ -53,7 +53,12 @@
     padding: var(--barVerticalPadding) 30px;
 
     &_buttons {
-      flex-shrink: 0;
+      display: flex;
+      flex-grow: 1;
+
+      @media (--sm-viewport) {
+        flex-grow: 0;
+      }
     }
   }
 
@@ -62,7 +67,7 @@
     color: white;
     cursor: default;
     display: flex;
-    flex: 1;
+    flex: 0 1 0%;
     font-size: 15px;
     font-weight: var(--fontWeight-medium);
     letter-spacing: 1px;
@@ -99,14 +104,7 @@
   }
 
   &_button {
-    & > button {
-      min-height: var(--buttonHeight);
-
-      &:hover {
-        background-color: white !important;
-        color: inherit !important;
-      }
-    }
+    flex: 1;
   }
 }
 
