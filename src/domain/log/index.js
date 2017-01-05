@@ -7,22 +7,26 @@ export default class Log {
   }
 
   static debug(message) {
-    Raven.captureMessage(message, { level: 'info' });
+    Raven.captureBreadcrumb({ message, level: 'debug' });
     log.debug(message);
   }
 
   static info(message) {
-    Raven.captureMessage(message, { level: 'info' });
+    Raven.captureBreadcrumb({ message, level: 'info' });
     log.info(message);
   }
 
   static warn(message) {
-    Raven.captureMessage(message, { level: 'warning' });
-    log.info(message);
+    Raven.captureBreadcrumb({ message, level: 'warn' });
+    log.warn(message);
   }
 
   static error(message) {
-    Raven.captureMessage(message, { level: 'error' });
-    log.info(message);
+    if (message instanceof Error) {
+      Raven.captureException(message, { level: 'error' });
+    } else {
+      Raven.captureMessage(message, { level: 'error' });
+    }
+    log.error(message);
   }
 }
