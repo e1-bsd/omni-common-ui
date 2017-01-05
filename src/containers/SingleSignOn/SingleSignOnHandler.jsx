@@ -7,6 +7,7 @@ import routes from './routes';
 import userManager from './userManager';
 import Config from 'domain/Config';
 import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -32,9 +33,22 @@ class SingleSignOnHandlerImpl extends Component {
       return userManager.signinRedirect();
     }
 
-    ReactGA.set({ userId: props.user && props.user.profile.sub });
+    this._logUser(props);
     log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
+  }
+
+  _logUser(props) {
+    if (! props.user) {
+      return;
+    }
+
+    const user = props.user.profile;
+    const userId = user.sub;
+    const { email } = user;
+
+    ReactGA.set({ userId });
+    Raven.setUserContext({ email, id: userId });
   }
 
   _setLastUrlPath() {
