@@ -236,7 +236,8 @@ function addOptionalPlugins() {
         organisation: 'e1-bsd',
         project: packageInfo.config.sentryProject,
         apiKey: process.env.SENTRY_API_KEY,
-        release: () => commitHash,
+        release: commitHash,
+        include: /\.js(\.map)?$/,
       }),
     ]);
   }
