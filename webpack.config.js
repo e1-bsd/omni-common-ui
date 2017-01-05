@@ -23,6 +23,8 @@ const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
+const SentryPlugin = require('webpack-sentry-plugin');
+const is = require('is_js');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -224,6 +226,17 @@ function addOptionalPlugins() {
           warnings: false,
         },
         sourceMap: true,
+      }),
+    ]);
+  }
+
+  if (! isCommon && is.not.empty(process.env.SENTRY_API_KEY)) {
+    plugins.concat([
+      new SentryPlugin({
+        organisation: 'e1-bsd',
+        project: packageInfo.config.sentryProject,
+        apiKey: process.env.SENTRY_API_KEY,
+        release: () => commitHash,
       }),
     ]);
   }
