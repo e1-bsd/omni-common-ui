@@ -151,10 +151,10 @@
     "node": "^6.6.0"
   },
   "bin": {
-    "omni-build-bins": "./build-bins.js",
-    "omni-start": "./start.js",
-    "omni-build": "./build.js",
-    "omni-set-up-config": "./set-up-config.js",
-    "omni-sentry-release": "./sentry-release.js"
+    "omni-build-bins": "./scripts/build-bins.js",
+    "omni-start": "./scripts/start.js",
+    "omni-build": "./scripts/build.js",
+    "omni-set-up-config": "./scripts/set-up-config.js",
+    "omni-sentry-release": "./scripts/sentry-release.js"
   }
 }

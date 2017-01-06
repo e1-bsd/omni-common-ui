@@ -6,10 +6,5 @@
 !/lib
 !/.eslintrc.json
 !/.stylelintrc
-!/build.js
 !/webpack.config.js
-!/config/build.js
-!/start.js
-!/set-up-config.js
-!/build-bins.js
-!/sentry-release.js
+!/scripts
