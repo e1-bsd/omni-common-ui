@@ -119,6 +119,7 @@
     "redux-logger": "2.7.4",
     "redux-oidc": "2.2.1",
     "redux-thunk": "2.1.0",
+    "request": "^2.79.0",
     "require-all": "2.0.0",
     "rimraf": "2.5.4",
     "sinon": "2.0.0-pre",
