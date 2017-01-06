@@ -12,15 +12,10 @@ const recursive = require('recursive-readdir');
 // eslint-disable-next-line import/no-dynamic-require
 const packageInfo = require(path.resolve('package.json'));
 
-const { key } = require('command-line-args')([
-  { name: 'key', alias: 'k', type: String },
-]);
+const release = git.long();
+const { sentryProject, sentryApiKey } = packageInfo.config;
 
 log.enableAll();
-
-const release = git.long();
-const { sentryProject } = packageInfo.config;
-
 createRelease(uploadFiles);
 
 function createRelease(after) {
@@ -29,7 +24,7 @@ function createRelease(after) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${key}`,
+      Authorization: `Bearer ${sentryApiKey}`,
     },
     body: `{"version": "${release}"}`,
   }, processResponse((response, body) => {
@@ -59,7 +54,7 @@ function uploadFile(file) {
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${key}`,
+      Authorization: `Bearer ${sentryApiKey}`,
     },
     formData: { file: fs.createReadStream(file) },
   }, processResponse((response) => {
