@@ -207,7 +207,7 @@ module.exports = {
 
 function getSourceMapType() {
   if (isProd) {
-    return 'hidden-source-map';
+    return 'source-map';
   }
 
   return 'inline-source-map';
