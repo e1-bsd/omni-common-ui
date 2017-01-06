@@ -6,16 +6,14 @@ process.env.NODE_ENV = 'test';
 
 module.exports = (config) => {
   const settings = {
-    basePath: '',
+    basePath: process.cwd(),
     frameworks: ['mocha'],
-    files: [
-      'test.webpack.js',
-    ],
+    files: ['test.webpack.js'],
     exclude: [],
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require(path.resolve('./webpack.config.js')),
+    webpack: require(path.resolve('webpack.config.js')),
     webpackServer: {
       noInfo: true,
     },
