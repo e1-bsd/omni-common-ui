@@ -152,6 +152,7 @@
   "bin": {
     "omni-build-bins": "./build-bins.js",
     "omni-start": "./start.js",
-    "omni-build": "./build.js"
+    "omni-build": "./build.js",
+    "omni-set-up-config": "./set-up-config.js"
   }
 }
