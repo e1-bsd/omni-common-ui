@@ -33,9 +33,9 @@ function createRelease(after) {
     },
     body: `{"version": "${release}"}`,
   }, processResponse((response, body) => {
-    log.info(colors.green(`Release ${release} was created`));
-    log.info(colors.green(json(body)));
-    log.info('\n\n');
+    log.info(colors.green(`📦  ${release}`));
+    log.info(colors.grey(json(body)));
+    log.info('\n');
 
     after();
   }));
@@ -48,12 +48,12 @@ function uploadFiles() {
       process.exit(1);
     }
 
+    log.info('📤  Will upload files');
     files.forEach(uploadFile);
   });
 }
 
 function uploadFile(file) {
-  log.info(`Will upload file ${path.relative(process.cwd(), file)}`);
   return request({
     url: `https://sentry.io/api/0/projects/e1-bsd/${sentryProject}/releases/${release}/files/`,
     method: 'POST',
@@ -62,9 +62,12 @@ function uploadFile(file) {
       Authorization: `Bearer ${key}`,
     },
     formData: { file: fs.createReadStream(file) },
-  }, processResponse((response, body) => {
-    log.info(colors.green(`File ${path.relative(process.cwd(), file)} uploaded`));
-    log.info(colors.green(json(body)));
+  }, processResponse((response) => {
+    if (response.statusCode === 409) {
+      log.warn(colors.yellow(`  📄  ${path.relative(process.cwd(), file)} (already there)`));
+    } else {
+      log.info(colors.green(`  📄  ${path.relative(process.cwd(), file)}`));
+    }
   }));
 }
 
@@ -75,8 +78,11 @@ function processResponse(onOk) {
       process.exit(1);
     }
 
-    if (! (response.statusCode >= 200 && response.statusCode < 300)) {
-      log.error(colors.red(body && body.detail) || json(response));
+    if (response.statusCode !== 409 &&
+        ! (response.statusCode >= 200 && response.statusCode < 300)) {
+      log.error(json(response));
+      const parsedBody = JSON.parse(body);
+      log.error(colors.red(parsedBody && parsedBody.detail) || json(response));
       process.exit(1);
     }
 
