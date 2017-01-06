@@ -1,0 +1,15 @@
+@import 'main.postcss';
+
+:root {
+  --moduleContainerMarginTop: 20px;
+}
+
+.PageCard {
+  background: var(--colorCardBg);
+  box-shadow: 0 0 5px 0 #bfbfbf;
+  position: relative;
+}
+
+.PageCard + .PageCard {
+  margin-top: var(--moduleContainerMarginTop);
+}

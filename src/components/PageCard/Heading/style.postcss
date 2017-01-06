@@ -1,0 +1,37 @@
+@import 'main.postcss';
+
+:root {
+  --defaultHeadingFontSize: 18px;
+  --minHeight: 45px;
+  --borderWidth: 1px;
+  --verticalPadding: 10px;
+
+  /* --verticalPadding: calc(calc(var(--minHeight) - var(--defaultHeadingFontSize) - var(--borderWidth)) / 2); */
+}
+
+.PageCardHeading {
+  background: var(--colorNavSectionBg);
+  border-bottom: var(--borderWidth) solid var(--colorBorder);
+  min-height: var(--minHeight);
+  padding: var(--verticalPadding) 20px;
+
+  @media (--md-viewport-new) {
+    padding: var(--verticalPadding) 30px;
+  }
+
+  &.__stackHorizontal {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_h1 {
+    font-size: var(--defaultHeadingFontSize);
+    font-weight: normal;
+    letter-spacing: normal;
+    margin: 3px 0;  /* to compensate for lost padding */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
