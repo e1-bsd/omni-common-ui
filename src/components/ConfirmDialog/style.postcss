@@ -1,3 +1,5 @@
+@import 'main.postcss';
+
 :root {
   --iconBackgroundPosition: 50%;
   --dialogMaxWidth: 400px;
@@ -47,8 +49,11 @@
   }
 
   &_buttonWrapper {
-    min-width: var(--widthOfTwoButton);
     text-align: center;
+
+    @media (--sm-viewport) {
+      min-width: var(--widthOfTwoButton);
+    }
   }
 
   &_button { /* ... */ }

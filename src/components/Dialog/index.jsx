@@ -12,7 +12,7 @@ const Dialog = (props) => <Modal className={styles.Dialog}
       props.onRequestClose && props.onRequestClose('escape', ev)}
     portalClassName={styles.Portal}
     isOpen={props.isOpen}>
-  <Card className={props.className}>
+  <Card className={classnames(styles.Dialog_card, props.className)}>
     <Card.Content>
       {props.children}
     </Card.Content>

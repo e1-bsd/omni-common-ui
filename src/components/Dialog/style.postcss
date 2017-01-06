@@ -60,9 +60,25 @@
 
 .Dialog {
   display: flex;
+  left: 0;
   max-height: 100%;
   max-width: 100%;
   outline: none;
+  position: absolute;
+  width: 100%;
+
+  @media (--sm-viewport) {
+    position: static;
+    width: auto;
+  }
+
+  &_card {
+    width: 100%;
+
+    @media (--sm-viewport) {
+      width: auto;
+    }
+  }
 
   &_closeIcon {
     background-position-x: var(--iconBackgroundPosition);
