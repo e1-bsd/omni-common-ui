@@ -155,6 +155,7 @@
     "omni-start": "./scripts/start.js",
     "omni-build": "./scripts/build.js",
     "omni-set-up-config": "./scripts/set-up-config.js",
-    "omni-sentry-release": "./scripts/sentry-release.js"
+    "omni-sentry-release": "./scripts/sentry-release.js",
+    "omni-unit-test": "./scripts/unit-test.js"
   }
 }

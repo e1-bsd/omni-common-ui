@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-/* eslint strict: "off" */
-
-'use strict';
 
 const path = require('path');
 const fs = require('fs');
