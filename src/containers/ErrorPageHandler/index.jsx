@@ -25,7 +25,6 @@ export const ErrorPageHandler = (props) => {
     }
 
     if (erroredApi.error && erroredApi.error.status === 401) {
-      cleanErrors();
       userManager.signoutRedirect();
       throw new Error('Api called with 401 unauthorized');
     }
