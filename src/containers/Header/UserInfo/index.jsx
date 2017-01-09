@@ -20,6 +20,17 @@ class UserInfo extends Component {
       isDropdownOpen: false,
       isShowImpersonate: false,
     };
+    this._checkImpersonation(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this._checkImpersonation(props);
+  }
+
+  _checkImpersonation(props) {
+    if (props.hasUnimpersonated) {
+      this._redirectToPortal();
+    }
   }
 
   _onLogoutButtonClicked() {
@@ -116,15 +127,7 @@ class UserInfo extends Component {
   }
 
   render() {
-    /* eslint no-return-assign: "off" */
-    const { privileges, unimpersonateState } = this.props;
-    const errorCode = unimpersonateState ? unimpersonateState.get('error') : undefined;
-    const data = unimpersonateState ? unimpersonateState.get('data') : undefined;
-
-    if (errorCode || data) {
-      this._redirectToPortal();
-    }
-
+    const { privileges } = this.props;
     if (is.not.object(this.props.user) || ! privileges) {
       return null;
     }
@@ -156,19 +159,18 @@ UserInfo.propTypes = {
   unimpersonate: React.PropTypes.func,
   impersonate: React.PropTypes.object,
   privileges: React.PropTypes.object,
-  unimpersonateState: React.PropTypes.object,
+  hasUnimpersonated: React.PropTypes.bool.isRequired,
   user: React.PropTypes.object,
   canImpersonate: React.PropTypes.bool,
 };
 
 function mapStateToProps(state) {
+  const unimpersonate = state.get('impersonate').get('unimpersonate').get('unimpersonate');
   return {
     privileges: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
-    unimpersonateState: state.get('impersonate')
-      .get('unimpersonate')
-      .get('unimpersonate'),
+    hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
   };
 }
 
