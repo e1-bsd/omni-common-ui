@@ -72,6 +72,7 @@ class Button extends Component {
       return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
           className={classnames(styles.ButtonLink, modeClasses, props.className)}
           ref={(c) => { this._node = c; }}
+          target={props.newTab ? '_blank' : undefined}
           onClick={() => { this._setActiveClassOnClick(); }}>
         {this._renderButton(type, modeClasses)}
       </a>;
@@ -97,6 +98,7 @@ Button.propTypes = {
   onClick: React.PropTypes.func,
   type: React.PropTypes.string,
   disabled: React.PropTypes.bool,
+  newTab: React.PropTypes.bool,
   children: React.PropTypes.node,
   linkTo: React.PropTypes.string,
   linkHref: React.PropTypes.string,
