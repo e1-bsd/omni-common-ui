@@ -27,6 +27,10 @@ class UserInfo extends Component {
 
   componentWillReceiveProps(props) {
     this._checkImpersonation(props);
+
+    if (props.hasImpersonateFailed) {
+      this.setState({ isShowImpersonate: false });
+    }
   }
 
   _checkImpersonation(props) {
@@ -165,15 +169,18 @@ UserInfo.propTypes = {
   hasUnimpersonated: React.PropTypes.bool.isRequired,
   user: React.PropTypes.object,
   canImpersonate: React.PropTypes.bool,
+  hasImpersonateFailed: React.PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
   const unimpersonate = state.get('impersonate').get('unimpersonate').get('unimpersonate');
+  const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
+    hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),
   };
 }
 
