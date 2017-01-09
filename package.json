@@ -50,6 +50,7 @@
     "file-loader": "0.9.0",
     "flexboxgrid": "6.3.1",
     "formsy-react": "0.18.1",
+    "gemini": "^4.14.3",
     "git-rev-sync": "1.8.0",
     "glob": "7.1.1",
     "handlebars-loader": "1.4.0",
@@ -123,6 +124,7 @@
     "request": "^2.79.0",
     "require-all": "2.0.0",
     "rimraf": "2.5.4",
+    "selenium-standalone": "^5.9.1",
     "sinon": "2.0.0-pre",
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",
@@ -156,6 +158,8 @@
     "omni-build": "./scripts/build.js",
     "omni-set-up-config": "./scripts/set-up-config.js",
     "omni-sentry-release": "./scripts/sentry-release.js",
-    "omni-unit-test": "./scripts/unit-test.js"
+    "omni-unit-test": "./scripts/unit-test.js",
+    "omni-install-selenium": "./scripts/install-selenium.js",
+    "omni-css-test-update": "./scripts/gemini-update.js"
   }
 }
