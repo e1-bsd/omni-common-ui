@@ -12,6 +12,8 @@ import StudentPicture from 'components/StudentPicture';
 import testClass from 'domain/testClass';
 import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
+import { bindActionCreators } from 'redux';
+import { actions as privilegesActions } from 'containers/Privileges';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -127,8 +129,8 @@ class UserInfo extends Component {
   }
 
   render() {
-    const { privileges } = this.props;
-    if (is.not.object(this.props.user) || ! privileges) {
+    const { havePrivilegesLoaded } = this.props;
+    if (! havePrivilegesLoaded()) {
       return null;
     }
 
@@ -154,6 +156,7 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
+  havePrivilegesLoaded: React.PropTypes.func.isRequired,
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func,
@@ -167,11 +170,15 @@ UserInfo.propTypes = {
 function mapStateToProps(state) {
   const unimpersonate = state.get('impersonate').get('unimpersonate').get('unimpersonate');
   return {
-    privileges: state.get('privileges').items,
+    arePrivilegesLoaded: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
   };
 }
 
-export default connect(mapStateToProps)(UserInfo);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(privilegesActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
