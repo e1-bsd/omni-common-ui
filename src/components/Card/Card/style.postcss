@@ -1,9 +1,5 @@
 @import 'main.postcss';
 
-:root {
-  --borderWidth: var(--hairThin);
-}
-
 .Card {
   display: block;
   -webkit-overflow-scrolling: touch;
@@ -14,6 +10,6 @@
   }
 
   &:not(.__borderless) {
-    border: var(--borderWidth) solid var(--colorBorder);
+    box-shadow: var(--cardBoxShadow);
   }
 }
