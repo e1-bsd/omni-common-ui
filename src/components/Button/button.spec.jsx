@@ -23,6 +23,11 @@ describe('Button', () => {
     expect(wrapper.find(Link)).to.have.length(1);
   });
 
+  it('will open link in a new Tab if newTab is provided', () => {
+    const wrapper = shallow(<Button linkHref="/" newTab />);
+    expect(wrapper.prop('target')).to.equal('_blank');
+  });
+
   it('thows error if invalid type is passed', () => {
     expect(() => shallow(<Button type="faketype" />)).to.throw();
   });
