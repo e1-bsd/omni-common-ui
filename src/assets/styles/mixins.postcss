@@ -1,4 +1,5 @@
 @import './variables.postcss';
+@import './viewports.postcss';
 
 @define-mixin fontNormal {
   font-family: var(--fontFamily);
@@ -12,4 +13,22 @@
   font-weight: var(--fontWeight-medium);
   letter-spacing: 0.5px;
   text-transform: uppercase;
+}
+
+@define-mixin responsiveCardPadding {
+  padding: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding: var(--spaceBase) var(--spaceBaseLgViewport);
+  }
+}
+
+@define-mixin responsiveCardPaddingHorizontal {
+  padding-left: var(--spaceBase);
+  padding-right: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding-left: var(--spaceBaseLgViewport);
+    padding-right: var(--spaceBaseLgViewport);
+  }
 }

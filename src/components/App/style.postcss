@@ -18,9 +18,10 @@
     width: 100%;
 
     &_breadcrumbs {
+      @mixin responsiveCardPadding;
+
       background-color: var(--colorNavSectionBg);
       border-bottom: var(--hairThin) solid var(--colorBorder);
-      padding: var(--spaceBase);
     }
 
     &_wrap {

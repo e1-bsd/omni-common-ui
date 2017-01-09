@@ -50,7 +50,9 @@
     cursor: default;
     display: flex;
     justify-content: space-between;
-    padding: var(--barVerticalPadding) 30px;
+    padding: var(--barVerticalPadding);
+
+    @mixin responsiveCardPaddingHorizontal;
 
     &_buttons {
       display: flex;
