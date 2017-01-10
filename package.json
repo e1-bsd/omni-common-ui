@@ -165,7 +165,6 @@
     "omni-sentry-release": "./scripts/sentry-release.js",
     "omni-unit-test": "./scripts/unit-test.js",
     "omni-start-mock": "./scripts/start-mock.js",
-    "omni-install-selenium": "./scripts/install-selenium.js",
     "omni-css-test-update": "./scripts/gemini-update.js",
     "omni-css-test": "./scripts/gemini-test.js"
   }
