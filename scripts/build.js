@@ -18,6 +18,12 @@ const configs = new Map(requireAll({
 process.env.NODE_ENV = 'production';
 log.enableAll();
 
+const processes = [];
+
+process.on('exit', killAll);
+process.on('SIGINT', killAll);
+process.on('SIGTERM', killAll);
+
 const buildLog = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
 buildLog.on('open', () => {
   log.info('📦  Generate config files');
@@ -38,6 +44,7 @@ buildLog.on('open', () => {
 
     log.info('📦  Build app');
     const webpack = spawn('node', ['node_modules/webpack/bin/webpack.js', '-p', '--bail', '--progress', '--colors'], { env: process.env, stdio: [buildLog, buildLog, buildLog] });
+    processes.push(webpack);
     webpack.on('close', (code) => {
       if (code) {
         log.error(colors.red('   💣  App build failed!'));
@@ -48,3 +55,10 @@ buildLog.on('open', () => {
     });
   });
 });
+
+function killAll() {
+  log.debug(colors.grey('🔪  Will kill all processes'));
+  processes.forEach((child) => {
+    child.kill('SIGINT');
+  });
+}
