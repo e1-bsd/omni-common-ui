@@ -12,6 +12,10 @@ log.enableAll();
 
 process.env.CONFIG = options.config || '';
 
+process.on('exit', kill);
+process.on('SIGINT', kill);
+process.on('SIGTERM', kill);
+
 const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080'];
 if (options.host) {
   command.push('--host');
@@ -25,3 +29,7 @@ devServer.on('close', (code) => {
     process.exit(code);
   }
 });
+
+function kill() {
+  devServer.kill('SIGINT');
+}
