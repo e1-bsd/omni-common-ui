@@ -1,5 +1,3 @@
-module.exports = generateConfig;
-
 const resolution = '1024x768';
 
 module.exports = {
