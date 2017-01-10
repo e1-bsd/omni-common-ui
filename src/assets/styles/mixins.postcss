@@ -32,3 +32,20 @@
     padding-right: var(--spaceBaseLgViewport);
   }
 }
+
+@define-mixin cardbg {
+  background-color: var(--colorCardBg);
+}
+
+@define-mixin cardshadow {
+  border: 0;
+  box-shadow: var(--cardBoxShadow);
+}
+
+@define-mixin cardlike {
+  @mixin cardbg;
+  @mixin cardshadow;
+  @mixin responsiveCardPadding;
+
+  position: relative;
+}

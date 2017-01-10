@@ -6,10 +6,10 @@
   position: relative;
 
   &:not(.__backgroundless) {
-    background: var(--colorCardBg);
+    @mixin cardbg;
   }
 
   &:not(.__borderless) {
-    box-shadow: var(--cardBoxShadow);
+    @mixin cardshadow;
   }
 }

@@ -5,9 +5,8 @@
 }
 
 .PageCard {
-  background: var(--colorCardBg);
-  box-shadow: var(--cardBoxShadow);
-  position: relative;
+  @mixin cardbg;
+  @mixin cardshadow;
 }
 
 .PageCard + .PageCard {
