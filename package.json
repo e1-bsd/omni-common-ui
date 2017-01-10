@@ -129,6 +129,7 @@
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",
     "stylelint-config-standard": "14.0.0",
+    "supervisor": "^0.12.0",
     "typed-immutable": "0.0.8",
     "url-loader": "0.5.7",
     "utils": "0.3.1",
@@ -159,6 +160,7 @@
     "omni-set-up-config": "./scripts/set-up-config.js",
     "omni-sentry-release": "./scripts/sentry-release.js",
     "omni-unit-test": "./scripts/unit-test.js",
+    "omni-start-mock": "./scripts/start-mock.js",
     "omni-install-selenium": "./scripts/install-selenium.js",
     "omni-css-test-update": "./scripts/gemini-update.js"
   }
