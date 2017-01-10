@@ -2,23 +2,16 @@
 
 const path = require('path');
 const fs = require('fs');
-const spawn = require('child_process').spawn;
 const log = require('loglevel');
 const colors = require('colors/safe');
+const spawn = require('./spawn');
 
 log.enableAll();
-
-const processes = [];
-
-process.on('exit', killAll);
-process.on('SIGINT', () => process.exit(1));
-process.on('SIGTERM', () => process.exit(1));
 
 const logFile = fs.createWriteStream(path.resolve(`${path.basename(__filename)}.log`), { flags: 'w+' });
 logFile.on('open', () => {
   process.stdout.write('🎬  Will install Selenium');
   const seleniumInstall = spawn('node', ['node_modules/selenium-standalone/bin/selenium-standalone', 'install', '--version=3.0.1'], { stdio: [logFile, logFile, logFile] });
-  processes.push(seleniumInstall);
   seleniumInstall.on('close', (code) => {
     process.stderr.clearLine();
     process.stderr.cursorTo(0);
@@ -41,13 +34,14 @@ logFile.on('open', () => {
         name: 'Mock server',
       }))
       .then(start({
-        command: ['yarn', 'start'],
+        command: ['node', path.join(__dirname, 'start.js')],
         lookFor: /webpack: bundle is now VALID/i,
         name: 'Web server',
       }))
       .then(start({
         command: ['node', 'node_modules/gemini/bin/gemini', 'test', '--reporter', 'flat', '--reporter', 'html', '--config', path.join(__dirname, '../.gemini.conf.js')],
         name: 'Gemini',
+        writeToConsole: true,
       }))
       .catch(() => {
         process.exit(1);
@@ -55,11 +49,15 @@ logFile.on('open', () => {
   });
 });
 
-function start({ command, lookFor, name }) {
+function start({ command, lookFor, name, writeToConsole = false }) {
   return () => new Promise((resolve) => {
     let done = false;
 
-    process.stderr.write(`🎬  Will start ${name}`);
+    process.stdout.write(`🎬  Will start ${name}`);
+    if (writeToConsole) {
+      process.stdout.write('\n');
+    }
+
     const child = spawn(command[0], command.splice(1));
     child.on('close', (code) => {
       process.stderr.clearLine();
@@ -67,15 +65,22 @@ function start({ command, lookFor, name }) {
       process.stderr.write(colors.red(`💥  ${name} has failed\n`));
       process.exit(code);
     });
-    processes.push(child);
 
     child.stdout.on('data', (data) => {
-      logFile.write(data);
+      if (writeToConsole) {
+        process.stdout.write(data);
+      } else {
+        logFile.write(data);
+      }
       isDone(data);
     });
 
     child.stderr.on('data', (data) => {
-      logFile.write(data);
+      if (writeToConsole) {
+        process.stderr.write(data);
+      } else {
+        logFile.write(data);
+      }
       isDone(data);
     });
 
@@ -97,11 +102,3 @@ function start({ command, lookFor, name }) {
     }
   });
 }
-
-function killAll() {
-  log.debug(colors.grey('\n🔪  Will kill all processes'));
-  processes.forEach((child) => {
-    child.kill('SIGINT');
-  });
-}
-

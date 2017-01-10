@@ -2,7 +2,7 @@
 
 const log = require('loglevel');
 const colors = require('colors/safe');
-const spawn = require('child_process').spawn;
+const spawn = require('./spawn');
 const options = require('command-line-args')([
   { name: 'config', alias: 'c', type: String },
   { name: 'host', type: String },
@@ -12,24 +12,16 @@ log.enableAll();
 
 process.env.CONFIG = options.config || '';
 
-process.on('exit', kill);
-process.on('SIGINT', kill);
-process.on('SIGTERM', kill);
-
 const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080'];
 if (options.host) {
   command.push('--host');
   command.push(`${options.host}`);
 }
 
-const devServer = spawn('node', command, { stdio: 'inherit' });
-devServer.on('close', (code) => {
-  if (code) {
-    log.error(colors.red('😓  webpack-dev-server was unexpectedly closed.'));
-    process.exit(code);
-  }
-});
-
-function kill() {
-  devServer.kill('SIGINT');
-}
+spawn('node', command, { stdio: 'inherit' })
+    .on('close', (code) => {
+      if (code) {
+        log.error(colors.red('😓  webpack-dev-server was unexpectedly closed.'));
+        process.exit(code);
+      }
+    });

@@ -2,11 +2,11 @@
 
 const log = require('loglevel');
 const colors = require('colors/safe');
-const spawn = require('child_process').spawn;
 const { Map } = require('immutable');
 const path = require('path');
 const fs = require('fs');
 const requireAll = require('require-all');
+const spawn = require('./spawn');
 
 const configs = new Map(requireAll({
   dirname: path.resolve('config'),
@@ -17,12 +17,6 @@ const configs = new Map(requireAll({
 
 process.env.NODE_ENV = 'production';
 log.enableAll();
-
-const processes = [];
-
-process.on('exit', killAll);
-process.on('SIGINT', killAll);
-process.on('SIGTERM', killAll);
 
 const buildLog = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
 buildLog.on('open', () => {
@@ -44,7 +38,6 @@ buildLog.on('open', () => {
 
     log.info('📦  Build app');
     const webpack = spawn('node', ['node_modules/webpack/bin/webpack.js', '-p', '--bail', '--progress', '--colors'], { env: process.env, stdio: [buildLog, buildLog, buildLog] });
-    processes.push(webpack);
     webpack.on('close', (code) => {
       if (code) {
         log.error(colors.red('   💣  App build failed!'));
@@ -55,10 +48,3 @@ buildLog.on('open', () => {
     });
   });
 });
-
-function killAll() {
-  log.debug(colors.grey('🔪  Will kill all processes'));
-  processes.forEach((child) => {
-    child.kill('SIGINT');
-  });
-}
