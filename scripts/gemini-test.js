@@ -8,42 +8,63 @@ const colors = require('colors/safe');
 
 log.enableAll();
 
-const processes = new Array(0);
+const processes = [];
 
 process.on('exit', killAll);
-process.on('SIGINT', killAll);
-process.on('SIGTERM', killAll);
+process.on('SIGINT', () => process.exit(1));
+process.on('SIGTERM', () => process.exit(1));
 
 const logFile = fs.createWriteStream(path.resolve(`${path.basename(__filename)}.log`), { flags: 'w+' });
-start({
-  command: ['node', 'node_modules/selenium-standalone/bin/selenium-standalone', 'start', '--version=3.0.1'],
-  lookFor: /(Selenium started)|(Selenium Server is up and running)/i,
-  name: 'Selenium',
-})
-  .then(start({
-    command: ['node', path.join(__dirname, 'start-mock.js')],
-    lookFor: /Serving on port/i,
-    name: 'Mock server',
-  }))
-  .then(start({
-    command: ['yarn', 'start'],
-    lookFor: /webpack: bundle is now VALID/i,
-    name: 'Web server',
-  }))
-  .then(start({
-    command: ['node', 'node_modules/gemini/bin/gemini', 'test', '--reporter', 'flat', '--reporter', 'html', '--config', path.join(__dirname, '../.gemini.conf.js')],
-    name: 'Gemini',
-  }))
-  .catch(() => {
-    process.exit(1);
+logFile.on('open', () => {
+  process.stdout.write('🎬  Will install Selenium');
+  const seleniumInstall = spawn('node', ['node_modules/selenium-standalone/bin/selenium-standalone', 'install', '--version=3.0.1'], { stdio: [logFile, logFile, logFile] });
+  processes.push(seleniumInstall);
+  seleniumInstall.on('close', (code) => {
+    process.stderr.clearLine();
+    process.stderr.cursorTo(0);
+
+    if (code !== 0) {
+      process.stderr.write(colors.red('💥  Selenium installation has failed\n'));
+      process.exit(1);
+    }
+
+    process.stdout.write(colors.green('🔩  Selenium has been installed\n'));
+
+    start({
+      command: ['node', 'node_modules/selenium-standalone/bin/selenium-standalone', 'start', '--version=3.0.1'],
+      lookFor: /(Selenium started)|(Selenium Server is up and running)/i,
+      name: 'Selenium',
+    })()
+      .then(start({
+        command: ['node', path.join(__dirname, 'start-mock.js')],
+        lookFor: /Serving on port/i,
+        name: 'Mock server',
+      }))
+      .then(start({
+        command: ['yarn', 'start'],
+        lookFor: /webpack: bundle is now VALID/i,
+        name: 'Web server',
+      }))
+      .then(start({
+        command: ['node', 'node_modules/gemini/bin/gemini', 'test', '--reporter', 'flat', '--reporter', 'html', '--config', path.join(__dirname, '../.gemini.conf.js')],
+        name: 'Gemini',
+      }))
+      .catch(() => {
+        process.exit(1);
+      });
   });
+});
 
 function start({ command, lookFor, name }) {
-  return new Promise((resolve) => {
+  return () => new Promise((resolve) => {
     let done = false;
+
+    process.stderr.write(`🎬  Will start ${name}`);
     const child = spawn(command[0], command.splice(1));
     child.on('close', (code) => {
-      log.info(colors.red(`💥  ${name} has failed`));
+      process.stderr.clearLine();
+      process.stderr.cursorTo(0);
+      process.stderr.write(colors.red(`💥  ${name} has failed\n`));
       process.exit(code);
     });
     processes.push(child);
@@ -63,7 +84,9 @@ function start({ command, lookFor, name }) {
 
       data.toString().split('\n').find((line) => {
         if (lookFor.test(line)) {
-          log.info(colors.green(`🏃  ${name} is up an running`));
+          process.stdout.clearLine();
+          process.stdout.cursorTo(0);
+          process.stdout.write(colors.green(`🏃  ${name} is up an running\n`));
           resolve();
           done = true;
           return true;
@@ -76,10 +99,9 @@ function start({ command, lookFor, name }) {
 }
 
 function killAll() {
+  log.debug(colors.grey('\n🔪  Will kill all processes'));
   processes.forEach((child) => {
-    try {
-      child.kill();
-    } catch (e) { /* */ }
+    child.kill('SIGINT');
   });
 }
 
