@@ -14,6 +14,7 @@ module.exports = {
     },
   },
   system: {
+    projectRoot: process.cwd(),
     sourceRoot: "./app",
     exclude: ["node_modules/**"],
   },
