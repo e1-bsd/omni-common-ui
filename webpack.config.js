@@ -168,7 +168,6 @@ module.exports = {
       addDependencyTo: webpackInstance,
     }),
     postcssUrl({ url: 'rebase' }),
-    postcssGradientTransparencyFix,
     postcssContainerQueries,
     postcssMixins,
     postcssCustomSelectors,
@@ -177,6 +176,7 @@ module.exports = {
     postcssColorFunctions,
     postcssColorHexAlpha,
     postcssNesting,
+    postcssGradientTransparencyFix,
     postcssPxToRem({
       rootValue: 14,
       unitPrecision: 5,
