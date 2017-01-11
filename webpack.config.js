@@ -19,6 +19,7 @@ const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
 const postcssPxToRem = require('postcss-pxtorem');
+const postcssGradientTransparencyFix = require('postcss-gradient-transparency-fix');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -167,6 +168,7 @@ module.exports = {
       addDependencyTo: webpackInstance,
     }),
     postcssUrl({ url: 'rebase' }),
+    postcssGradientTransparencyFix,
     postcssContainerQueries,
     postcssMixins,
     postcssCustomSelectors,
