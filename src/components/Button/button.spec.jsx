@@ -69,20 +69,9 @@ describe('Button', () => {
       const wrapper = mount(<Button onClick={() => {}} />);
       wrapper.simulate('click');
       setTimeout(() => {
-        expect(wrapper.find(`.${styles.__active}`).length).to.equal(1);
+        expect(wrapper).to.have.descendants(`.${styles.__active}`);
         done();
       }, 150);
-    });
-
-    it('removes the .__active class after 200ms', (done) => {
-      const wrapper = mount(<Button onClick={() => {}}
-          onClickActiveClassAddDelay={0}
-          onClickActiveClassRemoveDelay={200} />);
-      wrapper.simulate('click');
-      setTimeout(() => {
-        expect(wrapper.find(`.${styles.__active}`).length).to.equal(0);
-        done();
-      }, 250);
     });
 
     it('removes the .__active class when onClick promise is resolved', (done) => {
