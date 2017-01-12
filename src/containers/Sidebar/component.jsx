@@ -49,7 +49,10 @@ class Sidebar extends Component {
   }
 
   _expand() {
-    this.setState({ expanded: true }, () => document.body.addEventListener('click', this._onClickedOutside));
+    this.setState({ expanded: true }, () => {
+      document.body.addEventListener('click', this._onClickedOutside);
+      document.body.addEventListener('touchstart', this._onClickedOutside);
+    });
   }
 
   _contract() {
@@ -58,6 +61,7 @@ class Sidebar extends Component {
 
   _removeClickOutsideEvent() {
     document.body.removeEventListener('click', this._onClickedOutside);
+    document.body.removeEventListener('touchstart', this._onClickedOutside);
   }
 
   _onClickedOutside(evt) {
