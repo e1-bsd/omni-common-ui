@@ -1,4 +1,5 @@
 import 'rc-tooltip/assets/bootstrap.css';
+import styles from './style.postcss';
 
 import React from 'react';
 import RcTooltip from 'rc-tooltip';
@@ -12,7 +13,7 @@ const Tooltip = (props) => {
   return <RcTooltip placement="top"
       trigger={['hover']}
       destroyPopupOnHide
-      overlay={<span>{props.text}</span>}>
+      overlay={<div className={styles.Tooltip_bubble}>{props.text}</div>}>
     <div className={props.className}>{props.children}</div>
   </RcTooltip>;
 };
