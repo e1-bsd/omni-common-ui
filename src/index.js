@@ -1,4 +1,5 @@
 import _Button from 'components/Button';
+import _ButtonContainer from 'components/Button/Container';
 import _Card from 'components/Card';
 import _PageCard from 'components/PageCard';
 import _StudentCard from 'components/StudentCard';
@@ -39,6 +40,7 @@ import _NumberInput from 'components/NumberInput';
 import _log from 'domain/log';
 
 export const Button = _Button;
+export const ButtonContainer = _ButtonContainer;
 export const Card = _Card;
 export const PageCard = _PageCard;
 export const StudentCard = _StudentCard;

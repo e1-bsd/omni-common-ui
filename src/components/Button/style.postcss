@@ -1,6 +1,7 @@
 @import 'main.postcss';
 
-.Button:not(.__autoWidth) {
+.Button:not(.__autoWidth),
+.NeoButton:not(.__autoWidth) {
   width: 100%;
 
   @media (--sm-viewport) {
@@ -28,7 +29,8 @@
   }
 
   &.__autoWidth {
-    /* ... */
+    /* prevent responsive mode upper margin pad */
+    margin-top: 0 !important;
   }
 }
 
@@ -110,9 +112,21 @@
     opacity: 0.4;
   }
 
+  &.__autoWidth {
+    & + &,
+    & + .ButtonLink {
+      margin-left: 10px;
+    }
+  }
+
   & + &,
   & + .ButtonLink {
-    margin-left: 10px;
+    margin-top: 10px;
+
+    @media (--sm-viewport) {
+      margin-left: 10px;
+      margin-top: auto;
+    }
   }
 }
 
@@ -256,7 +270,12 @@
   &.__neo {
     & + &,
     & + .NeoButton {
-      margin-left: 10px;
+      margin-top: 10px;
+
+      @media (--sm-viewport) {
+        margin-left: 10px;
+        margin-top: auto;
+      }
     }
   }
 
