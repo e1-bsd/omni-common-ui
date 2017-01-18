@@ -72,7 +72,6 @@ class Button extends Component {
       // eslint-disable-next-line no-script-url
       return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
           className={classnames(styles.ButtonLink, modeClasses, props.className)}
-          ref={(c) => { this._node = c; }}
           target={props.newTab ? '_blank' : undefined}
           onClick={() => { this._setActiveClassOnClick(); }}>
         {this._renderButton(type, modeClasses)}
@@ -85,7 +84,6 @@ class Button extends Component {
           className={classnames(styles.ButtonLink, modeClasses, props.className, {
             [styles.__neo]: NeoTypes.indexOf(type) !== - 1,
           })}
-          ref={(c) => { this._node = c; }}
           onClick={() => { this._setActiveClassOnClick(); }}>
         {this._renderButton(type, modeClasses)}
       </Link>;
