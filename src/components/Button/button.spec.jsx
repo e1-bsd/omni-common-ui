@@ -57,6 +57,11 @@ describe('Button', () => {
     expect(wrapper.find(`.${styles.__block}`).length).to.equal(2);
   });
 
+  it('applies custom attrs when provided', () => {
+    const wrapper = shallow(<Button attrs={{ type: 'submit' }} />);
+    expect(wrapper.find('button[type="submit"]').length).to.equal(1);
+  });
+
   describe('when clicked', () => {
     it('calls onClick', () => {
       const onClick = Sinon.spy();

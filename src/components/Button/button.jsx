@@ -49,7 +49,8 @@ class Button extends Component {
     return <button className={classes}
         disabled={this.props.disabled}
         onClick={this.props.onClick && ((e) => { this._handleButtonClick(e); })}
-        ref={(c) => { this._node = c; }}>
+        ref={(c) => { this._node = c; }}
+        {...this.props.attrs || {}}>
       {this.props.children}
     </button>;
   }
@@ -106,6 +107,9 @@ Button.propTypes = {
   autoWidth: React.PropTypes.bool,
   active: React.PropTypes.bool,
   className: React.PropTypes.string,
+  attrs: React.PropTypes.shape({
+    type: React.PropTypes.string,
+  }),
   onClickActiveClassAddDelay: React.PropTypes.number,  // default: 100ms
   onClickActiveClassRemoveDelay: React.PropTypes.number,  // default: 1000ms
 };
