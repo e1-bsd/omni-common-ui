@@ -56,7 +56,8 @@ class Impersonate extends Component {
             suffix={suffix}
             onChange={(e) => this._handleEmailChange(e)} />
       </div>
-      <div className={styles.Impersonate_buttonContainer}>
+      <Button.Container className={styles.Impersonate_buttonContainer}
+          align="center">
         <Button type={Button.Type.primary}
             className={classnames(styles.button, testClass('impersonate-dialog-switch'))}
             disabled={! this.state.impersonateEmail}
@@ -67,7 +68,7 @@ class Impersonate extends Component {
             onClick={() => this.props.close()}>
           CANCEL
         </Button>
-      </div>
+      </Button.Container>
     </div>;
   }
 }

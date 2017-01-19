@@ -1,4 +1,4 @@
-import styles from '../ConfirmDialog/style.postcss';
+import styles from './style.postcss';
 
 import React from 'react';
 import Dialog from 'components/Dialog';
@@ -11,17 +11,18 @@ const ErrorDialog = ({
         isOpen={isOpen}
         onRequestClose={(source) =>
           (source === 'button' ? onConfirmClick() : null)}>
-      <div className={styles.ConfirmDialog}>
-        <div className={styles.ConfirmDialog_warningIcon} />
-        <div className={styles.ConfirmDialog_content}>
+      <div className={styles.ErrorDialog}>
+        <div className={styles.ErrorDialog_warningIcon} />
+        <div className={styles.ErrorDialog_content}>
           <span>An error occurred!</span>
         </div>
-        <div className={styles.ConfirmDialog_buttonWrapper}>
+        <Button.Container className={styles.ErrorDialog_buttons}
+            align="center">
           <Button type={Button.Type.neoPrimary}
               onClick={() => onConfirmClick()}>
             OK
           </Button>
-        </div>
+        </Button.Container>
       </div>
     </Dialog>;
 

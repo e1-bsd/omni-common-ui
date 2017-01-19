@@ -33,7 +33,8 @@ const ConfirmDialog = ({
           <span>{content}</span>
           {children}
         </div>
-        {! isButtonless ? <div className={styles.ConfirmDialog_buttonWrapper}>
+        {! isButtonless ? <Button.Container className={styles.ConfirmDialog_buttons}
+            align="center">
           <Button type={Button.Type.neoPrimary}
               className={styles.ConfirmDialog_button}
               onClick={() => onPrimaryClick()}>
@@ -46,7 +47,7 @@ const ConfirmDialog = ({
               {secondaryButtonContent}
             </Button> :
             false}
-        </div> : null}
+        </Button.Container> : null}
       </div>
     </Dialog>;
 

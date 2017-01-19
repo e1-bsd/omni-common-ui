@@ -2,9 +2,13 @@
 
 .ButtonContainer {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: var(--spaceBase);
+  flex-wrap: nowrap;
+  text-align: center;
   width: 100%;
+
+  &.__alignCenter {
+    justify-content: center;
+  }
 
   &.__alignRight {
     justify-content: flex-end;

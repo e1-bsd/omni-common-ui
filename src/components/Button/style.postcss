@@ -2,10 +2,13 @@
 
 .Button:not(.__autoWidth),
 .NeoButton:not(.__autoWidth) {
-  width: 100%;
+  flex-basis: 0%;
+  flex-grow: 1;
 
-  @media (--sm-viewport) {
-    width: auto;
+  /* responsive buttons until this breakpoint */
+  @media (--md-viewport-new) {
+    flex-basis: auto;
+    flex-grow: 0;
   }
 }
 
@@ -39,11 +42,15 @@
   border: 1px solid transparent;
   border-radius: 5px;
   min-height: var(--touchableMinHeightNew);
-  min-width: 100px;
+  min-width: 0;
   padding: 0 15px;
   text-align: center;
   transition: all 0.1s ease;
   will-change: background, border, box-shadow, color, opacity;
+
+  @media (--md-viewport-new) {
+    min-width: 100px;
+  }
 
   @mixin fontButton;
 
@@ -121,12 +128,7 @@
 
   & + &,
   & + .ButtonLink {
-    margin-top: 10px;
-
-    @media (--sm-viewport) {
-      margin-left: 10px;
-      margin-top: auto;
-    }
+    margin-left: 10px;
   }
 }
 
@@ -270,12 +272,7 @@
   &.__neo {
     & + &,
     & + .NeoButton {
-      margin-top: 10px;
-
-      @media (--sm-viewport) {
-        margin-left: 10px;
-        margin-top: auto;
-      }
+      margin-left: 10px;
     }
   }
 

@@ -31,13 +31,14 @@ const AlertDialog = ({
           styles.AlertDialog_secondContent)}>
           <span>{content2}</span>
         </div>
-        <div className={styles.AlertDialog_buttonWrapper}>
+        <Button.Container className={styles.AlertDialog_buttonWrapper}
+            align="center">
           <Button className={styles.AlertDialog_button}
               type={Button.Type.primary}
               onClick={() => { onButtonClick(); }} >
             {okButtonContent}
           </Button>
-        </div>
+        </Button.Container>
       </div>
     </Dialog>
   );

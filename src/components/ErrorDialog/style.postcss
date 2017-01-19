@@ -6,31 +6,17 @@
   --iconHeight: 30px;
   --contentPadding: 20px 0 30px 0;
   --secondMessageMargin: 20px;
+  --widthOfTwoButton: 320px;
 }
 
-.ConfirmDialog {
+.ErrorDialog {
   max-width: var(--dialogMaxWidth);
   padding: 22px 15px; /* 30px content pad */
 
-  &_title {
-    font-weight: bold;
-    text-align: center;
-  }
-
-  &_icon:global,
-  &_infoIcon:global,
   &_warningIcon:global {
     background-position-x: var(--iconBackgroundPosition);
     background-repeat: no-repeat;
     height: var(--iconHeight);
-  }
-
-  &_icon:global {
-    background-image: url('success.svg');
-  }
-
-  &_infoIcon:global {
-    background-image: url('info.svg');
   }
 
   &_warningIcon:global {
@@ -42,12 +28,7 @@
     text-align: center;
   }
 
-  &_secondMessage {
-    display: inline-block;
-    margin-top: var(--secondMessageMargin);
+  &_buttons {
+    min-width: 220px;
   }
-
-  &_buttons { /* ... */ }
-
-  &_button { /* ... */ }
 }
