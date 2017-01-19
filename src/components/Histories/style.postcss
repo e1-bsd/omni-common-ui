@@ -1,0 +1,33 @@
+@import 'main.postcss';
+
+:root {
+  --iconSpacing: 5px;
+  --iconSize: 14px;
+}
+
+.Histories {
+  min-width: 135px;
+
+  @mixin fontButton;
+
+  & a {
+    text-decoration: none;
+  }
+
+  & a:not(:hover) {
+    color: #42667e;
+  }
+
+  & a::after {
+    content: '';
+    display: inline-block;
+    height: var(--iconSize);
+    margin-left: var(--iconSpacing);
+    width: var(--iconSize);
+
+    &:global {
+      background-image: url('./history.svg');
+      background-position-y: 1px;
+    }
+  }
+}

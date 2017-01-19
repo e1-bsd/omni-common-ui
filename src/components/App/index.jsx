@@ -7,6 +7,7 @@ import Footer from 'components/Footer';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
 import RouteBreadcrumbs from 'components/RouteBreadcrumbs';
+import Histories from 'components/Histories';
 import connect from 'domain/connect';
 
 const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
@@ -14,11 +15,14 @@ const App = (props) => <div className={classnames(styles.App, testClass('app'))}
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
     <div className={styles.App_content}>
-      <RouteBreadcrumbs className={styles.App_content_breadcrumbs}
-          params={props.params}
-          routes={props.routes}
-          location={props.location}
-          buildRoute={props.buildRoute} />
+      <div className={styles.App_content_auxiliary}>
+        <RouteBreadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+            params={props.params}
+            routes={props.routes}
+            location={props.location}
+            buildRoute={props.buildRoute} />
+        <Histories className={styles.App_content_auxiliary_histories} {...props} />
+      </div>
       <div className={styles.App_content_wrap}>{props.children}</div>
     </div>
   </div>
