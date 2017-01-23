@@ -38,7 +38,15 @@ export default class IdleTimeoutHandler extends Component {
 
   _signOut() {
     log.debug('IdleTimeoutHandler - Will sign out!');
+    // Signout should not be with the route hook.
+    if (this.props.router) {
+      this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
+    }
     userManager.signoutRedirect();
+  }
+
+  _getCurrentRoute() {
+    return this.props.routes[this.props.routes.length - 1];
   }
 
   render() {
@@ -48,4 +56,6 @@ export default class IdleTimeoutHandler extends Component {
 
 IdleTimeoutHandler.propTypes = {
   children: React.PropTypes.node,
+  router: React.PropTypes.any.isRequired,
+  routes: React.PropTypes.array.isRequired,
 };
