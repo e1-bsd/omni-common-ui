@@ -45,9 +45,11 @@ class SaveBarHandler extends Component {
     } = nextProps;
     // CONFIG flag check
     if (! IS_ACTIVE) return;
+    const buttonsToDisplay = this._getButtonsToDisplay(nextProps);
     let newIsVisible = false;
     nextIsAnyApiCallSaving && (newIsVisible = true);
-    EDIT_MODE_MATCH_REGEXP.test(nextMode) && (newIsVisible = true);
+    // we don't want to show the saving bar when editing but there are no buttons
+    EDIT_MODE_MATCH_REGEXP.test(nextMode) && buttonsToDisplay.size && (newIsVisible = true);
     if (newIsVisible !== this.state.isVisible) {
       this.setState({ isVisible: newIsVisible });
     }
