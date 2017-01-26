@@ -5,4 +5,29 @@
   box-shadow: 0 2px 5px #0004;
   text-transform: uppercase;
   white-space: nowrap;
+
+  &.__alignBottomFromLeft {
+    /* default */
+  }
+
+  &.__alignLeftFromBottom,
+  &.__alignLeftFromTop {
+    transform: translate(-100%, 0);
+    transform-origin: bottom right;
+  }
+
+  &.__alignLeftFromBottom {
+    bottom: 0;
+    left: 0;
+  }
+
+  &.__alignLeftFromTop {
+    left: 0;
+    top: 0;
+  }
+
+  &.__alignRightFromBottom {
+    bottom: 0;
+    left: 100%;
+  }
 }
