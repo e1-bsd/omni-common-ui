@@ -29,18 +29,18 @@ const isElementVisible = (el) => {
     // centre
     el.contains(
       document.elementFromPoint(
-        rect.left + 1,
-        rect.bottom - (rect.height / 2))) &&
+        rect.right - (rect.width / 2),
+        rect.bottom - (rect.height / 2)))) &&
     // left
     el.contains(
       document.elementFromPoint(
-        rect.right - 1,
+        rect.left + 1,
         rect.bottom - (rect.height / 2))) &&
     // right
     el.contains(
       document.elementFromPoint(
-        rect.right - (rect.width / 2),
-        rect.bottom - (rect.height / 2))));
+        rect.right - 1,
+        rect.bottom - (rect.height / 2)));
 };
 
 const isDropdownOptionsFullyVisible = (el) => {
