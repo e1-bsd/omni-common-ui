@@ -6,18 +6,32 @@ import Sidebar from 'containers/Sidebar';
 import Footer from 'components/Footer';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
+import RouteBreadcrumbs from 'components/RouteBreadcrumbs';
+import Histories from 'components/Histories';
+import connect from 'domain/connect';
 
 const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
   <Header />
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
-    <div className={styles.App_content}>{props.children}</div>
+    <div className={styles.App_content}>
+      <div className={styles.App_content_auxiliary}>
+        <RouteBreadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+            params={props.params}
+            routes={props.routes}
+            location={props.location}
+            buildRoute={props.buildRoute} />
+        <Histories className={styles.App_content_auxiliary_histories} {...props} />
+      </div>
+      <div className={styles.App_content_wrap}>{props.children}</div>
+    </div>
   </div>
   <Footer />
 </div>;
 
 App.propTypes = {
   children: React.PropTypes.node,
+  ...RouteBreadcrumbs.propTypes,
 };
 
-export default App;
+export default connect()(App);

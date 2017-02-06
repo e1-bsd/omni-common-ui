@@ -73,6 +73,7 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
               surname="Bloggs"
               localName="王呆呆"
               gender="female"
+              status="On Hold"
               avatarUrl={testImage} />
           <StudentCard.Content>
             <Card.Content>Some Status</Card.Content>

@@ -1,10 +1,14 @@
 @import 'main.postcss';
 
-.Button:not(.__autoWidth) {
-  width: 100%;
+.Button:not(.__autoWidth),
+.NeoButton:not(.__autoWidth) {
+  flex-basis: 0%;
+  flex-grow: 1;
 
-  @media (--sm-viewport) {
-    width: auto;
+  /* responsive buttons until this breakpoint */
+  @media (--md-viewport-new) {
+    flex-basis: auto;
+    flex-grow: 0;
   }
 }
 
@@ -13,6 +17,7 @@
 .NeoButton {
   border: none;
   cursor: pointer;
+  font-size: var(--fontSize-sm);
   outline: none;
   text-transform: uppercase;
   user-select: none;
@@ -27,7 +32,8 @@
   }
 
   &.__autoWidth {
-    /* ... */
+    /* prevent responsive mode upper margin pad */
+    margin-top: 0 !important;
   }
 }
 
@@ -35,34 +41,73 @@
 .NeoButton {
   border: 1px solid transparent;
   border-radius: 5px;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  min-height: 35px;
-  min-width: 100px;
+  min-height: var(--touchableMinHeightNew);
+  min-width: 0;
   padding: 0 15px;
   text-align: center;
   transition: all 0.1s ease;
   will-change: background, border, box-shadow, color, opacity;
+
+  @media (--md-viewport-new) {
+    min-width: 100px;
+  }
+
+  @mixin fontButton;
+
+  &_default,
+  &_inverse {
+    background-color: transparent;
+  }
+
+  &_default {
+    border-color: var(--colorPrimaryNew);
+    color: var(--colorPrimaryNew);
+
+    &:hover:not([disabled]),
+    &.__active {
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &_inverse {
+    border-color: white;
+    color: var(--colorTextInverse);
+
+    &.__active {
+      color: var(--colorTextInverse);
+    }
+
+    &:hover:not([disabled],.__active) {
+      background-color: var(--colorInverseButtonHover) !important;
+      color: var(--colorPrimaryNew);
+    }
+  }
 
   &_primary {
     background-color: var(--colorPrimaryNew);
     color: var(--colorTextInverse);
   }
 
-  &_secondary {
-    background-color: transparent;
-    border-color: var(--colorPrimaryNew);
+  &_primaryInverse {
+    background-color: white;
     color: var(--colorPrimaryNew);
 
-    &:hover:not([disabled]),
     &.__active {
-      border-color: transparent;
       color: var(--colorTextInverse);
+    }
+
+    &:hover:not([disabled],.__active) {
+      background-color: var(--colorInverseButtonHover) !important;
     }
   }
 
-  &:hover:not([disabled]) {
+  &:hover:not([disabled],.__active) {
     background-color: var(--colorButtonHover);
+  }
+
+  &:hover:not([disabled]),
+  &.__active {
+    border-color: transparent;
     box-shadow: 0 1px 2px 1px var(--colorBorder);
   }
 
@@ -72,6 +117,13 @@
 
   &[disabled] {
     opacity: 0.4;
+  }
+
+  &.__autoWidth {
+    & + &,
+    & + .ButtonLink {
+      margin-left: 10px;
+    }
   }
 
   & + &,

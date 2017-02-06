@@ -1,0 +1,54 @@
+@import 'main.postcss';
+
+.Breadcrumbs {
+  white-space: nowrap;
+
+  @mixin fontButton;
+
+  &_list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  &_crumb {
+    & a {
+      text-decoration: none;
+    }
+
+    & a:not(:hover),
+    & a:active {
+      color: inherit;
+    }
+
+    &:not(.__clickable) {
+      cursor: default;
+    }
+  }
+
+  &_crumb:last-child {
+    color: #42667e;
+  }
+
+  &_crumb:not(:last-child) {
+    &::after {
+      content: '/';
+      padding: 0 0.35em;
+    }
+  }
+
+  &_crumb_0 {
+    & a {
+      padding-left: 2em;
+    }
+
+    &:global {
+      background-image: url('./arrow.svg');
+      background-position: left 45%;
+      background-repeat: no-repeat;
+      background-size: 1rem;
+    }
+  }
+}

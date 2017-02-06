@@ -12,6 +12,8 @@ import StudentPicture from 'components/StudentPicture';
 import testClass from 'domain/testClass';
 import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
+import { bindActionCreators } from 'redux';
+import { actions as privilegesActions } from 'containers/Privileges';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -20,6 +22,21 @@ class UserInfo extends Component {
       isDropdownOpen: false,
       isShowImpersonate: false,
     };
+    this._checkImpersonation(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this._checkImpersonation(props);
+
+    if (props.hasImpersonateFailed) {
+      this.setState({ isShowImpersonate: false });
+    }
+  }
+
+  _checkImpersonation(props) {
+    if (props.hasUnimpersonated) {
+      this._redirectToPortal();
+    }
   }
 
   _onLogoutButtonClicked() {
@@ -100,17 +117,9 @@ class UserInfo extends Component {
   }
 
   _renderUser() {
-    const userName = this.props.user.profile.name;
-    const avatarUrl = this.props.user.profile.avatar_url;
-    const gender = this.props.user.profile.gender;
-
-    if (is.not.url(avatarUrl)) {
-      return userName;
-    }
-
     return <StudentPicture className={styles.UserInfo_container_user_img}
-        src={avatarUrl}
-        gender={gender} />;
+        src={this.props.user.profile.avatar_url}
+        gender={this.props.user.profile.gender} />;
   }
 
   _renderImpersonatedUser() {
@@ -118,27 +127,14 @@ class UserInfo extends Component {
       return null;
     }
 
-    const { userName, avatarUrl, gender } = this.props.impersonate;
-    if (! avatarUrl) {
-      return `as ${userName}`;
-    }
-
-    return <StudentPicture src={avatarUrl}
+    return <StudentPicture src={this.props.impersonate.avatarUrl}
         className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
-        gender={gender} />;
+        gender={this.props.impersonate.gender} />;
   }
 
   render() {
-    /* eslint no-return-assign: "off" */
-    const { privileges, unimpersonateState } = this.props;
-    const errorCode = unimpersonateState ? unimpersonateState.get('error') : undefined;
-    const data = unimpersonateState ? unimpersonateState.get('data') : undefined;
-
-    if (errorCode || data) {
-      this._redirectToPortal();
-    }
-
-    if (is.not.object(this.props.user) || ! privileges) {
+    const { havePrivilegesLoaded } = this.props;
+    if (! havePrivilegesLoaded()) {
       return null;
     }
 
@@ -164,25 +160,32 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
+  havePrivilegesLoaded: React.PropTypes.func.isRequired,
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func,
   impersonate: React.PropTypes.object,
   privileges: React.PropTypes.object,
-  unimpersonateState: React.PropTypes.object,
+  hasUnimpersonated: React.PropTypes.bool.isRequired,
   user: React.PropTypes.object,
   canImpersonate: React.PropTypes.bool,
+  hasImpersonateFailed: React.PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
+  const unimpersonate = state.get('impersonate').get('unimpersonate').get('unimpersonate');
+  const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
-    privileges: state.get('privileges').items,
+    arePrivilegesLoaded: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
-    unimpersonateState: state.get('impersonate')
-      .get('unimpersonate')
-      .get('unimpersonate'),
+    hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
+    hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),
   };
 }
 
-export default connect(mapStateToProps)(UserInfo);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(privilegesActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

@@ -2,16 +2,17 @@ import styles from './style.postcss';
 import React from 'react';
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
+import classnames from 'classnames';
 
 const AlertDialog = ({
-  iswarning,
+  isWarning,
   content1,
   content2,
   okButtonContent,
   onButtonClick,
 }) => {
-  const iconClassName = iswarning ?
-      styles.AlertDialog_warningicon :
+  const iconClassName = isWarning ?
+      styles.AlertDialog_warningIcon :
       styles.AlertDialog_icon;
   const primaryContentClassName = content1 && content1.length === 0 ?
       '' :
@@ -26,26 +27,25 @@ const AlertDialog = ({
         <div className={primaryContentClassName}>
           <span>{content1}</span>
         </div>
-        <div className={secondContentClassName}
-            style={{ marginTop: '20px' }}>
+        <div className={classnames(secondContentClassName,
+          styles.AlertDialog_secondContent)}>
           <span>{content2}</span>
         </div>
-        <div className={styles.AlertDialog_buttonWrapper}>
+        <Button.Container className={styles.AlertDialog_buttonWrapper}
+            align="center">
           <Button className={styles.AlertDialog_button}
               type={Button.Type.primary}
-              onClick={() => {
-                onButtonClick();
-              }} >
+              onClick={() => { onButtonClick(); }} >
             {okButtonContent}
           </Button>
-        </div>
+        </Button.Container>
       </div>
     </Dialog>
   );
 };
 
 AlertDialog.propTypes = {
-  iswarning: React.PropTypes.bool,
+  isWarning: React.PropTypes.bool,
   content1: React.PropTypes.string,
   content2: React.PropTypes.string,
   okButtonContent: React.PropTypes.string,

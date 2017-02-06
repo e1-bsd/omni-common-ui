@@ -1,0 +1,88 @@
+@import 'main.postcss';
+
+:root {
+  --numberInputBg: #eee;
+  --numberInputBgActive: #999;
+  --numberInputBgHover: #ccc;
+}
+
+.NumberInput {
+  border: 2px solid var(--colorBorder);
+  display: inline-block;
+  height: 40px;
+  padding: 1px 0 1px 15px;
+  vertical-align: middle;
+  width: 70px;
+
+  &:hover {
+    & div + .valueBox {
+      padding-right: 0;
+      width: calc(100% - 15px);
+    }
+
+    & .upArrow,
+    & .downArrow {
+      display: block;
+    }
+  }
+}
+
+.NumberInputContainer {
+  display: inline-block;
+}
+
+.NumberInputName {
+  display: block;
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-medium);
+  letter-spacing: 1px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.valueBox {
+  border: none;
+  height: 100%;
+  margin: 0;
+  outline: none;
+  padding: 0 15px 0 0;
+  text-align: center;
+  vertical-align: top;
+  width: 100%;
+
+  &:disabled {
+    background: transparent;
+  }
+}
+
+.upArrow,
+.downArrow {
+  background-color: var(--numberInputBg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  clear: both;
+  display: none;
+  float: right;
+  height: 50%;
+  transition: none;
+  width: 15px;
+}
+
+.upArrow:global {
+  background-image: url('./chevron-small-up.svg');
+}
+
+.downArrow:global {
+  background-image: url('./chevron-small-down.svg');
+}
+
+.upArrow:hover,
+.downArrow:hover {
+  background-color: var(--numberInputBgHover);
+}
+
+.upArrow:active,
+.downArrow:active {
+  background-color: var(--numberInputBgActive);
+}

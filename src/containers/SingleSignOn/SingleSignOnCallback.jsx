@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CallbackComponent } from 'redux-oidc';
 import { replace } from 'react-router-redux';
-import log from 'loglevel';
+import log from 'domain/log';
 
 const SingleSignOnCallback = (props) => {
   log.debug('SingleSignOnCallback - called!');

@@ -3,7 +3,7 @@ import sampleImage from './sample-image.jpg';
 import React from 'react';
 import { Card, Button, Grid } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
-import log from 'loglevel';
+import log from 'domain/log';
 
 const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
   <Grid>
@@ -43,7 +43,7 @@ const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
           <Card.Image src={sampleImage} />
           <Card.Content>
             <div>Content with other elements</div>
-            <Button onClick={() => log.info('Click!')}>A button</Button>
+            <Button type={Button.Type.neo} onClick={() => log.info('Click!')}>A button</Button>
           </Card.Content>
         </Card>
       </Grid.Item>

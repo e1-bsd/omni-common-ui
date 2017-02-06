@@ -1,8 +1,11 @@
 import { expect } from 'chai';
-import ApiAction from './ApiAction';
+import Sinon from 'sinon';
 
 describe('ApiCall', () => {
   describe('ApiAction', () => {
+    let log;
+    let ApiAction;
+
     const buildAction = (configParam = {}) => Object.assign({},
       {
         type: 'CALL_FAILURE',
@@ -11,6 +14,14 @@ describe('ApiCall', () => {
         method: 'GET',
       },
       configParam);
+
+    beforeEach(() => {
+      log = { error: Sinon.spy() };
+      // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
+      ApiAction = require('inject?domain/log!./ApiAction')({
+        'domain/log': log,
+      }).default;
+    });
 
     it('throws an error if nothing is passed', () => {
       expect(() => ApiAction.create()).to.throw();
@@ -91,6 +102,12 @@ describe('ApiCall', () => {
 
     it('converts action.error into an instance of Error if it\'s not already the case', () => {
       expect(ApiAction.create(buildAction({ error: '' })).error).to.be.an.instanceof(Error);
+    });
+
+    it('logs the error of a failure action', () => {
+      const error = new Error('an error');
+      ApiAction.create(buildAction({ error }));
+      expect(log.error.args).to.eql([[error]]);
     });
 
     context('#isApiAction()', () => {

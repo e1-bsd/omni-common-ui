@@ -26,7 +26,12 @@ describe('<SingleSignOnHandler />', () => {
     SingleSignOnHandler = requireComponent({ featureLogin: false });
     props = {
       fetchPrivilegesIfNeeded: Sinon.spy(),
-      user: { expired: false },
+      user: {
+        expired: false,
+        profile: {
+          sub: '123',
+        },
+      },
     };
   });
 

@@ -10,7 +10,7 @@
     "comma-dangle": ["warn", "always-multiline"],
     "arrow-parens": ["error", "always"],
     "no-plusplus": ["off"],
-    "class-methods-use-this": ["warn"],
+    "class-methods-use-this": ["off"],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "import/imports-first": ["off"],
@@ -61,6 +61,8 @@
   "globals": {
     "PRODUCTION": false,
     "VERSION": false,
+    "SENTRY_ENV": false,
+    "COMMIT": false,
     "describe": false,
     "context": false,
     "it": false,

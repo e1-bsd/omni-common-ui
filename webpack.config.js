@@ -14,11 +14,12 @@ const postcssCustomSelectors = require('postcss-custom-selectors');
 const postcssSelectorNot = require('postcss-selector-not');
 const postcssColorFunctions = require('postcss-color-function');
 const postcssColorHexAlpha = require('postcss-color-hex-alpha');
-const postcssSimpleMixin = require('postcss-simple-mixin');
+const postcssMixins = require('postcss-mixins');
 const postcssCustomProperties = require('postcss-custom-properties');
 const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
 const postcssUrl = require('postcss-url');
 const postcssPxToRem = require('postcss-pxtorem');
+const postcssGradientTransparencyFix = require('postcss-gradient-transparency-fix');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -111,6 +112,8 @@ module.exports = {
           'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
           VERSION: `'${version}'`,
+          COMMIT: `'${commitHash}'`,
+          SENTRY_ENV: `'${nodeEnv}'`,
         }),
       ]).concat(! isProd ?
         [
@@ -153,6 +156,7 @@ module.exports = {
             {}
         , {
           react: path.resolve('node_modules', 'react'),
+          'react-ga': path.resolve('node_modules', 'react-ga'),
           'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
         }
       ),
@@ -165,15 +169,16 @@ module.exports = {
     }),
     postcssUrl({ url: 'rebase' }),
     postcssContainerQueries,
-    postcssSimpleMixin,
+    postcssMixins,
     postcssCustomSelectors,
     postcssCustomProperties,
     postcssSelectorNot,
     postcssColorFunctions,
     postcssColorHexAlpha,
     postcssNesting,
+    postcssGradientTransparencyFix,
     postcssPxToRem({
-      rootValue: 16,
+      rootValue: 14,
       unitPrecision: 5,
       propWhiteList: [],
       selectorBlackList: [],
@@ -204,7 +209,7 @@ module.exports = {
 
 function getSourceMapType() {
   if (isProd) {
-    return 'hidden-source-map';
+    return 'source-map';
   }
 
   return 'inline-source-map';

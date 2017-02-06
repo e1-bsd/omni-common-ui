@@ -3,21 +3,18 @@
 @import './_fonts.postcss';
 
 :root {
+  @mixin fontNormal;
+
   background-color: var(--colorBg);
   box-sizing: border-box;
   color: var(--colorTextBase);
-  font-family: var(--fontFamily);
+  font-size: 0.875rem;
 }
 
 /* INTERNET EXPLORER */
 html,
 body {
   height: 100%;
-}
-
-body {
-  font-family: inherit;
-  font-size: 0.875rem;
 }
 
 *,

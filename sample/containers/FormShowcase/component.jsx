@@ -4,7 +4,7 @@ import { Button, Form } from 'omni-common-ui';
 import SelectShowcase from './SelectShowcase';
 import RadioShowcase from './RadioShowcase';
 import CheckboxShowcase from './CheckboxShowcase';
-import log from 'loglevel';
+import log from 'domain/log';
 
 class FormShowcase extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class FormShowcase extends Component {
         <SelectShowcase />
         <RadioShowcase />
         <CheckboxShowcase />
-        <Button type={Button.Type.primary}
+        <Button type={Button.Type.neoPrimary}
             disabled={this.state.saveBtn}
             onClick={() => log.info(this.state.formData)}>
           Save

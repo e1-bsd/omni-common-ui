@@ -11,7 +11,8 @@ import {
   IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
-import log from 'loglevel';
+import loglevel from 'loglevel';
+import log from 'domain/log';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
@@ -19,28 +20,42 @@ import is from 'is_js';
 import PermissionHandler from 'containers/PermissionHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
-import SavingBarHandler from 'containers/SavingBarHandler';
+import SaveBarHandler from 'containers/SaveBarHandler';
 import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler';
 import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
 import Oidc from 'oidc-client';
+import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 
 if (! PRODUCTION) {
-  log.enableAll();
+  loglevel.enableAll();
 } else {
-  log.setLevel('error');
+  loglevel.setLevel('error');
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
 
 Oidc.Log.logger = log;
 Oidc.Log.level = Oidc.Log.INFO;
 
+Raven.config(Config.get('sentryDsn'), {
+  release: COMMIT,
+  environment: SENTRY_ENV,
+  tags: { version: VERSION },
+  debug: ! PRODUCTION,
+}).install();
+
 export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
 
   Store.set(store);
   ErrorMessage.setMap(errorMessageMap);
+
+  const gaKey = Config.get('gaKey');
+  if (Config.get('gaKey')) {
+    ReactGA.initialize(gaKey, { debug: ! PRODUCTION, titleCase: false });
+  }
 
   const parsedRoutes = parseRoutes([
     {
@@ -61,7 +76,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
                 childRoutes: [{
                   component: ErrorPageHandler,
                   childRoutes: [{
-                    component: SavingBarHandler,
+                    component: SaveBarHandler,
                     childRoutes: is.array(routes) ? routes : [routes],
                   }],
                 }],
@@ -80,11 +95,16 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
   render(
     <Provider store={store}>
       <SingleSignOnProvider store={store}>
-        <Router history={syncBrowserHistory} routes={parsedRoutes} />
+        <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
       </SingleSignOnProvider>
     </Provider>,
     document.getElementById('root')
   );
+}
+
+function logPageView() {
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
 }
 
 export default setupApp;

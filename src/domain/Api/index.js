@@ -9,6 +9,16 @@ export const buildUrl = (path) => Config.get('apiBase') + path;
 
 class FetchTimedOutError extends Error { }
 
+export class ApiError extends Error {
+  constructor(response = {}, message) {
+    super(message || response.statusText);
+    this.status = response.status;
+    this.statusText = response.statusText;
+    this.ok = response.ok;
+    this.url = response.url;
+  }
+}
+
 export const fetch = (url, options = {}) => {
   const finalOptions = Object.assign({}, options, getTokenHeader(options));
   return new Promise((resolve, reject) => {
@@ -17,33 +27,10 @@ export const fetch = (url, options = {}) => {
 
     isomorphicFetch(url, finalOptions)
       .then(checkResponseStatus)
-      .then((response) => response.text())
-      .then((response) => {
-        if (is.empty(response)) {
-          return response;
-        }
-
-        return JSON.parse(response);
-      })
+      .then(parseResponse)
       .then((response) => {
         clearTimeout(timeout);
         resolve(response);
-      })
-      .catch((error) => {
-        try {
-          return error.response.json()
-            .then((apiError) => {
-              const apiResponse = {};
-              Object.keys(apiError).forEach((key) => {
-                apiResponse[camelCase(key)] = apiError[key];
-              });
-              // eslint-disable-next-line no-param-reassign
-              error.apiResponse = apiResponse;
-              throw error;
-            });
-        } catch (e) {
-          throw error;
-        }
       })
       .catch((error) => {
         clearTimeout(timeout);
@@ -52,14 +39,40 @@ export const fetch = (url, options = {}) => {
   });
 };
 
+function parseResponse(rawResponse) {
+  return rawResponse.text()
+      .then((response) => {
+        try {
+          return JSON.parse(response);
+        } catch (e) {
+          return response;
+        }
+      });
+}
+
 function checkResponseStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.ok) {
     return response;
   }
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  const error = new ApiError(response);
+  try {
+    return parseResponse(response)
+        .then((apiResponse) => {
+          if (is.not.object(apiResponse)) {
+            error.response = apiResponse;
+          } else {
+            error.response = {};
+            Object.keys(apiResponse).forEach((key) => {
+              error.response[camelCase(key)] = apiResponse[key];
+            });
+          }
+
+          throw error;
+        });
+  } catch (e) {
+    throw error;
+  }
 }
 
 function getTokenHeader(options) {

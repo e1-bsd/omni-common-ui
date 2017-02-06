@@ -1,3 +1,5 @@
+@import 'main.postcss';
+
 .App {
   display: flex;
   flex-direction: column;
@@ -10,8 +12,29 @@
   }
 
   &_content {
+    display: flex;
     flex: 1 1 auto;
-    overflow: auto;
-    width: 100%;
+    flex-direction: column;
+    width: calc(100% - var(--sidebarWidth));
+
+    &_auxiliary {
+      align-items: baseline;
+      background-color: var(--colorNavSectionBg);
+      border-bottom: var(--hairThin) solid var(--colorBorder);
+      display: flex;
+      justify-content: space-between;
+
+      &_breadcrumbs {
+        @mixin responsiveCardPadding;
+      }
+
+      &_histories {
+        @mixin responsiveCardPadding;
+      }
+    }
+
+    &_wrap {
+      flex: 1 1 auto;
+    }
   }
 }

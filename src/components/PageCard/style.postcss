@@ -1,0 +1,14 @@
+@import 'main.postcss';
+
+:root {
+  --moduleContainerMarginTop: 20px;
+}
+
+.PageCard {
+  @mixin cardbg;
+  @mixin cardshadow;
+}
+
+.PageCard + .PageCard {
+  margin-top: var(--moduleContainerMarginTop);
+}

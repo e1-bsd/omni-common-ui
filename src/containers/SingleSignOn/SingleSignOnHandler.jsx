@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
-import log from 'loglevel';
+import log from 'domain/log';
 import routes from './routes';
 import userManager from './userManager';
 import Config from 'domain/Config';
+import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -31,8 +33,22 @@ class SingleSignOnHandlerImpl extends Component {
       return userManager.signinRedirect();
     }
 
+    this._logUser(props);
     log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
+  }
+
+  _logUser(props) {
+    if (! props.user) {
+      return;
+    }
+
+    const user = props.user.profile;
+    const userId = user.sub;
+    const { email } = user;
+
+    ReactGA.set({ userId });
+    Raven.setUserContext({ email, id: userId });
   }
 
   _setLastUrlPath() {

@@ -1,0 +1,119 @@
+@import 'main.postcss';
+
+:root {
+  --barVerticalPadding: 15px;
+  --loadingThrobberHeight: 18px;
+  --buttonHeight: 35px;
+  --borderHeight: 10px;
+}
+
+.SaveBar {
+  bottom: 0;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 var(--borderHeight) 0;
+  cursor: default;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  transform: translate3d(0, calc((var(--barVerticalPadding) * 2) + var(--buttonHeight) + var(--borderHeight)), 0);
+  transition: transform 0.2s ease 0.3s; /* keep it open long enough for saving to begin */
+  width: 100%;
+  will-change: animation, transform, visibility;
+  z-index: var(--zIndex-9--savingBar);
+
+  &.__visible {
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+
+  &:not(.__visible) {
+    animation: goInvisible 0.01s linear 0.5s forwards; /* wait for the main visibility transition to finish */
+  }
+
+  &_overlay {
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: var(--zIndex-8--savingBarOverlay);
+
+    &.__visible {
+      pointer-events: auto;
+    }
+  }
+
+  &_inner {
+    background: var(--colorActive);
+    cursor: default;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--barVerticalPadding);
+
+    @mixin responsiveCardPaddingHorizontal;
+
+    &_buttons {
+      display: flex;
+      flex-grow: 1;
+
+      @media (--sm-viewport) {
+        flex-grow: 0;
+      }
+    }
+  }
+
+  &_text {
+    align-items: center;
+    color: white;
+    cursor: default;
+    display: flex;
+    flex: 0 1 0%;
+    font-size: 15px;
+    font-weight: var(--fontWeight-medium);
+    letter-spacing: 1px;
+    min-height: var(--buttonHeight); /* matches the button */
+    opacity: 0;
+    overflow: visible;
+    transition: opacity 0.1s ease;
+    user-select: none;
+    white-space: nowrap;
+    width: 1px; /* don't occupy layout space; content will overflow */
+    will-change: opacity;
+
+    &::before {
+      animation: spin 0.5s linear infinite;
+      border-color: white;
+      border-radius: 50%;
+      border-style: solid;
+      border-top-color: rgba(255, 255, 255, 0.3);
+      border-width: 3px;
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      height: var(--loadingThrobberHeight);
+      margin-right: 0.5rem;
+      transform: translateZ(0) rotate(0deg);
+      width: var(--loadingThrobberHeight);
+      will-change: transform;
+      z-index: 2000;
+    }
+
+    &.__visible {
+      opacity: 1;
+    }
+  }
+
+  &_button {
+    flex: 1;
+  }
+}
+
+@keyframes spin {
+  100% { transform: translateZ(0) rotate(359deg); }
+}
+
+@keyframes goInvisible {
+  100% { visibility: hidden; }
+}

@@ -1,12 +1,9 @@
 /*
-!/dev.karma.conf.js
-!/ci.karma.conf.js
 !/karma.conf.js
 !/package.json
 !/lib
 !/.eslintrc.json
 !/.stylelintrc
-!/build.js
 !/webpack.config.js
-!/config/build.js
-!/start.js
+!/.gemini.conf.js
+!/scripts

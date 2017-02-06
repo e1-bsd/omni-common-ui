@@ -8,6 +8,7 @@ import is from 'is_js';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
+import userManager from 'containers/SingleSignOn/userManager';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
@@ -23,10 +24,15 @@ export const ErrorPageHandler = (props) => {
       return null;
     }
 
+    if (erroredApi.error && erroredApi.error.status === 401) {
+      userManager.signoutRedirect();
+      throw new Error('Api called with 401 unauthorized');
+    }
+
     if (shouldShowPopUp()) {
-      const { apiResponse } = erroredApi.error;
-      return <AlertDialog iswarning
-          content1={buildMessage(apiResponse)}
+      const { response } = erroredApi.error;
+      return <AlertDialog isWarning
+          content1={buildMessage(response)}
           okButtonContent="OK"
           onButtonClick={cleanErrors} />;
     }
@@ -50,17 +56,17 @@ export const ErrorPageHandler = (props) => {
       return false;
     }
 
-    const { apiResponse } = erroredApi.error;
-    return is.object(apiResponse) && apiResponse.code !== 500;
+    const { response, status } = erroredApi.error;
+    return is.object(response) && status !== 500;
   }
 
-  function buildMessage(apiResponse) {
-    let message = ErrorMessage.for(apiResponse.errorCode) || apiResponse.message;
-    if (is.not.array(apiResponse.args)) {
+  function buildMessage(response) {
+    let message = ErrorMessage.for(response.errorCode) || response.message;
+    if (is.not.array(response.args)) {
       return message;
     }
 
-    apiResponse.args.forEach((arg) => {
+    response.args.forEach((arg) => {
       message = message.replace(/{".*"}/i, arg);
     });
 

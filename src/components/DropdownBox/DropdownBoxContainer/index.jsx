@@ -11,11 +11,13 @@ class DropdownBoxContainer extends Component {
   componentDidMount() {
     if (is.function(this.props.onClickOutside)) {
       document.body.addEventListener('click', this._onClickedOutside);
+      document.body.addEventListener('touchstart', this._onClickedOutside);
     }
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this._onClickedOutside);
+    document.body.removeEventListener('touchstart', this._onClickedOutside);
   }
 
   _onClickedOutside(evt) {

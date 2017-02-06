@@ -1,0 +1,41 @@
+@import 'main.postcss';
+
+:root {
+  --arrowIconHeight: 20px;
+  --arrowIconWidth: 15px;
+  --descriptionMarginRight: 8px;
+}
+
+.ExpansionButton {
+  cursor: pointer;
+  text-align: center;
+
+  &_description {
+    font-size: var(--fontSize-sm);
+    font-weight: var(--fontWeight-medium);
+    margin-right: var(--descriptionMarginRight);
+    vertical-align: middle;
+  }
+
+  &_arrowDown {
+    display: inline-block;
+    height: var(--arrowIconHeight);
+    min-width: var(--arrowIconWidth);
+    vertical-align: middle;
+
+    &:global {
+      background: transparent url('./chevron-small-down.svg') no-repeat scroll center / 20px;
+    }
+  }
+
+  &_arrowUp {
+    display: inline-block;
+    height: var(--arrowIconHeight);
+    min-width: var(--arrowIconWidth);
+    vertical-align: middle;
+
+    &:global {
+      background: transparent url('./chevron-small-up.svg') no-repeat scroll center / 20px;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import 'main.postcss';
+
+.ClickableIcon {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+
+  & + & {
+    margin-left: var(--spaceBase);
+  }
+
+  &.__clickable {
+    cursor: pointer;
+  }
+}
