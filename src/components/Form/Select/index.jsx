@@ -3,6 +3,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import ReactSelect from 'react-select';
+import is from 'is_js';
 import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Field from '../Field';
@@ -11,15 +12,21 @@ const Select = (props) => {
   const classes = classnames(styles.Select_element,
       { [styles.__required]: props.showRequired() },
       { [styles.__error]: props.showError() });
-  return <Field label={props.label}
-      getErrorMessage={() => props.getErrorMessage()}
-      showError={() => props.showError()}
-      showRequired={() => props.showRequired()}
-      useLabel>
-    <ReactSelect className={classes}
-        onChange={(e) => handleChange(e)}
-        {...props} />
-  </Field>;
+
+  const select = <ReactSelect className={classes}
+      onChange={(e) => handleChange(e)}
+      {...props} />;
+
+  if (is.not.undefined(props.label)) {
+    return <Field label={props.label}
+        getErrorMessage={() => props.getErrorMessage()}
+        showError={() => props.showError()}
+        showRequired={() => props.showRequired()}
+        useLabel>
+      {select}
+    </Field>;
+  }
+  return select;
 
   function handleChange(e) {
     props.setValue(e.value);

@@ -4,6 +4,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import Form from '../';
+import Field from '../Field';
 
 describe('Form', () => {
   describe('Select', () => {
@@ -21,6 +22,27 @@ describe('Form', () => {
             required />
       </Form>);
       expect(wrapper.find(`.${styles.__required}`)).to.have.length(1);
+    });
+
+    context('label prop existence', () => {
+      it('has a Field when there is a label prop present', () => {
+        const wrapper = mount(<Form>
+          <Form.Select name="labelled"
+              label="labelled"
+              value=""
+              options={options} />
+        </Form>);
+        expect(wrapper).to.have.descendants(Field);
+      });
+
+      it('does not have a Field when there is no label prop present', () => {
+        const wrapper = mount(<Form>
+          <Form.Select name="labelless"
+              value=""
+              options={options} />
+        </Form>);
+        expect(wrapper).to.not.have.descendants(Field);
+      });
     });
   });
 });
