@@ -28,7 +28,7 @@ function createRelease(after) {
     },
     body: `{"version": "${release}"}`,
   }, processResponse((response, body) => {
-    log.info(colors.green(`📦  ${release}`));
+    log.info(colors.green(`📦  Sentry release ${release}`));
     log.info(colors.grey(json(body)));
     log.info('\n');
 
@@ -49,6 +49,7 @@ function uploadFiles() {
 }
 
 function uploadFile(file) {
+  const fileName = `~/${path.parse(file).base}`;
   return request({
     url: `https://sentry.io/api/0/projects/e1-bsd/${sentryProject}/releases/${release}/files/`,
     method: 'POST',
@@ -56,12 +57,15 @@ function uploadFile(file) {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${sentryApiKey}`,
     },
-    formData: { file: fs.createReadStream(file) },
+    formData: {
+      file: fs.createReadStream(file),
+      name: fileName,
+    },
   }, processResponse((response) => {
     if (response.statusCode === 409) {
-      log.warn(colors.yellow(`  📄  ${path.relative(process.cwd(), file)} (already there)`));
+      log.warn(colors.yellow(`  📄  ${path.relative(process.cwd(), file)} (already there)`), fileName);
     } else {
-      log.info(colors.green(`  📄  ${path.relative(process.cwd(), file)}`));
+      log.info(colors.green(`  📄  ${path.relative(process.cwd(), file)}`), fileName);
     }
   }));
 }
