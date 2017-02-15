@@ -1,0 +1,12 @@
+@import 'main.postcss';
+
+.Sticker {
+  width: 100%;
+  z-index: var(--zIndex-5);
+
+  &_sticky {
+    position: fixed;
+    top: 0;
+    width: calc(100% - var(--sidebarWidth)); /* magic number from .App_content */
+  }
+}
