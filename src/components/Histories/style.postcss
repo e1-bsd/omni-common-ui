@@ -7,6 +7,7 @@
 
 .Histories {
   min-width: 135px;
+  text-transform: uppercase;
 
   @mixin fontButton;
 
@@ -23,11 +24,12 @@
     display: inline-block;
     height: var(--iconSize);
     margin-left: var(--iconSpacing);
+    vertical-align: middle;
     width: var(--iconSize);
 
     &:global {
       background-image: url('./history.svg');
-      background-position-y: 1px;
+      background-position-y: -1px;
     }
   }
 }
