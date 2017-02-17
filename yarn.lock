@@ -6315,9 +6315,9 @@ mocha@3.1.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-mockizen@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/mockizen/-/mockizen-0.5.0.tgz#f74507cba352ed10c8f871a4c3ac06536d599005"
+mockizen@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mockizen/-/mockizen-1.0.0.tgz#7b136c6b2b95ea387f1af91bf6c7fe9fe1f50e7a"
   dependencies:
     body-parser "^1.15.2"
     colors "^1.1.2"

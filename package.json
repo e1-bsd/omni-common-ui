@@ -82,7 +82,7 @@
     "lodash.debounce": "4.0.8",
     "loglevel": "1.4.1",
     "mocha": "3.1.2",
-    "mockizen": "^0.5.0",
+    "mockizen": "^1.0.0",
     "moment-timezone": "0.5.9",
     "nightwatch": "0.9.8",
     "node-libs-browser": "1.0.0",
