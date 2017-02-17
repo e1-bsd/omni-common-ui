@@ -24,11 +24,31 @@ export class Sticker extends Component {
   }
 
   componentDidUpdate() {
-    this.placeholder.style.height = `${this.sticker.offsetHeight}px`;
+    const isPlaceholderShown =
+        this.state.stickToTop && ! this.isPositionStickySupported;
+    if (isPlaceholderShown) {
+      this._removePlaceholder();
+      this._insertPlaceholder();
+    } else if (this.placeholder) {
+      this._removePlaceholder();
+    }
   }
 
   componentWillUnmount() {
+    this._removePlaceholder();
     window.removeEventListener('scroll', this.scrollFn);
+  }
+
+  _insertPlaceholder() {
+    this.placeholder = document.createElement('div');
+    this.placeholder.style.height = `${this.sticker.offsetHeight}px`;
+    this.sticker.insertAdjacentElement('afterend', this.placeholder);
+  }
+
+  _removePlaceholder() {
+    if (! this.placeholder) return;
+    this.placeholder.parentNode.removeChild(this.placeholder);
+    this.placeholder = null;
   }
 
   _setStickToTopState() {
@@ -41,8 +61,6 @@ export class Sticker extends Component {
   }
 
   render() {
-    const isPlaceholderShown =
-        this.state.stickToTop && ! this.isPositionStickySupported;
     const className = classnames(this.props.className, styles.Sticker, {
       [styles.Sticker_sticky]: this.state.stickToTop,
       [this.props.polyfilledClassName]:
@@ -50,19 +68,12 @@ export class Sticker extends Component {
       [styles.__native]: this.isPositionStickySupported,
       [styles.__guessWidth]: this.props.shouldGuessWidthWhenPolyfilled,
     });
-    return <span> {/* inline wrapper required for position: sticky */}
-      <div className={className} ref={(node) => {
-        if (is.falsy(node)) return;
-        this.sticker = node;
-      }}>
-        {this.props.children}
-      </div>
-      <div style={{ display: isPlaceholderShown ? 'block' : 'none' }}
-          ref={(node) => {
-            if (is.falsy(node)) return;
-            this.placeholder = node;
-          }} />
-    </span>;
+    return <div className={className} ref={(node) => {
+      if (is.falsy(node)) return;
+      this.sticker = node;
+    }}>
+      {this.props.children}
+    </div>;
   }
 
 }
