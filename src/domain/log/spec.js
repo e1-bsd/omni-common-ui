@@ -2,13 +2,12 @@ import Sinon from 'sinon';
 import { expect } from 'chai';
 
 describe('log', () => {
+  /* eslint-disable no-console */
   let Raven;
-  let loglevel;
 
   // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-  const getLog = () => require('inject?raven-js&loglevel!./')({
+  const getLog = () => require('inject?raven-js!./')({
     'raven-js': Raven,
-    loglevel,
   }).default;
 
   beforeEach(() => {
@@ -17,31 +16,30 @@ describe('log', () => {
       captureException: Sinon.spy(),
       captureMessage: Sinon.spy(),
     };
-    loglevel = {
-      trace: Sinon.spy(),
-      debug: Sinon.spy(),
-      info: Sinon.spy(),
-      warn: Sinon.spy(),
-      error: Sinon.spy(),
-    };
+    Sinon.spy(console, 'debug');
+    Sinon.spy(console, 'error');
+    Sinon.spy(console, 'info');
+    Sinon.spy(console, 'log');
+    Sinon.spy(console, 'warn');
   });
 
-  describe('#trace()', () => {
-    it('just calls loglevel.trace', () => {
-      Raven = undefined;
-      expect(() => getLog().trace('hey')).to.not.throw();
-      expect(loglevel.trace.args).to.eql([['hey']]);
-    });
+  afterEach(() => {
+    console.debug.restore();
+    console.error.restore();
+    console.info.restore();
+    console.log.restore();
+    console.warn.restore();
   });
 
-  testDefault('debug');
-  testDefault('info');
-  testDefault('warn');
+  testDefault('debug', 'info');
+  testDefault('info', 'info');
+  testDefault('log', 'info');
+  testDefault('warn', 'warn');
 
   describe('#error()', () => {
-    it('calls loglevel.error', () => {
+    it('calls console.error', () => {
       getLog().error('hey');
-      expect(loglevel.error.args).to.eql([['hey']]);
+      expect(console.error.args).to.eql([['hey']]);
     });
 
     it('calls Raven.captureException if the parameter is an Error', () => {
@@ -57,13 +55,14 @@ describe('log', () => {
     });
   });
 
-  function testDefault(functionName) {
+  function testDefault(functionName, level) {
     describe(`#${functionName}()`, () => {
-      it(`calls loglevel.${functionName} and Raven.captureBreadcrumb`, () => {
+      it(`calls console.${functionName} and Raven.captureBreadcrumb with level ${level}`, () => {
         getLog()[functionName]('hey');
-        expect(loglevel[functionName].args).to.eql([['hey']]);
-        expect(Raven.captureBreadcrumb.args).to.eql([[{ message: 'hey', level: functionName }]]);
+        expect(console[functionName].args).to.eql([['hey']]);
+        expect(Raven.captureBreadcrumb.args).to.eql([[{ message: 'hey', level }]]);
       });
     });
   }
+  /* eslint-enable no-console */
 });
