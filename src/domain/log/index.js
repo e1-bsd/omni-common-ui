@@ -1,6 +1,12 @@
 import Raven from 'raven-js';
 import log from 'loglevel';
 
+if (! PRODUCTION) {
+  log.enableAll();
+} else {
+  log.setLevel('error');
+}
+
 export default class Log {
   static trace(message) {
     log.trace(message);

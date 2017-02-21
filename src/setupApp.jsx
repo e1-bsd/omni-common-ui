@@ -11,7 +11,6 @@ import {
   IdleTimeoutHandler,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
-import loglevel from 'loglevel';
 import log from 'domain/log';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
@@ -29,10 +28,7 @@ import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 
-if (! PRODUCTION) {
-  loglevel.enableAll();
-} else {
-  loglevel.setLevel('error');
+if (PRODUCTION) {
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
 
