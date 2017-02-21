@@ -16,6 +16,6 @@ module.exports = function spawn(...args) {
 };
 
 function killAll() {
-  console.debug(colors.grey('🔪  Will kill all processes'));
+  console.log(colors.grey('🔪  Will kill all processes'));
   children.forEach((child) => child.kill());
 }
