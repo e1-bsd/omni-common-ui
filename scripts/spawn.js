@@ -1,4 +1,5 @@
-const log = require('loglevel');
+/* eslint-disable no-console */
+
 const colors = require('colors/safe');
 const _spawn = require('child_process').spawn;
 
@@ -15,6 +16,6 @@ module.exports = function spawn(...args) {
 };
 
 function killAll() {
-  log.debug(colors.grey('🔪  Will kill all processes'));
+  console.debug(colors.grey('🔪  Will kill all processes'));
   children.forEach((child) => child.kill());
 }

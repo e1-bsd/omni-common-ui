@@ -80,7 +80,6 @@
     "karma-webpack": "1.8.0",
     "lodash": "4.16.6",
     "lodash.debounce": "4.0.8",
-    "loglevel": "1.4.1",
     "mocha": "3.1.2",
     "mockizen": "^1.0.0",
     "moment-timezone": "0.5.9",

@@ -2,11 +2,8 @@
 
 const path = require('path');
 const fs = require('fs');
-const log = require('loglevel');
 const colors = require('colors/safe');
 const spawn = require('./spawn');
-
-log.enableAll();
 
 const logFile = fs.createWriteStream(path.resolve(`${path.basename(__filename)}.log`), { flags: 'w+' });
 logFile.on('open', () => {

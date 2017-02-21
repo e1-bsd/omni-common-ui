@@ -1,16 +1,14 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 const path = require('path');
 const fs = require('fs');
 const { Map } = require('immutable');
-const log = require('loglevel');
 const is = require('is_js');
-
-log.enableAll();
 
 const { config } = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 if (is.not.object(config)) {
-  log.info('No binaries to build.');
+  console.info('No binaries to build.');
   process.exit(0);
 }
 
@@ -25,7 +23,7 @@ new Map(config.bin).forEach((dir, command) => {
         throw error;
       }
 
-      log.info(`'${path.relative(process.cwd(), link)}' -> ${path.relative(process.cwd(), pointsTo)}`);
+      console.info(`'${path.relative(process.cwd(), link)}' -> ${path.relative(process.cwd(), pointsTo)}`);
       fs.chmod(link, 511);
     });
   });
