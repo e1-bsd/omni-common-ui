@@ -12,6 +12,7 @@ import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
 import { reducer as apiCalls } from 'containers/ApiCalls';
+import log from 'domain/log';
 
 if (! PRODUCTION) {
   installDevTools(Immutable);
@@ -22,16 +23,13 @@ export function setupStore(reducer) {
     basename: '/',
   });
 
-  const loggerMiddleware = createLogger(Object.assign({},
-      PRODUCTION && { stateTransformer: () => undefined }));
-
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
     applyMiddleware(
       singleSignOnMiddleware,
       reduxRouterMiddleware,
       thunk,
-      loggerMiddleware
+      getLoggerMiddleware()
     )
   )(createStore);
 
@@ -64,6 +62,22 @@ function routing(state = Immutable.fromJS({ locationBeforeTransitions: null }), 
   }
 
   return state;
+}
+
+function getLoggerMiddleware() {
+  if (PRODUCTION) {
+    return () => (next) => (action) => {
+      try {
+        log.debug('Dispatched action:', JSON.stringify(action, null, 2));
+      } catch (e) {
+        log.warn('Could not log action:', e);
+      }
+
+      return next(action);
+    };
+  }
+
+  return createLogger();
 }
 
 export default setupStore;
