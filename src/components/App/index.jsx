@@ -11,7 +11,7 @@ import Histories from 'components/Histories';
 import connect from 'domain/connect';
 
 const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
-  <Header />
+  <Header {...props} />
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
     <div className={styles.App_content}>
@@ -31,6 +31,8 @@ const App = (props) => <div className={classnames(styles.App, testClass('app'))}
 
 App.propTypes = {
   children: React.PropTypes.node,
+  router: React.PropTypes.any.isRequired,
+  routes: React.PropTypes.array.isRequired,
   ...RouteBreadcrumbs.propTypes,
 };
 

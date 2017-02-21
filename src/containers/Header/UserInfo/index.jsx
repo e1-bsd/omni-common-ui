@@ -41,7 +41,15 @@ class UserInfo extends Component {
 
   _onLogoutButtonClicked() {
     event.preventDefault();
+    // don't show the unsaved changes warning
+    if (this.props.router) {
+      this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
+    }
     userManager.signoutRedirect();
+  }
+
+  _getCurrentRoute() {
+    return this.props.routes[this.props.routes.length - 1];
   }
 
   _redirectToPortal() {
@@ -112,7 +120,9 @@ class UserInfo extends Component {
 
     return <DropdownBox className={styles.UserInfo_features}>
       {this._renderImpersonateOption()}
-      <DropdownBox.Item onClick={this._onLogoutButtonClicked}>Log Out</DropdownBox.Item>
+      <DropdownBox.Item onClick={() => {
+        this._onLogoutButtonClicked();
+      }}>Log Out</DropdownBox.Item>
     </DropdownBox>;
   }
 
@@ -160,6 +170,8 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
+  router: React.PropTypes.any.isRequired,
+  routes: React.PropTypes.array.isRequired,
   havePrivilegesLoaded: React.PropTypes.func.isRequired,
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,
