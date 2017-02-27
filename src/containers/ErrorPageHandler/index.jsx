@@ -25,7 +25,8 @@ export const ErrorPageHandler = (props) => {
     }
 
     if (erroredApi.error && erroredApi.error.status === 401) {
-      userManager.signoutRedirect();
+      setLastUrlPath();
+      userManager.signinRedirect();
       throw new Error('Api called with 401 unauthorized');
     }
 
@@ -41,6 +42,10 @@ export const ErrorPageHandler = (props) => {
         config={config}
         afterButtonClicked={cleanErrors}
         {...props} />;
+  }
+
+  function setLastUrlPath() {
+    localStorage.lastUrlPath = location.pathname + location.search;
   }
 
   function renderChildren() {

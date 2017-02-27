@@ -57,7 +57,7 @@ class SingleSignOnHandlerImpl extends Component {
       return;
     }
 
-    localStorage.lastUrlPath = location.pathname + location.search;
+    sessionStorage.lastUrlPath = location.pathname + location.search;
   }
 
   _isUserValid() {
