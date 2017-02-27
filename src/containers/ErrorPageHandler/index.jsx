@@ -45,7 +45,7 @@ export const ErrorPageHandler = (props) => {
   }
 
   function setLastUrlPath() {
-    localStorage.lastUrlPath = location.pathname + location.search;
+    sessionStorage.lastUrlPath = location.pathname + location.search;
   }
 
   function renderChildren() {
