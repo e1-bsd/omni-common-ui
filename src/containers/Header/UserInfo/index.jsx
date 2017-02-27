@@ -135,11 +135,7 @@ class UserInfo extends Component {
   }
 
   _renderDropdown() {
-    if (this.state.isDropdownOpen !== true) {
-      return null;
-    }
-
-    return <DropdownBox className={styles.UserInfo_features}>
+    return <DropdownBox className={styles.UserInfo_features} open={this.state.isDropdownOpen}>
       {this._renderImpersonateOption()}
       <DropdownBox.Item onClick={() => {
         this._onLogoutButtonClicked();
