@@ -83,7 +83,7 @@
     "mocha": "3.1.2",
     "mockizen": "^1.0.0",
     "moment-timezone": "0.5.9",
-    "nightwatch": "0.9.8",
+    "nightwatch": "^0.9.12",
     "node-libs-browser": "1.0.0",
     "normalize.css": "5.0.0",
     "oidc-client": "1.2.2",
@@ -172,6 +172,7 @@
     "omni-start-mock": "./scripts/start-mock.js",
     "omni-css-test-update": "./scripts/gemini-update.js",
     "omni-css-test": "./scripts/gemini-test.js",
+    "omni-e2e-test": "./scripts/nightwatch-run.js",
     "omni-selenium-install": "./scripts/selenium-install.js"
   }
 }
