@@ -28,6 +28,10 @@ export default class ApiCall {
     });
   }
 
+  static getErrors(state) {
+    return state.get('apiCalls').filter((call) => ApiCall.State.hasFailed(call));
+  }
+
   static get API_CALL_CLEAN() {
     return 'API_CALL_CLEAN';
   }

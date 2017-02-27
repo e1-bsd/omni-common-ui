@@ -94,7 +94,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function getApiErrors(state) {
-  return state.get('apiCalls').filter((call) => ApiCall.State.hasFailed(call)).toList();
+  return ApiCall.getErrors(state).toList();
 }
 
 function getApiError(erroredApis) {

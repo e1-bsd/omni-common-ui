@@ -99,4 +99,20 @@ describe('ApiCall', () => {
       expect(action.key).to.equal('key');
     });
   });
+
+  describe('#getErrors()', () => {
+    const state = new Map({
+      apiCalls: new Map({
+        [ApiCall.Key.create({ method: 'GET', url: '/path/1' })]: ApiCall.State.createLoading(),
+        [ApiCall.Key.create({ method: 'POST', url: '/path/1' })]: ApiCall.State.createFailed(),
+        [ApiCall.Key.create({ method: 'GET', url: '/path/2' })]: ApiCall.State.createFailed(),
+        [ApiCall.Key.create({ method: 'GET', url: '/path/3' })]: ApiCall.State.createSucceeded(),
+      }),
+    });
+
+    it('returns all errored API calls', () => {
+      const errors = ApiCall.getErrors(state);
+      expect(errors.size).to.equal(2);
+    });
+  });
 });
