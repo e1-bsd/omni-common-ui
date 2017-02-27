@@ -15,6 +15,22 @@
   text-transform: uppercase;
 }
 
+@define-mixin fontForm {
+  font-family: var(--fontFamily);
+  font-size: 13px;
+  font-weight: var(--fontWeight-regular);
+  letter-spacing: 0.5px;
+  line-height: calc(15 / 13);
+}
+
+@define-mixin fontTableLabel {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-medium);
+  letter-spacing: 0.5px;
+  line-height: calc(18 / 14);
+}
+
 @define-mixin responsiveCardPadding {
   padding: var(--spaceBase);
 
