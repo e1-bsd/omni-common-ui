@@ -171,6 +171,7 @@
     "omni-unit-test": "./scripts/unit-test.js",
     "omni-start-mock": "./scripts/start-mock.js",
     "omni-css-test-update": "./scripts/gemini-update.js",
-    "omni-css-test": "./scripts/gemini-test.js"
+    "omni-css-test": "./scripts/gemini-test.js",
+    "omni-selenium-install": "./scripts/selenium-install.js"
   }
 }
