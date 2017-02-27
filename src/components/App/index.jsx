@@ -9,20 +9,24 @@ import testClass from 'domain/testClass';
 import RouteBreadcrumbs from 'components/RouteBreadcrumbs';
 import Histories from 'components/Histories';
 import connect from 'domain/connect';
+import ApiCall from 'containers/ApiCalls';
 
 const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
   <Header {...props} />
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
     <div className={styles.App_content}>
-      <div className={styles.App_content_auxiliary}>
-        <RouteBreadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
-            params={props.params}
-            routes={props.routes}
-            location={props.location}
-            buildRoute={props.buildRoute} />
-        <Histories className={styles.App_content_auxiliary_histories} {...props} />
-      </div>
+      {
+        ! props.isThereAnError &&
+        <div className={styles.App_content_auxiliary}>
+          <RouteBreadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+              params={props.params}
+              routes={props.routes}
+              location={props.location}
+              buildRoute={props.buildRoute} />
+          <Histories className={styles.App_content_auxiliary_histories} {...props} />
+        </div>
+      }
       <div className={styles.App_content_wrap}>{props.children}</div>
     </div>
   </div>
@@ -33,7 +37,12 @@ App.propTypes = {
   children: React.PropTypes.node,
   router: React.PropTypes.any.isRequired,
   routes: React.PropTypes.array.isRequired,
+  isThereAnError: React.PropTypes.bool.isRequired,
   ...RouteBreadcrumbs.propTypes,
 };
 
-export default connect()(App);
+export function mapStateToProps(state) {
+  return { isThereAnError: ApiCall.getErrors(state).size > 0 };
+}
+
+export default connect(mapStateToProps)(App);
