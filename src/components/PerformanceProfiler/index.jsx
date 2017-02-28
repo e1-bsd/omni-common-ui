@@ -1,6 +1,8 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import ReactPerf from 'react-addons-perf';
-import styles from './style.postcss';
+import Button from 'components/Button';
 
 class PerformanceProfiler extends React.Component {
   constructor(props) {
@@ -27,10 +29,21 @@ class PerformanceProfiler extends React.Component {
   render() {
     const { started } = this.state;
     return <div className={styles.PerformanceProfiler}>
-      <h1>Performance Profiler</h1>
-      <button onClick={() => this.toggle()}>{started ? 'Stop' : 'Start'}</button>
-      <button onClick={() => this.printWasted()}>Print Wasted</button>
-      <button onClick={() => this.printOperations()}>Print Operations</button>
+      <Button className={styles.PerformanceProfiler_button}
+          onClick={() => this.toggle()}
+          type={Button.Type.neoPrimary}>
+        {started ? 'Stop' : 'Start'}
+      </Button>
+      <Button className={styles.PerformanceProfiler_button}
+          onClick={() => this.printWasted()}
+          type={Button.Type.neo}>
+        Print Wasted
+      </Button>
+      <Button className={styles.PerformanceProfiler_button}
+          onClick={() => this.printOperations()}
+          type={Button.Type.neo}>
+        Print Operations
+      </Button>
     </div>;
   }
 }

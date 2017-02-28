@@ -1,21 +1,29 @@
+@import 'main.postcss';
+
+:root {
+  --height: 145px;
+  --space: 10px;
+}
+
 .PerformanceProfiler {
-  background: #bada55;
-  border: 2px solid black;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  height: var(--height);
+  left: 0;
+  padding: var(--space);
   position: absolute;
-  right: 50px;
   text-align: center;
-  top: 20px;
+  top: calc(50% - var(--height) / 2);
+  z-index: var(--zIndex-10--perfTools);
 
-  & > h1 {
-    font-size: 1.5em;
-  }
+  @mixin cardbg;
+  @mixin cardshadow;
 
-  & > button {
-    display: block;
-    margin-top: 10px;
-    padding: 5px;
+  &_button {
+    margin: 0 !important;
+
+    &:not(:last-child) {
+      margin-bottom: var(--space) !important;
+    }
   }
 }
