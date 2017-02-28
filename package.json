@@ -110,7 +110,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-appinsights": "^1.0.2",
     "react-daterange-picker": "1.0.0",
-    "react-dom": "15.3.2",
+    "react-dom": "^15.4.2",
     "react-ga": "^2.1.2",
     "react-immutable-proptypes": "2.1.0",
     "react-iscroll": "^1.1.1",
