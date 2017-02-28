@@ -1,4 +1,8 @@
 import styles from './style.postcss';
+import startSrc from './start.svg';
+import stopSrc from './stop.svg';
+import wastedSrc from './wasted.svg';
+import operationsSrc from './operations.svg';
 
 import React from 'react';
 import ReactPerf from 'react-addons-perf';
@@ -32,17 +36,17 @@ class PerformanceProfiler extends React.Component {
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.toggle()}
           type={Button.Type.neoPrimary}>
-        {started ? 'Stop' : 'Start'}
+        <img src={started ? stopSrc : startSrc} alt={started ? 'Stop' : 'Start'} />
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printWasted()}
           type={Button.Type.neo}>
-        Print Wasted
+        <img src={wastedSrc} alt="Wasted" />
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printOperations()}
           type={Button.Type.neo}>
-        Print Operations
+        <img src={operationsSrc} alt="Operations" />
       </Button>
     </div>;
   }
