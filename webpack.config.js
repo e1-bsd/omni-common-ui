@@ -92,7 +92,12 @@ module.exports = {
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
+        test: /\.inline\.svg$/,
+        loader: 'svg-inline?removeTags',
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/,
+        exclude: /\.inline\.svg$/,
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',

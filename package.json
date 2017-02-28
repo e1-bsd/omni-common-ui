@@ -140,6 +140,8 @@
     "stylelint": "7.5.0",
     "stylelint-config-standard": "14.0.0",
     "supervisor": "^0.12.0",
+    "svg-inline-loader": "^0.7.1",
+    "svg-inline-react": "^2.0.0",
     "typed-immutable": "0.0.8",
     "url-loader": "0.5.7",
     "utils": "0.3.1",
