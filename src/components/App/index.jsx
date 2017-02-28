@@ -10,8 +10,13 @@ import RouteBreadcrumbs from 'components/RouteBreadcrumbs';
 import Histories from 'components/Histories';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
+import PerformanceProfiler from 'components/PerformanceProfiler';
 
 const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
+  {
+    ! PRODUCTION &&
+    <PerformanceProfiler />
+  }
   <Header {...props} />
   <div className={styles.App_wrap}>
     <Sidebar {...props} />
