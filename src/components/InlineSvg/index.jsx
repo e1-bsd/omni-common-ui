@@ -1,7 +1,10 @@
+import styles from './style.postcss';
 import React from 'react';
+import classnames from 'classnames';
 
 const InlineSvg = ({ children, className }) =>
-  <i className={className} dangerouslySetInnerHTML={{ __html: children }} />;
+  <i className={classnames(className, styles.InlineSvg)}
+      dangerouslySetInnerHTML={{ __html: children }} />;
 
 InlineSvg.propTypes = {
   children: React.PropTypes.string,
