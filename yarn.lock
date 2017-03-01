@@ -7061,6 +7061,10 @@ pend@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
 
+performance-now@^0.2.0, performance-now@~0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
+
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -7784,10 +7788,6 @@ pretty-hrtime@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
 
-prettysize@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/prettysize/-/prettysize-0.0.3.tgz#14afff6a645e591a4ddf1c72919c23b4146181a1"
-
 private@^0.1.6, private@~0.1.5:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.6.tgz#55c6a976d0f9bafb9924851350fe47b9b5fbb7c1"
@@ -7977,6 +7977,12 @@ querystringify@0.0.x:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
 
+raf@^3.1.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.3.0.tgz#93845eeffc773f8129039f677f80a36044eee2c3"
+  dependencies:
+    performance-now "~0.2.0"
+
 randomatic@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
@@ -8092,6 +8098,10 @@ react-appinsights@^1.0.2:
     away "^1.0.0"
     history "^4.2.0"
 
+react-collapse@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-2.3.3.tgz#68c70f1fceeaf375e3599b95710cc51e5dd339a3"
+
 react-daterange-picker@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-daterange-picker/-/react-daterange-picker-1.0.0.tgz#938981c5c6a63fe4454091e621c250133b294f04"
@@ -8136,6 +8146,10 @@ react-ga@^2.1.2:
   dependencies:
     object-assign "^4.0.1"
 
+react-height@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-height/-/react-height-2.2.0.tgz#c65de6a7f7245c848f5ec9d3087f0758b90d7a0b"
+
 react-immutable-proptypes@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
@@ -8157,6 +8171,13 @@ react-modal@1.5.2:
     element-class "^0.2.0"
     exenv "1.2.0"
     lodash.assign "^3.2.0"
+
+react-motion@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.4.7.tgz#f77331ec7920bdb0d0cfc37eb6ffa10571bf42c7"
+  dependencies:
+    performance-now "^0.2.0"
+    raf "^3.1.0"
 
 react-proxy@^1.1.7:
   version "1.1.8"
@@ -10295,12 +10316,12 @@ webpack-hot-middleware@2.13.2:
     querystring "^0.2.0"
     strip-ansi "^3.0.0"
 
-webpack-visualizer-plugin@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/webpack-visualizer-plugin/-/webpack-visualizer-plugin-0.1.5.tgz#88acdba3a212f7c845f37a086ed23188ab476ea6"
+webpack-visualizer-plugin@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/webpack-visualizer-plugin/-/webpack-visualizer-plugin-0.1.11.tgz#b8770ad86b4f652612c68b1b782253faf9f8a34e"
   dependencies:
     d3 "^3.5.6"
-    prettysize "0.0.3"
+    mkdirp "^0.5.1"
     react "^0.14.0"
     react-dom "^0.14.0"
 
