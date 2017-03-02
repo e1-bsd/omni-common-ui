@@ -46,12 +46,12 @@
     }
   }
 
-  &_default,
-  &_inverse {
+  &.__default,
+  &.__inverse {
     background-color: transparent;
   }
 
-  &_default {
+  &.__default {
     border-color: var(--colorPrimaryNew);
     color: var(--colorPrimaryNew);
 
@@ -59,37 +59,37 @@
     &.__active {
       color: var(--colorTextInverse);
     }
-  }
 
-  &_inverse {
-    border-color: white;
-    color: var(--colorTextInverse);
-
-    &.__active {
+    &.__inverse {
+      border-color: white;
       color: var(--colorTextInverse);
-    }
 
-    &:hover:not([disabled],.__active) {
-      background-color: var(--colorInverseButtonHover) !important;
-      color: var(--colorPrimaryNew);
+      &.__active {
+        color: var(--colorTextInverse);
+      }
+
+      &:hover:not([disabled],.__active) {
+        background-color: var(--colorInverseButtonHover) !important;
+        color: var(--colorPrimaryNew);
+      }
     }
   }
 
-  &_primary {
+  &.__primary {
     background-color: var(--colorPrimaryNew);
     color: var(--colorTextInverse);
-  }
 
-  &_primaryInverse {
-    background-color: white;
-    color: var(--colorPrimaryNew);
+    &.__inverse {
+      background-color: white;
+      color: var(--colorPrimaryNew);
 
-    &.__active {
-      color: var(--colorTextInverse);
-    }
+      &.__active {
+        color: var(--colorTextInverse);
+      }
 
-    &:hover:not([disabled],.__active) {
-      background-color: var(--colorInverseButtonHover) !important;
+      &:hover:not([disabled],.__active) {
+        background-color: var(--colorInverseButtonHover) !important;
+      }
     }
   }
 
