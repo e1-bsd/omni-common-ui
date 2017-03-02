@@ -3,6 +3,7 @@
 
 'use strict';
 
+const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
 const postcssCalc = require('postcss-calc');
@@ -39,7 +40,7 @@ const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
-const happyPackThreadPool = new HappyPack.ThreadPool({ size: 4 });
+const happyPackThreadPool = new HappyPack.ThreadPool({ size: os.cpus().length });
 
 const jsxLoader = combineLoaders([
   {
