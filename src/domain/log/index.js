@@ -1,32 +1,35 @@
 import Raven from 'raven-js';
-import log from 'loglevel';
 
-export default class Log {
-  static trace(message) {
-    log.trace(message);
+const methods = ['error', 'info', 'log', 'warn', 'debug'];
+const log = Object.freeze(methods.reduce((object, method) => {
+  object[method] = buildLogMethod(method); // eslint-disable-line no-param-reassign
+  return object;
+}, {}));
+
+function buildLogMethod(method) {
+  const logToRaven = buildLogToRaven(method);
+  if ((! PRODUCTION || method === 'error') && console && console[method]) { // eslint-disable-line no-console
+    return (...args) => {
+      logToRaven(...args);
+      console[method](...args); // eslint-disable-line no-console
+    };
   }
 
-  static debug(message) {
-    Raven.captureBreadcrumb({ message, level: 'debug' });
-    log.debug(message);
-  }
-
-  static info(message) {
-    Raven.captureBreadcrumb({ message, level: 'info' });
-    log.info(message);
-  }
-
-  static warn(message) {
-    Raven.captureBreadcrumb({ message, level: 'warn' });
-    log.warn(message);
-  }
-
-  static error(message) {
-    if (message instanceof Error) {
-      Raven.captureException(message, { level: 'error' });
-    } else {
-      Raven.captureMessage(message, { level: 'error' });
-    }
-    log.error(message);
-  }
+  return (...args) => logToRaven(...args);
 }
+
+function buildLogToRaven(level) {
+  if (level === 'error') {
+    return (message) => {
+      if (message instanceof Error) {
+        Raven.captureException(message, { level });
+      } else {
+        Raven.captureMessage(message, { level });
+      }
+    };
+  }
+
+  return (message) => Raven.captureBreadcrumb({ message, level: level === 'warn' ? level : 'info' });
+}
+
+export default log;

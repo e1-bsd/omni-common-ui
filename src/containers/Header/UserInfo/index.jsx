@@ -7,6 +7,7 @@ import Dialog from 'components/Dialog';
 import Impersonate from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
 import is from 'is_js';
+import alertifyjs from 'alertifyjs';
 import Config from 'domain/Config';
 import StudentPicture from 'components/StudentPicture';
 import testClass from 'domain/testClass';
@@ -14,6 +15,13 @@ import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
+
+require('alertifyjs/build/css/alertify.css');
+
+const LOGOUT_POPUP_TITLE =
+    'Log out';
+const LOGOUT_POPUP_MSG =
+    'Are you sure you want to leave this page and lose unsaved changes?';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -41,7 +49,28 @@ class UserInfo extends Component {
 
   _onLogoutButtonClicked() {
     event.preventDefault();
-    userManager.signoutRedirect();
+    alertifyjs.confirm()
+    .setting({
+      movable: false,
+      transition: 'fade',
+      labels: {
+        ok: 'Leave',
+        cancel: 'Stay',
+      },
+      message: LOGOUT_POPUP_MSG,
+      title: LOGOUT_POPUP_TITLE,
+      onok: () => {
+        // don't show the unsaved changes warning
+        if (this.props.router) {
+          this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
+        }
+        userManager.signoutRedirect();
+      }
+    }).show();
+  }
+
+  _getCurrentRoute() {
+    return this.props.routes[this.props.routes.length - 1];
   }
 
   _redirectToPortal() {
@@ -106,13 +135,11 @@ class UserInfo extends Component {
   }
 
   _renderDropdown() {
-    if (this.state.isDropdownOpen !== true) {
-      return null;
-    }
-
-    return <DropdownBox className={styles.UserInfo_features}>
+    return <DropdownBox className={styles.UserInfo_features} open={this.state.isDropdownOpen}>
       {this._renderImpersonateOption()}
-      <DropdownBox.Item onClick={this._onLogoutButtonClicked}>Log Out</DropdownBox.Item>
+      <DropdownBox.Item onClick={() => {
+        this._onLogoutButtonClicked();
+      }}>Log Out</DropdownBox.Item>
     </DropdownBox>;
   }
 
@@ -160,6 +187,8 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
+  router: React.PropTypes.any.isRequired,
+  routes: React.PropTypes.array.isRequired,
   havePrivilegesLoaded: React.PropTypes.func.isRequired,
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as FormsyForm } from 'formsy-react';
 
-const Form = (props) => <div>
+const Form = (props) => <div className={props.className}>
   <FormsyForm onSubmit={props.onSubmit}
       onChange={props.onChange}
       onValid={props.onValid}
@@ -11,6 +11,7 @@ const Form = (props) => <div>
 </div>;
 
 Form.propTypes = {
+  className: React.PropTypes.string,
   onSubmit: React.PropTypes.func,
   onChange: React.PropTypes.func,
   onValid: React.PropTypes.func,

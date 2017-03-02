@@ -19,7 +19,10 @@ const Histories = (props) => {
   if (history && is.not.string(history.link)) return null;
 
   return <div className={classnames(styles.Histories, props.className)}>
-    <Link to={history.link}>HISTORY</Link>
+    <Link to={history.link}
+        draggable={false}>
+      History
+    </Link>
   </div>;
 };
 

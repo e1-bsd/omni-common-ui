@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 const request = require('request');
 const path = require('path');
 const fs = require('fs');
 const git = require('git-rev-sync');
-const log = require('loglevel');
 const colors = require('colors/safe');
 const is = require('is_js');
 const recursive = require('recursive-readdir');
@@ -15,7 +15,6 @@ const packageInfo = require(path.resolve('package.json'));
 const release = git.long();
 const { sentryProject, sentryApiKey } = packageInfo.config;
 
-log.enableAll();
 createRelease(uploadFiles);
 
 function createRelease(after) {
@@ -28,9 +27,9 @@ function createRelease(after) {
     },
     body: `{"version": "${release}"}`,
   }, processResponse((response, body) => {
-    log.info(colors.green(`📦  ${release}`));
-    log.info(colors.grey(json(body)));
-    log.info('\n');
+    console.info(colors.green(`📦  Sentry release ${release}`));
+    console.info(colors.grey(json(body)));
+    console.info('\n');
 
     after();
   }));
@@ -39,16 +38,17 @@ function createRelease(after) {
 function uploadFiles() {
   recursive(path.resolve('dist'), [shouldIgnoreFile], (error, files) => {
     if (error) {
-      log.error(colors.red(error));
+      console.error(colors.red(error));
       process.exit(1);
     }
 
-    log.info('📤  Will upload files');
+    console.info('📤  Will upload files');
     files.forEach(uploadFile);
   });
 }
 
 function uploadFile(file) {
+  const fileName = `~/${path.parse(file).base}`;
   return request({
     url: `https://sentry.io/api/0/projects/e1-bsd/${sentryProject}/releases/${release}/files/`,
     method: 'POST',
@@ -56,12 +56,15 @@ function uploadFile(file) {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${sentryApiKey}`,
     },
-    formData: { file: fs.createReadStream(file) },
+    formData: {
+      file: fs.createReadStream(file),
+      name: fileName,
+    },
   }, processResponse((response) => {
     if (response.statusCode === 409) {
-      log.warn(colors.yellow(`  📄  ${path.relative(process.cwd(), file)} (already there)`));
+      console.warn(colors.yellow(`  📄  ${path.relative(process.cwd(), file)} (already there)`), fileName);
     } else {
-      log.info(colors.green(`  📄  ${path.relative(process.cwd(), file)}`));
+      console.info(colors.green(`  📄  ${path.relative(process.cwd(), file)}`), fileName);
     }
   }));
 }
@@ -69,15 +72,15 @@ function uploadFile(file) {
 function processResponse(onOk) {
   return (error, response, body) => {
     if (error) {
-      log.error(colors.red(error));
+      console.error(colors.red(error));
       process.exit(1);
     }
 
     if (response.statusCode !== 409 &&
         ! (response.statusCode >= 200 && response.statusCode < 300)) {
-      log.error(json(response));
+      console.error(json(response));
       const parsedBody = JSON.parse(body);
-      log.error(colors.red(parsedBody && parsedBody.detail) || json(response));
+      console.error(colors.red(parsedBody && parsedBody.detail) || json(response));
       process.exit(1);
     }
 

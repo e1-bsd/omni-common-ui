@@ -9,7 +9,7 @@ const SingleSignOnCallback = (props) => {
   return <CallbackComponent successCallback={successCallback} errorCallback={errorCallback} />;
 
   function successCallback() {
-    log.debug('SingleSignOnCallback - lastUrlPath', localStorage.lastUrlPath);
+    log.debug('SingleSignOnCallback - lastUrlPath', sessionStorage.lastUrlPath);
     redirect();
   }
 
@@ -19,7 +19,7 @@ const SingleSignOnCallback = (props) => {
   }
 
   function redirect() {
-    props.dispatch(replace(localStorage.lastUrlPath || ''));
+    props.dispatch(replace(sessionStorage.lastUrlPath || ''));
   }
 };
 

@@ -2,51 +2,34 @@
 
 const path = require('path');
 const fs = require('fs');
-const log = require('loglevel');
 const colors = require('colors/safe');
 const spawn = require('./spawn');
 
-log.enableAll();
-
 const logFile = fs.createWriteStream(path.resolve(`${path.basename(__filename)}.log`), { flags: 'w+' });
 logFile.on('open', () => {
-  process.stdout.write('🎬  Will install Selenium');
-  const seleniumInstall = spawn('node', ['node_modules/selenium-standalone/bin/selenium-standalone', 'install', '--version=3.0.1'], { stdio: [logFile, logFile, logFile] });
-  seleniumInstall.on('close', (code) => {
-    process.stderr.clearLine();
-    process.stderr.cursorTo(0);
-
-    if (code !== 0) {
-      process.stderr.write(colors.red('💥  Selenium installation has failed\n'));
+  start({
+    command: ['node', 'node_modules/selenium-standalone/bin/selenium-standalone', 'start', '--version=3.0.1'],
+    lookFor: /(Selenium started)|(Selenium Server is up and running)/i,
+    name: 'Selenium',
+  })()
+    .then(start({
+      command: ['node', path.join(__dirname, 'start-mock.js')],
+      lookFor: /Serving on port/i,
+      name: 'Mock server',
+    }))
+    .then(start({
+      command: ['node', path.join(__dirname, 'start.js')],
+      lookFor: /webpack: bundle is now VALID/i,
+      name: 'Web server',
+    }))
+    .then(start({
+      command: ['node', 'node_modules/gemini/bin/gemini', 'test', '--reporter', 'flat', '--reporter', 'html', '--config', path.join(__dirname, '../.gemini.conf.js')],
+      name: 'Gemini',
+      writeToConsole: true,
+    }))
+    .catch(() => {
       process.exit(1);
-    }
-
-    process.stdout.write(colors.green('🔩  Selenium has been installed\n'));
-
-    start({
-      command: ['node', 'node_modules/selenium-standalone/bin/selenium-standalone', 'start', '--version=3.0.1'],
-      lookFor: /(Selenium started)|(Selenium Server is up and running)/i,
-      name: 'Selenium',
-    })()
-      .then(start({
-        command: ['node', path.join(__dirname, 'start-mock.js')],
-        lookFor: /Serving on port/i,
-        name: 'Mock server',
-      }))
-      .then(start({
-        command: ['node', path.join(__dirname, 'start.js')],
-        lookFor: /webpack: bundle is now VALID/i,
-        name: 'Web server',
-      }))
-      .then(start({
-        command: ['node', 'node_modules/gemini/bin/gemini', 'test', '--reporter', 'flat', '--reporter', 'html', '--config', path.join(__dirname, '../.gemini.conf.js')],
-        name: 'Gemini',
-        writeToConsole: true,
-      }))
-      .catch(() => {
-        process.exit(1);
-      });
-  });
+    });
 });
 
 function start({ command, lookFor, name, writeToConsole = false }) {

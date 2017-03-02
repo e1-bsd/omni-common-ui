@@ -16,12 +16,16 @@ const Header = (props) => {
       <UserInfo impersonate={props.impersonate}
           setImpersonate={props.setImpersonate}
           removeImpersonate={props.removeImpersonate}
-          unimpersonate={props.unimpersonate} />
+          unimpersonate={props.unimpersonate}
+          router={props.router}
+          routes={props.routes} />
     </div>
   </div>;
 };
 
 Header.propTypes = {
+  router: React.PropTypes.any.isRequired,
+  routes: React.PropTypes.array.isRequired,
   setImpersonate: React.PropTypes.func.isRequired,
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func.isRequired,

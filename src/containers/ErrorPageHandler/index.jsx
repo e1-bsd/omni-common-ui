@@ -25,7 +25,8 @@ export const ErrorPageHandler = (props) => {
     }
 
     if (erroredApi.error && erroredApi.error.status === 401) {
-      userManager.signoutRedirect();
+      setLastUrlPath();
+      userManager.signinRedirect();
       throw new Error('Api called with 401 unauthorized');
     }
 
@@ -41,6 +42,10 @@ export const ErrorPageHandler = (props) => {
         config={config}
         afterButtonClicked={cleanErrors}
         {...props} />;
+  }
+
+  function setLastUrlPath() {
+    sessionStorage.lastUrlPath = location.pathname + location.search;
   }
 
   function renderChildren() {
@@ -94,7 +99,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function getApiErrors(state) {
-  return state.get('apiCalls').filter((call) => ApiCall.State.hasFailed(call)).toList();
+  return ApiCall.getErrors(state).toList();
 }
 
 function getApiError(erroredApis) {

@@ -1,0 +1,44 @@
+@import 'main.postcss';
+
+:root {
+  --height: 145px;
+  --space: 10px;
+  --iconSize: 20px;
+}
+
+.PerformanceProfiler {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: var(--height);
+  justify-content: center;
+  left: 0;
+  padding: var(--space);
+  position: fixed;
+  text-align: center;
+  top: calc(50% - var(--height) / 2);
+  width: 70px;
+  z-index: var(--zIndex-10--perfTools);
+
+  @mixin cardbg;
+  @mixin cardshadow;
+
+  &_button {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 !important;
+    min-width: 0;
+    width: auto;
+
+    &:not(:last-child) {
+      margin-bottom: var(--space) !important;
+    }
+
+    &_icon {
+      display: block;
+      height: var(--iconSize);
+      width: var(--iconSize);
+    }
+  }
+}

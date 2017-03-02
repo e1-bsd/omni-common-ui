@@ -39,6 +39,8 @@ import _Detailsboard from 'components/Detailsboard';
 import _InputSelect from 'components/InputSelect';
 import _NumberInput from 'components/NumberInput';
 import _log from 'domain/log';
+import _Sticker from 'components/Sticker';
+import _InlineSvg from 'components/InlineSvg';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
@@ -84,3 +86,5 @@ export const Detailsboard = _Detailsboard;
 export const InputSelect = _InputSelect;
 export const NumberInput = _NumberInput;
 export const log = _log;
+export const Sticker = _Sticker;
+export const InlineSvg = _InlineSvg;
