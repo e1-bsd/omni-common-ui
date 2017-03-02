@@ -24,6 +24,7 @@ const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
+const HappyPack = require('happypack');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -31,11 +32,38 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
-const isProd = nodeEnv !== 'development' && nodeEnv !== 'test';
+const isDev = nodeEnv === 'development';
+const isProd = ! isDev && nodeEnv !== 'test';
 
 const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
+
+const happyPackThreadPool = new HappyPack.ThreadPool({ size: 4 });
+
+const jsxLoader = combineLoaders([
+  {
+    loader: 'babel',
+    query: {
+      presets: ['react', 'es2015', 'stage-2'],
+      cacheDirectory: true,
+    },
+  },
+]);
+
+const postcssLoader = combineLoaders([
+  { loader: 'style' },
+  {
+    loader: 'css',
+    query: {
+      root: '.',
+      modules: true,
+      importLoaders: 1,
+      localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
+    },
+  },
+  { loader: 'postcss' },
+]);
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -57,15 +85,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: excluded,
-        loader: combineLoaders([
-          {
-            loader: 'babel',
-            query: {
-              presets: ['react', 'es2015', 'stage-2'],
-              cacheDirectory: true,
-            },
-          },
-        ]),
+        loader: isDev ? 'happypack/loader?id=jsx' : jsxLoader,
       },
       {
         test: /\.css$/,
@@ -73,19 +93,7 @@ module.exports = {
       },
       {
         test: /\.postcss$/,
-        loader: combineLoaders([
-          { loader: 'style' },
-          {
-            loader: 'css',
-            query: {
-              root: '.',
-              modules: true,
-              importLoaders: 1,
-              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
-            },
-          },
-          { loader: 'postcss' },
-        ]),
+        loader: isDev ? 'happypack/loader?id=postcss' : postcssLoader,
       },
       {
         test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
@@ -93,7 +101,7 @@ module.exports = {
       },
       {
         test: /\.inline\.svg$/,
-        loader: 'svg-inline?removeTags',
+        loader: isDev ? 'happypack/loader?id=svg' : 'svg-inline?removeTags',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -127,6 +135,33 @@ module.exports = {
           }),
         ] :
         [])
+      .concat(isDev ?
+        [
+          new HappyPack({
+            id: 'jsx',
+            threadPool: happyPackThreadPool,
+            loaders: [jsxLoader],
+            cacheContext: {
+              env: process.env.NODE_ENV,
+            },
+          }),
+          new HappyPack({
+            id: 'postcss',
+            threadPool: happyPackThreadPool,
+            loaders: [postcssLoader],
+            cacheContext: {
+              env: process.env.NODE_ENV,
+            },
+          }),
+          new HappyPack({
+            id: 'svg',
+            threadPool: happyPackThreadPool,
+            loaders: [
+              'svg-inline?removeTags',
+            ],
+          }),
+        ] :
+        [])
       .concat([
         new HtmlWebpackPlugin({
           template: path.join(__dirname, 'lib/index.html'),
@@ -138,7 +173,8 @@ module.exports = {
           isProd,
         }),
         new Visualizer({ filename: '../package-stats.html' }),
-      ]).concat(addOptionalPlugins()),
+      ])
+      .concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
     noInfo: false,
