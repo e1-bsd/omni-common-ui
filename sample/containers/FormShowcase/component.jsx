@@ -52,7 +52,7 @@ class FormShowcase extends Component {
         <SelectShowcase />
         <RadioShowcase />
         <CheckboxShowcase />
-        <Button type={Button.Type.neoPrimary}
+        <Button type={Button.Type.primary}
             disabled={this.state.saveBtn}
             onClick={() => log.info(this.state.formData)}>
           Save

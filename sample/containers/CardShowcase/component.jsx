@@ -43,7 +43,7 @@ const CardShowcase = () => <Showcase title="Cards" titleLink="cards">
           <Card.Image src={sampleImage} />
           <Card.Content>
             <div>Content with other elements</div>
-            <Button type={Button.Type.neo} onClick={() => log.info('Click!')}>A button</Button>
+            <Button type={Button.Type.default} onClick={() => log.info('Click!')}>A button</Button>
           </Card.Content>
         </Card>
       </Grid.Item>

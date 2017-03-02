@@ -5,7 +5,7 @@ import Button from 'components/Button';
 
 const SaveBarButton = ({ label, isPrimary, disabled, onClick, linkHref, linkTo }) =>
   <Button autoWidth
-      type={isPrimary ? Button.Type.neoPrimaryInverse : Button.Type.neoInverse}
+      type={isPrimary ? Button.Type.primaryInverse : Button.Type.defaultInverse}
       className={styles.SaveBar_button}
       disabled={disabled}
       onClick={onClick}
