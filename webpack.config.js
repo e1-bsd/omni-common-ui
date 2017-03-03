@@ -42,12 +42,14 @@ const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
 const happyPackThreadPool = new HappyPack.ThreadPool({ size: os.cpus().length });
 
+const BABEL_CACHE_ENABLED = true;
+
 const jsxLoader = combineLoaders([
   {
     loader: 'babel',
     query: {
       presets: ['react', 'es2015', 'stage-2'],
-      cacheDirectory: true,
+      cacheDirectory: BABEL_CACHE_ENABLED,
     },
   },
 ]);
@@ -102,7 +104,7 @@ module.exports = {
       },
       {
         test: /\.inline\.svg$/,
-        loader: isDev ? 'happypack/loader?id=svg' : 'svg-inline?removeTags',
+        loader: 'svg-inline?removeTags',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
@@ -140,6 +142,7 @@ module.exports = {
         [
           new HappyPack({
             id: 'jsx',
+            cache: ! BABEL_CACHE_ENABLED,
             threadPool: happyPackThreadPool,
             loaders: [jsxLoader],
             cacheContext: {
@@ -153,13 +156,6 @@ module.exports = {
             cacheContext: {
               env: process.env.NODE_ENV,
             },
-          }),
-          new HappyPack({
-            id: 'svg',
-            threadPool: happyPackThreadPool,
-            loaders: [
-              'svg-inline?removeTags',
-            ],
           }),
         ] :
         [])
