@@ -33,6 +33,7 @@
 
   &:global(.dropdown-enter) {
     opacity: 0;
+    z-index: var(--zIndex-2--dropdownBoxEntering);
   }
 
   &:global(.dropdown-enter.dropdown-enter-active) {
@@ -42,6 +43,7 @@
 
   &:global(.dropdown-leave) {
     opacity: 1;
+    z-index: var(--zIndex-0--dropdownBoxLeaving);
   }
 
   &:global(.dropdown-leave.dropdown-leave-active) {
