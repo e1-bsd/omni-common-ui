@@ -6,21 +6,6 @@
 const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
-const postcssCalc = require('postcss-calc');
-const postcssCssnext = require('postcss-cssnext');
-const postcssNesting = require('postcss-nesting');
-const postcssImport = require('postcss-import');
-const postcssReporter = require('postcss-reporter');
-const postcssCustomSelectors = require('postcss-custom-selectors');
-const postcssSelectorNot = require('postcss-selector-not');
-const postcssColorFunctions = require('postcss-color-function');
-const postcssColorHexAlpha = require('postcss-color-hex-alpha');
-const postcssMixins = require('postcss-mixins');
-const postcssCustomProperties = require('postcss-custom-properties');
-const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
-const postcssUrl = require('postcss-url');
-const postcssPxToRem = require('postcss-pxtorem');
-const postcssGradientTransparencyFix = require('postcss-gradient-transparency-fix');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -40,6 +25,7 @@ const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
+HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss']);
 const happyPackThreadPool = new HappyPack.ThreadPool({ size: os.cpus().length });
 
 const BABEL_CACHE_ENABLED = true;
@@ -202,43 +188,6 @@ module.exports = {
       ),
     }
   ),
-  postcss: (webpackInstance) => ([
-    postcssImport({
-      path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
-      addDependencyTo: webpackInstance,
-    }),
-    postcssUrl({ url: 'rebase' }),
-    postcssContainerQueries,
-    postcssMixins,
-    postcssCustomSelectors,
-    postcssCustomProperties,
-    postcssSelectorNot,
-    postcssColorFunctions,
-    postcssColorHexAlpha,
-    postcssNesting,
-    postcssGradientTransparencyFix,
-    postcssPxToRem({
-      rootValue: 14,
-      unitPrecision: 5,
-      propWhiteList: [],
-      selectorBlackList: [],
-      replace: true,
-      mediaQuery: false,
-      minPixelValue: 0,
-    }),
-    postcssCalc,
-    postcssCssnext({
-      browsers: [
-        '> 0%',
-        'last 2 versions',
-        'Firefox ESR',
-        'Opera 12.1',
-        'Android 2.3',
-        'iOS 7',
-      ],
-    }),
-    postcssReporter({ clearMessages: true }),
-  ]),
   externals: {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
