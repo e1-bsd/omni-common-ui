@@ -46,6 +46,20 @@
     }
   }
 
+  &:hover:not([disabled],.__active) {
+    background-color: var(--colorButtonHover);
+  }
+
+  &:hover:not([disabled]),
+  &.__active {
+    border-color: transparent;
+    box-shadow: 0 1px 2px 1px var(--colorBorder);
+  }
+
+  &.__active {
+    background-color: var(--colorButtonActive);
+  }
+
   &.__default,
   &.__inverse {
     background-color: transparent;
@@ -70,6 +84,7 @@
 
       &:hover:not([disabled],.__active) {
         background-color: var(--colorInverseButtonHover) !important;
+        border-color: transparent;
         color: var(--colorPrimaryNew);
       }
     }
@@ -139,20 +154,6 @@
       background-color: #000;
       color: var(--colorTextInverse);
     }
-  }
-
-  &:hover:not([disabled],.__active) {
-    background-color: var(--colorButtonHover);
-  }
-
-  &:hover:not([disabled]),
-  &.__active {
-    border-color: transparent;
-    box-shadow: 0 1px 2px 1px var(--colorBorder);
-  }
-
-  &.__active {
-    background-color: var(--colorButtonActive);
   }
 
   &[disabled] {
