@@ -61,7 +61,7 @@
     }
 
     &.__inverse {
-      border-color: white;
+      border-color: var(--colorBase);
       color: var(--colorTextInverse);
 
       &.__active {
@@ -80,7 +80,7 @@
     color: var(--colorTextInverse);
 
     &.__inverse {
-      background-color: white;
+      background-color: var(--colorBase);
       color: var(--colorPrimaryNew);
 
       &.__active {
@@ -90,6 +90,54 @@
       &:hover:not([disabled],.__active) {
         background-color: var(--colorInverseButtonHover) !important;
       }
+    }
+  }
+
+  &.__correct {
+    background: transparent;
+    border-color: var(--colorCorrect);
+    color: var(--colorCorrect);
+
+    &:hover:not([disabled]),
+    &.__active {
+      background-color: var(--colorCorrect);
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &.__wrong {
+    background: transparent;
+    border-color: var(--colorWrong);
+    color: var(--colorWrong);
+
+    &:hover:not([disabled]),
+    &.__active {
+      background-color: var(--colorWrong);
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &.__needsAttention {
+    background: transparent;
+    border-color: var(--colorNeedsAttention);
+    color: var(--colorNeedsAttention);
+
+    &:hover:not([disabled]),
+    &.__active {
+      background-color: var(--colorNeedsAttention);
+      color: var(--colorTextInverse);
+    }
+  }
+
+  &.__black {
+    background: transparent;
+    border-color: #000;
+    color: #000;
+
+    &:hover:not([disabled]),
+    &.__active {
+      background-color: #000;
+      color: var(--colorTextInverse);
     }
   }
 

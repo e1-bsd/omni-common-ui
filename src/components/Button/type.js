@@ -7,6 +7,10 @@ export const Type = {
   defaultInverse: classnames(styles.Button, styles.__default, styles.__inverse),
   primary: classnames(styles.Button, styles.__primary),
   primaryInverse: classnames(styles.Button, styles.__primary, styles.__inverse),
+  correct: classnames(styles.Button, styles.__correct),
+  wrong: classnames(styles.Button, styles.__wrong),
+  needsAttention: classnames(styles.Button, styles.__needsAttention),
+  black: classnames(styles.Button, styles.__black),
 };
 
 export function validateType(type) {
