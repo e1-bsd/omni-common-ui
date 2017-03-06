@@ -1,20 +1,16 @@
-import React from 'react';
-
-import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import Breadcrumbs from 'components/Breadcrumbs';
-import RouteBreadcrumbs from './';
+import BreadcrumbsBuilder from './';
 
 // <Breadcrumbs state params location routes buildRoute>
 
-describe('<RouteBreadcrumbs />', () => {
+describe('BreadcrumbsBuilder', () => {
   const props = {
     params: undefined,
     location: undefined,
     routes: undefined,
     buildRoute: undefined,
   };
-  let mounted;
+
   let expectedItems;
 
   beforeEach(() => {
@@ -22,7 +18,6 @@ describe('<RouteBreadcrumbs />', () => {
     props.location = {};
     props.routes = [];
     props.buildRoute = (path) => `/${path}`;
-    mounted = undefined;
     expectedItems = undefined;
   });
 
@@ -31,8 +26,7 @@ describe('<RouteBreadcrumbs />', () => {
       props.routes = [{
         path: '/group/1',
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.be.blank();
+      expect(BreadcrumbsBuilder.buildWithProps(props)).to.be.null;
     });
 
     it('null when there is one labelled route segment', () => {
@@ -40,8 +34,7 @@ describe('<RouteBreadcrumbs />', () => {
         path: 'group/:groupId',
         breadcrumbLabels: 'Group',
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted).to.be.blank();
+      expect(BreadcrumbsBuilder.buildWithProps(props)).to.be.null;
     });
 
     it('with two items when there are two labelled route segments', () => {
@@ -63,8 +56,8 @@ describe('<RouteBreadcrumbs />', () => {
         href: '/group/:groupId/dashboard/members',
         clickable: false,
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql(expectedItems);
     });
 
     it('with more labels than routes when label value(s) are arrays', () => {
@@ -88,8 +81,8 @@ describe('<RouteBreadcrumbs />', () => {
         href: '/group/:groupId/members',
         clickable: false,
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql(expectedItems);
     });
 
     it('with labels that are functions', () => {
@@ -112,8 +105,8 @@ describe('<RouteBreadcrumbs />', () => {
         href: '/group/:groupId/members',
         clickable: false,
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql(expectedItems);
     });
 
     it('with labels of mixed types containing a full object definition', () => {
@@ -144,8 +137,8 @@ describe('<RouteBreadcrumbs />', () => {
         href: '/group/:groupId/members/edit',
         clickable: false,
       }];
-      mounted = shallow(<RouteBreadcrumbs {...props} />);
-      expect(mounted.find(Breadcrumbs).prop('items')).to.eql(expectedItems);
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql(expectedItems);
     });
   });
 });
