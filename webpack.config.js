@@ -9,7 +9,7 @@ const webpack = require('webpack');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const HappyPack = require('happypack');
 
@@ -71,6 +71,7 @@ module.exports = {
       {
         test: /\.(html|hbs)$/,
         loader: 'handlebars',
+        query: { inlineRequires: 'assets/favicons' },
       },
       {
         test: /\.jsx?$/,
@@ -90,6 +91,10 @@ module.exports = {
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
+        test: /assets\/favicons\/.+$/,
+        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+      },
+      {
         test: /\.inline\.svg$/,
         loader: 'svg-inline?removeTags',
       },
@@ -103,6 +108,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
+        exclude: /assets\/favicons/,
         loader: 'json',
       },
     ],
@@ -111,6 +117,12 @@ module.exports = {
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
+        new CopyWebpackPlugin([
+          { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
+        ]),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
@@ -147,28 +159,6 @@ module.exports = {
         ] :
         [])
       .concat([
-        new FaviconsWebpackPlugin({
-          logo: path.join(__dirname, 'lib/favicon.svg'),
-          prefix: '',
-          emitStats: false,
-          statsFilename: 'iconstats-[hash].json',
-          persistentCache: true,
-          inject: true,
-          background: '#fff',
-          title: 'Omni',
-          icons: {
-            android: true,
-            appleIcon: true,
-            appleStartup: true,
-            coast: false,
-            favicons: true,
-            firefox: true,
-            opengraph: false,
-            twitter: false,
-            yandex: false,
-            windows: true,
-          },
-        }),
         new HtmlWebpackPlugin({
           template: path.join(__dirname, 'lib/index.html'),
           inject: 'body',
