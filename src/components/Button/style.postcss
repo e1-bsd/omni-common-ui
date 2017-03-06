@@ -11,7 +11,7 @@
   padding: 0 15px;
   text-align: center;
   text-transform: uppercase;
-  transition: all 0.1s ease;
+  transition: all var(--transitionDurationBase) ease;
   user-select: none;
   will-change: background, border, box-shadow, color, opacity;
 
@@ -71,6 +71,8 @@
 
     &:hover:not([disabled]),
     &.__active {
+      background-color: var(--colorButtonActive);
+      border-color: transparent;
       color: var(--colorTextInverse);
     }
 
