@@ -122,6 +122,7 @@ module.exports = {
           { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
           { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
           { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
         ]),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
