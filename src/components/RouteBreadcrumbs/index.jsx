@@ -3,6 +3,7 @@ import log from 'domain/log';
 import is from 'is_js';
 
 import Breadcrumbs from 'components/Breadcrumbs';
+import Config from 'domain/Config';
 
 const ACCEPTABLE_LABELS_TYPES = new Set(['string', 'object', 'function']);
 const ALWAYS_APPLIED_PARAMS = { mode: '' };
@@ -48,6 +49,13 @@ const RouteBreadcrumbs = (props) => {
   // the last one shouldn't be clickable
   if (breadcrumbs.length > 1) {
     breadcrumbs[breadcrumbs.length - 1].clickable = false;
+  }
+
+  if (breadcrumbs.length <= 0) {
+    document.title = Config.get('displayTitle');
+  } else {
+    document.title = breadcrumbs.reduce((result, item, index) =>
+        `${result}${index !== 0 ? ' / ' : ''}${item.label}`, `${Config.get('displayTitle')} - `);
   }
 
   return <Breadcrumbs className={className} items={breadcrumbs} />;
