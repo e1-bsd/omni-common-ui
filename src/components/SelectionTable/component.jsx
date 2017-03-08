@@ -38,11 +38,11 @@ class SelectionTable extends Component {
     if (tempRoutes.length === 0) {
       return <div>
         {
-          levels.map((level) => {
-            return <Level route={this.state.route}
+          levels.map((level) =>
+            <Level route={this.state.route}
                 label={level.props.label}
-                onClick={(route) => this._onLevelClick(route)} />;
-          })
+                onClick={(route) => this._onLevelClick(route)} />
+          )
         }
       </div>;
     }
