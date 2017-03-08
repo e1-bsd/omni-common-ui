@@ -20,7 +20,6 @@ class SelectionTable extends Component {
   }
 
   _onLevelClick(route) {
-    console.log('dega', 'on level click', route);
     this.setState({ route });
   }
 
@@ -28,7 +27,6 @@ class SelectionTable extends Component {
   _renderContent() {
     let levels = Array.from([...this._level]);
     const tempRoutes = Array.from([...this.state.route]);
-    console.log('dega', 'render start', this.state.route, this._level, levels);
     while (tempRoutes.length !== 0) {
       const currentRoute = tempRoutes.shift();
       levels = levels.find(
@@ -38,11 +36,9 @@ class SelectionTable extends Component {
     }
 
     if (tempRoutes.length === 0) {
-      console.log('dega', 'last render', this.state.route, levels);
       return <div>
         {
           levels.map((level) => {
-            console.log('dega', 'foreach', level);
             return <Level route={this.state.route}
                 label={level.props.label}
                 onClick={(route) => this._onLevelClick(route)} />;
@@ -50,7 +46,6 @@ class SelectionTable extends Component {
         }
       </div>;
     }
-    console.log('dega', 'render finish', this.state.route);
   }
 
   render() {
