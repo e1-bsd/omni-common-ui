@@ -1,41 +1,32 @@
 @import 'main.postcss';
 
-:root {
-  --footerText: #c6c6c6;
-  --footerBg: #4d4d4d;
-}
-
 .Footer {
-  background: var(--footerBg);
-  color: var(--footerText);
-  font-size: 12px;
-  left: 0;
+  background: #4c4c4c;
+  color: #bbb;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-sm);
   letter-spacing: 0;
-  min-height: 120px; /* INTERNET EXPLORER */
+  line-height: 100%;
+  min-height: 80px; /* INTERNET EXPLORER */
   overflow: hidden;
-  padding: 45px 0 30px 40px;
-  width: 100%;
+  padding: var(--spaceBase);
 
-  @media (--xs-viewport) {
-    height: auto;
-  }
-
-  & p {
-    margin-top: 0;
+  & a {
+    color: var(--footerText);
+    text-decoration: none;
   }
 
   &_logo {
     background-repeat: no-repeat;
-    float: left;
-    font-size: 12px;
+    flex-grow: 0;
+    flex-shrink: 0;
     height: 42px;
-    margin-right: 40px;
+    margin-right: var(--spaceBase);
     width: 61px;
-
-    @media (--xs-viewport) {
-      float: none;
-      margin-bottom: 15px;
-    }
 
     &:global {
       background-image: url('ef-footer.svg');
@@ -43,22 +34,41 @@
   }
 
   &_content {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    justify-content: space-between;
+
     &_row {
-      /* wrap the copyright nicely */
       display: flex;
       flex-wrap: wrap;
-      margin-bottom: 4px;
-      margin-top: 0;
       white-space: nowrap;
+    }
+  }
 
-      &:last-of-type {
-        margin-bottom: 0;
-      }
+  &_copyright {
+    display: table;
+
+    &::before {
+      content: '©';
+      display: table-cell;
+      padding-right: 5px;
     }
 
-    &_link {
-      color: var(--footerText);
-      text-decoration: none;
+    &_firstLine {
+      line-height: 1.3;
+
+      @media (--sm-viewport) {
+        line-height: 1;
+      }
+    }
+  }
+
+  &_break {
+    @media (--sm-viewport) {
+      display: none;
     }
   }
 }
