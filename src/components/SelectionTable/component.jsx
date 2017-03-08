@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PageCard from '../PageCard';
 
 class SelectionTable extends Component {
 
@@ -8,11 +9,18 @@ class SelectionTable extends Component {
   }
 
   render() {
-    return <div>
-      Hi, This is Selection Table
-    </div>;
+    return <PageCard>
+      <PageCard.Heading text="Selection Table" />
+      <div>
+        {this.props.children}
+      </div>
+    </PageCard>;
   }
 
 }
+
+SelectionTable.propTypes = {
+  children: React.PropTypes.node,
+};
 
 export default SelectionTable;
