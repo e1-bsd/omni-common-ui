@@ -41,6 +41,7 @@ import _NumberInput from 'components/NumberInput';
 import _log from 'domain/log';
 import _Sticker from 'components/Sticker';
 import _InlineSvg from 'components/InlineSvg';
+import _SelectionTable from 'components/SelectionTable';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
@@ -88,3 +89,4 @@ export const NumberInput = _NumberInput;
 export const log = _log;
 export const Sticker = _Sticker;
 export const InlineSvg = _InlineSvg;
+export const SelectionTable = _SelectionTable;
