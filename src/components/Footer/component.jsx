@@ -7,12 +7,6 @@ const Footer = () => <div className={styles.Footer}>
     <p className={styles.Footer_content_row}>
       <a className={styles.Footer_content_link}
           target="_blank" rel="noopener noreferrer"
-          href="http://www.ef.com/privacy-policy/">
-        Privacy Policy
-      </a>
-      <span className={styles.Footer_content_separator} />
-      <a className={styles.Footer_content_link}
-          target="_blank" rel="noopener noreferrer"
           href="https://helpcenter.ef.com">Help Center</a>
     </p>
     <p className={styles.Footer_content_row}>
