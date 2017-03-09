@@ -22,19 +22,26 @@ describe('BreadcrumbsBuilder', () => {
   });
 
   context('breadcrumb rendering', () => {
-    it('null when there are no labelled route segments', () => {
+    it('when there are no labelled route segments', () => {
       props.routes = [{
         path: '/group/1',
       }];
-      expect(BreadcrumbsBuilder.buildWithProps(props)).to.be.null;
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql([]);
     });
 
-    it('null when there is one labelled route segment', () => {
+    it('when there is one labelled route segment', () => {
       props.routes = [{
         path: 'group/:groupId',
         breadcrumbLabels: 'Group',
       }];
-      expect(BreadcrumbsBuilder.buildWithProps(props)).to.be.null;
+      expectedItems = [{
+        label: 'Group',
+        href: '/group/:groupId',
+        clickable: true,
+      }];
+      const result = BreadcrumbsBuilder.buildWithProps(props);
+      expect(result).to.be.eql(expectedItems);
     });
 
     it('with two items when there are two labelled route segments', () => {

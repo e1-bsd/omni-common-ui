@@ -41,8 +41,6 @@ export default {
         })));
     });
 
-    if (! breadcrumbs.length || breadcrumbs.length <= 1) return null;
-
     // the last one shouldn't be clickable
     if (breadcrumbs.length > 1) {
       breadcrumbs[breadcrumbs.length - 1].clickable = false;
