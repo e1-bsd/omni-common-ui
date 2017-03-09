@@ -24,7 +24,9 @@ const isProd = ! isDev && nodeEnv !== 'test';
 
 const commitHash = git.long();
 const tag = git.tag();
+
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
+const excludedInCoverage = /(node_modules(\/|\\)((?!(omni-common-ui)).)|spec.jsx?|lib(\/|\\))/;
 
 const regExpFonts = new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
 const regExpInlineSvgs = new RegExp('\\.inline\\.svg$');
@@ -114,6 +116,14 @@ module.exports = {
         test: /\.json$/,
         exclude: regExpFavicons,
         loader: 'json',
+      },
+    ],
+    postLoaders: [
+      {
+        test: /\.jsx?$/i,
+        exclude: excludedInCoverage,
+        loader: 'istanbul-instrumenter',
+        enforce: 'post',
       },
     ],
   },
