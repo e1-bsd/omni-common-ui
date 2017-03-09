@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import is from 'is_js';
 import PageCard from '../PageCard';
 import Level from './Level';
+import Leaf from './Leaf';
 
 class SelectionTable extends Component {
 
@@ -25,27 +27,39 @@ class SelectionTable extends Component {
 
 
   _renderContent() {
-    let levels = Array.from([...this._level]);
+    let levels = this._level.slice(0);
     const tempRoutes = Array.from([...this.state.route]);
     while (tempRoutes.length !== 0) {
       const currentRoute = tempRoutes.shift();
       levels = levels.find(
         (level) => level.props.label === currentRoute
       );
-      levels = Array.from([...levels.props.children]);
+      levels = is.array(levels.props.children) ?
+        levels.props.children.slice(0) :
+        levels.props.children;
     }
 
     if (tempRoutes.length === 0) {
-      return <div>
-        {
-          levels.map((level) =>
-            <Level route={this.state.route}
-                label={level.props.label}
-                onClick={(route) => this._onLevelClick(route)} />
-          )
-        }
-      </div>;
+      return this._renderLevels(levels);
     }
+  }
+
+  _renderLevels(levels) {
+    if (! is.array(levels) && levels.type === Leaf) {
+      return <Leaf>{levels.props.children}</Leaf>;
+    }
+    return <div>
+      {
+        levels.map((level) =>
+          <Level key={level.props.label}
+              route={this.state.route}
+              label={level.props.label}
+              onClick={(route) => this._onLevelClick(route)}>
+            {level.props.children}
+          </Level>
+        )
+      }
+    </div>;
   }
 
   render() {
