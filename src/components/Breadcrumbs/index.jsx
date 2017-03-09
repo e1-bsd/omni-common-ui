@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import ReactGA from 'react-ga';
 
 const Breadcrumbs = (props) => {
-  if (! props.items || props.items <= 1) return null;
+  if (! props.items || props.items.length <= 1) return null;
 
   return <nav className={classnames(styles.Breadcrumbs, props.className)}>
     <ul className={styles.Breadcrumbs_list}>
