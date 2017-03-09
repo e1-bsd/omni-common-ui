@@ -26,7 +26,7 @@ const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
-const regExpFonts = new RegExp(`fonts${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
+const regExpFonts = new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
 const regExpInlineSvgs = new RegExp('\\.inline\\.svg$');
 const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
 
