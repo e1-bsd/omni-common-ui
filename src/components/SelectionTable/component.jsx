@@ -27,17 +27,20 @@ class SelectionTable extends Component {
     this.setState({ route });
   }
 
+  _cloneArray(arr) {
+    return arr.slice(0);
+  }
 
   _renderContent() {
-    let levels = this._level.slice(0);
-    const tempRoutes = Array.from([...this.state.route]);
+    let levels = this._cloneArray(this._level);
+    const tempRoutes = this._cloneArray(this.state.route);
     while (tempRoutes.length !== 0) {
       const currentRoute = tempRoutes.shift();
       levels = levels.find(
         (level) => level.props.label === currentRoute
       );
       levels = is.array(levels.props.children) ?
-        levels.props.children.slice(0) :
+        this._cloneArray(levels.props.children) :
         levels.props.children;
     }
 
@@ -65,7 +68,7 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
-    const routes = this.state.route.slice(0);
+    const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);
       if (routeIndex >= 0) {
