@@ -62,9 +62,19 @@ class SelectionTable extends Component {
     </div>;
   }
 
+  _renderHeading() {
+    const route = this.state.route;
+    if (is.array(route) && route.length > 0) {
+      return <PageCard.Heading>
+        Display route
+      </PageCard.Heading>;
+    }
+    return <PageCard.Heading text={this.props.title} />;
+  }
+
   render() {
     return <PageCard>
-      <PageCard.Heading text="Selection Table" />
+      {this._renderHeading()}
       <div>
         {this._renderContent()}
       </div>
@@ -75,6 +85,7 @@ class SelectionTable extends Component {
 
 SelectionTable.propTypes = {
   children: React.PropTypes.node,
+  title: React.PropTypes.string,
 };
 
 export default SelectionTable;
