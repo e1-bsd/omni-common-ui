@@ -104,7 +104,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: new RegExp(`(${regExpFavicons})|(${regExpInlineSvgs})`),
+        exclude: new RegExp(`(${regExpFavicons.source})|(${regExpInlineSvgs.source})`),
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
