@@ -4,6 +4,8 @@ import PageCard from '../PageCard';
 import Level from './Level';
 import Leaf from './Leaf';
 
+import styles from './style.postcss';
+
 class SelectionTable extends Component {
 
   constructor(props) {
@@ -63,10 +65,25 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
-    const route = this.state.route;
-    if (is.array(route) && route.length > 0) {
+    const routes = this.state.route.slice(0);
+    const onHeadingRouteClick = (route) => {
+      const routeIndex = routes.indexOf(route);
+      if (routeIndex >= 0) {
+        const newRoute = routes.slice(0, routeIndex + 1);
+        this.setState({ route: newRoute });
+      }
+    };
+    const headingRouteClassName = styles.SelectionTable_heading_route;
+    if (is.array(routes) && routes.length > 0) {
       return <PageCard.Heading>
-        Display route
+        {
+          routes.map((route) =>
+            <span key={route}
+                className={headingRouteClassName}
+                onClick={() => onHeadingRouteClick(route)}>
+              {route}
+            </span>)
+        }
       </PageCard.Heading>;
     }
     return <PageCard.Heading text={this.props.title} />;
