@@ -73,9 +73,23 @@ class SelectionTable extends Component {
         this.setState({ route: newRoute });
       }
     };
+    const onHeadingBackClick = () => {
+      this.setState({ route: routes.slice(0, routes.length - 1) });
+    };
+
+    const onHeadingRootClick = () => {
+      this.setState({ route: [] });
+    };
     const headingRouteClassName = styles.SelectionTable_heading_route;
+    const headingBackClassName = styles.SelectionTable_heading_back;
     if (is.array(routes) && routes.length > 0) {
-      return <PageCard.Heading>
+      return <PageCard.Heading className={styles.SelectionTable_heading}>
+        <span className={headingRouteClassName}>
+          <span className={headingBackClassName} onClick={() => onHeadingBackClick()} />
+        </span>
+        <span className={headingRouteClassName} onClick={() => onHeadingRootClick()}>
+          {this.props.title}
+        </span>
         {
           routes.map((route) =>
             <span key={route}
