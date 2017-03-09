@@ -26,6 +26,8 @@ const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
+const regExpFonts = new RegExp(`fonts${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
+const regExpInlineSvgs = new RegExp('\\.inline\\.svg$');
 const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
 
 HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss']);
@@ -89,7 +91,7 @@ module.exports = {
         loader: isDev ? 'happypack/loader?id=postcss' : postcssLoader,
       },
       {
-        test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
+        test: regExpFonts,
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
@@ -97,12 +99,12 @@ module.exports = {
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
-        test: /\.inline\.svg$/,
+        test: regExpInlineSvgs,
         loader: 'svg-inline?removeTags',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: new RegExp(`(${regExpFavicons})|(\\.inline\\.svg$)`),
+        exclude: new RegExp(`(${regExpFavicons})|(${regExpInlineSvgs})`),
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
