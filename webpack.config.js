@@ -3,26 +3,13 @@
 
 'use strict';
 
+const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
-const postcssCalc = require('postcss-calc');
-const postcssCssnext = require('postcss-cssnext');
-const postcssNesting = require('postcss-nesting');
-const postcssImport = require('postcss-import');
-const postcssReporter = require('postcss-reporter');
-const postcssCustomSelectors = require('postcss-custom-selectors');
-const postcssSelectorNot = require('postcss-selector-not');
-const postcssColorFunctions = require('postcss-color-function');
-const postcssColorHexAlpha = require('postcss-color-hex-alpha');
-const postcssMixins = require('postcss-mixins');
-const postcssCustomProperties = require('postcss-custom-properties');
-const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
-const postcssUrl = require('postcss-url');
-const postcssPxToRem = require('postcss-pxtorem');
-const postcssGradientTransparencyFix = require('postcss-gradient-transparency-fix');
 const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const HappyPack = require('happypack');
 
@@ -37,16 +24,25 @@ const isProd = ! isDev && nodeEnv !== 'test';
 
 const commitHash = git.long();
 const tag = git.tag();
-const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
-const happyPackThreadPool = new HappyPack.ThreadPool({ size: 4 });
+const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
+const excludedInCoverage = /(node_modules(\/|\\)((?!(omni-common-ui)).)|spec.jsx?|lib(\/|\\))/;
+
+const regExpFonts = new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
+const regExpInlineSvgs = new RegExp('\\.inline\\.svg$');
+const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
+
+HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss']);
+const happyPackThreadPool = new HappyPack.ThreadPool({ size: os.cpus().length });
+
+const BABEL_CACHE_ENABLED = true;
 
 const jsxLoader = combineLoaders([
   {
     loader: 'babel',
     query: {
       presets: ['react', 'es2015', 'stage-2'],
-      cacheDirectory: true,
+      cacheDirectory: BABEL_CACHE_ENABLED,
     },
   },
 ]);
@@ -81,6 +77,7 @@ module.exports = {
       {
         test: /\.(html|hbs)$/,
         loader: 'handlebars',
+        query: { inlineRequires: 'assets/favicons' },
       },
       {
         test: /\.jsx?$/,
@@ -96,16 +93,20 @@ module.exports = {
         loader: isDev ? 'happypack/loader?id=postcss' : postcssLoader,
       },
       {
-        test: /fonts(\/|\\).+\.(woff2?|ttf|eot|otf|svg)$/,
+        test: regExpFonts,
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
-        test: /\.inline\.svg$/,
-        loader: isDev ? 'happypack/loader?id=svg' : 'svg-inline?removeTags',
+        test: regExpFavicons,
+        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+      },
+      {
+        test: regExpInlineSvgs,
+        loader: 'svg-inline?removeTags',
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: /\.inline\.svg$/,
+        exclude: new RegExp(`(${regExpFavicons.source})|(${regExpInlineSvgs.source})`),
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
@@ -113,7 +114,16 @@ module.exports = {
       },
       {
         test: /\.json$/,
+        exclude: regExpFavicons,
         loader: 'json',
+      },
+    ],
+    postLoaders: [
+      {
+        test: /\.jsx?$/i,
+        exclude: excludedInCoverage,
+        loader: 'istanbul-instrumenter',
+        enforce: 'post',
       },
     ],
   },
@@ -121,6 +131,13 @@ module.exports = {
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
       []).concat([
         new webpack.optimize.OccurenceOrderPlugin(),
+        new CopyWebpackPlugin([
+          { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
+          { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
+        ]),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
           PRODUCTION: isProd,
@@ -139,6 +156,7 @@ module.exports = {
         [
           new HappyPack({
             id: 'jsx',
+            cache: ! BABEL_CACHE_ENABLED,
             threadPool: happyPackThreadPool,
             loaders: [jsxLoader],
             cacheContext: {
@@ -152,13 +170,6 @@ module.exports = {
             cacheContext: {
               env: process.env.NODE_ENV,
             },
-          }),
-          new HappyPack({
-            id: 'svg',
-            threadPool: happyPackThreadPool,
-            loaders: [
-              'svg-inline?removeTags',
-            ],
           }),
         ] :
         [])
@@ -205,43 +216,6 @@ module.exports = {
       ),
     }
   ),
-  postcss: (webpackInstance) => ([
-    postcssImport({
-      path: ['node_modules', contextFolder, `${contextFolder}/assets/styles`, process.cwd()],
-      addDependencyTo: webpackInstance,
-    }),
-    postcssUrl({ url: 'rebase' }),
-    postcssContainerQueries,
-    postcssMixins,
-    postcssCustomSelectors,
-    postcssCustomProperties,
-    postcssSelectorNot,
-    postcssColorFunctions,
-    postcssColorHexAlpha,
-    postcssNesting,
-    postcssGradientTransparencyFix,
-    postcssPxToRem({
-      rootValue: 14,
-      unitPrecision: 5,
-      propWhiteList: [],
-      selectorBlackList: [],
-      replace: true,
-      mediaQuery: false,
-      minPixelValue: 0,
-    }),
-    postcssCalc,
-    postcssCssnext({
-      browsers: [
-        '> 0%',
-        'last 2 versions',
-        'Firefox ESR',
-        'Opera 12.1',
-        'Android 2.3',
-        'iOS 7',
-      ],
-    }),
-    postcssReporter({ clearMessages: true }),
-  ]),
   externals: {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,

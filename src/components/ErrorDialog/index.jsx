@@ -18,7 +18,7 @@ const ErrorDialog = ({
         </div>
         <Button.Container className={styles.ErrorDialog_buttons}
             align="center">
-          <Button type={Button.Type.neoPrimary}
+          <Button type={Button.Type.primary}
               onClick={() => onConfirmClick()}>
             OK
           </Button>

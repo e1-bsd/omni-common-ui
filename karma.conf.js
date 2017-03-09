@@ -20,7 +20,16 @@ module.exports = (config) => {
     webpackMiddleware: {
       noInfo: true,
     },
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage-istanbul'],
+    coverageIstanbulReporter: {
+      reports: ['clover', 'html', 'text-summary'],
+      dir: './coverage',
+      'report-config': {
+        html: {
+          subdir: 'html',
+        },
+      },
+    },
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,

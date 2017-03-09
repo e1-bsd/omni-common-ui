@@ -36,21 +36,21 @@ class PerformanceProfiler extends React.Component {
     return <div className={styles.PerformanceProfiler}>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.toggle()}
-          type={Button.Type.neoPrimary}>
+          type={Button.Type.primary}>
         <InlineSvg className={styles.PerformanceProfiler_button_icon}>
           {started ? stopIcon : startIcon}
         </InlineSvg>
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printWasted()}
-          type={Button.Type.neo}>
+          type={Button.Type.default}>
         <InlineSvg className={styles.PerformanceProfiler_button_icon}>
           {wastedIcon}
         </InlineSvg>
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printOperations()}
-          type={Button.Type.neo}>
+          type={Button.Type.default}>
         <InlineSvg className={styles.PerformanceProfiler_button_icon}>
           {operationsIcon}
         </InlineSvg>

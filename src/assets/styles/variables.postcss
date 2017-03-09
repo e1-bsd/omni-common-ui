@@ -1,5 +1,3 @@
-@import './zIndex.postcss';
-
 :root {
   --colorBg: #f2f2f2;
   --colorCardBg: #fbfbfb;
@@ -13,6 +11,7 @@
   --colorTableLayer2: #e5eef3;
   --colorTableLayer3: #6799ba;
   --colorTableLayer4: #456981;
+  --colorTableStripe: #e8ebef;
 }
 
 :root {
@@ -30,17 +29,15 @@
   --colorCorrect: #74d17f;
   --colorWrong: #de4c4c;
   --colorSuspended: #f7932d;
+  --colorNeedsAttention: var(--colorSuspended);
   --colorOnHold: #898989;
   --colorHintMessage: #b4b4b4;
   --colorButtonHover: #026cb6;
   --colorButtonActive: #0e4f7d;
   --colorInverseButtonHover: #ceebff;
   --colorPrimaryNew: var(--colorActive);
-  --colorNeedsAttention: #f7932d;
   --colorImpersonating: var(--colorNeedsAttention);
   --colorHoverDarken: #0006;
-  --colorCardBg: #fbfbfb;
-  --colorTableStripe: #e8ebef;
   --headerBarShadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --cardBoxShadow: 0 0 3px 1px var(--colorCardShadow);
 }
@@ -83,18 +80,6 @@
   --buttonMinWidth: 100px;
   --cardContentPaddingVertical: var(--touchablePaddingVertical);
   --cardContentPaddingHorizontal: calc(var(--touchablePaddingHorizontal) - 1px);
-}
-
-:root {
-  --zIndex-1--dialogLoadingOverlay: var(--zIndex-1);
-  --zIndex-1--expandedTableRow: var(--zIndex-1);
-  --zIndex-1--header: calc(var(--zIndex-1) + 1);
-  --zIndex-7--headerDropdown: calc(var(--zIndex-7) + 1);
-  --zIndex-7--sidebar: calc(var(--zIndex-7) + 2);
-  --zIndex-8--savingBarOverlay: var(--zIndex-8);
-  --zIndex-9--savingBar: var(--zIndex-9);
-  --zIndex-10--modalPopup: var(--zIndex-10);
-  --zIndex-10--perfTools: calc(var(--zIndex-10) + 1);
 }
 
 :root {

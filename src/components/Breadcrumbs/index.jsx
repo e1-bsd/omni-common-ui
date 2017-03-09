@@ -5,33 +5,37 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import ReactGA from 'react-ga';
 
-const Breadcrumbs = (props) => <nav className={classnames(styles.Breadcrumbs, props.className)}>
-  <ul className={styles.Breadcrumbs_list}>
-    {props.items.map((item, idx) => {
-      const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
-      const itemClassNames = classnames(styles.Breadcrumbs_crumb, {
-        [indexedCrumbClassName]: !! indexedCrumbClassName,
-        [styles.__clickable]: !! item.clickable,
-      });
-      const itemKey = item.label + item.href;
-      return <li key={itemKey} className={itemClassNames}>
-        {item.clickable ? <Link to={item.href} onClick={onClick}>
-          {item.label}
-        </Link> : <span>
-          {item.label}
-        </span>}
-      </li>;
+const Breadcrumbs = (props) => {
+  if (! props.items || props.items.length <= 1) return null;
 
-      function onClick() {
-        ReactGA.event({
-          category: 'Navigation',
-          action: 'Clicked breadcrumb',
-          label: `Clicked breadcrumb ${item.label}`,
+  return <nav className={classnames(styles.Breadcrumbs, props.className)}>
+    <ul className={styles.Breadcrumbs_list}>
+      {props.items.map((item, idx) => {
+        const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
+        const itemClassNames = classnames(styles.Breadcrumbs_crumb, {
+          [indexedCrumbClassName]: !! indexedCrumbClassName,
+          [styles.__clickable]: !! item.clickable,
         });
-      }
-    })}
-  </ul>
-</nav>;
+        const itemKey = item.label + item.href;
+        return <li key={itemKey} className={itemClassNames}>
+          {item.clickable ? <Link to={item.href} onClick={onClick}>
+            {item.label}
+          </Link> : <span>
+            {item.label}
+          </span>}
+        </li>;
+
+        function onClick() {
+          ReactGA.event({
+            category: 'Navigation',
+            action: 'Clicked breadcrumb',
+            label: `Clicked breadcrumb ${item.label}`,
+          });
+        }
+      })}
+    </ul>
+  </nav>;
+};
 
 Breadcrumbs.propTypes = {
   className: React.PropTypes.string,

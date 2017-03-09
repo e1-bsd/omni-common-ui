@@ -6,9 +6,11 @@
 /dist*
 /lib
 /node_modules
+/coverage
 /npm-debug.log
 /npm-debug.log.*
 /package-stats.html
 /selenium-debug.log
 /test-results
 /yarn-error.log
+/.happypack

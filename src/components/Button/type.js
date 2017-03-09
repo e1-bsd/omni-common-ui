@@ -3,22 +3,15 @@ import styles from './style.postcss';
 import classnames from 'classnames';
 
 export const Type = {
-  neo: classnames(styles.NeoButton, styles.NeoButton_default),
-  neoInverse: classnames(styles.NeoButton, styles.NeoButton_inverse),
-  neoPrimary: classnames(styles.NeoButton, styles.NeoButton_primary),
-  neoPrimaryInverse: classnames(styles.NeoButton, styles.NeoButton_primaryInverse),
-  default: classnames(styles.Button, styles.Button_default),
-  primary: classnames(styles.Button, styles.Button_primary),
-  defaultInverse: classnames(styles.Button, styles.Button_defaultInverse),
-  primaryInverse: classnames(styles.Button, styles.Button_primaryInverse),
+  default: classnames(styles.Button, styles.__default),
+  defaultInverse: classnames(styles.Button, styles.__default, styles.__inverse),
+  primary: classnames(styles.Button, styles.__primary),
+  primaryInverse: classnames(styles.Button, styles.__primary, styles.__inverse),
+  correct: classnames(styles.Button, styles.__correct),
+  wrong: classnames(styles.Button, styles.__wrong),
+  needsAttention: classnames(styles.Button, styles.__needsAttention),
+  black: classnames(styles.Button, styles.__black),
 };
-
-// `neoSecondary` is the long form of `neo`
-Type.neoSecondary = Type.neo;
-
-export const NeoTypes = [
-  Type.neoSecondary, Type.neoPrimary, Type.neoPrimaryInverse,
-];
 
 export function validateType(type) {
   if (Object.keys(Type).some((k) => Type[k] === type)) {

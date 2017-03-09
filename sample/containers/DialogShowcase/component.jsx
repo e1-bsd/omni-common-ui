@@ -26,21 +26,21 @@ class DialogShowcase extends Component {
   render() {
     return <Showcase title="Dialogs" titleLink="dialogs">
       {/* Dialog Trigger */}
-      <Button type={Button.Type.neo}
+      <Button type={Button.Type.default}
           onClick={() =>
             this.setState({ isDialogOpen: true })}>
         Show dialog
       </Button>
 
       {/* ConfirmDialog Trigger */}
-      <Button type={Button.Type.neo}
+      <Button type={Button.Type.default}
           onClick={() =>
             this.setState({ isConfirmDialogOpen: true })}>
         Show confirmation prompt
       </Button>
 
       {/* ErrorDialog Trigger */}
-      <Button type={Button.Type.neo}
+      <Button type={Button.Type.default}
           onClick={() =>
             this.setState({ isErrorDialogOpen: true })}>
         Show error modal
@@ -58,7 +58,7 @@ class DialogShowcase extends Component {
         <p>
           Dialog Content
         </p>
-        <Button type={Button.Type.neo}
+        <Button type={Button.Type.default}
             onClick={() =>
               this.setState({ isDialogLoading: true })}>
           Do something

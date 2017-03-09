@@ -1,49 +1,70 @@
 import styles from './style.postcss';
 
-import React from 'react';
+import React, { Component } from 'react';
 import Header from 'containers/Header';
 import Sidebar from 'containers/Sidebar';
 import Footer from 'components/Footer';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
-import RouteBreadcrumbs from 'components/RouteBreadcrumbs';
+import Breadcrumbs from 'components/Breadcrumbs';
 import Histories from 'components/Histories';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import PerformanceProfiler from 'components/PerformanceProfiler';
+import Config from 'domain/Config';
+import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 
-const App = (props) => <div className={classnames(styles.App, testClass('app'))}>
-  {
-    ! PRODUCTION &&
-    <PerformanceProfiler />
+class App extends Component {
+  componentDidMount() {
+    this._setPageTitle(this.props);
   }
-  <Header {...props} />
-  <div className={styles.App_wrap}>
-    <Sidebar {...props} />
-    <div className={styles.App_content}>
+
+  componentWillUpdate(props) {
+    this._setPageTitle(props);
+  }
+
+  _setPageTitle(props) {
+    this._breadcrumbs = BreadcrumbsBuilder.buildWithProps(props);
+    if (! this._breadcrumbs || this._breadcrumbs.length <= 0) {
+      document.title = Config.get('displayTitle');
+    } else {
+      document.title = this._breadcrumbs.reduce((result, item, index) =>
+          `${result}${index !== 0 ? ' / ' : ''}${item.label}`, `${Config.get('displayTitle')} - `);
+    }
+  }
+
+  render() {
+    return <div className={classnames(styles.App, testClass('app'))}>
       {
-        ! props.isThereAnError &&
-        <div className={styles.App_content_auxiliary}>
-          <RouteBreadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
-              params={props.params}
-              routes={props.routes}
-              location={props.location}
-              buildRoute={props.buildRoute} />
-          <Histories className={styles.App_content_auxiliary_histories} {...props} />
-        </div>
+        ! PRODUCTION &&
+        <PerformanceProfiler />
       }
-      <div className={styles.App_content_wrap}>{props.children}</div>
-    </div>
-  </div>
-  <Footer />
-</div>;
+      <Header {...this.props} />
+      <div className={styles.App_wrap}>
+        <Sidebar {...this.props} />
+        <div className={styles.App_content}>
+          {
+            ! this.props.isThereAnError &&
+            <div className={styles.App_content_auxiliary}>
+              {
+                this._breadcrumbs &&
+                <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+                    items={this._breadcrumbs} />
+              }
+              <Histories className={styles.App_content_auxiliary_histories} {...this.props} />
+            </div>
+          }
+          <div className={styles.App_content_wrap}>{this.props.children}</div>
+        </div>
+      </div>
+      <Footer />
+    </div>;
+  }
+}
 
 App.propTypes = {
   children: React.PropTypes.node,
-  router: React.PropTypes.any.isRequired,
-  routes: React.PropTypes.array.isRequired,
   isThereAnError: React.PropTypes.bool.isRequired,
-  ...RouteBreadcrumbs.propTypes,
 };
 
 export function mapStateToProps(state) {
