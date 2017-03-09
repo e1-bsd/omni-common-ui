@@ -26,6 +26,8 @@ const commitHash = git.long();
 const tag = git.tag();
 const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
 
+const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
+
 HappyPack.SERIALIZABLE_OPTIONS = HappyPack.SERIALIZABLE_OPTIONS.concat(['postcss']);
 const happyPackThreadPool = new HappyPack.ThreadPool({ size: os.cpus().length });
 
@@ -91,7 +93,7 @@ module.exports = {
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
-        test: /assets\/favicons\/.+$/,
+        test: regExpFavicons,
         loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
@@ -100,7 +102,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: /(assets\/favicons)|(\.inline\.svg)/,
+        exclude: new RegExp(`(${regExpFavicons})|(\\.inline\\.svg$)`),
         loaders: [
           'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
@@ -108,7 +110,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        exclude: /assets\/favicons/,
+        exclude: regExpFavicons,
         loader: 'json',
       },
     ],
