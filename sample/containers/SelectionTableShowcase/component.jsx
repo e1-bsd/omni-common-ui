@@ -5,7 +5,7 @@ import { SelectionTable } from 'omni-common-ui';
 const SelectionTableShowcase = () =>
   <Showcase title="Selection Table" titleLink="selectionTable">
     <div>
-      <SelectionTable title="Classroom">
+      <SelectionTable title="Classroom" rootLinkTitle="Global">
         <SelectionTable.Level label="CN">
           <SelectionTable.Level label="CN-OWN">
             <SelectionTable.Level label="Shanghai">
