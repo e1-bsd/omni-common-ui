@@ -42,12 +42,12 @@ import _log from 'domain/log';
 import _Sticker from 'components/Sticker';
 import _InlineSvg from 'components/InlineSvg';
 import _SelectionTable from 'components/SelectionTable';
+import _Icon from 'components/Icon';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
 export const Card = _Card;
 export const PageCard = _PageCard;
-export const Icon = _ClickableIcon;
 export const ClickableIcon = _ClickableIcon;
 export const StudentCard = _StudentCard;
 export const StudentPicture = _StudentPicture;
@@ -90,3 +90,4 @@ export const log = _log;
 export const Sticker = _Sticker;
 export const InlineSvg = _InlineSvg;
 export const SelectionTable = _SelectionTable;
+export const Icon = _Icon;
