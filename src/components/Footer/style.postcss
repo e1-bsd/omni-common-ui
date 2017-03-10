@@ -1,8 +1,12 @@
 @import 'main.postcss';
 
+:root {
+  --colorText: #bbb;
+}
+
 .Footer {
   background: #4c4c4c;
-  color: #bbb;
+  color: var(--colorText);
   display: flex;
   flex-direction: row;
   flex-grow: 0;
@@ -16,7 +20,7 @@
   padding: var(--spaceBase);
 
   & a {
-    color: var(--footerText) !important;
+    color: var(--colorText);
     text-decoration: none;
   }
 
