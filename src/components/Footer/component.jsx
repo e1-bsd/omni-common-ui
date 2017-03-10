@@ -11,7 +11,7 @@ const Footer = () => <div className={styles.Footer}>
     </div>
     <div className={styles.Footer_content_row}>
       <div className={styles.Footer_copyright}>
-        <span className={styles.Footer_copyright_firstLine}>EF Education First 2016.</span>
+        <span className={styles.Footer_copyright_firstLine}>EF Education First 2016. </span>
         <br className={styles.Footer_break} />
         All rights reserved.
       </div>
