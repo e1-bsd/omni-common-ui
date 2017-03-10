@@ -68,6 +68,7 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
+    const { title, rootLinkTitle } = this.props;
     const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);
@@ -91,7 +92,7 @@ class SelectionTable extends Component {
           <span className={headingBackClassName} onClick={() => onHeadingBackClick()} />
         </span>
         <span className={headingRouteClassName} onClick={() => onHeadingRootClick()}>
-          {this.props.title}
+          {is.undefined(rootLinkTitle) ? title : rootLinkTitle}
         </span>
         {
           routes.map((route) =>
@@ -120,6 +121,7 @@ class SelectionTable extends Component {
 SelectionTable.propTypes = {
   children: React.PropTypes.node,
   title: React.PropTypes.string,
+  rootLinkTitle: React.PropTypes.string,
 };
 
 export default SelectionTable;
