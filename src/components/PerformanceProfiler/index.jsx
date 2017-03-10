@@ -1,13 +1,9 @@
 import styles from './style.postcss';
-import startIcon from './start.inline.svg';
-import stopIcon from './stop.inline.svg';
-import wastedIcon from './wasted.inline.svg';
-import operationsIcon from './operations.inline.svg';
 
 import React from 'react';
 import ReactPerf from 'react-addons-perf';
 import Button from 'components/Button';
-import InlineSvg from 'components/InlineSvg';
+import Icon from 'components/Icon';
 
 class PerformanceProfiler extends React.Component {
   constructor(props) {
@@ -37,23 +33,20 @@ class PerformanceProfiler extends React.Component {
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.toggle()}
           type={Button.Type.primary}>
-        <InlineSvg className={styles.PerformanceProfiler_button_icon}>
-          {started ? stopIcon : startIcon}
-        </InlineSvg>
+        <Icon className={styles.PerformanceProfiler_button_icon}
+            id={started ? 'cross' : 'magnifying-glass'} />
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printWasted()}
           type={Button.Type.default}>
-        <InlineSvg className={styles.PerformanceProfiler_button_icon}>
-          {wastedIcon}
-        </InlineSvg>
+        <Icon className={styles.PerformanceProfiler_button_icon}
+            id="clock" />
       </Button>
       <Button className={styles.PerformanceProfiler_button}
           onClick={() => this.printOperations()}
           type={Button.Type.default}>
-        <InlineSvg className={styles.PerformanceProfiler_button_icon}>
-          {operationsIcon}
-        </InlineSvg>
+        <Icon className={styles.PerformanceProfiler_button_icon}
+            id="organisation" />
       </Button>
     </div>;
   }
