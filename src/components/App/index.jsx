@@ -49,7 +49,8 @@ class App extends Component {
               {
                 this._breadcrumbs &&
                 <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
-                    items={this._breadcrumbs} />
+                    items={this._breadcrumbs}
+                    singleLineMode />
               }
               <Histories className={styles.App_content_auxiliary_histories} {...this.props} />
             </div>

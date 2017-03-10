@@ -2,8 +2,15 @@
 
 .Breadcrumbs {
   white-space: nowrap;
+  width: 100%;
 
   @mixin fontButton;
+
+  &.__collapsedInnerCrumbs {
+    & .Breadcrumbs_list {
+      flex-wrap: nowrap;
+    }
+  }
 
   &_list {
     display: flex;
@@ -30,6 +37,8 @@
 
   &_crumb:last-child {
     color: #42667e;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &_crumb:not(:last-child) {
