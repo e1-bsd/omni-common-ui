@@ -10,4 +10,10 @@ describe('<Icon />', () => {
     const wrapper = shallow(<Icon id={iconId} />);
     expect(wrapper).to.contain(icons.get(iconId));
   });
+
+  it('allows passing className down to the inline SVG component', () => {
+    const iconId = 'magnifying-glass';
+    const wrapper = shallow(<Icon id={iconId} className="custom-class" />);
+    expect(wrapper).to.have.descendants('.custom-class');
+  });
 });
