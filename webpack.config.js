@@ -102,7 +102,12 @@ module.exports = {
       },
       {
         test: regExpInlineSvgs,
-        loader: 'svg-inline?removeTags',
+        loader: 'svg-inline',
+        query: {
+          removeTags: true,
+          removingTags: ['title', 'desc', 'defs', 'style'],
+          removingTagAttrs: ['fill'],
+        },
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
