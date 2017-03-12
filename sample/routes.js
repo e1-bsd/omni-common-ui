@@ -1,5 +1,6 @@
 import App from 'components/App';
 import All from 'components/All';
+import { routes as breadcrumbs } from 'containers/BreadcrumbsShowcase';
 import { routes as buttons } from 'containers/ButtonShowcase';
 import { routes as cards } from 'containers/CardShowcase';
 import { routes as studentCards } from 'containers/StudentCardShowcase';
@@ -16,6 +17,7 @@ export default {
     component: All,
   },
   childRoutes: [
+    breadcrumbs,
     buttons,
     cards,
     studentCards,
