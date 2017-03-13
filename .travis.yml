@@ -44,6 +44,7 @@ deploy:
 
 after_deploy:
   - cnpm sync omni-common-ui
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 notifications:
   email:
