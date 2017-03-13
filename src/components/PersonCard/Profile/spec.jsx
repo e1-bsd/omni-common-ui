@@ -6,6 +6,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
 import AdultPicture from 'components/AdultPicture';
+import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
 describe('PersonCard.Profile', () => {
@@ -40,5 +41,10 @@ describe('PersonCard.Profile', () => {
     ).to.have.text(
       '王呆呆'
     );
+  });
+  it('uses StudentPicture instead of AdultPicture if "student" prop is provided', () => {
+    const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" student />);
+    expect(wrapper.find(StudentPicture)).to.have.length(1);
+    expect(wrapper.find(AdultPicture)).to.have.length(0);
   });
 });
