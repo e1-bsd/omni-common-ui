@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import is from 'is_js';
-import PageCard from '../PageCard';
+import PageCard from 'components/PageCard';
+import Icon from 'components/Icon';
 import Level from './Level';
 import Leaf from './Leaf';
 
@@ -89,7 +90,9 @@ class SelectionTable extends Component {
     if (is.array(routes) && routes.length > 0) {
       return <PageCard.Heading className={styles.SelectionTable_heading}>
         <span className={headingRouteClassName}>
-          <span className={headingBackClassName} onClick={() => onHeadingBackClick()} />
+          <span className={headingBackClassName} onClick={() => onHeadingBackClick()}>
+            <Icon id="chevron-thin-left" />
+          </span>
         </span>
         <span className={headingRouteClassName} onClick={() => onHeadingRootClick()}>
           {is.undefined(rootLinkTitle) ? title : rootLinkTitle}

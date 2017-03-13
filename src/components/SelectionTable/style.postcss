@@ -1,6 +1,16 @@
+:root {
+  --defaultHeadingFontSize: 18px;
+}
+
 .SelectionTable {
   &_heading {
     display: flex;
+    font-size: var(--defaultHeadingFontSize);
+    font-weight: normal;
+    letter-spacing: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &_route {
       cursor: pointer;
@@ -9,15 +19,7 @@
 
     &_back {
       display: inline-flex;
-
-      &:global {
-        background-image: url('./arrow.svg');
-        background-repeat: no-repeat;
-        background-size: 1rem;
-        height: 20px;
-        margin-top: 2px;
-        width: 20px;
-      }
+      margin-top: 2px;
     }
   }
 }
