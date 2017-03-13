@@ -22,7 +22,7 @@ module.exports = (config) => {
     },
     reporters: ['mocha', 'coverage-istanbul'],
     coverageIstanbulReporter: {
-      reports: ['clover', 'html', 'text-summary'],
+      reports: ['clover', 'lcov', 'html', 'text-summary'],
       dir: './coverage',
       'report-config': {
         html: {
