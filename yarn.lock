@@ -8584,9 +8584,9 @@ react-immutable-proptypes@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
 
-react-input-autosize@^0.6.13:
-  version "0.6.13"
-  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-0.6.13.tgz#386ff7a9d2c3dc016c265bf2e59d397050f65af7"
+react-input-autosize@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
 
 react-iscroll@^1.1.1:
   version "1.1.1"
@@ -8643,12 +8643,12 @@ react-router@3.0.0:
     loose-envify "^1.2.0"
     warning "^3.0.0"
 
-react-select@1.0.0-beta13:
-  version "1.0.0-beta13"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-beta13.tgz#148f22b74d33b3b6dad10781d4f60cd99a422455"
+react-select@^1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.3.tgz#94ade090522153067eff09282d0525249ea1d9e3"
   dependencies:
     classnames "^2.2.4"
-    react-input-autosize "^0.6.13"
+    react-input-autosize "^1.1.0"
 
 react-transform-hmr@1.0.4:
   version "1.0.4"
