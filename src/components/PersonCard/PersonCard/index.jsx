@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Card from 'components/Card';
 import classnames from 'classnames';
 
-class StudentCard extends Component {
+class PersonCard extends Component {
   getChildContext() {
     const { backgroundless = false, withSeparatorLine = false } = this.props;
     return {
@@ -15,35 +15,35 @@ class StudentCard extends Component {
 
   render() {
     const { borderless, statusAccentColor, statusAccentPosition } = this.props;
-    const classes = classnames(styles.StudentCard, this.props.className,
+    const classes = classnames(styles.PersonCard, this.props.className,
         { [styles[`__${statusAccentPosition}`]]: !! statusAccentPosition },
         { [styles[`__${statusAccentColor}`]]: !! statusAccentColor });
 
     return <div className={classes}>
-      <Card borderless={!! borderless} className={styles.StudentCard_Card}>
+      <Card borderless={!! borderless} className={styles.PersonCard_Card}>
         {this.props.children}
       </Card>
     </div>;
   }
 }
 
-StudentCard.accentPosition = ['bottom', 'left'];
+PersonCard.accentPosition = ['bottom', 'left'];
 
-StudentCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
+PersonCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
-StudentCard.childContextTypes = {
+PersonCard.childContextTypes = {
   backgroundless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
 };
 
-StudentCard.propTypes = {
+PersonCard.propTypes = {
   backgroundless: React.PropTypes.bool,
   borderless: React.PropTypes.bool,
   className: React.PropTypes.string,
   withSeparatorLine: React.PropTypes.bool,
-  statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),
-  statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),
+  statusAccentPosition: React.PropTypes.oneOf(PersonCard.accentPosition),
+  statusAccentColor: React.PropTypes.oneOf(PersonCard.accentColors),
   children: React.PropTypes.node,
 };
 
-export default StudentCard;
+export default PersonCard;

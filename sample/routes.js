@@ -3,7 +3,7 @@ import All from 'components/All';
 import { routes as breadcrumbs } from 'containers/BreadcrumbsShowcase';
 import { routes as buttons } from 'containers/ButtonShowcase';
 import { routes as cards } from 'containers/CardShowcase';
-import { routes as studentCards } from 'containers/StudentCardShowcase';
+import { routes as personCards } from 'containers/PersonCardShowcase';
 import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
 import { routes as progressBars } from 'containers/ProgressBarShowcase';
@@ -20,7 +20,7 @@ export default {
     breadcrumbs,
     buttons,
     cards,
-    studentCards,
+    personCards,
     dialogs,
     forms,
     progressBars,
