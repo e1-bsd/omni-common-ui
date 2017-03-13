@@ -1,4 +1,5 @@
 import path from 'path';
+import { Map } from 'immutable';
 
 const requiredIcons = require.context('.', false, /\.svg$/);
 export default requiredIcons.keys().reduce(
