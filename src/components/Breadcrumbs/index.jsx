@@ -7,10 +7,11 @@ import is from 'is_js';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 
+const RESIZE_DEBOUNCE_MS = 100;
+
 class Breadcrumbs extends Component {
   constructor() {
     super();
-    this.crumbNodes = {};
     this.state = {
       isIntermediateCrumbsCollapsed: false,
       collapsedAtWidth: null,  // populated below
@@ -18,14 +19,16 @@ class Breadcrumbs extends Component {
   }
 
   componentDidMount() {
-    if (! this.props.singleLineMode) return;
     this._updateIntermediateCrumbsCollapsedState();
     window.addEventListener('resize', this.onResizeHandler = debounce(() => {
       this._updateIntermediateCrumbsCollapsedState();
-    }, 10), false);
+    }, RESIZE_DEBOUNCE_MS, {
+      leading: true,  // nicer iOS screen rotate
+      trailing: true,
+    }), false);
   }
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     this._updateIntermediateCrumbsCollapsedState();
   }
 
@@ -34,30 +37,60 @@ class Breadcrumbs extends Component {
     window.removeEventListener('resize', this.onResizeHandler);
   }
 
+  _isOverflowingHorizontally() {  // returns: content width (if overflowing)
+    const el = this.listNode;
+    const curOverflow = el.style.overflow;
+
+    // set overflows: ul hidden, children visible
+    if (! curOverflow || curOverflow === 'visible') {
+      el.style.overflow = 'hidden';
+    }
+    const childOverflows = [];
+    Array.prototype.forEach.call(el.children, (childEl) => {
+      childOverflows.push(childEl.style.overflow);
+      childEl.style.overflow = 'visible';  // eslint-disable-line
+    });
+
+    // check clientWidth against scrollWidth; scrollWidth is the width of content
+    const isOverflowing = el.clientWidth < el.scrollWidth;
+    const { scrollWidth } = el;
+
+    // restore overflow
+    el.style.overflow = curOverflow;
+    Array.prototype.forEach.call(el.children, (childEl) => {
+      childEl.style.overflow = childOverflows.shift();  // eslint-disable-line
+    });
+
+    return isOverflowing && scrollWidth;
+  }
+
   _updateIntermediateCrumbsCollapsedState() {
-    if (! this.listNode) return;
-    const expectedHeight =
-        Number.parseInt(
-          getComputedStyle(this.listNode)
-            .getPropertyValue('font-size')
-        , 10);
-    const { offsetHeight } = this.listNode;
-    const containerWidth = this.containerNode.offsetWidth;
+    if (! this.props.singleLineMode || ! this.listNode) return;
+
+    const navBoxSizing = this.navNode.style.boxSizing;
+    this.navNode.style.boxSizing = 'content-box';  // to get width without padding
+    const navWidth = Number.parseInt(
+      getComputedStyle(this.navNode)
+        .getPropertyValue('width')
+    , 10);
+    this.navNode.style.boxSizing = navBoxSizing;  // restore
+
+    let contentWidth;
     if (this.state.isIntermediateCrumbsCollapsed &&
         (is.not.number(this.state.collapsedAtWidth) ||
-        containerWidth > this.state.collapsedAtWidth)) {
+        navWidth > this.state.collapsedAtWidth)) {
       this.setState({
         isIntermediateCrumbsCollapsed: false,
         collapsedAtWidth: null,
       });
-    } else if (offsetHeight > expectedHeight + 10 &&  // +10 for wiggle room
-        ! this.state.isIntermediateCrumbsCollapsed) {
-      // wrapping - collapse intermediate crumbs
+    } else if (! this.state.isIntermediateCrumbsCollapsed &&  // eslint-disable-line
+        (contentWidth = this._isOverflowingHorizontally())) {
+      // overflowing - collapse intermediate crumbs
       this.setState({
         isIntermediateCrumbsCollapsed: true,
-        collapsedAtWidth: containerWidth > this.state.collapsedAtWidth ||
+        collapsedAtWidth: navWidth > this.state.collapsedAtWidth ||
             is.not.number(this.state.collapsedAtWidth) ?
-              containerWidth :
+              contentWidth :
               this.state.collapsedAtWidth,
       });
     }
@@ -81,15 +114,13 @@ class Breadcrumbs extends Component {
     }
 
     return <nav className={classnames(styles.Breadcrumbs, this.props.className, {
-      [styles.__collapsedInnerCrumbs]: !! this.state.isIntermediateCrumbsCollapsed,
+      [styles.__wrap]: ! this.props.singleLineMode,
     })}>
       <ul className={styles.Breadcrumbs_list}
           ref={(_node) => {
             if (! _node) return;
             this.listNode = _node;
-            this.containerNode = _node
-              .parentElement  // <nav>
-              .parentElement; // host
+            this.navNode = _node.parentElement;
           }}>
         {itemsToRender.map((item, idx) => {
           const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
@@ -99,8 +130,7 @@ class Breadcrumbs extends Component {
           });
           const itemKey = item.label + item.href;
           return <li key={itemKey}
-              className={itemClassNames}
-              ref={(_node) => { this.crumbNodes[itemKey] = _node; }}>
+              className={itemClassNames}>
             {item.clickable ? <Link to={item.href} onClick={onClick}>
               {item.label}
             </Link> : <span>
@@ -128,7 +158,6 @@ Breadcrumbs.propTypes = {
     href: React.PropTypes.string.isRequired,
     clickable: React.PropTypes.bool.isRequired,
   })).isRequired,
-  backHref: React.PropTypes.string.isRequired,
   singleLineMode: React.PropTypes.bool,
 };
 

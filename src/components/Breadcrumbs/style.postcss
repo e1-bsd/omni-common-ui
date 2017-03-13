@@ -1,20 +1,28 @@
 @import 'main.postcss';
 
 .Breadcrumbs {
+  overflow: hidden;  /* play nice with other flex items */
   white-space: nowrap;
   width: 100%;
 
   @mixin fontButton;
 
-  &.__collapsedInnerCrumbs {
+  &.__wrap {
     & .Breadcrumbs_list {
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
+    }
+  }
+
+  &:not(.__wrap) {
+    & .Breadcrumbs_crumb:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
   &_list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     list-style-type: none;
     margin: 0;
     padding-left: 0;
@@ -37,11 +45,11 @@
 
   &_crumb:last-child {
     color: #42667e;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   &_crumb:not(:last-child) {
+    flex-shrink: 0;
+
     &::after {
       content: '/';
       padding: 0 0.35em;
