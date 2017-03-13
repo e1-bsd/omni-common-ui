@@ -61,7 +61,7 @@
     "handlebars-loader": "1.4.0",
     "happypack": "^3.0.3",
     "history": "3.2.1",
-    "html-webpack-plugin": "2.24.1",
+    "html-webpack-plugin": "e1-bsd/html-webpack-plugin",
     "image-webpack-loader": "3.0.0",
     "immutable": "3.8.1",
     "immutable-devtools": "0.0.7",
