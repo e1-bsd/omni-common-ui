@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Icon from 'components/Icon';
 import styles from './style.postcss';
 
 class Level extends Component {
@@ -13,6 +14,9 @@ class Level extends Component {
     const { label } = this.props;
     return <div className={styles.Level} onClick={() => this._onLevelClick()}>
       {label}
+      <span className={styles.Level_icon}>
+        <Icon id="chevron-thin-right" />
+      </span>
     </div>;
   }
 }

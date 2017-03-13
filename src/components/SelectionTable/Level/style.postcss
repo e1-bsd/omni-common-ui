@@ -1,5 +1,18 @@
+@import 'main.postcss';
+
 .Level {
   border-bottom: 1px solid #dfdfdf;
-  height: 40px;
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  font-weight: normal;
+  height: 45px;
+  justify-content: space-between;
+  letter-spacing: normal;
   padding: 10px;
+  padding-left: var(--spaceBase);
+
+  &_icon {
+    align-items: flex-end;
+  }
 }
