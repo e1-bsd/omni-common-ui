@@ -7,7 +7,7 @@ import Footer from 'components/Footer';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
 import Breadcrumbs from 'components/Breadcrumbs';
-import Histories from 'components/Histories';
+import HistoryLink from 'components/HistoryLink';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import PerformanceProfiler from 'components/PerformanceProfiler';
@@ -52,7 +52,7 @@ class App extends Component {
                     items={this._breadcrumbs}
                     singleLineMode />
               }
-              <Histories className={styles.App_content_auxiliary_histories} {...this.props} />
+              <HistoryLink className={styles.App_content_auxiliary_historyLink} {...this.props} />
             </div>
           }
           <div className={styles.App_content_wrap}>{this.props.children}</div>

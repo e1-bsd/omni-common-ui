@@ -27,8 +27,14 @@
         @mixin responsiveCardPadding;
       }
 
-      &_histories {
+      &_historyLink {
         @mixin responsiveCardPadding;
+
+        display: none;
+
+        @media (min-width: 768px) {
+          display: block;
+        }
       }
     }
 
