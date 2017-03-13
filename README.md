@@ -2,6 +2,7 @@
 
 [![Build Status – develop](https://travis-ci.org/e1-bsd/omni-common-ui.svg?branch=develop)](https://travis-ci.org/e1-bsd/omni-common-ui)
 [![Build Status – master](https://travis-ci.org/e1-bsd/omni-common-ui.svg?branch=master)](https://travis-ci.org/e1-bsd/omni-common-ui)
+[![Coverage Status](https://coveralls.io/repos/github/e1-bsd/omni-common-ui/badge.svg)](https://coveralls.io/github/e1-bsd/omni-common-ui)
 
 ## Setting up the environment
 
