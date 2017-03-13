@@ -27,6 +27,9 @@ import Config from 'domain/Config';
 import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
+import bindPolyfills from 'domain/Polyfills';
+
+bindPolyfills();
 
 if (PRODUCTION) {
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
