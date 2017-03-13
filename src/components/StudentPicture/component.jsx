@@ -5,7 +5,7 @@ import defaultAvatarImg from './default-avatar.svg';
 import React from 'react';
 import Avatar from 'components/Avatar';
 
-const StudentPicture = ({ src, className, gender }) => <Avatar url={src}
+const StudentPicture = ({ src, className, gender }) => <Avatar src={src}
     default={defaultAvatarImg}
     defaultMale={defaultAvatarMaleImg}
     defaultFemale={defaultAvatarFemaleImg}
