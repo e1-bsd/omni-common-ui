@@ -22,11 +22,17 @@ class SelectShowcase extends Component {
       <Form.Select options={optionNormal}
           name="normalSelect"
           label="Normal Select"
-          value={this.state.normal} />
+          value={this.state.normal}
+          setValue={(val) => {
+            this.setState({ normal: val });
+          }} />
       <Form.Select options={optionRequired}
           name="requiredSelect"
           label="Required Select"
           value={this.state.required}
+          setValue={(val) => {
+            this.setState({ required: val });
+          }}
           required />
     </div>;
   }
