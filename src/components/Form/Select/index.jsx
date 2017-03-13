@@ -11,7 +11,10 @@ import Field from '../Field';
 
 const Select = (props) => {
 
-  const arrowRenderer = () => <Icon id="chevron-fat-down" />;
+  const arrowRenderer = () =>
+    <span className={styles.Select_icon}>
+      <Icon id="chevron-fat-down" />
+    </span>;
 
   const classes = classnames(styles.Select_element,
       { [styles.__required]: props.showRequired() },
