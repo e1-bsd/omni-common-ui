@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import is from 'is_js';
 import testCssPropertyValues from 'domain/TestCSSPropertyValues';
 
+const DISABLE_NATIVE = true;
+
 export class Sticker extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,7 @@ export class Sticker extends Component {
 
   componentDidUpdate() {
     const isPlaceholderShown =
-        this.state.stickToTop && ! this.isPositionStickySupported;
+        this.state.stickToTop && (DISABLE_NATIVE || ! this.isPositionStickySupported);
     if (isPlaceholderShown) {
       this._removePlaceholder();
       this._insertPlaceholder();
@@ -63,9 +65,9 @@ export class Sticker extends Component {
   render() {
     const className = classnames(this.props.className, styles.Sticker, {
       [styles.Sticker_sticky]: this.state.stickToTop,
-      [this.props.polyfilledClassName]:
-        is.string(this.props.polyfilledClassName) && ! this.isPositionStickySupported,
-      [styles.__native]: this.isPositionStickySupported,
+      [this.props.polyfilledClassName]: is.string(this.props.polyfilledClassName) &&
+          (DISABLE_NATIVE || ! this.isPositionStickySupported),
+      [styles.__native]: ! DISABLE_NATIVE && this.isPositionStickySupported,
       [styles.__guessWidth]: this.props.shouldGuessWidthWhenPolyfilled,
     });
     return <div className={className} ref={(node) => {
