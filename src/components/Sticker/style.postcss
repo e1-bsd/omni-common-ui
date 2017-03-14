@@ -1,18 +1,10 @@
 @import 'main.postcss';
 
 .Sticker {
-  /* position: sticky; */
   top: 0;
-  width: auto;
-  z-index: var(--zIndex-5);
+  z-index: var(--zIndex-7--stickyNavBar);
 
-  &_sticky {
-    position: fixed;
-    /* position: sticky; */ /* stylelint-disable-line */
-
-    &:not(.__native).__guessWidth {
-      /* magic number from .App_content */
-      width: calc(100% - var(--sidebarWidth));
-    }
+  &:global(.fixedsticky-on) {
+    width: calc(100% - var(--sidebarWidth));
   }
 }
