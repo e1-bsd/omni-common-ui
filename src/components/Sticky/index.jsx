@@ -7,7 +7,7 @@ import classnames from 'classnames';
 
 FixedSticky.tests.sticky = false; // Disregards all native 'sticky' implementations.
 
-export class Sticker extends Component {
+export class Sticky extends Component {
   componentDidMount() {
     jQuery(this._node).fixedsticky();
   }
@@ -17,16 +17,16 @@ export class Sticker extends Component {
   }
 
   render() {
-    return <div className={classnames(styles.Sticker, this.props.className)}
+    return <div className={classnames(styles.Sticky, this.props.className)}
         ref={(n) => { this._node = n; }}>
       {this.props.children}
     </div>;
   }
 }
 
-Sticker.propTypes = {
+Sticky.propTypes = {
   className: React.PropTypes.string,
   children: React.PropTypes.node,
 };
 
-export default Sticker;
+export default Sticky;
