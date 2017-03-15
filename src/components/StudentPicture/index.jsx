@@ -18,6 +18,4 @@ StudentPicture.propTypes = {
   className: React.PropTypes.string,
 };
 
-StudentPicture.Gender = Avatar.Gender;
-
 export default StudentPicture;

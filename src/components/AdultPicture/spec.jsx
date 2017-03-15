@@ -10,10 +10,6 @@ import AdultPicture from './';
 import Avatar from 'components/Avatar';
 
 describe('<AdultPicture />', () => {
-  it('exposes Gender from Avatar', () => {
-    expect(AdultPicture.Gender).to.equal(Avatar.Gender);
-  });
-
   it('passes properties properly to Avatar', () => {
     const wrapper = shallow(<AdultPicture src={testImg} className="aClass" />);
     const avatar = wrapper.find(Avatar);

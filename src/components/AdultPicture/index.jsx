@@ -18,6 +18,4 @@ AdultPicture.propTypes = {
   className: React.PropTypes.string,
 };
 
-AdultPicture.Gender = Avatar.Gender;
-
 export default AdultPicture;

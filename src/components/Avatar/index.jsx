@@ -54,6 +54,4 @@ Avatar.propTypes = {
   className: React.PropTypes.string,
 };
 
-Avatar.Gender = Gender;
-
 export default Avatar;

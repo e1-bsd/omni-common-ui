@@ -10,10 +10,6 @@ import StudentPicture from './';
 import Avatar from 'components/Avatar';
 
 describe('<StudentPicture />', () => {
-  it('exposes Gender from Avatar', () => {
-    expect(StudentPicture.Gender).to.equal(Avatar.Gender);
-  });
-
   it('passes properties properly to Avatar', () => {
     const wrapper = shallow(<StudentPicture src={testImg} className="aClass" />);
     const avatar = wrapper.find(Avatar);
