@@ -35,13 +35,13 @@ describe('<Avatar />', () => {
       props.src = undefined;
     });
 
-    it('shows the default image for males if Gender.MALE is provided', () => {
-      const wrapper = shallow(<Avatar {...props} gender={Avatar.Gender.MALE} />);
+    it('shows the default image for males', () => {
+      const wrapper = shallow(<Avatar {...props} gender="male" />);
       expect(wrapper).to.have.style('background-image', 'url("fake-default-male")');
     });
 
-    it('shows the default image for females if Gender.FEMALE is provided', () => {
-      const wrapper = shallow(<Avatar {...props} gender={Avatar.Gender.FEMALE} />);
+    it('shows the default image for females', () => {
+      const wrapper = shallow(<Avatar {...props} gender="female" />);
       expect(wrapper).to.have.style('background-image', 'url("fake-default-female")');
     });
 

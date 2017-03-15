@@ -5,24 +5,23 @@ import classnames from 'classnames';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import AdultPicture from 'components/AdultPicture';
 import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
 describe('StudentCard.Profile', () => {
-  it('renders a AdultPicture with the given attributes', () => {
+  it('renders a StudentPicture with the given attributes', () => {
     const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
-      <AdultPicture src="url" gender={1}
+      <StudentPicture src="url" gender={1}
           className={styles.StudentCard_profile_image} />
     );
   });
-  it('renders a bigger AdultPicture with the withBiggerAvatar prop', () => {
+  it('renders a bigger StudentPicture with the withBiggerAvatar prop', () => {
     const wrapper = shallow(<Profile withBiggerAvatar avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
-      <AdultPicture src="url" gender={1}
+      <StudentPicture src="url" gender={1}
           className={classnames(styles.StudentCard_profile_image, styles.__bigger)} />
     );
   });
@@ -41,10 +40,5 @@ describe('StudentCard.Profile', () => {
     ).to.have.text(
       '王呆呆'
     );
-  });
-  it('uses StudentPicture instead of AdultPicture if "student" prop is provided', () => {
-    const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" student />);
-    expect(wrapper.find(StudentPicture)).to.have.length(1);
-    expect(wrapper.find(AdultPicture)).to.have.length(0);
   });
 });
