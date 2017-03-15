@@ -1,39 +1,41 @@
 import is from 'is_js';
 
-export const MALE = 'male';
-export const FEMALE = 'female';
-export const UNKNOWN = null;
+const MALE = 'male';
+const FEMALE = 'female';
+const UNKNOWN = null;
 
-export const isMale = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
+class Gender {
+  static isMale(gender) {
+    if (is.not.string(gender)) {
+      return false;
+    }
+
+    return /^m(ale)?$/i.test(gender);
   }
 
-  return /^m(ale)?$/i.test(gender);
-};
+  static isFemale(gender) {
+    if (is.not.string(gender)) {
+      return false;
+    }
 
-export const isFemale = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
+    return /^f(emale)?$/i.test(gender);
   }
 
-  return /^f(emale)?$/i.test(gender);
-};
-
-export const isUnknown = (gender) => ! isMale(gender) && ! isFemale(gender);
-
-export const parse = (gender) => {
-  if (isMale(gender)) {
-    return MALE;
+  static isUnknown(gender) {
+    return ! Gender.isMale(gender) && ! Gender.isFemale(gender);
   }
 
-  if (isFemale(gender)) {
-    return FEMALE;
+  static parse(gender) {
+    if (Gender.isMale(gender)) {
+      return MALE;
+    }
+
+    if (Gender.isFemale(gender)) {
+      return FEMALE;
+    }
+
+    return UNKNOWN;
   }
-
-  return UNKNOWN;
-};
-
-export const Gender = { MALE, FEMALE, UNKNOWN, isMale, isFemale, isUnknown, parse };
+}
 
 export default Gender;
