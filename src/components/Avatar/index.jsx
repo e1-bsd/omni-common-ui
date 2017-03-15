@@ -25,14 +25,15 @@ class Avatar extends Component {
   }
 
   _getDefaultAvatar(props) {
-    switch (props.gender) {
-      case Gender.MALE:
-        return props.defaultMale || props.default;
-      case Gender.FEMALE:
-        return props.defaultFemale || props.default;
-      default:
-        return props.default;
+    if (Gender.isMale(props.gender)) {
+      return props.defaultMale || props.default;
     }
+
+    if (Gender.isFemale(props.gender)) {
+      return props.defaultFemale || props.default;
+    }
+
+    return props.default;
   }
 
   _getCssValueForUrl(url) {
