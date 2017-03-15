@@ -11,6 +11,7 @@ const AlignmentClasses = [
   styles.__alignLeftFromBottom,
   styles.__alignLeftFromTop,
   styles.__alignBottomFromLeft,  // default
+  styles.__alignRightFromBottom, // fallback when space is limited in single student group
 ];
 
 const isElementVisible = (el) => {
