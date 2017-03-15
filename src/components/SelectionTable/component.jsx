@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import is from 'is_js';
 import PageCard from 'components/PageCard';
 import Icon from 'components/Icon';
+import Header from './Header';
 import Level from './Level';
 import Leaf from './Leaf';
 
@@ -22,6 +23,7 @@ class SelectionTable extends Component {
   _setUpData(props) {
     const children = React.Children.toArray(props.children);
     this._level = children.filter((child) => child.type === Level);
+    this._header = children.find((child) => child.type === Header);
   }
 
   _onLevelClick(route) {
@@ -107,6 +109,9 @@ class SelectionTable extends Component {
                 onClick={() => onHeadingRouteClick(route)}>
               {route}
             </span>)
+        }
+        {
+          is.existy(this._header) ? this._header : null
         }
       </PageCard.Heading>;
     }
