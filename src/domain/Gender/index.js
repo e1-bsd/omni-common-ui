@@ -2,14 +2,14 @@ import is from 'is_js';
 
 export const MALE = 'male';
 export const FEMALE = 'female';
-export const UNKNOWN = 'unknown';
+export const UNKNOWN = null;
 
 export const isMale = (gender) => {
   if (is.not.string(gender)) {
     return false;
   }
 
-  return gender.toLowerCase() === MALE;
+  return /^m(ale)?$/i.test(gender);
 };
 
 export const isFemale = (gender) => {
@@ -17,16 +17,10 @@ export const isFemale = (gender) => {
     return false;
   }
 
-  return gender.toLowerCase() === FEMALE;
+  return /^f(emale)?$/i.test(gender);
 };
 
-export const isUnknown = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
-  }
-
-  return gender.toLowerCase() === UNKNOWN;
-};
+export const isUnknown = (gender) => ! isMale(gender) && ! isFemale(gender);
 
 export const parse = (gender) => {
   if (isMale(gender)) {
