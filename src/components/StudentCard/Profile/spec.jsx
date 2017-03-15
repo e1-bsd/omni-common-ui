@@ -9,13 +9,13 @@ import AdultPicture from 'components/AdultPicture';
 import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
-describe('PersonCard.Profile', () => {
+describe('StudentCard.Profile', () => {
   it('renders a AdultPicture with the given attributes', () => {
     const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
       <AdultPicture src="url" gender={1}
-          className={styles.PersonCard_profile_image} />
+          className={styles.StudentCard_profile_image} />
     );
   });
   it('renders a bigger AdultPicture with the withBiggerAvatar prop', () => {
@@ -23,13 +23,13 @@ describe('PersonCard.Profile', () => {
     expect(wrapper)
     .to.contain(
       <AdultPicture src="url" gender={1}
-          className={classnames(styles.PersonCard_profile_image, styles.__bigger)} />
+          className={classnames(styles.StudentCard_profile_image, styles.__bigger)} />
     );
   });
   it('renders profile info with the given name', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
-      wrapper.find(`.${styles.PersonCard_profile_name}`)
+      wrapper.find(`.${styles.StudentCard_profile_name}`)
     ).to.have.text(
       'John Doe'
     );
@@ -37,7 +37,7 @@ describe('PersonCard.Profile', () => {
   it('renders profile info with the given surname', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
-      wrapper.find(`.${styles.PersonCard_profile_localName}`)
+      wrapper.find(`.${styles.StudentCard_profile_localName}`)
     ).to.have.text(
       '王呆呆'
     );

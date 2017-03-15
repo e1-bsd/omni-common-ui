@@ -10,7 +10,7 @@ import ProductionStatus from 'components/ProductionStatus';
 
 const Profile = (props, { withSeparatorLine, backgroundless }) => {
   const { status, statusHighlighted } = props;
-  const classes = classnames(styles.PersonCard_profile,
+  const classes = classnames(styles.StudentCard_profile,
       styles.__1, {
         [styles.__separated]: withSeparatorLine,
         [styles.__backgroundless]: backgroundless,
@@ -31,10 +31,10 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
   return <Card.Content withoutBottomPadding>
     <div className={classes}>
       {renderPicture()}
-      <div className={styles.PersonCard_profile_info}>
-        {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.PersonCard_profile_name)}
-        {renderName('localName', props.localName, styles.PersonCard_profile_localName)}
-        <ProductionStatus className={styles.PersonCard_profile_status}
+      <div className={styles.StudentCard_profile_info}>
+        {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
+        {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
+        <ProductionStatus className={styles.StudentCard_profile_status}
             status={status}
             highlighted={statusHighlighted} />
       </div>
@@ -45,7 +45,7 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     const Component = props.student === true ? StudentPicture : AdultPicture;
     return <Component src={props.avatarUrl}
         gender={props.gender}
-        className={classnames(styles.PersonCard_profile_image, {
+        className={classnames(styles.StudentCard_profile_image, {
           [styles.__bigger]: !! props.withBiggerAvatar,
         })} />;
   }

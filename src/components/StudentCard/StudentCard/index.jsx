@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Card from 'components/Card';
 import classnames from 'classnames';
 
-class PersonCard extends Component {
+class StudentCard extends Component {
   getChildContext() {
     const { backgroundless = false, withSeparatorLine = false } = this.props;
     return {
@@ -15,35 +15,35 @@ class PersonCard extends Component {
 
   render() {
     const { borderless, statusAccentColor, statusAccentPosition } = this.props;
-    const classes = classnames(styles.PersonCard, this.props.className,
+    const classes = classnames(styles.StudentCard, this.props.className,
         { [styles[`__${statusAccentPosition}`]]: !! statusAccentPosition },
         { [styles[`__${statusAccentColor}`]]: !! statusAccentColor });
 
     return <div className={classes}>
-      <Card borderless={!! borderless} className={styles.PersonCard_Card}>
+      <Card borderless={!! borderless} className={styles.StudentCard_Card}>
         {this.props.children}
       </Card>
     </div>;
   }
 }
 
-PersonCard.accentPosition = ['bottom', 'left'];
+StudentCard.accentPosition = ['bottom', 'left'];
 
-PersonCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
+StudentCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
-PersonCard.childContextTypes = {
+StudentCard.childContextTypes = {
   backgroundless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
 };
 
-PersonCard.propTypes = {
+StudentCard.propTypes = {
   backgroundless: React.PropTypes.bool,
   borderless: React.PropTypes.bool,
   className: React.PropTypes.string,
   withSeparatorLine: React.PropTypes.bool,
-  statusAccentPosition: React.PropTypes.oneOf(PersonCard.accentPosition),
-  statusAccentColor: React.PropTypes.oneOf(PersonCard.accentColors),
+  statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),
+  statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),
   children: React.PropTypes.node,
 };
 
-export default PersonCard;
+export default StudentCard;
