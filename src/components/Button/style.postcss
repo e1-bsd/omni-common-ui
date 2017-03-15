@@ -58,7 +58,7 @@
   }
 
   &.__active {
-    background-color: var(--colorButtonActive);
+    background-color: var(--colorActive);
   }
 
   &.__default,
@@ -72,9 +72,12 @@
 
     &:hover:not([disabled]),
     &.__active {
-      background-color: var(--colorButtonActive);
       border-color: transparent;
       color: var(--colorTextInverse);
+    }
+
+    &.__active {
+      background-color: var(--colorActive);
     }
 
     &.__inverse {
