@@ -43,6 +43,7 @@ import _Sticky from 'components/Sticky';
 import _InlineSvg from 'components/InlineSvg';
 import _SelectionTable from 'components/SelectionTable';
 import _Icon from 'components/Icon';
+import _Person from 'components/Person';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
@@ -91,3 +92,4 @@ export const Sticky = _Sticky;
 export const InlineSvg = _InlineSvg;
 export const SelectionTable = _SelectionTable;
 export const Icon = _Icon;
+export const Person = _Person;
