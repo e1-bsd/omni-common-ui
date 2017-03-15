@@ -3,7 +3,6 @@ import styles from './style.postcss';
 import React from 'react';
 import is from 'is_js';
 import StudentPicture from 'components/StudentPicture';
-import AdultPicture from 'components/AdultPicture';
 import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
@@ -31,7 +30,11 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
   };
   return <Card.Content withoutBottomPadding>
     <Person className={classes}>
-      {renderPicture()}
+      <StudentPicture src={props.avatarUrl}
+          gender={props.gender}
+          className={classnames(styles.StudentCard_profile_image, {
+            [styles.__bigger]: !! props.withBiggerAvatar,
+          })} />
       {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
       {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
       <ProductionStatus className={styles.StudentCard_profile_status}
@@ -39,15 +42,6 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
           highlighted={statusHighlighted} />
     </Person>
   </Card.Content>;
-
-  function renderPicture() {
-    const Component = props.student === true ? StudentPicture : AdultPicture;
-    return <Component src={props.avatarUrl}
-        gender={props.gender}
-        className={classnames(styles.StudentCard_profile_image, {
-          [styles.__bigger]: !! props.withBiggerAvatar,
-        })} />;
-  }
 };
 
 Profile.contextTypes = {
@@ -66,7 +60,6 @@ Profile.propTypes = {
   statusInitial: React.PropTypes.string,
   statusHighlighted: React.PropTypes.bool,
   withBiggerAvatar: React.PropTypes.bool,
-  student: React.PropTypes.bool,
 };
 
 export default Profile;
