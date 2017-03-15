@@ -60,7 +60,6 @@
     "git-rev-sync": "1.8.0",
     "glob": "7.1.1",
     "handlebars-loader": "1.4.0",
-    "happypack": "^3.0.3",
     "history": "3.2.1",
     "html-webpack-plugin": "e1-bsd/html-webpack-plugin#3193e3d299ff1b379110eac2909ef945283ab379",
     "image-webpack-loader": "3.0.0",
