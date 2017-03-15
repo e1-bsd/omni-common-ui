@@ -1,0 +1,29 @@
+@import 'main.postcss';
+
+.Person {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  &_picture {
+    flex-basis: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-right: 15px;
+  }
+
+  &_lines {
+    align-items: flex-start;
+    display: flex;
+    flex-basis: 0;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    justify-content: center;
+    overflow: hidden;
+
+    & > * {
+      max-width: 100%;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import AdultPicture from 'components/AdultPicture';
 import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
+import Person from 'components/Person';
 
 const Profile = (props, { withSeparatorLine, backgroundless }) => {
   const { status, statusHighlighted } = props;
@@ -29,16 +30,14 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     return name;
   };
   return <Card.Content withoutBottomPadding>
-    <div className={classes}>
+    <Person className={classes}>
       {renderPicture()}
-      <div className={styles.StudentCard_profile_info}>
-        {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
-        {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
-        <ProductionStatus className={styles.StudentCard_profile_status}
-            status={status}
-            highlighted={statusHighlighted} />
-      </div>
-    </div>
+      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
+      {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
+      <ProductionStatus className={styles.StudentCard_profile_status}
+          status={status}
+          highlighted={statusHighlighted} />
+    </Person>
   </Card.Content>;
 
   function renderPicture() {
