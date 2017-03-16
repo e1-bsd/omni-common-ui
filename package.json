@@ -61,7 +61,7 @@
     "glob": "7.1.1",
     "handlebars-loader": "1.4.0",
     "history": "3.2.1",
-    "html-webpack-plugin": "e1-bsd/html-webpack-plugin#3193e3d299ff1b379110eac2909ef945283ab379",
+    "html-webpack-plugin": "e1-bsd/html-webpack-plugin#5a2c99aa91a80e216b183488c1ecc19c20da2fd4",
     "image-webpack-loader": "3.0.0",
     "immutable": "3.8.1",
     "immutable-devtools": "0.0.7",

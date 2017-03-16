@@ -395,7 +395,7 @@ async@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/async/-/async-1.2.1.tgz#a4816a17cd5ff516dfa2c7698a453369b9790de0"
 
-async@1.5.0, async@1.x, async@^1.3.0, async@^1.4.0, async@^1.4.2, async@^1.5.0:
+async@1.x, async@^1.3.0, async@^1.4.0, async@^1.4.2, async@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.0.tgz#2796642723573859565633fc6274444bee2f8ce3"
 
@@ -4562,15 +4562,6 @@ handlebars@^4.0.1, handlebars@^4.0.3, handlebars@^4.0.5:
   optionalDependencies:
     uglify-js "^2.6"
 
-happypack@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/happypack/-/happypack-3.0.3.tgz#22f78c87a325cdb798c958cf4ec383fcd4d6fdc7"
-  dependencies:
-    async "1.5.0"
-    json-stringify-safe "5.0.1"
-    loader-utils "0.2.16"
-    mkdirp "0.5.1"
-
 har-validator@^1.4.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-1.8.0.tgz#d83842b0eb4c435960aeb108a067a3aa94c0eeb2"
@@ -4762,17 +4753,6 @@ html-tags@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-1.1.1.tgz#869f43859f12d9bdc3892419e494a628aa1b204e"
 
-html-webpack-plugin@e1-bsd/html-webpack-plugin:
-  version "2.28.0"
-  resolved "https://codeload.github.com/e1-bsd/html-webpack-plugin/tar.gz/cecc4e4cf071c2c036b98f1c0fc42a90d26c67d3"
-  dependencies:
-    bluebird "^3.4.7"
-    html-minifier "^3.2.3"
-    loader-utils "^0.2.16"
-    lodash "^4.17.3"
-    pretty-error e1-bsd/pretty-error#master-compiled
-    toposort "^1.0.0"
-
 html-webpack-plugin@e1-bsd/html-webpack-plugin#3193e3d299ff1b379110eac2909ef945283ab379:
   version "2.28.0-rkfix.2"
   resolved "https://codeload.github.com/e1-bsd/html-webpack-plugin/tar.gz/3193e3d299ff1b379110eac2909ef945283ab379"
@@ -4782,6 +4762,17 @@ html-webpack-plugin@e1-bsd/html-webpack-plugin#3193e3d299ff1b379110eac2909ef9452
     loader-utils "^0.2.16"
     lodash "^4.17.3"
     pretty-error e1-bsd/pretty-error#9455bd3c869d8c79d76642c88404339cc18281b4
+    toposort "^1.0.0"
+
+html-webpack-plugin@e1-bsd/html-webpack-plugin#5a2c99aa91a80e216b183488c1ecc19c20da2fd4:
+  version "2.28.0-rkfix.3"
+  resolved "https://codeload.github.com/e1-bsd/html-webpack-plugin/tar.gz/5a2c99aa91a80e216b183488c1ecc19c20da2fd4"
+  dependencies:
+    bluebird "^3.4.7"
+    html-minifier "^3.2.3"
+    loader-utils "^0.2.16"
+    lodash "^4.17.3"
+    pretty-error "^2.0.3"
     toposort "^1.0.0"
 
 html@^1.0.0:
@@ -5683,7 +5674,7 @@ json-stable-stringify@~0.0.0:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@5.0.1, json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.0, json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.0, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -6043,7 +6034,7 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-loader-utils@0.2.16, loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.14, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5:
+loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.14, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.3, loader-utils@^0.2.5, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
   dependencies:
@@ -8258,18 +8249,18 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
+pretty-error@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/pretty-error/-/pretty-error-2.0.3.tgz#bed3d816a008e76da617cde8216f4b778849b5d9"
+  dependencies:
+    renderkid "^2.0.1"
+    utila "~0.4"
+
 pretty-error@e1-bsd/pretty-error#9455bd3c869d8c79d76642c88404339cc18281b4:
   version "2.0.2-rkfix.1"
   resolved "https://codeload.github.com/e1-bsd/pretty-error/tar.gz/9455bd3c869d8c79d76642c88404339cc18281b4"
   dependencies:
     renderkid e1-bsd/renderkid#hotfix/possble-terminal-width-misread
-    utila "~0.4"
-
-pretty-error@e1-bsd/pretty-error#master-compiled:
-  version "2.0.2"
-  resolved "https://codeload.github.com/e1-bsd/pretty-error/tar.gz/0c8a5c900c9245075aa4a513afd09cdd944e1735"
-  dependencies:
-    treeify "^1.0.1"
     utila "~0.4"
 
 pretty-hrtime@^1.0.0:
@@ -9020,6 +9011,16 @@ relateurl@0.2.x:
 remove-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/remove-value/-/remove-value-1.0.0.tgz#b8a99dd136d16ede58b19bca8e792355baadd123"
+
+renderkid@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/renderkid/-/renderkid-2.0.1.tgz#898cabfc8bede4b7b91135a3ffd323e58c0db319"
+  dependencies:
+    css-select "^1.1.0"
+    dom-converter "~0.1"
+    htmlparser2 "~3.3.0"
+    strip-ansi "^3.0.0"
+    utila "~0.3"
 
 renderkid@e1-bsd/renderkid#hotfix/possble-terminal-width-misread:
   version "2.0.0"
@@ -10329,10 +10330,6 @@ traceur@0.0.105:
 traverse@^0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
-
-treeify@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/treeify/-/treeify-1.0.1.tgz#69b3cd022022a168424e7cfa1ced44c939d3eb2f"
 
 trim-newlines@^1.0.0:
   version "1.0.0"
