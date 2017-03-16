@@ -91,10 +91,8 @@ class SelectionTable extends Component {
     const headingBackClassName = styles.SelectionTable_heading_back;
     if (is.array(routes) && routes.length > 0) {
       return <PageCard.Heading className={styles.SelectionTable_heading}>
-        <span className={headingRouteClassName}>
-          <span className={headingBackClassName} onClick={() => onHeadingBackClick()}>
-            <Icon id="chevron-thin-left" />
-          </span>
+        <span className={headingBackClassName} onClick={() => onHeadingBackClick()}>
+          <Icon id="arrow" />
         </span>
         {
           is.falsy(hideRootLink) ?

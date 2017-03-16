@@ -13,7 +13,9 @@ class Level extends Component {
   render() {
     const { label } = this.props;
     return <div className={styles.Level} onClick={() => this._onLevelClick()}>
-      {label}
+      <span className={styles.Level_label}>
+        {label}
+      </span>
       <span className={styles.Level_icon}>
         <Icon id="chevron-thin-right" />
       </span>

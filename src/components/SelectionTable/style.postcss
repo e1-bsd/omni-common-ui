@@ -8,18 +8,24 @@
     font-size: var(--defaultHeadingFontSize);
     font-weight: normal;
     letter-spacing: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 
     &_route {
-      cursor: pointer;
-      margin-right: 20px;
+      min-width: 30px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     &_back {
       display: inline-flex;
       margin-top: 2px;
+      min-width: 20px;
+    }
+
+    &_route,
+    &_back {
+      cursor: pointer;
+      margin-right: 10px;
     }
   }
 }
