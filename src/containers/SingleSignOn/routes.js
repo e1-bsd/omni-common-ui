@@ -1,12 +1,16 @@
-import SingleSignOnCallback from './SingleSignOnCallback';
-import SingleSignOnSilentRenew from './SingleSignOnSilentRenew';
+import SingleSignOnPopUpCallback from './SingleSignOnPopUpCallback';
+import SingleSignOnSilentCallback from './SingleSignOnSilentCallback';
+import { CALLBACK_PATH, SILENT_PATH } from './paths';
 
 export default {
-  path: '/callback',
-  component: SingleSignOnCallback,
-};
-
-export const singleSignOnSilentRenewRoutes = {
-  path: '/silent-renew',
-  component: SingleSignOnSilentRenew,
+  childRoutes: [
+    {
+      path: CALLBACK_PATH,
+      component: SingleSignOnPopUpCallback,
+    },
+    {
+      path: SILENT_PATH,
+      component: SingleSignOnSilentCallback,
+    },
+  ],
 };

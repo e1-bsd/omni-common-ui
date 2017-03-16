@@ -6,9 +6,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   SingleSignOnHandler,
-  SingleSignOnProvider,
-  routes as singleSignOnRoutes,
   IdleTimeoutHandler,
+  routes as singleSignOnCallbacks,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
 import log from 'domain/log';
@@ -60,7 +59,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
     {
       path: '/health-check',
     },
-    ...singleSignOnRoutes,
+    singleSignOnCallbacks,
     {
       component: SingleSignOnHandler,
       childRoutes: [{
@@ -93,9 +92,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
 
   render(
     <Provider store={store}>
-      <SingleSignOnProvider store={store}>
-        <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
-      </SingleSignOnProvider>
+      <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
     </Provider>,
     document.getElementById('root')
   );

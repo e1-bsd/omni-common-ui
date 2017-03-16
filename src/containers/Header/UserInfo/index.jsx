@@ -206,7 +206,7 @@ function mapStateToProps(state) {
   const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
-    user: state.get('singleSignOn').user,
+    user: state.get('singleSignOn').get('user'),
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
     hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),
