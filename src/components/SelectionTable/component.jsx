@@ -71,7 +71,7 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
-    const { title, rootLinkTitle, hideRootLink } = this.props;
+    const { title, rootLinkTitle, hideRootLink, headerClassName } = this.props;
     const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);
@@ -110,12 +110,14 @@ class SelectionTable extends Component {
               {route}
             </span>)
         }
-        {
-          is.existy(this._header) ? this._header : null
-        }
+
       </PageCard.Heading>;
     }
-    return <PageCard.Heading text={this.props.title} />;
+    return <PageCard.Heading className={headerClassName} text={this.props.title}>
+      {
+        is.existy(this._header) ? this._header : null
+      }
+    </PageCard.Heading>;
   }
 
   render() {
@@ -133,6 +135,7 @@ SelectionTable.propTypes = {
   children: React.PropTypes.node,
   title: React.PropTypes.string,
   rootLinkTitle: React.PropTypes.string,
+  headerClassName: React.PropTypes.string,
   hideRootLink: React.PropTypes.bool,
 };
 

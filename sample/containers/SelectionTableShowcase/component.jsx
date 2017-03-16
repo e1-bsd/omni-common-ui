@@ -1,11 +1,22 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import Showcase from 'components/Showcase';
-import { SelectionTable } from 'omni-common-ui';
+import { SelectionTable, Button } from 'omni-common-ui';
 
 const SelectionTableShowcase = () =>
   <Showcase title="Selection Table" titleLink="selectionTable">
     <div>
-      <SelectionTable title="Classroom" rootLinkTitle="Global">
+      <SelectionTable title="Classroom"
+          rootLinkTitle="Global"
+          headerClassName={styles.SelectionTableShowCase_selectionTable_header}
+          hideRootLink>
+        <SelectionTable.Header>
+          <Button type={Button.Type.default}
+              className={styles.SelectionTableShowCase_selectionTable_header_inner} >
+            <span>TARGET LANGUAGE</span>
+          </Button>
+        </SelectionTable.Header>
         <SelectionTable.Level label="CN">
           <SelectionTable.Level label="CN-OWN">
             <SelectionTable.Level label="Shanghai">
