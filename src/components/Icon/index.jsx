@@ -6,7 +6,7 @@ const Icon = ({ className, id }) => <InlineSvg className={className}>{icons.get(
 
 Icon.propTypes = {
   className: React.PropTypes.string,
-  id: React.PropTypes.oneOf(icons.keys()),
+  id: React.PropTypes.oneOf(Object.keys(icons.toObject())),
 };
 
 export default Icon;
