@@ -50,7 +50,7 @@ Avatar.propTypes = {
   default: React.PropTypes.string,
   defaultMale: React.PropTypes.string,
   defaultFemale: React.PropTypes.string,
-  gender: React.PropTypes.oneOf(Object.values(Gender)),
+  gender: React.PropTypes.string,
   className: React.PropTypes.string,
 };
 
