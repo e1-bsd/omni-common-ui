@@ -99,9 +99,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function getApiErrors(state) {
-  return ApiCall.getErrors(state)
-      .filter((call) => ! call.disableDefault)
-      .toList();
+  return ApiCall.getErrors(state).toList();
 }
 
 function getApiError(erroredApis) {
