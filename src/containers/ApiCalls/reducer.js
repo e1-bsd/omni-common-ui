@@ -12,7 +12,8 @@ export default function apiCalls(state = Map(), action) {
 
   const key = ApiCall.Key.create(action);
   if (ApiCall.Action.isStarted(action)) {
-    return state.set(key, ApiCall.State.createLoading(key));
+    const newState = ApiCall.State.createLoading(key, { disableDefault: action.disableDefault });
+    return state.set(key, newState);
   }
 
   if (ApiCall.Action.isSuccess(action)) {
@@ -20,7 +21,10 @@ export default function apiCalls(state = Map(), action) {
   }
 
   if (ApiCall.Action.isFailure(action)) {
-    return state.set(key, ApiCall.State.createFailed(key, action.error));
+    const newState = ApiCall.State.createFailed(key,
+        action.error,
+        { disableDefault: action.disableDefault });
+    return state.set(key, newState);
   }
 
   return state;
