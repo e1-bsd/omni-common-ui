@@ -17,6 +17,18 @@ describe('ApiCall', () => {
         expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
         expect(apiState.status).to.equal('loading');
       });
+
+      it('creates a loading API call state object ' +
+          'with disableDefault=true if truthy value passed', () => {
+        const apiState = ApiState.createLoading('id', { disableDefault: true });
+        expect(apiState.disableDefault).to.be.true;
+      });
+
+      it('creates a loading API call state object ' +
+          'with disableDefault=false if falsy value passed', () => {
+        const apiState = ApiState.createLoading('id');
+        expect(apiState.disableDefault).to.be.false;
+      });
     });
 
     describe('#createFailed()', () => {
@@ -32,6 +44,18 @@ describe('ApiCall', () => {
         expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
         expect(apiState.status).to.equal('failed');
         expect(apiState.error).to.equal(error);
+      });
+
+      it('creates a failed API call state object ' +
+          'with disableDefault=true if truthy value passed', () => {
+        const apiState = ApiState.createFailed('key', 'some error', { disableDefault: true });
+        expect(apiState.disableDefault).to.be.true;
+      });
+
+      it('creates a failed API call state object ' +
+          'with disableDefault=false if falsy value passed', () => {
+        const apiState = ApiState.createFailed('key', 'some error');
+        expect(apiState.disableDefault).to.be.false;
       });
     });
 
