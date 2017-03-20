@@ -10,6 +10,7 @@ const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -144,6 +145,9 @@ module.exports = {
           VERSION: `'${version}'`,
           COMMIT: `'${commitHash}'`,
           SENTRY_ENV: `'${nodeEnv}'`,
+        }),
+        new ServiceWorkerWebpackPlugin({
+          entry: path.join(__dirname, 'lib/domain/ServiceWorker/service-worker.js'),
         }),
       ]).concat(! isProd ?
         [

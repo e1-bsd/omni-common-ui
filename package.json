@@ -147,6 +147,7 @@
     "rimraf": "2.5.4",
     "scroll-to-element": "^2.0.0",
     "selenium-standalone": "^5.9.1",
+    "serviceworker-webpack-plugin": "^0.2.1",
     "sinon": "^2.0.0",
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",

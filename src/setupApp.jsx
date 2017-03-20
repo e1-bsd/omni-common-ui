@@ -26,6 +26,7 @@ import Config from 'domain/Config';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import bindPolyfills from 'domain/Polyfills';
+import ServiceWorker from 'domain/ServiceWorker';
 
 bindPolyfills();
 
@@ -39,6 +40,8 @@ Raven.config(Config.get('sentryDsn'), {
   tags: { version: VERSION },
   debug: ! PRODUCTION,
 }).install();
+
+ServiceWorker.register();
 
 export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);
