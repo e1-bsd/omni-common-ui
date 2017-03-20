@@ -16,9 +16,12 @@ const Tooltip = (props) => {
   const overlayClassName = is.existy(props.overlayClassName) ?
     classnames(styles.Tooltip_bubble, props.overlayClassName) :
     styles.Tooltip_bubble;
+  const trigger = is.existy(props.trigger) ?
+    props.trigger :
+    ['hover'];
 
   return <RcTooltip placement={placement}
-      trigger={['hover']}
+      trigger={trigger}
       destroyPopupOnHide
       overlay={<div className={overlayClassName}>{props.text}</div>}>
     <div className={props.className}>{props.children}</div>
@@ -31,6 +34,7 @@ Tooltip.propTypes = {
   className: React.PropTypes.string,
   placement: React.PropTypes.string,
   overlayClassName: React.PropTypes.string,
+  trigger: React.PropTypes.any,
 };
 
 export default Tooltip;
