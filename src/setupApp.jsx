@@ -10,7 +10,6 @@ import {
   routes as singleSignOnCallbacks,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
-import log from 'domain/log';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
