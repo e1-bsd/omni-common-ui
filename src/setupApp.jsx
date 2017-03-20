@@ -23,7 +23,6 @@ import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler'
 import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
-import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import bindPolyfills from 'domain/Polyfills';
@@ -33,9 +32,6 @@ bindPolyfills();
 if (PRODUCTION) {
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
-
-Oidc.Log.logger = log;
-Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
 Raven.config(Config.get('sentryDsn'), {
   release: COMMIT,
