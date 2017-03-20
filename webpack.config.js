@@ -167,6 +167,7 @@ module.exports = {
       .concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
+    outputPath: path.resolve('dist'),
     noInfo: false,
     stats: { colors: true },
     historyApiFallback: true,
