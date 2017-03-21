@@ -131,7 +131,9 @@ class Breadcrumbs extends Component {
           const itemKey = item.label + item.href;
           return <li key={itemKey}
               className={itemClassNames}>
-            {item.clickable ? <Link to={item.href} onClick={onClick}>
+            {item.clickable ? <Link to={item.href}
+                onClick={onClick}
+                draggable={false}>
               {item.label}
             </Link> : <span>
               {item.label}
