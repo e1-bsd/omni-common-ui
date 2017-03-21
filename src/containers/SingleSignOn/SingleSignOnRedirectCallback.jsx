@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import userManager from './userManager';
 
-class SingleSignOnPopUpCallback extends Component {
+class SingleSignOnRedirectCallback extends Component {
   componentDidMount() {
-    userManager.signinPopupCallback();
+    userManager.signinRedirectCallback();
   }
 
   render() {
@@ -11,4 +11,4 @@ class SingleSignOnPopUpCallback extends Component {
   }
 }
 
-export default SingleSignOnPopUpCallback;
+export default SingleSignOnRedirectCallback;
