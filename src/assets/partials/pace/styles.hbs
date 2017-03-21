@@ -9,14 +9,15 @@
     align-items: center;
     justify-content: center;
 
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
     z-index: 2000;
     position: fixed;
-    height: 100%;
-    width: 100%;
+    height: 90px;
+    width: 90px;
     margin: auto;
-    top: 0;
-    left: 0;
+    top: calc(50% - 45px);  /* 45px = 90 / 2 */
+    left: calc(50% - 45px);
 
     opacity: 1;
     transition: opacity 0.3s cubic-bezier(0.230, 1.000, 0.320, 1.000); /* easeOutQuint */
@@ -51,16 +52,16 @@
     width: 40px;
     display: block;
     flex-shrink: 0;
-    border-width: 7px;
+    border-width: 5px;
     border-style: solid;
     border-color: white;
     border-top-color: #a5a5a5;
     border-radius: 50%;
     z-index: 2000;
 
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 
     -webkit-transform: translateZ(0) rotate(0deg);
        -moz-transform: translateZ(0) rotate(0deg);
