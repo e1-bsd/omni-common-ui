@@ -20,7 +20,7 @@ if (! PRODUCTION) {
 
 export function setupStore(reducer) {
   const browserHistory = useRouterHistory(useBeforeUnload(useBasename(createHistory)))({
-    basename: '/',
+    basename: '',
   });
 
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
