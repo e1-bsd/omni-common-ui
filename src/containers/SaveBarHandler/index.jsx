@@ -153,7 +153,7 @@ class SaveBarHandler extends Component {
       [styles.SaveBar_overlay]: true,
       [styles.__visible]: !! isAnyApiCallSaving,
     };
-    return <div data-component="SaveBarHandler">
+    return <div className={styles.SaveBarHandler}>
       <aside className={classnames(barClasses)}>
         <div className={styles.SaveBar_inner}>
           <span className={classnames(styles.SaveBar_text, {

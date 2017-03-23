@@ -24,8 +24,11 @@ class Person extends Component {
     }
 
     const children = React.Children.toArray(props.children);
-    this._picture = children.find(isPicture);
     this._lines = children.filter((c) => ! isPicture(c));
+
+    const picture = children.find(isPicture);
+    this._picture = <picture.type {...picture.props}
+        className={classnames(picture.props.className, styles.Person_picture)} />;
   }
 
   _showWarnings(props) {
@@ -48,7 +51,7 @@ class Person extends Component {
 
   render() {
     return <div className={classnames(styles.Person, this.props.className)}>
-      <div className={styles.Person_picture}>{this._picture}</div>
+      {this._picture}
       <div className={styles.Person_lines}>{this._lines}</div>
     </div>;
   }
