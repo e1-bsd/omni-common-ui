@@ -7,7 +7,7 @@ const AuthorisationErrorPage = (props) => {
   parsedProps.config = Object.assign(
     {
       icon: () => lockSrc,
-      message: () => 'You have no permission to access this page',
+      message: () => 'You have no permission to access this page.',
     },
     props.config);
 

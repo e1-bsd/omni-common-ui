@@ -1,45 +1,41 @@
 import is from 'is_js';
 
-export const MALE = 'male';
-export const FEMALE = 'female';
-export const UNKNOWN = 'unknown';
+const MALE = 'male';
+const FEMALE = 'female';
+const UNKNOWN = null;
 
-export const isMale = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
+class Gender {
+  static isMale(gender) {
+    if (is.not.string(gender)) {
+      return false;
+    }
+
+    return /^m(ale)?$/i.test(gender);
   }
 
-  return gender.toLowerCase() === MALE;
-};
+  static isFemale(gender) {
+    if (is.not.string(gender)) {
+      return false;
+    }
 
-export const isFemale = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
+    return /^f(emale)?$/i.test(gender);
   }
 
-  return gender.toLowerCase() === FEMALE;
-};
-
-export const isUnknown = (gender) => {
-  if (is.not.string(gender)) {
-    return false;
+  static isUnknown(gender) {
+    return ! Gender.isMale(gender) && ! Gender.isFemale(gender);
   }
 
-  return gender.toLowerCase() === UNKNOWN;
-};
+  static parse(gender) {
+    if (Gender.isMale(gender)) {
+      return MALE;
+    }
 
-export const parse = (gender) => {
-  if (isMale(gender)) {
-    return MALE;
+    if (Gender.isFemale(gender)) {
+      return FEMALE;
+    }
+
+    return UNKNOWN;
   }
-
-  if (isFemale(gender)) {
-    return FEMALE;
-  }
-
-  return UNKNOWN;
-};
-
-export const Gender = { MALE, FEMALE, UNKNOWN, isMale, isFemale, isUnknown, parse };
+}
 
 export default Gender;

@@ -1,10 +1,11 @@
+import styles from './style.postcss';
 import React from 'react';
 import is from 'is_js';
 import { Link } from 'react-router';
-import styles from './style.postcss';
 import classnames from 'classnames';
+import Icon from 'components/Icon';
 
-const Histories = (props) => {
+const HistoryLink = (props) => {
   const currentRoute = props.routes[props.routes.length - 1];
   let history = currentRoute.history;
 
@@ -18,19 +19,20 @@ const Histories = (props) => {
 
   if (history && is.not.string(history.link)) return null;
 
-  return <div className={classnames(styles.Histories, props.className)}>
+  return <div className={classnames(styles.HistoryLink, props.className)}>
     <Link to={history.link}
         draggable={false}>
       History
+      <Icon id="history2" />
     </Link>
   </div>;
 };
 
-Histories.propTypes = {
+HistoryLink.propTypes = {
   className: React.PropTypes.string,
   params: React.PropTypes.object.isRequired,
   routes: React.PropTypes.array.isRequired,
   buildRoute: React.PropTypes.func.isRequired,
 };
 
-export default Histories;
+export default HistoryLink;

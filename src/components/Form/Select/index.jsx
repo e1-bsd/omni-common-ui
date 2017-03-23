@@ -6,15 +6,23 @@ import ReactSelect from 'react-select';
 import is from 'is_js';
 import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
+import Icon from 'components/Icon';
 import Field from '../Field';
 
 const Select = (props) => {
+
+  const arrowRenderer = () =>
+    <span className={styles.Select_icon}>
+      <Icon id="chevron-fat-down" />
+    </span>;
+
   const classes = classnames(styles.Select_element,
       { [styles.__required]: props.showRequired() },
       { [styles.__error]: props.showError() });
 
   const select = <ReactSelect className={classes}
       onChange={(e) => handleChange(e)}
+      arrowRenderer={() => arrowRenderer()}
       {...props} />;
 
   if (is.not.undefined(props.label)) {

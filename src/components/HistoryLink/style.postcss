@@ -1,0 +1,26 @@
+@import 'main.postcss';
+
+.HistoryLink {
+  flex-shrink: 0;  /* for Safari */
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  @mixin fontButton;
+
+  & a {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+
+    & > i {
+      margin-left: 8px;
+      transform: scale(1.3);
+      transform-origin: center right;
+    }
+  }
+
+  & a:not(:hover) {
+    color: #42667e;
+  }
+}

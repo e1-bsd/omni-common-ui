@@ -1,5 +1,31 @@
+@import 'main.postcss';
+
+:root {
+  --verticalPadding: 10px;
+}
+
 .Level {
   border-bottom: 1px solid #dfdfdf;
-  height: 40px;
-  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  font-weight: normal;
+  height: 45px;
+  justify-content: space-between;
+  letter-spacing: normal;
+  padding: var(--verticalPadding) 20px;
+
+  @media (--md-viewport-new) {
+    padding: var(--verticalPadding) 30px;
+  }
+
+  &_label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &_icon {
+    margin-top: 4px;
+  }
 }

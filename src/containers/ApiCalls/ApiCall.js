@@ -29,6 +29,10 @@ export default class ApiCall {
   }
 
   static getErrors(state) {
+    return ApiCall.getAllErrors(state).filter((call) => ! call.disableDefault);
+  }
+
+  static getAllErrors(state) {
     return state.get('apiCalls').filter((call) => ApiCall.State.hasFailed(call));
   }
 

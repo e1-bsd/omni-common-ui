@@ -9,7 +9,7 @@ import userManager from 'containers/SingleSignOn/userManager';
 import is from 'is_js';
 import alertifyjs from 'alertifyjs';
 import Config from 'domain/Config';
-import StudentPicture from 'components/StudentPicture';
+import AdultPicture from 'components/AdultPicture';
 import testClass from 'domain/testClass';
 import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
@@ -144,7 +144,7 @@ class UserInfo extends Component {
   }
 
   _renderUser() {
-    return <StudentPicture className={styles.UserInfo_container_user_img}
+    return <AdultPicture className={styles.UserInfo_container_user_img}
         src={this.props.user.profile.avatar_url}
         gender={this.props.user.profile.gender} />;
   }
@@ -154,7 +154,7 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <StudentPicture src={this.props.impersonate.avatarUrl}
+    return <AdultPicture src={this.props.impersonate.avatarUrl}
         className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
         gender={this.props.impersonate.gender} />;
   }
@@ -206,7 +206,7 @@ function mapStateToProps(state) {
   const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
-    user: state.get('singleSignOn').user,
+    user: state.get('singleSignOn').get('user'),
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
     hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),

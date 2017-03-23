@@ -11,11 +11,13 @@ class ApiStateRecord extends Record({
   error: undefined,
   timestamp: undefined,
   id: undefined,
+  disableDefault: undefined,
 }) {
   constructor(values = {}) {
-    super(Object.assign({}, values, {
-      timestamp: new Date(),
-    }));
+    super(Object.assign({},
+        values,
+        { disableDefault: !! values.disableDefault },
+        { timestamp: new Date() }));
   }
 }
 
@@ -24,16 +26,17 @@ export default class ApiState {
     return new ApiStateRecord({ id, status: STATE_SUCCEEDED });
   }
 
-  static createFailed(id, error) {
+  static createFailed(id, error, { disableDefault } = {}) {
     return new ApiStateRecord({
       id,
       status: STATE_FAILED,
       error,
+      disableDefault,
     });
   }
 
-  static createLoading(id) {
-    return new ApiStateRecord({ id, status: STATE_LOADING });
+  static createLoading(id, { disableDefault } = {}) {
+    return new ApiStateRecord({ id, status: STATE_LOADING, disableDefault });
   }
 
   static isValue(value) {

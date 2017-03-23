@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import is from 'is_js';
-import PageCard from '../PageCard';
+import PageCard from 'components/PageCard';
+import Icon from 'components/Icon';
+import Header from './Header';
 import Level from './Level';
 import Leaf from './Leaf';
 
@@ -21,23 +23,27 @@ class SelectionTable extends Component {
   _setUpData(props) {
     const children = React.Children.toArray(props.children);
     this._level = children.filter((child) => child.type === Level);
+    this._header = children.find((child) => child.type === Header);
   }
 
   _onLevelClick(route) {
     this.setState({ route });
   }
 
+  _cloneArray(arr) {
+    return arr.slice(0);
+  }
 
   _renderContent() {
-    let levels = this._level.slice(0);
-    const tempRoutes = Array.from([...this.state.route]);
+    let levels = this._cloneArray(this._level);
+    const tempRoutes = this._cloneArray(this.state.route);
     while (tempRoutes.length !== 0) {
       const currentRoute = tempRoutes.shift();
       levels = levels.find(
         (level) => level.props.label === currentRoute
       );
       levels = is.array(levels.props.children) ?
-        levels.props.children.slice(0) :
+        this._cloneArray(levels.props.children) :
         levels.props.children;
     }
 
@@ -65,7 +71,8 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
-    const routes = this.state.route.slice(0);
+    const { title, rootLinkTitle, hideRootLink, headerClassName } = this.props;
+    const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);
       if (routeIndex >= 0) {
@@ -73,9 +80,26 @@ class SelectionTable extends Component {
         this.setState({ route: newRoute });
       }
     };
+    const onHeadingBackClick = () => {
+      this.setState({ route: routes.slice(0, routes.length - 1) });
+    };
+
+    const onHeadingRootClick = () => {
+      this.setState({ route: [] });
+    };
     const headingRouteClassName = styles.SelectionTable_heading_route;
+    const headingBackClassName = styles.SelectionTable_heading_back;
     if (is.array(routes) && routes.length > 0) {
-      return <PageCard.Heading>
+      return <PageCard.Heading className={styles.SelectionTable_heading}>
+        <span className={headingBackClassName} onClick={() => onHeadingBackClick()}>
+          <Icon id="arrow" />
+        </span>
+        {
+          is.falsy(hideRootLink) ?
+            <span className={headingRouteClassName} onClick={() => onHeadingRootClick()}>
+              {is.undefined(rootLinkTitle) ? title : rootLinkTitle}
+            </span> : null
+        }
         {
           routes.map((route) =>
             <span key={route}
@@ -84,9 +108,14 @@ class SelectionTable extends Component {
               {route}
             </span>)
         }
+
       </PageCard.Heading>;
     }
-    return <PageCard.Heading text={this.props.title} />;
+    return <PageCard.Heading className={headerClassName} text={this.props.title}>
+      {
+        is.existy(this._header) ? this._header : null
+      }
+    </PageCard.Heading>;
   }
 
   render() {
@@ -103,6 +132,9 @@ class SelectionTable extends Component {
 SelectionTable.propTypes = {
   children: React.PropTypes.node,
   title: React.PropTypes.string,
+  rootLinkTitle: React.PropTypes.string,
+  headerClassName: React.PropTypes.string,
+  hideRootLink: React.PropTypes.bool,
 };
 
 export default SelectionTable;

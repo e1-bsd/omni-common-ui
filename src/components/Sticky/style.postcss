@@ -1,0 +1,10 @@
+@import 'main.postcss';
+
+.Sticky {
+  top: 0;
+  z-index: var(--zIndex-7--stickyNavBar);
+
+  &:global(.fixedsticky-on) {
+    width: calc(100% - var(--sidebarWidth));
+  }
+}

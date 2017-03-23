@@ -86,9 +86,9 @@ class Sidebar extends Component {
         </button>
       </div>
       {
-        this._items.map((config, link) => <Link to={link} currentPath={pathname}>
+        this._items.map((config, link) => <Link key={link} to={link} currentPath={pathname}>
           <button className={styles.Sidebar_item}>{config.get('text')}</button>
-        </Link>)
+        </Link>).toArray()
       }
     </div>;
   }

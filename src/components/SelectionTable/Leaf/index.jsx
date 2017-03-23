@@ -6,7 +6,7 @@ const Leaf = ({ children }) =>
   </div>;
 
 Leaf.propTypes = {
-  children: React.PropTypes.children,
+  children: React.PropTypes.node,
 };
 
 export default Leaf;

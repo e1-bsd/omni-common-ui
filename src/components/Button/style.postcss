@@ -13,6 +13,7 @@
   text-transform: uppercase;
   transition: all var(--transitionDurationBase) ease;
   user-select: none;
+  white-space: nowrap;
   will-change: background, border, box-shadow, color, opacity;
 
   @media (--md-viewport-new) {
@@ -57,7 +58,7 @@
   }
 
   &.__active {
-    background-color: var(--colorButtonActive);
+    background-color: var(--colorActive);
   }
 
   &.__default,
@@ -71,9 +72,12 @@
 
     &:hover:not([disabled]),
     &.__active {
-      background-color: var(--colorButtonActive);
       border-color: transparent;
       color: var(--colorTextInverse);
+    }
+
+    &.__active {
+      background-color: var(--colorActive);
     }
 
     &.__inverse {

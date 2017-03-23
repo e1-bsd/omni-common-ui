@@ -165,5 +165,17 @@ describe('<ErrorPageHandler />', () => {
       expect(mapStateToProps(state, ownProps).erroredApis.get(0)).to.equal(failedCall1);
       expect(mapStateToProps(state, ownProps).erroredApis.get(1)).to.equal(failedCall2);
     });
+
+    it('ignores errores APIs if disableDefault=true for them', () => {
+      const failedCall1 = ApiCall.State.createFailed('GET /my/path', new Error());
+      const failedCall2 = ApiCall.State.createFailed('GET /my/path/2', new Error(), { disableDefault: true });
+      state = buildState({
+        'GET /my/path': failedCall1,
+        'GET /my/path/2': failedCall2,
+      });
+      const { erroredApis } = mapStateToProps(state, ownProps);
+      expect(erroredApis.size).to.equal(1);
+      expect(erroredApis.get(0)).to.equal(failedCall1);
+    });
   });
 });

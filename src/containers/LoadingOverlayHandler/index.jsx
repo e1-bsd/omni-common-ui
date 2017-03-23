@@ -89,7 +89,8 @@ function mapStateToProps(state) {
 function getLoadingApiCalls(state) {
   const loadingApiCalls = state.get('apiCalls')
     .filter((call, key) => key.startsWith(HTTP_METHOD_TRIGGERS))
-    .filter((call) => ApiCall.State.isLoading(call));
+    .filter((call) => ApiCall.State.isLoading(call))
+    .filter((call) => ! call.disableDefault);
   if (is.object(loadingApiCalls) && loadingApiCalls.size) {
     return loadingApiCalls;
   }

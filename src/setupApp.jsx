@@ -6,12 +6,10 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   SingleSignOnHandler,
-  SingleSignOnProvider,
-  routes as singleSignOnRoutes,
   IdleTimeoutHandler,
+  routes as singleSignOnCallbacks,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
-import log from 'domain/log';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
@@ -24,16 +22,15 @@ import NoMatchingRouteErrorHandler from 'containers/NoMatchingRouteErrorHandler'
 import ErrorMessage from 'domain/ErrorMessage';
 import ReactAI from 'react-appinsights';
 import Config from 'domain/Config';
-import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
+import bindPolyfills from 'domain/Polyfills';
+
+bindPolyfills();
 
 if (PRODUCTION) {
   ReactAI.init({ instrumentationKey: Config.get('appInsights') }, browserHistory);
 }
-
-Oidc.Log.logger = log;
-Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
 Raven.config(Config.get('sentryDsn'), {
   release: COMMIT,
@@ -57,7 +54,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
     {
       path: '/health-check',
     },
-    ...singleSignOnRoutes,
+    singleSignOnCallbacks,
     {
       component: SingleSignOnHandler,
       childRoutes: [{
@@ -90,9 +87,7 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
 
   render(
     <Provider store={store}>
-      <SingleSignOnProvider store={store}>
-        <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
-      </SingleSignOnProvider>
+      <Router history={syncBrowserHistory} routes={parsedRoutes} onUpdate={logPageView} />
     </Provider>,
     document.getElementById('root')
   );

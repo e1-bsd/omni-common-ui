@@ -18,23 +18,30 @@
     width: calc(100% - var(--sidebarWidth));
 
     &_auxiliary {
-      align-items: baseline;
       background-color: var(--colorNavSectionBg);
       border-bottom: var(--hairThin) solid var(--colorBorder);
       display: flex;
       justify-content: space-between;
+      user-select: none;
 
       &_breadcrumbs {
         @mixin responsiveCardPadding;
       }
 
-      &_histories {
+      &_historyLink {
         @mixin responsiveCardPadding;
+
+        display: none;
+
+        @media (min-width: 768px) {
+          display: block;
+        }
       }
     }
 
     &_wrap {
       flex: 1 1 auto;
+      height: 100%;  /* centers the error page */
     }
   }
 }
