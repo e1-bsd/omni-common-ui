@@ -14,11 +14,16 @@
   background-color: var(--colorPrimary);
   cursor: pointer;
   flex: 0;
-  min-width: 50px;
+  min-width: 0;
   position: relative;
   text-align: left;
   vertical-align: top;
-  width: var(--normalWidth);
+  width: 0;
+
+  @media (--md-viewport-new) {
+    min-width: var(--normalWidth);
+    width: var(--normalWidth);
+  }
 
   &::after {
     background-color: var(--colorHoverDarken);
