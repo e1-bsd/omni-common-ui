@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Link from './Link';
 import is from 'is_js';
 import { OrderedMap, List, Map } from 'immutable';
-import classnames from 'classnames';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Sidebar extends Component {
   static _getItems(props) {
@@ -54,28 +54,36 @@ class Sidebar extends Component {
   }
 
   componentWillUnmount() {
-    this._removeClickOutsideEvent();
-    this._removePageSrolledEvent();
+    this._removeClickOutsideEvents();
+    this._removePageSrolledEvents();
   }
 
   _setUp(props) {
     if (props.expanded === true) {
-      document.body.addEventListener('click', this._onClickedOutside);
-      document.body.addEventListener('touchstart', this._onClickedOutside);
-      document.addEventListener('scroll', this._onPageScrolled);
-      document.addEventListener('wheel', this._onPageScrolled);
+      this._addClickOutsideEvents();
+      this._addPageSrolledEvents();
     } else {
-      this._removeClickOutsideEvent();
-      this._removePageSrolledEvent();
+      this._removeClickOutsideEvents();
+      this._removePageSrolledEvents();
     }
   }
 
-  _removeClickOutsideEvent() {
+  _addClickOutsideEvents() {
+    document.body.addEventListener('click', this._onClickedOutside);
+    document.body.addEventListener('touchstart', this._onClickedOutside);
+  }
+
+  _removeClickOutsideEvents() {
     document.body.removeEventListener('click', this._onClickedOutside);
     document.body.removeEventListener('touchstart', this._onClickedOutside);
   }
 
-  _removePageSrolledEvent() {
+  _addPageSrolledEvents() {
+    document.addEventListener('scroll', this._onPageScrolled);
+    document.addEventListener('wheel', this._onPageScrolled);
+  }
+
+  _removePageSrolledEvents() {
     document.removeEventListener('scroll', this._onPageScrolled);
     document.removeEventListener('wheel', this._onPageScrolled);
   }
@@ -89,12 +97,12 @@ class Sidebar extends Component {
   }
 
   _onPageScrolled() {
-    if (this._node.childElementCount <= 0) {
+    const expandedNode = this._node.querySelector(`.${styles.Sidebar_expanded}`);
+    if (! expandedNode) {
       return;
     }
 
-    this._node.children[0].style.paddingTop = `calc(${styles.headerSize} - ${
-        document.body.scrollTop}px)`;
+    expandedNode.style.paddingTop = `calc(${styles.headerSize} - ${document.body.scrollTop}px)`;
   }
 
   _expand(evt) {
@@ -106,10 +114,6 @@ class Sidebar extends Component {
   }
 
   _renderExpanded() {
-    if (this.props.expanded !== true) {
-      return null;
-    }
-
     const { location: { pathname } } = this.props;
     return <div className={styles.Sidebar_expanded}
         style={{ backgroundColor: this._color }}>
@@ -133,13 +137,14 @@ class Sidebar extends Component {
     }
 
     const { expanded } = this.props;
-    const classes = classnames(styles.Sidebar, { [styles.__expanded]: expanded === true });
     const onClickBar = expanded === true ? undefined : (e) => this._expand(e);
-    return <div className={classes}
+    return <div className={styles.Sidebar}
         onClick={onClickBar}
         style={{ backgroundColor: this._color }}
         ref={(c) => { this._node = c; }}>
-      {this._renderExpanded()}
+      <ReactCSSTransitionGroup transitionName="sidebar">
+        {expanded === true && this._renderExpanded()}
+      </ReactCSSTransitionGroup>
     </div>;
   }
 }

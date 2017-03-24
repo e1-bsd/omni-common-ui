@@ -6,8 +6,8 @@
   --itemHeight: 40px;
   --iconSize: 12px;
   --iconPadding: 5px;
-  --expandedWidth: 252px;
   --closeHeight: var(--normalWidth);
+  --expandedMinHeight: 200px;
 }
 
 .Sidebar {
@@ -50,11 +50,29 @@
     cursor: auto;
     left: 0;
     min-height: 100%;
-    min-width: 200px;
+    min-width: var(--expandedMinHeight);
     overflow-y: auto;
     position: fixed;
     top: 0;
     z-index: var(--zIndex-7--sidebar);
+
+    &:global(.sidebar-enter) {
+      transform: translateX(-var(--expandedMinHeight));
+    }
+
+    &:global(.sidebar-enter.sidebar-enter-active) {
+      transform: translateX(0);
+      transition: transform var(--transitionDurationBase) ease-in-out;
+    }
+
+    &:global(.sidebar-leave) {
+      transform: translateX(0);
+    }
+
+    &:global(.sidebar-leave.sidebar-leave-active) {
+      transform: translateX(-var(--expandedMinHeight));
+      transition: transform var(--transitionDurationBase) ease-in-out;
+    }
   }
 
   &_close {
