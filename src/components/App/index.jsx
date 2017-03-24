@@ -15,6 +15,11 @@ import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { sidebarExpanded: false };
+  }
+
   componentDidMount() {
     this._setPageTitle(this.props);
   }
@@ -41,7 +46,9 @@ class App extends Component {
       }
       <Header {...this.props} />
       <div className={styles.App_wrap}>
-        <Sidebar {...this.props} />
+        <Sidebar {...this.props} expanded={this.state.sidebarExpanded}
+            onExpand={() => this.setState({ sidebarExpanded: true })}
+            onCollapse={() => this.setState({ sidebarExpanded: false })} />
         <div className={styles.App_content}>
           {
             ! this.props.isThereAnError &&

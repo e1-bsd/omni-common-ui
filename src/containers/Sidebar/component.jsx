@@ -35,28 +35,30 @@ class Sidebar extends Component {
     super(props);
     this._items = Sidebar._getItems(props);
     this._color = Sidebar._getColor(props);
-    this.state = { expanded: false };
     this._onClickedOutside = this._onClickedOutside.bind(this);
   }
 
-  componentWillReceiveProps(props) {
+  componentDidMount() {
+    this._setUp(this.props);
+  }
+
+  componentWillUpdate(props) {
     this._items = Sidebar._getItems(props);
     this._color = Sidebar._getColor(props);
+    this._setUp(props);
   }
 
   componentWillUnmount() {
     this._removeClickOutsideEvent();
   }
 
-  _expand() {
-    this.setState({ expanded: true }, () => {
+  _setUp(props) {
+    if (props.expanded === true) {
       document.body.addEventListener('click', this._onClickedOutside);
       document.body.addEventListener('touchstart', this._onClickedOutside);
-    });
-  }
-
-  _contract() {
-    this.setState({ expanded: false }, () => this._removeClickOutsideEvent());
+    } else {
+      this._removeClickOutsideEvent();
+    }
   }
 
   _removeClickOutsideEvent() {
@@ -72,15 +74,23 @@ class Sidebar extends Component {
     this._contract();
   }
 
+  _expand() {
+    is.function(this.props.onExpand) && this.props.onExpand();
+  }
+
+  _contract() {
+    is.function(this.props.onCollapse) && this.props.onCollapse();
+  }
+
   _renderExpanded() {
-    if (this.state.expanded !== true) {
+    if (this.props.expanded !== true) {
       return null;
     }
 
     const { location: { pathname } } = this.props;
     return <div className={styles.Sidebar_expanded} style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
-        <button onClick={() => this.setState({ expanded: false })}
+        <button onClick={() => this._contract()}
             className={styles.Sidebar_close_button}>
           <img src={closeSrc} alt="Close" className={styles.Sidebar_close_button_icon} />
         </button>
@@ -98,7 +108,7 @@ class Sidebar extends Component {
       return null;
     }
 
-    const { expanded } = this.state;
+    const { expanded } = this.props;
     const classes = classnames(styles.Sidebar, { [styles.__expanded]: expanded === true });
     const onClickBar = expanded === true ? undefined : () => this._expand();
     return <div className={classes}
@@ -113,6 +123,9 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   routes: React.PropTypes.array.isRequired,
   location: React.PropTypes.shape({ pathname: React.PropTypes.string.isRequired }).isRequired,
+  expanded: React.PropTypes.bool,
+  onCollapse: React.PropTypes.func,
+  onExpand: React.PropTypes.func,
 };
 
 export default Sidebar;
