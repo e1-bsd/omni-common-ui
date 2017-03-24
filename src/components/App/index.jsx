@@ -28,6 +28,10 @@ class App extends Component {
     this._setPageTitle(props);
   }
 
+  _onHamburgerClicked() {
+    this.setState(({ sidebarExpanded }) => ({ sidebarExpanded: ! sidebarExpanded }));
+  }
+
   _setPageTitle(props) {
     this._breadcrumbs = BreadcrumbsBuilder.buildWithProps(props);
     if (! this._breadcrumbs || this._breadcrumbs.length <= 0) {
@@ -44,7 +48,7 @@ class App extends Component {
         ! PRODUCTION &&
         <PerformanceProfiler />
       }
-      <Header {...this.props} />
+      <Header {...this.props} onHamburgerClick={() => this._onHamburgerClicked()} />
       <div className={styles.App_wrap}>
         <Sidebar {...this.props} expanded={this.state.sidebarExpanded}
             onExpand={() => this.setState({ sidebarExpanded: true })}

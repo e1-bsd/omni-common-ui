@@ -7,12 +7,16 @@ import log from 'domain/log';
 import { connect } from 'domain/connect';
 import { bindActionCreators } from 'redux';
 import Icon from 'components/Icon';
+import is from 'is_js';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
   const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
-    <div className={styles.Header_burger}><Icon id="burger" /></div>
+    <div className={styles.Header_burger}
+        onClick={() => is.function(props.onHamburgerClick) && props.onHamburgerClick()}>
+      <Icon id="burger" />
+    </div>
     <div className={styles.Header_logo} />
     <div className={styles.Header_wrap}>
       <UserInfo impersonate={props.impersonate}
@@ -32,6 +36,7 @@ Header.propTypes = {
   removeImpersonate: React.PropTypes.func.isRequired,
   unimpersonate: React.PropTypes.func.isRequired,
   impersonate: React.PropTypes.object,
+  onHamburgerClick: React.PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
