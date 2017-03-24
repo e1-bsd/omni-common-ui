@@ -55,6 +55,7 @@ class Sidebar extends Component {
 
   componentWillUnmount() {
     this._removeClickOutsideEvent();
+    this._removePageSrolledEvent();
   }
 
   _setUp(props) {
@@ -65,12 +66,16 @@ class Sidebar extends Component {
       document.addEventListener('wheel', this._onPageScrolled);
     } else {
       this._removeClickOutsideEvent();
+      this._removePageSrolledEvent();
     }
   }
 
   _removeClickOutsideEvent() {
     document.body.removeEventListener('click', this._onClickedOutside);
     document.body.removeEventListener('touchstart', this._onClickedOutside);
+  }
+
+  _removePageSrolledEvent() {
     document.removeEventListener('scroll', this._onPageScrolled);
     document.removeEventListener('wheel', this._onPageScrolled);
   }
@@ -88,12 +93,8 @@ class Sidebar extends Component {
       return;
     }
 
-    let paddingTop = 50 - document.body.scrollTop;
-    if (paddingTop < 0) {
-      paddingTop = 0;
-    }
-
-    this._node.children[0].style.paddingTop = `${paddingTop}px`;
+    this._node.children[0].style.paddingTop = `calc(${styles.headerSize} - ${
+        document.body.scrollTop}px)`;
   }
 
   _expand(evt) {

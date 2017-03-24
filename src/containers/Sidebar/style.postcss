@@ -55,10 +55,6 @@
     position: fixed;
     top: 0;
     z-index: var(--zIndex-7--sidebar);
-
-    &.__spaceForHeader {
-      padding-top: var(--headerSize);
-    }
   }
 
   &_close {
@@ -109,4 +105,10 @@
     outline: none;
     padding: 0 var(--touchablePaddingHorizontal);
   }
+}
+
+
+/* stylelint-disable */
+:export {
+  headerSize: var(--headerSize);
 }
