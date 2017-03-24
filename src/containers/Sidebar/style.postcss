@@ -46,11 +46,14 @@
 
   &_expanded {
     background-color: var(--colorPrimary);
+    bottom: 0;
     cursor: auto;
     left: 0;
     min-height: 100%;
     min-width: 200px;
-    position: absolute;
+    overflow-y: auto;
+    padding-top: var(--headerSize);
+    position: fixed;
     top: 0;
     z-index: var(--zIndex-7--sidebar);
   }
