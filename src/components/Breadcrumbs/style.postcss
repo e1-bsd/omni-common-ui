@@ -41,6 +41,10 @@
     &:not(.__clickable) {
       cursor: default;
     }
+
+    &_back {
+      padding-right: 0.5em;
+    }
   }
 
   &_crumb:last-child {
@@ -53,19 +57,6 @@
     &::after {
       content: '/';
       padding: 0 0.35em;
-    }
-  }
-
-  &_crumb_0 {
-    & a {
-      padding-left: 2em;
-    }
-
-    &:global {
-      background-image: url('./arrow.svg');
-      background-position: left 45%;
-      background-repeat: no-repeat;
-      background-size: 1rem;
     }
   }
 }
