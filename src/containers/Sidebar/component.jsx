@@ -36,6 +36,7 @@ class Sidebar extends Component {
     this._items = Sidebar._getItems(props);
     this._color = Sidebar._getColor(props);
     this._onClickedOutside = this._onClickedOutside.bind(this);
+    this._onPageScrolled = this._onPageScrolled.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,10 @@ class Sidebar extends Component {
     this._setUp(props);
   }
 
+  componentDidUpdate() {
+    this._onPageScrolled();
+  }
+
   componentWillUnmount() {
     this._removeClickOutsideEvent();
   }
@@ -56,6 +61,8 @@ class Sidebar extends Component {
     if (props.expanded === true) {
       document.body.addEventListener('click', this._onClickedOutside);
       document.body.addEventListener('touchstart', this._onClickedOutside);
+      document.addEventListener('scroll', this._onPageScrolled);
+      document.addEventListener('wheel', this._onPageScrolled);
     } else {
       this._removeClickOutsideEvent();
     }
@@ -64,6 +71,8 @@ class Sidebar extends Component {
   _removeClickOutsideEvent() {
     document.body.removeEventListener('click', this._onClickedOutside);
     document.body.removeEventListener('touchstart', this._onClickedOutside);
+    document.removeEventListener('scroll', this._onPageScrolled);
+    document.removeEventListener('wheel', this._onPageScrolled);
   }
 
   _onClickedOutside(evt) {
@@ -72,6 +81,19 @@ class Sidebar extends Component {
     }
 
     this._contract(evt);
+  }
+
+  _onPageScrolled() {
+    if (this._node.childElementCount <= 0) {
+      return;
+    }
+
+    let paddingTop = 50 - document.body.scrollTop;
+    if (paddingTop < 0) {
+      paddingTop = 0;
+    }
+
+    this._node.children[0].style.paddingTop = `${paddingTop}px`;
   }
 
   _expand(evt) {
@@ -88,7 +110,8 @@ class Sidebar extends Component {
     }
 
     const { location: { pathname } } = this.props;
-    return <div className={styles.Sidebar_expanded} style={{ backgroundColor: this._color }}>
+    return <div className={styles.Sidebar_expanded}
+        style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
         <button onClick={(e) => this._contract(e)}
             className={styles.Sidebar_close_button}>

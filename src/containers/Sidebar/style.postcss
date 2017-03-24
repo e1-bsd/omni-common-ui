@@ -52,10 +52,13 @@
     min-height: 100%;
     min-width: 200px;
     overflow-y: auto;
-    padding-top: var(--headerSize);
     position: fixed;
     top: 0;
     z-index: var(--zIndex-7--sidebar);
+
+    &.__spaceForHeader {
+      padding-top: var(--headerSize);
+    }
   }
 
   &_close {
