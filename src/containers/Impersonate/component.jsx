@@ -64,7 +64,7 @@ class Impersonate extends Component {
             onClick={() => this._handleSwitchClick()}>
           SWITCH
         </Button>
-        <Button className={classnames(styles.button, styles.__default)}
+        <Button className={styles.button}
             onClick={() => this.props.close()}>
           CANCEL
         </Button>
