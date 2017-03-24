@@ -2,7 +2,6 @@
 
 :root {
   --headerSize: 50px;
-  --logoSize: 30px;
 }
 
 .Header {
@@ -15,16 +14,33 @@
   position: relative;
   z-index: var(--zIndex-1--header);
 
+  &_burger {
+    align-items: center;
+    color: var(--colorPrimaryNew);
+    display: flex;
+    font-size: 20px;
+    height: var(--headerSize);
+    justify-content: center;
+    width: var(--headerSize);
+  }
+
   &_logo {
-    background-color: var(--colorPrimaryNew);
+    background-color: red;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: var(--logoSize) var(--logoSize);
-    height: var(--headerSize);
     width: var(--headerSize);
 
     &:global {
-      background-image: url('omni-icon.svg');
+      background-image: url('omni-logo-small.svg');
+    }
+
+    @media (--md-viewport-new) {
+      background-size: 118px 30px;
+      width: 150px;
+
+      &:global {
+        background-image: url('omni-logo-big.svg');
+      }
     }
   }
 
