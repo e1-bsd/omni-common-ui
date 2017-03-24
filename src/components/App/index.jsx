@@ -28,7 +28,21 @@ class App extends Component {
     this._setPageTitle(props);
   }
 
-  _onHamburgerClicked() {
+  _collapseSidebar(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState({ sidebarExpanded: false });
+  }
+
+  _expandSidebar(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState({ sidebarExpanded: true });
+  }
+
+  _onHamburgerClick(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     this.setState(({ sidebarExpanded }) => ({ sidebarExpanded: ! sidebarExpanded }));
   }
 
@@ -48,11 +62,11 @@ class App extends Component {
         ! PRODUCTION &&
         <PerformanceProfiler />
       }
-      <Header {...this.props} onHamburgerClick={() => this._onHamburgerClicked()} />
+      <Header {...this.props} onHamburgerClick={(e) => this._onHamburgerClick(e)} />
       <div className={styles.App_wrap}>
         <Sidebar {...this.props} expanded={this.state.sidebarExpanded}
-            onExpand={() => this.setState({ sidebarExpanded: true })}
-            onCollapse={() => this.setState({ sidebarExpanded: false })} />
+            onExpand={(e) => this._expandSidebar(e)}
+            onCollapse={(e) => this._collapseSidebar(e)} />
         <div className={styles.App_content}>
           {
             ! this.props.isThereAnError &&

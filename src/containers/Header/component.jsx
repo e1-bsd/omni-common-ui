@@ -14,7 +14,7 @@ const Header = (props) => {
   const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
     <div className={styles.Header_burger}
-        onClick={() => is.function(props.onHamburgerClick) && props.onHamburgerClick()}>
+        onClick={(e) => is.function(props.onHamburgerClick) && props.onHamburgerClick(e)}>
       <Icon id="burger" />
     </div>
     <div className={styles.Header_logo} />

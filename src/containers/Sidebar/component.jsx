@@ -71,15 +71,15 @@ class Sidebar extends Component {
       return;
     }
 
-    this._contract();
+    this._contract(evt);
   }
 
-  _expand() {
-    is.function(this.props.onExpand) && this.props.onExpand();
+  _expand(evt) {
+    is.function(this.props.onExpand) && this.props.onExpand(evt);
   }
 
-  _contract() {
-    is.function(this.props.onCollapse) && this.props.onCollapse();
+  _contract(evt) {
+    is.function(this.props.onCollapse) && this.props.onCollapse(evt);
   }
 
   _renderExpanded() {
@@ -90,7 +90,7 @@ class Sidebar extends Component {
     const { location: { pathname } } = this.props;
     return <div className={styles.Sidebar_expanded} style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
-        <button onClick={() => this._contract()}
+        <button onClick={(e) => this._contract(e)}
             className={styles.Sidebar_close_button}>
           <img src={closeSrc} alt="Close" className={styles.Sidebar_close_button_icon} />
         </button>
@@ -110,7 +110,7 @@ class Sidebar extends Component {
 
     const { expanded } = this.props;
     const classes = classnames(styles.Sidebar, { [styles.__expanded]: expanded === true });
-    const onClickBar = expanded === true ? undefined : () => this._expand();
+    const onClickBar = expanded === true ? undefined : (e) => this._expand(e);
     return <div className={classes}
         onClick={onClickBar}
         style={{ backgroundColor: this._color }}
