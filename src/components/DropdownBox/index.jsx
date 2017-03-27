@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import DropdownBoxItem from './DropdownBoxItem';
 import DropdownBoxContainer from './DropdownBoxContainer';
@@ -55,37 +55,39 @@ const isDropdownOptionsFullyVisible = (el) => {
   return isElementVisible(firstChildEl) && isElementVisible(lastChildEl);
 };
 
-const DropdownBox = ({ className, children, open, smartPosition }) => {
-  return <ReactCSSTransitionGroup transitionName="dropdown">
-    {
-      open === true &&
-      <div className={classnames(styles.DropdownBox, className)}
-          ref={ref()}>
-        {React.Children.toArray(children).filter((child) => child.type === DropdownBoxItem)}
-      </div>
-    }
-  </ReactCSSTransitionGroup>;
-
-  function ref() {
-    if (smartPosition !== true) {
-      return undefined;
-    }
-
-    return (el) => {
-      if (! el || getComputedStyle(el).position !== 'absolute') return;
-      // run through alignments until we get one that looks good
-      const alignmentClassesToTry = AlignmentClasses.concat();  // clone
-      let alignmentClassToTry;
-      let lastAlignmentClassTried;
-      while (alignmentClassesToTry.length && ! isDropdownOptionsFullyVisible(el)) {
-        alignmentClassToTry = alignmentClassesToTry.shift();
-        el.classList.add(alignmentClassToTry);
-        if (lastAlignmentClassTried) el.classList.remove(lastAlignmentClassTried);
-        lastAlignmentClassTried = alignmentClassToTry;
-      }
-    };
+class DropdownBox extends PureComponent {
+  constructor(props) {
+    super(props);
+    this._onRef = this._onRef.bind(this);
   }
-};
+
+  _onRef(el) {
+    if (! el || getComputedStyle(el).position !== 'absolute') return;
+    // run through alignments until we get one that looks good
+    const alignmentClassesToTry = AlignmentClasses.concat();  // clone
+    let alignmentClassToTry;
+    let lastAlignmentClassTried;
+    while (alignmentClassesToTry.length && ! isDropdownOptionsFullyVisible(el)) {
+      alignmentClassToTry = alignmentClassesToTry.shift();
+      el.classList.add(alignmentClassToTry);
+      if (lastAlignmentClassTried) el.classList.remove(lastAlignmentClassTried);
+      lastAlignmentClassTried = alignmentClassToTry;
+    }
+  }
+
+  render() {
+    const { className, children, open, smartPosition } = this.props;
+    return <ReactCSSTransitionGroup transitionName="dropdown">
+      {
+        open === true &&
+        <div className={classnames(styles.DropdownBox, className)}
+            ref={smartPosition && this._onRef}>
+          {React.Children.toArray(children).filter((child) => child.type === DropdownBoxItem)}
+        </div>
+      }
+    </ReactCSSTransitionGroup>;
+  }
+}
 
 DropdownBox.propTypes = {
   children: React.PropTypes.node,
