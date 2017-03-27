@@ -147,7 +147,10 @@ class UserInfo extends Component {
   _renderUser() {
     return <AdultPicture className={styles.UserInfo_container_user_img}
         src={this.props.user.profile.avatar_url}
-        gender={this.props.user.profile.gender} />;
+        gender={this.props.user.profile.gender}
+        userFirstName={this.props.user.profile.given_name}
+        userLastName={this.props.user.profile.family_name}
+        displayUserInitialsAsDefaultAvatar />;
   }
 
   _renderImpersonatedUser() {
@@ -157,7 +160,10 @@ class UserInfo extends Component {
 
     return <AdultPicture src={this.props.impersonate.avatarUrl}
         className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
-        gender={this.props.impersonate.gender} />;
+        gender={this.props.impersonate.gender}
+        userFirstName={this.props.impersonate.firstName}
+        userLastName={this.props.impersonate.lastName}
+        displayUserInitialsAsDefaultAvatar />;
   }
 
   render() {

@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import is from 'is_js';
 import Gender from 'domain/Gender';
 
+import generateUserInitialsAvatarSvgUrl from './generateUserInitialsAvatarSvg';
+
 class Avatar extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,10 @@ class Avatar extends Component {
   }
 
   _getDefaultAvatar(props) {
+    if (props.displayUserInitialsAsDefaultAvatar) {
+      return generateUserInitialsAvatarSvgUrl(props.userFirstName, props.userLastName);
+    }
+
     if (Gender.isMale(props.gender)) {
       return props.defaultMale || props.default;
     }
@@ -46,12 +52,15 @@ class Avatar extends Component {
 }
 
 Avatar.propTypes = {
+  className: React.PropTypes.string,
   src: React.PropTypes.string,
   default: React.PropTypes.string,
   defaultMale: React.PropTypes.string,
   defaultFemale: React.PropTypes.string,
   gender: React.PropTypes.string,
-  className: React.PropTypes.string,
+  userFirstName: React.PropTypes.string,
+  userLastName: React.PropTypes.string,
+  displayUserInitialsAsDefaultAvatar: React.PropTypes.bool,
 };
 
 export default Avatar;

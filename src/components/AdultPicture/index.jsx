@@ -5,17 +5,25 @@ import defaultAvatarImg from './default-avatar.svg';
 import React from 'react';
 import Avatar from 'components/Avatar';
 
-const AdultPicture = ({ src, className, gender }) => <Avatar src={src}
-    default={defaultAvatarImg}
+const AdultPicture = ({
+  src, className, gender, userFirstName, userLastName, displayUserInitialsAsDefaultAvatar,
+}) => <Avatar src={src}
+    className={className}
+    gender={gender}
+    userFirstName={userFirstName}
+    userLastName={userLastName}
     defaultMale={defaultAvatarMaleImg}
     defaultFemale={defaultAvatarFemaleImg}
-    className={className}
-    gender={gender} />;
+    default={defaultAvatarImg}
+    displayUserInitialsAsDefaultAvatar={displayUserInitialsAsDefaultAvatar} />;
 
 AdultPicture.propTypes = {
-  gender: React.PropTypes.string,
-  src: React.PropTypes.string,
   className: React.PropTypes.string,
+  src: React.PropTypes.string,
+  gender: React.PropTypes.string,
+  userFirstName: React.PropTypes.string,
+  userLastName: React.PropTypes.string,
+  displayUserInitialsAsDefaultAvatar: React.PropTypes.bool,
 };
 
 export default AdultPicture;
