@@ -46,6 +46,8 @@ const convertSvgToDataUrl = (html) => {
 // http://stackoverflow.com/a/31376501
 export const generatePlaceholderSvg = (userFirstName = '?', userLastName = '?') => {
   const colorSpec = COLOR_MATCHERS.find((m) => m.regexp.test(userFirstName)) || {};
+  const userFirstInitial = (userFirstName || '?').charAt(0).toUpperCase();
+  const userLastInitial = (userLastName || '?').charAt(0).toUpperCase();
   return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
     <rect width="100%" height="100%" fill="${colorSpec.bgFill || '#FFF'}" />
@@ -55,13 +57,13 @@ export const generatePlaceholderSvg = (userFirstName = '?', userLastName = '?') 
         font-family="Helvetica"
         text-anchor="middle"
         x="50%" y="50%" dy=".35em">
-      ${(userFirstName || '?').charAt(0)}${(userLastName || '?').charAt(0)}
+      ${userFirstInitial}${userLastInitial}
     </text>
   </svg>`;
 };
 
-export const generatePlaceholderSvgDataUrl = (userFirstName, userLastName) =>
+export const generatePlaceholderSvgDataUri = (userFirstName, userLastName) =>
   convertSvgToDataUrl(
     generatePlaceholderSvg(userFirstName, userLastName));
 
-export default generatePlaceholderSvgDataUrl;
+export default generatePlaceholderSvgDataUri;
