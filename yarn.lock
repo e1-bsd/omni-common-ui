@@ -8604,6 +8604,10 @@ react-dom@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+react-dotdotdot@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/react-dotdotdot/-/react-dotdotdot-1.0.17.tgz#2439fa150854a2b4906e7da7dae6e35e4a1646cb"
+
 react-element-to-jsx-string@^5.0.0:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-element-to-jsx-string/-/react-element-to-jsx-string-5.0.7.tgz#c663a4800a9c712115c0d8519cb0215a46a1f0f2"
