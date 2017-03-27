@@ -52,5 +52,24 @@
 
   &.__impersonating {
     background-color: var(--colorImpersonating);
+    color: var(--colorTextInverse);
+
+    & .Header_burger {
+      color: inherit;
+    }
+
+    & .Header_logo {
+      background-color: #fff4;
+
+      &:global {
+        background-image: url('omni-logo-small-white.svg');
+      }
+
+      @media (--md-viewport-new) {
+        &:global {
+          background-image: url('omni-logo-big-white.svg');
+        }
+      }
+    }
   }
 }
