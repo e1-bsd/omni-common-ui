@@ -15,6 +15,7 @@ import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
+import Icon from 'components/Icon';
 
 require('alertifyjs/build/css/alertify.css');
 
@@ -174,7 +175,9 @@ class UserInfo extends Component {
         onClickOutside={() => this.setState({ isDropdownOpen: false })}>
       <div className={classnames(styles.UserInfo_container, testClass('header-user-dropdown'))}
           onClick={(e) => this._toggleDropdown(e)}>
-        <div className={classnames(styles.UserInfo_container_expand)} />
+        <div className={classnames(styles.UserInfo_container_expand)}>
+          <Icon id="chevron-small-down" />
+        </div>
         <div className={classnames(styles.UserInfo_container_user)}>
           {this._renderUser()}
           {this._renderImpersonatedUser()}
