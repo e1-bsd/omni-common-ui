@@ -6,7 +6,7 @@ import defaultAvatarImg from './default-avatar.svg';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import StudentPicture from './';
+import { StudentPicture } from './';
 import Avatar from 'components/Avatar';
 
 describe('<StudentPicture />', () => {

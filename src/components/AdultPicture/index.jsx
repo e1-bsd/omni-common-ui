@@ -3,9 +3,10 @@ import defaultAvatarFemaleImg from './default-avatar-female.svg';
 import defaultAvatarImg from './default-avatar.svg';
 
 import React from 'react';
+import { pure } from 'recompose';
 import Avatar from 'components/Avatar';
 
-const AdultPicture = ({
+export const AdultPicture = ({
   src, className, gender, userFirstName, userLastName, displayUserInitialsAsDefaultAvatar,
 }) => <Avatar src={src}
     className={className}
@@ -26,4 +27,4 @@ AdultPicture.propTypes = {
   displayUserInitialsAsDefaultAvatar: React.PropTypes.bool,
 };
 
-export default AdultPicture;
+export default pure(AdultPicture);

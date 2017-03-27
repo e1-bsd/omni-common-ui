@@ -1,13 +1,13 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 import Gender from 'domain/Gender';
 
 import generateUserInitialsAvatarSvgUrl from './generateUserInitialsAvatarSvg';
 
-class Avatar extends Component {
+class Avatar extends PureComponent {
   constructor(props) {
     super(props);
     this._setUp(props);
