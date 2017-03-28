@@ -1,42 +1,24 @@
 @import 'main.postcss';
 
-@keyframes CourseProgressBar_tooltip_opacity {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* iScroll scroller overrides */
-
-.HorizontalScroll :global .iScrollHorizontalScrollbar {
-  left: 0 !important;
-  right: 0 !important;
-  z-index: var(--zIndex-2--genericIScrollBar) !important;
-}
-
-.HorizontalScroll :global .iScrollIndicator {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border: var(--hairThin) solid var(--colorBase) !important;
-  cursor: all-scroll;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out !important;
-}
-
-.HorizontalScroll_iScroll.__scrolling :global .iScrollIndicator {
-  opacity: 1;
-}
-
-/* --- */
-
 .HorizontalScroll {
   height: 100%;
   overflow: visible;
   position: relative;
   width: 100%;
+
+  & :global(.iScrollHorizontalScrollbar) {
+    left: 0 !important;
+    right: 0 !important;
+    z-index: var(--zIndex-2--genericIScrollBar) !important;
+  }
+
+  & :global(.iScrollIndicator) {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border: var(--hairThin) solid var(--colorBase) !important;
+    cursor: all-scroll;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out !important;
+  }
 
   &_iScroll {
     &.__hasScroll {
@@ -46,35 +28,11 @@
 
       &.__scrolling {
         cursor: grabbing;
+
+        & :global(.iScrollIndicator) {
+          opacity: 1;
+        }
       }
     }
-  }
-
-  &_leftNav,
-  &_rightNav {
-    cursor: pointer;
-    display: inline-block;
-    height: 100%;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    user-select: none;
-    width: 30px;
-    will-change: opacity, pointer-events;
-
-    &.__visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-  }
-
-  &_leftNav {
-    background: linear-gradient(-90deg, transparent, var(--colorCardBg));
-  }
-
-  &_rightNav {
-    background: linear-gradient(90deg, transparent, var(--colorCardBg));
-    right: 0;
   }
 }
