@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-const COLOR_MATCHERS = [{
+const COLOR_SPECS = [{
   regexp: /^[A-D]/i,
   bgFill: '#59295A',
   textFill: 'white',
@@ -31,21 +29,22 @@ const COLOR_MATCHERS = [{
 }];
 
 // https://github.com/bhovhannes/svg-url-loader/blob/4bfa8519d18f9ee4a58cd2bb9a3bd54b5a27baa7/index.js
+/* eslint-disable */
 const convertSvgToDataUrl = (html) => {
   let data = html
     .replace(/\n/g, '')
     .replace(/"/g, "'")
     .replace(/\s+/g, " ")
-    .replace(/[{}\|\\\^~\[\]`"<>#%]/g, function (match) {
-      return '%' + match[0].charCodeAt(0).toString(16).toUpperCase();
-    });
+    .replace(/[{}\|\\\^~\[\]`"<>#%]/g, (match) =>
+      '%' + match[0].charCodeAt(0).toString(16).toUpperCase());
   data = 'data:image/svg+xml;charset=utf8,' + data.trim();
   return data;
 };
+/* eslint-enable */
 
 // http://stackoverflow.com/a/31376501
 export const generatePlaceholderSvgXml = (userFirstName = '?', userLastName = '?') => {
-  const colorSpec = COLOR_MATCHERS.find((m) => m.regexp.test(userFirstName)) || {};
+  const colorSpec = COLOR_SPECS.find((m) => m.regexp.test(userFirstName)) || {};
   const userFirstInitial = (userFirstName || '?').charAt(0).toUpperCase();
   const userLastInitial = (userLastName || '?').charAt(0).toUpperCase();
   return `<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -63,6 +62,6 @@ export const generatePlaceholderSvgXml = (userFirstName = '?', userLastName = '?
 
 export const generatePlaceholderSvgDataUri = (userFirstName, userLastName) =>
   convertSvgToDataUrl(
-    generatePlaceholderSvgXml(userFirstName, userLastName));
+      generatePlaceholderSvgXml(userFirstName, userLastName));
 
 export default generatePlaceholderSvgDataUri;
