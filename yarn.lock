@@ -5419,9 +5419,9 @@ isbinaryfile@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/isbinaryfile/-/isbinaryfile-3.0.2.tgz#4a3e974ec0cba9004d3fc6cde7209ea69368a621"
 
-iscroll@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/iscroll/-/iscroll-5.2.0.tgz#d513307088b5b25a4f893af474804468481829c8"
+iscroll@e1-bsd/iscroll#v5.3.0:
+  version "5.3.0"
+  resolved "https://codeload.github.com/e1-bsd/iscroll/tar.gz/d2792ca36f80665995a74463e448d1a201995b12"
 
 isexe@^1.1.1:
   version "1.1.2"
