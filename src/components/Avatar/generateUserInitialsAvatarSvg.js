@@ -30,7 +30,7 @@ const COLOR_SPECS = [{
   textFill: 'white',
 }];
 
-// https://github.com/bhovhannes/svg-url-loader/blob/4bfa8519d18f9ee4a58cd2bb9a3bd54b5a27baa7/index.js
+// https://github.com/bhovhannes/svg-url-loader/blob/4bfa8519/index.js
 /* eslint-disable */
 const convertSvgToDataUri = (html) => {
   let data = html
@@ -44,7 +44,8 @@ const convertSvgToDataUri = (html) => {
 };
 /* eslint-enable */
 
-export const generatePlaceholderSvgXml = (userFirstName, userLastName) => {
+export const generatePlaceholderSvgXml = (userFirstName, userLastName,
+    forcedBgFill, forcedTextFill) => {
   const userFirstNameOrEmpty =
       is.string(userFirstName) && is.not.empty(userFirstName) ? userFirstName : '?';
   const userLastNameOrEmpty =
@@ -54,8 +55,8 @@ export const generatePlaceholderSvgXml = (userFirstName, userLastName) => {
   const colorSpec = COLOR_SPECS.find((m) => m.nameRegexp.test(userFirstNameOrEmpty)) || {};
   // `dy` ref: http://stackoverflow.com/a/31376501
   return `<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <rect width="100%" height="100%" fill="${colorSpec.bgFill || '#FFF'}" />
-    <text fill="${colorSpec.textFill || '#000'}"
+    <rect width="100%" height="100%" fill="${forcedBgFill || colorSpec.bgFill || '#FFF'}" />
+    <text fill="${forcedTextFill || colorSpec.textFill || '#000'}"
         font-size="14px"
         font-weight="bold"
         font-family="Helvetica"
@@ -66,8 +67,10 @@ export const generatePlaceholderSvgXml = (userFirstName, userLastName) => {
   </svg>`;
 };
 
-export const generatePlaceholderSvgDataUri = (userFirstName, userLastName) =>
+export const generatePlaceholderSvgDataUri = (userFirstName, userLastName,
+    forcedBgFill, forcedTextFill) =>
   convertSvgToDataUri(
-      generatePlaceholderSvgXml(userFirstName, userLastName));
+    generatePlaceholderSvgXml(userFirstName, userLastName,
+        forcedBgFill, forcedTextFill));
 
 export default generatePlaceholderSvgDataUri;

@@ -5,8 +5,9 @@ import Avatar from './';
 import generateUserInitialsAvatarSvgUri from './generateUserInitialsAvatarSvg';
 
 describe('<Avatar />', () => {
-  const bloggsInitialsAvatarUri  = generateUserInitialsAvatarSvgUri('Joe', 'Bloggs');
+  const bloggsInitialsAvatarUri = generateUserInitialsAvatarSvgUri('Joe', 'Bloggs');
   const unknownInitialsAvatarUri = generateUserInitialsAvatarSvgUri('?', '?');
+  const redInitialsAvatarUri = generateUserInitialsAvatarSvgUri('Kelly', '?', '#D8213A', 'white');
 
   let props;
 
@@ -61,6 +62,13 @@ describe('<Avatar />', () => {
             userLastName="Bloggs"
             displayUserInitialsAsDefaultAvatar />);
         expect(wrapper).to.have.attr('style', `background-image:url("${bloggsInitialsAvatarUri}");`);
+      });
+
+      it('happy path - colour spec correctness check', () => {
+        const wrapper = shallow(<Avatar {...props}
+            userFirstName="Kelly"
+            displayUserInitialsAsDefaultAvatar />);
+        expect(wrapper).to.have.attr('style', `background-image:url("${redInitialsAvatarUri}");`);
       });
 
       it('containing "??" when user name is blank', () => {
