@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import is from 'is_js';
 import Gender from 'domain/Gender';
 
-import generateUserInitialsAvatarSvgUrl from './generateUserInitialsAvatarSvg';
+import generateUserInitialsAvatarSvgUri from './generateUserInitialsAvatarSvg';
 
 class Avatar extends PureComponent {
   constructor(props) {
@@ -28,7 +28,7 @@ class Avatar extends PureComponent {
 
   _getDefaultAvatar(props) {
     if (props.displayUserInitialsAsDefaultAvatar) {
-      return generateUserInitialsAvatarSvgUrl(props.userFirstName, props.userLastName);
+      return generateUserInitialsAvatarSvgUri(props.userFirstName, props.userLastName);
     }
 
     if (Gender.isMale(props.gender)) {

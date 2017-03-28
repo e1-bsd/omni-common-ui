@@ -1,36 +1,38 @@
+import is from 'is_js';
+
 const COLOR_SPECS = [{
-  regexp: /^[A-D]/i,
+  nameRegexp: /^[A-D]/i,
   bgFill: '#59295A',
   textFill: 'white',
 }, {
-  regexp: /^[E-H]/i,
+  nameRegexp: /^[E-H]/i,
   bgFill: '#92205F',
   textFill: 'white',
 }, {
-  regexp: /^[I-L]/i,
+  nameRegexp: /^[I-L]/i,
   bgFill: '#D8213A',
   textFill: 'white',
 }, {
-  regexp: /^[M-P]/i,
+  nameRegexp: /^[M-P]/i,
   bgFill: '#E9852C',
   textFill: 'white',
 }, {
-  regexp: /^[Q-T]/i,
+  nameRegexp: /^[Q-T]/i,
   bgFill: '#FBCB22',
   textFill: 'black',
 }, {
-  regexp: /^[U-X]/i,
+  nameRegexp: /^[U-X]/i,
   bgFill: '#00773F',
   textFill: 'white',
 }, {
-  regexp: /^[Y-Z]/i,
+  nameRegexp: /^[Y-Z]/i,
   bgFill: '#1C8FC2',
   textFill: 'white',
 }];
 
 // https://github.com/bhovhannes/svg-url-loader/blob/4bfa8519d18f9ee4a58cd2bb9a3bd54b5a27baa7/index.js
 /* eslint-disable */
-const convertSvgToDataUrl = (html) => {
+const convertSvgToDataUri = (html) => {
   let data = html
     .replace(/\n/g, '')
     .replace(/"/g, "'")
@@ -42,11 +44,15 @@ const convertSvgToDataUrl = (html) => {
 };
 /* eslint-enable */
 
-// http://stackoverflow.com/a/31376501
-export const generatePlaceholderSvgXml = (userFirstName = '?', userLastName = '?') => {
-  const colorSpec = COLOR_SPECS.find((m) => m.regexp.test(userFirstName)) || {};
-  const userFirstInitial = (userFirstName || '?').charAt(0).toUpperCase();
-  const userLastInitial = (userLastName || '?').charAt(0).toUpperCase();
+export const generatePlaceholderSvgXml = (userFirstName, userLastName) => {
+  const userFirstNameOrEmpty =
+      is.string(userFirstName) && is.not.empty(userFirstName) ? userFirstName : '?';
+  const userLastNameOrEmpty =
+      is.string(userLastName) && is.not.empty(userLastName) ? userLastName : '?';
+  const userFirstInitial = userFirstNameOrEmpty.charAt(0).toUpperCase();
+  const userLastInitial = userLastNameOrEmpty.charAt(0).toUpperCase();
+  const colorSpec = COLOR_SPECS.find((m) => m.nameRegexp.test(userFirstNameOrEmpty)) || {};
+  // `dy` ref: http://stackoverflow.com/a/31376501
   return `<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
     <rect width="100%" height="100%" fill="${colorSpec.bgFill || '#FFF'}" />
     <text fill="${colorSpec.textFill || '#000'}"
@@ -55,13 +61,13 @@ export const generatePlaceholderSvgXml = (userFirstName = '?', userLastName = '?
         font-family="Helvetica"
         text-anchor="middle"
         x="50%" y="50%" dy=".35em">
-      ${userFirstInitial}${userLastInitial}
+      ${userFirstInitial || '?'}${userLastInitial || '?'}
     </text>
   </svg>`;
 };
 
 export const generatePlaceholderSvgDataUri = (userFirstName, userLastName) =>
-  convertSvgToDataUrl(
+  convertSvgToDataUri(
       generatePlaceholderSvgXml(userFirstName, userLastName));
 
 export default generatePlaceholderSvgDataUri;
