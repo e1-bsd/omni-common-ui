@@ -36,42 +36,8 @@ describe('<HorizontalScroll />', () => {
 
     wrapper.instance()._onBeforeScrollStart();
 
-    expect(spy.args[0]).to.eql([{
-      isScrolling: true,
-      isAtScrollMinX: false,
-      isAtScrollMaxX: false,
-    }]);
+    expect(spy.args[0]).to.eql([{ isScrolling: true }]);
 
     HorizontalScroll.prototype.setState.restore();
-  });
-
-  context('when the content is big enough to have a scroll', () => {
-    const child = <div id="inner" style={{ width: 1000 }} />;
-    const buildComponent = (onScrollReady, hasClickableAreasOnTheSides = false) =>
-      <div style={{ width: 100 }}>
-        <HorizontalScroll onScrollReady={onScrollReady}
-            hasClickableAreasOnTheSides={hasClickableAreasOnTheSides}>
-          {child}
-        </HorizontalScroll>
-      </div>;
-
-    it('shows a navigation area on the right side if hasClickableAreasOnTheSides=true', () => {
-      expect(mount(buildComponent(undefined, true))).to.have.descendants(`.${styles.__visible}`);
-    });
-
-    it('does not show a navigation area on the right side if hasClickableAreasOnTheSides=false', () => {
-      expect(mount(buildComponent())).to.not.have.descendants(`.${styles.__visible}`);
-    });
-  });
-
-  context('when the content is not big enough to have a scroll', () => {
-    const child = <div id="inner" style={{ width: 100 }} />;
-    const buildComponent = () => <div style={{ width: 1000 }}>
-      <HorizontalScroll>{child}</HorizontalScroll>
-    </div>;
-
-    it('does not show any navigation area on the sides', () => {
-      expect(shallow(buildComponent())).to.not.have.descendants(`.${styles.__visible}`);
-    });
   });
 });
