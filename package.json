@@ -148,7 +148,6 @@
     "require-all": "2.0.0",
     "rimraf": "2.5.4",
     "scroll-to-element": "^2.0.0",
-    "selenium-standalone": "^5.9.1",
     "sinon": "^2.0.0",
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",
@@ -189,7 +188,6 @@
     "omni-start-mock": "./scripts/start-mock.js",
     "omni-css-test-update": "./scripts/gemini-update.js",
     "omni-css-test": "./scripts/gemini-test.js",
-    "omni-e2e-test": "./scripts/nightwatch-run.js",
-    "omni-selenium-install": "./scripts/selenium-install.js"
+    "omni-e2e-test": "./scripts/nightwatch-run.js"
   }
 }

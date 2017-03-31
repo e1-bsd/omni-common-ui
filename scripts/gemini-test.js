@@ -8,15 +8,10 @@ const spawn = require('./spawn');
 const logFile = fs.createWriteStream(path.resolve(`${path.basename(__filename)}.log`), { flags: 'w+' });
 logFile.on('open', () => {
   start({
-    command: ['node', 'node_modules/selenium-standalone/bin/selenium-standalone', 'start', '--version=3.0.1'],
-    lookFor: /(Selenium started)|(Selenium Server is up and running)/i,
-    name: 'Selenium',
-  })()
-    .then(start({
-      command: ['node', path.join(__dirname, 'start-mock.js')],
-      lookFor: /Serving on port/i,
-      name: 'Mock server',
-    }))
+    command: ['node', path.join(__dirname, 'start-mock.js')],
+    lookFor: /Serving on port/i,
+    name: 'Mock server',
+  })
     .then(start({
       command: ['node', path.join(__dirname, 'start.js')],
       lookFor: /webpack: bundle is now VALID/i,
