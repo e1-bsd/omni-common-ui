@@ -27,10 +27,21 @@ class HorizontalScroll extends PureComponent {
   }
 
   componentDidMount() {
-    const { onScrollReady } = this.props;
-    if (is.function(onScrollReady)) {
+    const { onScrollReady, scrollToElement } = this.props;
+    const isOnScrollReadySet = is.function(onScrollReady);
+    const isScrollToElementSet = is.object(scrollToElement);
+    if (isOnScrollReadySet || isScrollToElementSet) {
       this.hostNode.withIScroll(true, (scroll) => {
-        onScrollReady(scroll);
+        isOnScrollReadySet && onScrollReady(scroll);
+        if (isScrollToElementSet) {
+          const { selector, duration, offsetX, offsetY, easing } = scrollToElement;
+          scroll.scrollToElement(
+              selector,
+              duration,
+              is.number(offsetX) ? offsetX : true,
+              is.number(offsetY) ? offsetY : true,
+              easing);
+        }
       });
     }
   }
@@ -75,6 +86,13 @@ HorizontalScroll.propTypes = {
   innerClassName: React.PropTypes.string,
   children: React.PropTypes.node,
   onScrollReady: React.PropTypes.func,
+  scrollToElement: React.PropTypes.shape({
+    selector: React.PropTypes.string.isRequired,
+    duration: React.PropTypes.number,
+    offsetX: React.PropTypes.number,
+    offsetY: React.PropTypes.number,
+    easing: React.PropTypes.object,
+  }),
 };
 
 export default HorizontalScroll;

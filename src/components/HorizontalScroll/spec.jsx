@@ -20,6 +20,31 @@ describe('<HorizontalScroll />', () => {
     mount(<HorizontalScroll onScrollReady={onScrollReady}><div /></HorizontalScroll>);
   });
 
+  it('calls iScroll.scrollToElement with the given scrollToElement parameters', (done) => {
+    const scrollToElementParams = {
+      selector: 'div',
+      duration: 100,
+      offsetX: 10,
+    };
+
+    const onScrollReady = (scroll) => {
+      const oldScrollToElement = scroll.scrollToElement;
+      scroll.scrollToElement = (selector, duration, offsetX, offsetY) => {  // eslint-disable-line
+        expect({
+          selector, duration, offsetX, offsetY,
+        }).to.eql({
+          offsetY: true,  // `offsetX` and `offsetY` default to true (centre in viewport)
+          ...scrollToElementParams,
+        });
+        scroll.scrollToElement = oldScrollToElement;  // eslint-disable-line
+        done();
+      };
+    };
+
+    mount(<HorizontalScroll onScrollReady={onScrollReady}
+        scrollToElement={scrollToElementParams}><div /></HorizontalScroll>);
+  });
+
   it('sets the __scrolling styles while in the isScrolling state', () => {
     const wrapper = shallow(<HorizontalScroll><div /></HorizontalScroll>);
     expect(wrapper).to.not.have.descendants(`.${styles.__scrolling}`);
