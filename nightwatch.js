@@ -5,6 +5,7 @@ module.exports = {
   output_folder: path.resolve('test-results'),
   custom_commands_path: path.resolve('e2e/commands'),
   page_objects_path: path.resolve('e2e/pages'),
+  globals_path: path.resolve('e2e/globals'),
   test_settings: {
     default: {
       launch_url: '',
