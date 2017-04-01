@@ -121,7 +121,7 @@ class Sidebar extends Component {
         style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
         <button onClick={(e) => this._contract(e)}
-            className={styles.Sidebar_close_button}>
+            className={classnames(styles.Sidebar_close_button, testClass('sidebar-close'))}>
           <img src={closeSrc} alt="Close" className={styles.Sidebar_close_button_icon} />
         </button>
       </div>
