@@ -8,12 +8,15 @@ import { connect } from 'domain/connect';
 import { bindActionCreators } from 'redux';
 import Icon from 'components/Icon';
 import is from 'is_js';
+import testClass from 'domain/testClass';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
-  const classes = classnames(styles.Header, { [styles.__impersonating]: props.impersonate });
+  const classes = classnames(styles.Header,
+      testClass('header'),
+      { [styles.__impersonating]: props.impersonate });
   return <div className={classes}>
-    <div className={styles.Header_burger}
+    <div className={classnames(styles.Header_burger, testClass('hamburger'))}
         onClick={(e) => is.function(props.onHamburgerClick) && props.onHamburgerClick(e)}>
       <Icon id="burger" />
     </div>

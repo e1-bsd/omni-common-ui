@@ -6,6 +6,8 @@ import Link from './Link';
 import is from 'is_js';
 import { OrderedMap, List, Map } from 'immutable';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classnames from 'classnames';
+import testClass from 'domain/testClass';
 
 class Sidebar extends Component {
   static _getItems(props) {
@@ -115,7 +117,7 @@ class Sidebar extends Component {
 
   _renderExpanded() {
     const { location: { pathname } } = this.props;
-    return <div className={styles.Sidebar_expanded}
+    return <div className={classnames(styles.Sidebar_expanded, testClass('sidebar-expanded'))}
         style={{ backgroundColor: this._color }}>
       <div className={styles.Sidebar_close}>
         <button onClick={(e) => this._contract(e)}
@@ -138,7 +140,7 @@ class Sidebar extends Component {
 
     const { expanded } = this.props;
     const onClickBar = expanded === true ? undefined : (e) => this._expand(e);
-    return <div className={styles.Sidebar}
+    return <div className={classnames(styles.Sidebar, testClass('sidebar'))}
         onClick={onClickBar}
         style={{ backgroundColor: this._color }}
         ref={(c) => { this._node = c; }}>

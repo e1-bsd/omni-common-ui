@@ -113,7 +113,7 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <Dialog isOpen={this.state.isShowImpersonate}>
+    return <Dialog isOpen={this.state.isShowImpersonate} className={testClass('impersonate-dialog')}>
       <Impersonate close={() => this._closeImpersonateDialog()}
           success={(data) => this._handleImpersonateSuccess(data)} />
     </Dialog>;
@@ -138,14 +138,13 @@ class UserInfo extends Component {
   _renderDropdown() {
     return <DropdownBox className={styles.UserInfo_features} open={this.state.isDropdownOpen}>
       {this._renderImpersonateOption()}
-      <DropdownBox.Item onClick={() => {
-        this._onLogoutButtonClicked();
-      }}>Log Out</DropdownBox.Item>
+      <DropdownBox.Item onClick={() => this._onLogoutButtonClicked()}>Log Out</DropdownBox.Item>
     </DropdownBox>;
   }
 
   _renderUser() {
-    return <AdultPicture className={styles.UserInfo_container_user_img}
+    const classes = classnames(styles.UserInfo_container_user_img, testClass('user-picture'));
+    return <AdultPicture className={classes}
         src={this.props.user.profile.avatar_url}
         gender={this.props.user.profile.gender}
         userFirstName={this.props.user.profile.given_name}
@@ -158,8 +157,11 @@ class UserInfo extends Component {
       return null;
     }
 
+    const classes = classnames(styles.UserInfo_container_user_img,
+        styles.__impersonated,
+        testClass('impersonated-user-picture'));
     return <AdultPicture src={this.props.impersonate.avatarUrl}
-        className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
+        className={classes}
         gender={this.props.impersonate.gender}
         userFirstName={this.props.impersonate.firstName}
         userLastName={this.props.impersonate.lastName}
