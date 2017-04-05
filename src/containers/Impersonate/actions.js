@@ -52,7 +52,7 @@ export function postImpersonate(email) {
     function postImpersonateRequest() {
       const param = {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
       };
       return ApiCall.createAction({
         type: POST_IMPERSONATE_REQUEST,
@@ -100,7 +100,7 @@ export function unimpersonate() {
     function unimpersonateRequest() {
       const param = {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
       };
       return ApiCall.createAction({
         type: UNIMPERSONATE_REQUEST,

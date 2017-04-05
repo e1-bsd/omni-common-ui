@@ -81,9 +81,9 @@ function getTokenHeader(options) {
   return {
     headers: Object.assign(
       {
-        Accept: 'application/json',
+        Accept: 'application/json; charset=utf-8',
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       is.not.object(options) ? undefined : options.headers,
       getImpersonateHeader()
