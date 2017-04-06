@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import userManager from './userManager';
-import log from 'domain/log';
 
 class SingleSignOnRedirectCallback extends Component {
   componentDidMount() {
-    userManager.signinRedirectCallback()
+    userManager.signinRedirectCallback() // TODO What if it fails?
         .then(() => {
           this.props.dispatch(replace(sessionStorage.lastUrlPath || ''));
-        })
-        .catch((error) => {
-          log.error('SingleSignOnRedirectCallback - Could not sign in', error);
-          return userManager.signoutRedirect();
         });
   }
 
