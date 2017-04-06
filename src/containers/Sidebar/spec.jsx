@@ -4,11 +4,16 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './';
+import Sinon from 'sinon';
 
 describe('<Sidebar />', () => {
   let props;
+  let onExpand;
+  let onCollapse;
 
   beforeEach(() => {
+    onExpand = Sinon.spy();
+    onCollapse = Sinon.spy();
     props = {
       location: { pathname: '/current/path' },
       routes: [
@@ -20,6 +25,8 @@ describe('<Sidebar />', () => {
           },
         },
       ],
+      onExpand,
+      onCollapse,
     };
   });
 
@@ -31,10 +38,10 @@ describe('<Sidebar />', () => {
     expect(mount(<Sidebar {...props} />)).to.not.have.descendants(`.${styles.Sidebar_expanded}`);
   });
 
-  it('allows to be expanded by clicking on it', () => {
+  it('calls onExpand when clicking on it', () => {
     const wrapper = mount(<Sidebar {...props} />);
     wrapper.simulate('click');
-    expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
+    expect(onExpand.called).to.be.true;
   });
 
   context('when expanded', () => {
@@ -43,6 +50,15 @@ describe('<Sidebar />', () => {
       wrapper.simulate('click');
       return wrapper;
     };
+
+    beforeEach(() => {
+      props.expanded = true;
+    });
+
+    it('renders as expanded', () => {
+      const wrapper = mount(<Sidebar {...props} />);
+      expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
+    });
 
     it('renders items', () => {
       const wrapper = mountAndClick();
@@ -53,18 +69,16 @@ describe('<Sidebar />', () => {
       expect(items.at(2)).to.have.text('Current path');
     });
 
-    it('closes itself if the user clicks outside', () => {
-      const wrapper = mountAndClick();
-      expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
+    it('calls onCollapse if the user clicks outside', () => {
+      mountAndClick();
       document.body.dispatchEvent(new Event('click'));
-      expect(wrapper).to.not.have.descendants(`.${styles.Sidebar_expanded}`);
+      expect(onCollapse.called).to.be.true;
     });
 
-    it('closes itself if the user taps outside', () => {
-      const wrapper = mountAndClick();
-      expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
+    it('calls onCollapse if the user taps outside', () => {
+      mountAndClick();
       document.body.dispatchEvent(new Event('touchstart'));
-      expect(wrapper).to.not.have.descendants(`.${styles.Sidebar_expanded}`);
+      expect(onCollapse.called).to.be.true;
     });
 
     it('allows deeper routes to override configuration', () => {

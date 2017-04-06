@@ -15,6 +15,7 @@ import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
+import Icon from 'components/Icon';
 
 require('alertifyjs/build/css/alertify.css');
 
@@ -112,7 +113,7 @@ class UserInfo extends Component {
       return null;
     }
 
-    return <Dialog isOpen={this.state.isShowImpersonate}>
+    return <Dialog isOpen={this.state.isShowImpersonate} className={testClass('impersonate-dialog')}>
       <Impersonate close={() => this._closeImpersonateDialog()}
           success={(data) => this._handleImpersonateSuccess(data)} />
     </Dialog>;
@@ -137,16 +138,18 @@ class UserInfo extends Component {
   _renderDropdown() {
     return <DropdownBox className={styles.UserInfo_features} open={this.state.isDropdownOpen}>
       {this._renderImpersonateOption()}
-      <DropdownBox.Item onClick={() => {
-        this._onLogoutButtonClicked();
-      }}>Log Out</DropdownBox.Item>
+      <DropdownBox.Item onClick={() => this._onLogoutButtonClicked()}>Log Out</DropdownBox.Item>
     </DropdownBox>;
   }
 
   _renderUser() {
-    return <AdultPicture className={styles.UserInfo_container_user_img}
+    const classes = classnames(styles.UserInfo_container_user_img, testClass('user-picture'));
+    return <AdultPicture className={classes}
         src={this.props.user.profile.avatar_url}
-        gender={this.props.user.profile.gender} />;
+        gender={this.props.user.profile.gender}
+        userFirstName={this.props.user.profile.given_name}
+        userLastName={this.props.user.profile.family_name}
+        displayUserInitialsAsDefaultAvatar />;
   }
 
   _renderImpersonatedUser() {
@@ -154,9 +157,15 @@ class UserInfo extends Component {
       return null;
     }
 
+    const classes = classnames(styles.UserInfo_container_user_img,
+        styles.__impersonated,
+        testClass('impersonated-user-picture'));
     return <AdultPicture src={this.props.impersonate.avatarUrl}
-        className={classnames(styles.UserInfo_container_user_img, styles.__impersonated)}
-        gender={this.props.impersonate.gender} />;
+        className={classes}
+        gender={this.props.impersonate.gender}
+        userFirstName={this.props.impersonate.firstName}
+        userLastName={this.props.impersonate.lastName}
+        displayUserInitialsAsDefaultAvatar />;
   }
 
   render() {
@@ -174,7 +183,9 @@ class UserInfo extends Component {
         onClickOutside={() => this.setState({ isDropdownOpen: false })}>
       <div className={classnames(styles.UserInfo_container, testClass('header-user-dropdown'))}
           onClick={(e) => this._toggleDropdown(e)}>
-        <div className={classnames(styles.UserInfo_container_expand)} />
+        <div className={classnames(styles.UserInfo_container_expand)}>
+          <Icon id="chevron-small-down" />
+        </div>
         <div className={classnames(styles.UserInfo_container_user)}>
           {this._renderUser()}
           {this._renderImpersonatedUser()}
@@ -206,7 +217,7 @@ function mapStateToProps(state) {
   const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
-    user: state.get('singleSignOn').get('user'),
+    user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
     hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),

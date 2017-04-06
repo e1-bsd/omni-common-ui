@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 
-class DropdownBoxContainer extends Component {
+class DropdownBoxContainer extends PureComponent {
   constructor(props) {
     super(props);
     this._onClickedOutside = this._onClickedOutside.bind(this);

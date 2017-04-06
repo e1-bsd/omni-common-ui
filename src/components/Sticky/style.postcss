@@ -5,6 +5,10 @@
   z-index: var(--zIndex-7--stickyNavBar);
 
   &:global(.fixedsticky-on) {
-    width: calc(100% - var(--sidebarWidth));
+    width: 100%;
+
+    @media (--md-viewport-new) {
+      width: calc(100% - var(--sidebarWidth));
+    }
   }
 }

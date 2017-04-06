@@ -1,0 +1,42 @@
+@import 'main.postcss';
+
+.HorizontalScroll {
+  height: 100%;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+
+  & :global(.iScrollHorizontalScrollbar) {
+    left: 0 !important;
+    right: 0 !important;
+    z-index: var(--zIndex-2--genericIScrollBar) !important;
+  }
+
+  & :global(.iScrollIndicator) {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    cursor: all-scroll;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out !important;
+  }
+
+  & :global(.iScrollIndicator:hover) {
+    opacity: 1;
+  }
+
+  &_iScroll {
+    &.__hasScroll {
+      cursor: move; /* INTERNET EXPLORER */
+      cursor: grab; /* stylelint-disable-line */
+      will-change: cursor;
+
+      &.__scrolling {
+        cursor: grabbing;
+
+        & :global(.iScrollIndicator) {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

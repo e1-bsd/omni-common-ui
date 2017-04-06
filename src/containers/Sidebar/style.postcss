@@ -6,19 +6,24 @@
   --itemHeight: 40px;
   --iconSize: 12px;
   --iconPadding: 5px;
-  --expandedWidth: 252px;
   --closeHeight: var(--normalWidth);
+  --expandedMinHeight: 200px;
 }
 
 .Sidebar {
   background-color: var(--colorPrimary);
   cursor: pointer;
   flex: 0;
-  min-width: 50px;
+  min-width: 0;
   position: relative;
   text-align: left;
   vertical-align: top;
-  width: var(--normalWidth);
+  width: 0;
+
+  @media (--md-viewport-new) {
+    min-width: var(--normalWidth);
+    width: var(--normalWidth);
+  }
 
   &::after {
     background-color: var(--colorHoverDarken);
@@ -41,13 +46,33 @@
 
   &_expanded {
     background-color: var(--colorPrimary);
+    bottom: 0;
     cursor: auto;
     left: 0;
     min-height: 100%;
-    min-width: 200px;
-    position: absolute;
+    min-width: var(--expandedMinHeight);
+    overflow-y: auto;
+    position: fixed;
     top: 0;
     z-index: var(--zIndex-7--sidebar);
+
+    &:global(.sidebar-enter) {
+      transform: translateX(-var(--expandedMinHeight));
+    }
+
+    &:global(.sidebar-enter.sidebar-enter-active) {
+      transform: translateX(0);
+      transition: transform var(--transitionDurationBase) ease-in-out;
+    }
+
+    &:global(.sidebar-leave) {
+      transform: translateX(0);
+    }
+
+    &:global(.sidebar-leave.sidebar-leave-active) {
+      transform: translateX(-var(--expandedMinHeight));
+      transition: transform var(--transitionDurationBase) ease-in-out;
+    }
   }
 
   &_close {
@@ -98,4 +123,10 @@
     outline: none;
     padding: 0 var(--touchablePaddingHorizontal);
   }
+}
+
+
+/* stylelint-disable */
+:export {
+  headerSize: var(--headerSize);
 }

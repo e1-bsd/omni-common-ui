@@ -20,16 +20,9 @@
     user-select: none;
 
     &_expand {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      height: 15px;
+      font-size: 15px;
       margin-right: 15px;
-      width: 15px;
-
-      &:global {
-        background-image: url('chevron-small-down.svg');
-      }
+      transition: transform var(--transitionDurationBase) ease-in-out;
     }
 
     &_user {
@@ -60,25 +53,14 @@
   }
 
   &.__impersonating {
-    & .UserInfo_container_expand:global {
-      background-image: url('chevron-small-down-white.svg');
-    }
-
     & .UserInfo_container_user {
-      color: #fff;
-      padding-left: 20px;
+      padding-left: var(--spaceBase);
     }
   }
 
   &.__open {
     & .UserInfo_container_expand:global {
-      background-image: url('chevron-small-up.svg');
-    }
-  }
-
-  &.__open.__impersonating {
-    & .UserInfo_container_expand:global {
-      background-image: url('chevron-small-up-white.svg');
+      transform: rotate(180deg);
     }
   }
 }

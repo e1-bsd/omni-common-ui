@@ -6,6 +6,7 @@ import ReactGA from 'react-ga';
 import is from 'is_js';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
+import Icon from 'components/Icon';
 
 const RESIZE_DEBOUNCE_MS = 100;
 
@@ -96,6 +97,27 @@ class Breadcrumbs extends Component {
     }
   }
 
+  _renderBackButton() {
+    const backLinkItem = this.props.items.slice(0).reverse().find((item) => item.clickable);
+    if (! is.existy(backLinkItem)) {
+      return null;
+    }
+    return <Link to={backLinkItem.href}
+        className={styles.Breadcrumbs_crumb_back}
+        onClick={() => this._onLinkClick(backLinkItem.label)}
+        draggable={false}>
+      <Icon id="arrow" />
+    </Link>;
+  }
+
+  _onLinkClick(linkLabel) {
+    ReactGA.event({
+      category: 'Navigation',
+      action: 'Clicked breadcrumb',
+      label: `Clicked breadcrumb ${linkLabel}`,
+    });
+  }
+
   render() {
     if (! this.props.items || this.props.items.length <= 1) return null;
 
@@ -122,6 +144,10 @@ class Breadcrumbs extends Component {
             this.listNode = _node;
             this.navNode = _node.parentElement;
           }}>
+        {
+          itemsToRender.length === 0 ? null :
+          this._renderBackButton()
+        }
         {itemsToRender.map((item, idx) => {
           const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
           const itemClassNames = classnames(styles.Breadcrumbs_crumb, {
@@ -132,21 +158,13 @@ class Breadcrumbs extends Component {
           return <li key={itemKey}
               className={itemClassNames}>
             {item.clickable ? <Link to={item.href}
-                onClick={onClick}
+                onClick={() => this._onLinkClick(item.label)}
                 draggable={false}>
               {item.label}
             </Link> : <span>
               {item.label}
             </span>}
           </li>;
-
-          function onClick() {
-            ReactGA.event({
-              category: 'Navigation',
-              action: 'Clicked breadcrumb',
-              label: `Clicked breadcrumb ${item.label}`,
-            });
-          }
         })}
       </ul>
     </nav>;
@@ -161,6 +179,9 @@ Breadcrumbs.propTypes = {
     clickable: React.PropTypes.bool.isRequired,
   })).isRequired,
   singleLineMode: React.PropTypes.bool,
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func.isRequired
+  }).isRequired,
 };
 
 export default Breadcrumbs;

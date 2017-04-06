@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import { pure } from 'recompose';
 
 const DropdownBoxItem = ({ children, onClick, show, className }) => {
   if (show === false) {
@@ -21,4 +22,4 @@ DropdownBoxItem.propTypes = {
   show: React.PropTypes.bool,
 };
 
-export default DropdownBoxItem;
+export default pure(DropdownBoxItem);

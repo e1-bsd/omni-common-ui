@@ -7,6 +7,7 @@
   --impersonate-form-error-spacing: 1px;
   --impersonate-form-error-line: 1.8;
   --dialogPadding: 32px 25px;
+  --buttonSpacing: 0 10px;
 }
 
 .Impersonate {
@@ -22,40 +23,8 @@
   }
 
   & .button {
-    border: none;
-    cursor: pointer;
-    font-size: 12px;
     height: 40px;
-    letter-spacing: 1px;
-    line-height: 1.8;
-    margin: 0 10px;
-    outline: none;
-    text-align: center;
-    text-transform: uppercase;
     width: 150px;
-
-    &.__primary {
-      background-color: var(--colorSideNavBg);
-      color: var(--colorTextInverse);
-
-      &:hover,
-      &:active {
-        background-color: var(--colorActive);
-      }
-    }
-
-    &.__default {
-      background-color: transparent;
-      border: 1px solid var(--colorPrimary);
-      color: var(--colorPrimary);
-
-      &:hover,
-      &:active {
-        background-color: var(--colorActive);
-        border-color: var(--colorActive);
-        color: var(--colorTextInverse);
-      }
-    }
   }
 
   &_title {
@@ -80,5 +49,9 @@
 
   &_buttonContainer {
     margin-top: 30px;
+
+    & button {
+      margin: var(--buttonSpacing);
+    }
   }
 }

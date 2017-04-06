@@ -76,14 +76,14 @@ function checkResponseStatus(response) {
 }
 
 function getTokenHeader(options) {
-  const user = Store.get().getState().get('singleSignOn').get('user') || {};
+  const user = Store.get().getState().get('singleSignOn').user || {};
   const token = user.access_token;
   return {
     headers: Object.assign(
       {
-        Accept: 'application/json',
+        Accept: 'application/json; charset=utf-8',
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       is.not.object(options) ? undefined : options.headers,
       getImpersonateHeader()

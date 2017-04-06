@@ -11,7 +11,7 @@ export const UNIMPERSONATE_FAILURE = 'UNIMPERSONATE_FAILURE';
 
 export function setImpersonate(data) {
   return (dispatch, getState) => {
-    const user = getState().get('singleSignOn').get('user');
+    const user = getState().get('singleSignOn').user;
     if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData')) || {};
     localImpersonateData[user.profile.email] = data;
@@ -21,7 +21,7 @@ export function setImpersonate(data) {
 
 export function getImpersonate() {
   return (dispatch, getState) => {
-    const user = getState().get('singleSignOn').get('user');
+    const user = getState().get('singleSignOn').user;
     if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData'));
     return localImpersonateData ? localImpersonateData[user.profile.email] : undefined;
@@ -30,7 +30,7 @@ export function getImpersonate() {
 
 export function removeImpersonate() {
   return (dispatch, getState) => {
-    const user = getState().get('singleSignOn').get('user');
+    const user = getState().get('singleSignOn').user;
     if (! user) return null;
     const localImpersonateData = JSON.parse(localStorage.getItem('impersonateData'));
     if (localImpersonateData) {
@@ -52,7 +52,7 @@ export function postImpersonate(email) {
     function postImpersonateRequest() {
       const param = {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
       };
       return ApiCall.createAction({
         type: POST_IMPERSONATE_REQUEST,
@@ -100,7 +100,7 @@ export function unimpersonate() {
     function unimpersonateRequest() {
       const param = {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
       };
       return ApiCall.createAction({
         type: UNIMPERSONATE_REQUEST,

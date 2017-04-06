@@ -1,10 +1,5 @@
 @import 'main.postcss';
 
-:root {
-  --headerSize: 50px;
-  --logoSize: 30px;
-}
-
 .Header {
   background-color: #fff;
   box-shadow: 0 0 5px 0 #999;
@@ -13,18 +8,36 @@
   flex-direction: row;
   height: var(--headerSize);
   position: relative;
-  z-index: var(--zIndex-1--header);
+  z-index: var(--zIndex-7--header);
+
+  &_burger {
+    align-items: center;
+    color: var(--colorPrimary);
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    height: var(--headerSize);
+    justify-content: center;
+    width: var(--headerSize);
+  }
 
   &_logo {
-    background-color: var(--colorPrimaryNew);
+    background-color: var(--colorTableStripe);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: var(--logoSize) var(--logoSize);
-    height: var(--headerSize);
     width: var(--headerSize);
 
     &:global {
-      background-image: url('omni-icon.svg');
+      background-image: url('omni-logo-small.svg');
+    }
+
+    @media (--md-viewport-new) {
+      background-size: 118px 30px;
+      width: 150px;
+
+      &:global {
+        background-image: url('omni-logo-big.svg');
+      }
     }
   }
 
@@ -39,5 +52,24 @@
 
   &.__impersonating {
     background-color: var(--colorImpersonating);
+    color: var(--colorTextInverse);
+
+    & .Header_burger {
+      color: inherit;
+    }
+
+    & .Header_logo {
+      background-color: #fff4;
+
+      &:global {
+        background-image: url('omni-logo-small-white.svg');
+      }
+
+      @media (--md-viewport-new) {
+        &:global {
+          background-image: url('omni-logo-big-white.svg');
+        }
+      }
+    }
   }
 }

@@ -15,12 +15,35 @@ import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { sidebarExpanded: false };
+  }
+
   componentDidMount() {
     this._setPageTitle(this.props);
   }
 
   componentWillUpdate(props) {
     this._setPageTitle(props);
+  }
+
+  _collapseSidebar(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState({ sidebarExpanded: false });
+  }
+
+  _expandSidebar(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState({ sidebarExpanded: true });
+  }
+
+  _onHamburgerClick(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.setState(({ sidebarExpanded }) => ({ sidebarExpanded: ! sidebarExpanded }));
   }
 
   _setPageTitle(props) {
@@ -39,9 +62,11 @@ class App extends Component {
         ! PRODUCTION &&
         <PerformanceProfiler />
       }
-      <Header {...this.props} />
+      <Header {...this.props} onHamburgerClick={(e) => this._onHamburgerClick(e)} />
       <div className={styles.App_wrap}>
-        <Sidebar {...this.props} />
+        <Sidebar {...this.props} expanded={this.state.sidebarExpanded}
+            onExpand={(e) => this._expandSidebar(e)}
+            onCollapse={(e) => this._collapseSidebar(e)} />
         <div className={styles.App_content}>
           {
             ! this.props.isThereAnError &&
