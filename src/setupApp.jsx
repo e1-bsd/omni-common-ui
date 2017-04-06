@@ -27,6 +27,7 @@ import Oidc from 'oidc-client';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import bindPolyfills from 'domain/Polyfills';
+import log from 'domain/log';
 
 bindPolyfills();
 
