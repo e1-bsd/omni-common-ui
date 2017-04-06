@@ -19,13 +19,11 @@ class SingleSignOnHandlerImpl extends Component {
   constructor(props) {
     super(props);
     this._onUserLoaded = this._onUserLoaded.bind(this);
-    this._onUserUnloaded = this._onUserUnloaded.bind(this);
   }
 
   componentWillMount() {
     this._setLastUrlPath();
     userManager.events.addUserLoaded(this._onUserLoaded);
-    userManager.events.addUserUnloaded(this._onUserUnloaded);
   }
 
   componentDidMount() {
@@ -38,17 +36,11 @@ class SingleSignOnHandlerImpl extends Component {
 
   componentWillUnmount() {
     userManager.events.removeUserLoaded(this._onUserLoaded);
-    userManager.events.removeUserUnloaded(this._onUserUnloaded);
   }
 
   _onUserLoaded(user) {
     log.debug('SingleSignOnHandler - _onUserLoaded');
     this.props.userLoaded(user);
-  }
-
-  _onUserUnloaded() {
-    log.debug('SingleSignOnHandler - _onUserUnloaded');
-    this.props.userUnloaded();
   }
 
   _checkUserAndPrivileges(props) {
@@ -110,7 +102,6 @@ SingleSignOnHandlerImpl.propTypes = {
   user: React.PropTypes.shape(),
   fetchPrivilegesIfNeeded: React.PropTypes.func.isRequired,
   userLoaded: React.PropTypes.func.isRequired,
-  userUnloaded: React.PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
