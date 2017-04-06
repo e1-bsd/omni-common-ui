@@ -72,23 +72,15 @@ class SingleSignOnHandlerImpl extends Component {
   }
 
   _redirectToSignInPage() {
-    log.debug('SingleSignOnHandler - _redirectToSignInPage()');
-    return userManager.signinRedirect()
-        .then(() => log.debug('SingleSignOnHandler - _redirectToSignInPage() - Success'))
-        .catch((error) => {
-          log.error('SingleSignOnHandler - _redirectToSignInPage() - Could not sign in', error);
-        });
+    return userManager.signinRedirect();
   }
 
   _logUser(props) {
     if (! props.user) {
-      log.debug('SingleSignOnHandler - _logUser() - No user!');
       return;
     }
 
     const user = props.user.profile;
-    log.debug('SingleSignOnHandler - _logUser()', user);
-
     const userId = user.sub;
     const { email } = user;
 
@@ -111,7 +103,6 @@ class SingleSignOnHandlerImpl extends Component {
       return this.props.children;
     }
 
-    log.debug('SingleSignOnHandler - render() will return null');
     return null;
   }
 }

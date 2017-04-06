@@ -6,10 +6,8 @@ import log from 'domain/log';
 
 class SingleSignOnRedirectCallback extends Component {
   componentDidMount() {
-    log.debug('SingleSignOnRedirectCallback - componentDidMount()');
     userManager.signinRedirectCallback()
         .then(() => {
-          log.debug('SingleSignOnRedirectCallback - Success');
           this.props.dispatch(replace(sessionStorage.lastUrlPath || ''));
         })
         .catch((error) => {
