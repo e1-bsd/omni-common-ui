@@ -7,7 +7,7 @@ import createLogger from 'redux-logger';
 import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
-import { reducer as singleSignOn } from 'containers/SingleSignOn';
+import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
@@ -26,6 +26,7 @@ export function setupStore(reducer) {
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
     applyMiddleware(
+      singleSignOnMiddleware,
       reduxRouterMiddleware,
       thunk,
       getLoggerMiddleware()
