@@ -1,10 +1,7 @@
-import Oidc, { UserManager } from 'oidc-client';
+import { UserManager } from 'oidc-client';
 import log from 'domain/log';
 import Config from 'domain/Config';
 import { CALLBACK_PATH, SILENT_PATH } from './paths';
-
-Oidc.Log.logger = log;
-Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
 const baseUrl = (() => {
   const protocol = window.location.protocol;
