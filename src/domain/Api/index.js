@@ -76,7 +76,7 @@ function checkResponseStatus(response) {
 }
 
 function getTokenHeader(options) {
-  const user = Store.get().getState().get('singleSignOn').get('user') || {};
+  const user = Store.get().getState().get('singleSignOn').user || {};
   const token = user.access_token;
   return {
     headers: Object.assign(

@@ -11,7 +11,7 @@ const buildPrivilegesUrl = (userId) => buildUrl(`/users/${userId}/privileges`);
 const method = 'GET';
 
 function getSSOUserId(state) {
-  const user = state.get('singleSignOn').get('user');
+  const user = state.get('singleSignOn').user;
 
   // logging out?
   if (! user) return null;
