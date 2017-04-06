@@ -62,11 +62,9 @@ class SingleSignOnHandlerImpl extends Component {
   }
 
   _trySilentSignIn() {
-    log.debug('SingleSignOnHandler - _trySilentSignIn()');
     return userManager.signinSilent()
-        .then(() => log.debug('SingleSignOnHandler - _trySilentSignIn() - Success'))
         .catch((error) => {
-          log.error('SingleSignOnHandler - _trySilentSignIn() - Could not sign in', error);
+          log.error('Could not sign in silently', error);
           this._redirectToSignInPage();
         });
   }
