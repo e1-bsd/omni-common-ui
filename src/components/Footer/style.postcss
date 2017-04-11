@@ -26,14 +26,16 @@
 
   &_logo {
     background-repeat: no-repeat;
+    color: var(--colorTextInverse);
     flex-grow: 0;
     flex-shrink: 0;
     height: 42px;
     margin-right: var(--spaceBase);
     width: 61px;
 
-    &:global {
-      background-image: url('ef-footer.svg');
+    & svg {
+      height: 100%;
+      width: 100%;
     }
   }
 
