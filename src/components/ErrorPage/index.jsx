@@ -1,15 +1,15 @@
 import styles from './style.postcss';
-import warningSrc from './warning.svg';
 import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
+import Icon from 'components/Icon';
 
 const ErrorPage = (props) => {
   const { config, afterButtonClicked } = props;
 
   return <div className={styles.ErrorPage}>
     <div className={styles.ErrorPage_content}>
-      <img className={styles.ErrorPage_image} src={renderIcon()} role="presentation" />
+      <Icon className={styles.ErrorPage_image} id={renderIcon()} />
       <div className={styles.ErrorPage_text}>{renderMessage()}</div>
       <div className={styles.ErrorPage_button}>
         <Button type={Button.Type.primary}
@@ -23,7 +23,7 @@ const ErrorPage = (props) => {
 
   function renderIcon() {
     if (is.not.object(config) || is.not.function(config.icon)) {
-      return warningSrc;
+      return 'warning';
     }
 
     return config.icon(props);
