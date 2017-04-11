@@ -7,49 +7,49 @@ import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 
 const ConfirmDialog = ({
-      children,
-      title,
-      content,
-      primaryButtonContent,
-      secondaryButtonContent,
-      onPrimaryClick,
-      onSecondaryClick,
-      onRequestClose,
-      isOpen,
-      isLoading,
-      isButtonless,
-    }) => <Dialog isOpen={isOpen}
-        withCloseButton={is.function(onRequestClose)}
-        isLoading={isLoading}
-        onRequestClose={(source) =>
-          (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
-      <div className={styles.ConfirmDialog}>
-        {title ?
-          <div className={styles.ConfirmDialog_title}>
-            {title}
-          </div> :
-          <div className={styles.ConfirmDialog_infoIcon} />}
-        <div className={styles.ConfirmDialog_content}>
-          <span>{content}</span>
-          {children}
-        </div>
-        {! isButtonless ? <Button.Container className={styles.ConfirmDialog_buttons}
-            align="center">
-          <Button type={Button.Type.primary}
-              className={styles.ConfirmDialog_button}
-              onClick={() => onPrimaryClick()}>
-            {primaryButtonContent}
-          </Button>
-          {secondaryButtonContent ?
-            <Button type={Button.Type.default}
-                className={styles.ConfirmDialog_button}
-                onClick={() => onSecondaryClick()} >
-              {secondaryButtonContent}
-            </Button> :
-            false}
-        </Button.Container> : null}
-      </div>
-    </Dialog>;
+  children,
+  title,
+  content,
+  primaryButtonContent,
+  secondaryButtonContent,
+  onPrimaryClick,
+  onSecondaryClick,
+  onRequestClose,
+  isOpen,
+  isLoading,
+  isButtonless,
+}) => <Dialog isOpen={isOpen}
+    withCloseButton={is.function(onRequestClose)}
+    isLoading={isLoading}
+    onRequestClose={(source) =>
+      (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
+  <div className={styles.ConfirmDialog}>
+    {title ?
+      <div className={styles.ConfirmDialog_title}>
+        {title}
+      </div> :
+      <div className={styles.ConfirmDialog_infoIcon} />}
+    <div className={styles.ConfirmDialog_content}>
+      <span>{content}</span>
+      {children}
+    </div>
+    {! isButtonless ? <Button.Container className={styles.ConfirmDialog_buttons}
+        align="center">
+      <Button type={Button.Type.primary}
+          className={styles.ConfirmDialog_button}
+          onClick={() => onPrimaryClick()}>
+        {primaryButtonContent}
+      </Button>
+      {secondaryButtonContent ?
+        <Button type={Button.Type.default}
+            className={styles.ConfirmDialog_button}
+            onClick={() => onSecondaryClick()} >
+          {secondaryButtonContent}
+        </Button> :
+        false}
+    </Button.Container> : null}
+  </div>
+</Dialog>;
 
 ConfirmDialog.propTypes = {
   isOpen: React.PropTypes.bool,
