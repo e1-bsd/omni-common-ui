@@ -22,7 +22,7 @@
 
     & .upArrow,
     & .downArrow {
-      display: block;
+      display: flex;
     }
   }
 }
@@ -58,23 +58,16 @@
 
 .upArrow,
 .downArrow {
+  align-items: center;
   background-color: var(--numberInputBg);
-  background-position: center center;
-  background-repeat: no-repeat;
   clear: both;
   display: none;
   float: right;
+  font-size: 15px;
   height: 50%;
+  justify-content: center;
   transition: none;
   width: 15px;
-}
-
-.upArrow:global {
-  background-image: url('./chevron-small-up.svg');
-}
-
-.downArrow:global {
-  background-image: url('./chevron-small-down.svg');
 }
 
 .upArrow:hover,
