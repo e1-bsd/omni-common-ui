@@ -1,5 +1,4 @@
 import styles from './style.postcss';
-import closeSrc from './close.svg';
 
 import React, { Component } from 'react';
 import Link from './Link';
@@ -8,6 +7,7 @@ import { OrderedMap, List, Map } from 'immutable';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
+import Icon from 'components/Icon';
 
 class Sidebar extends Component {
   static _getItems(props) {
@@ -122,7 +122,7 @@ class Sidebar extends Component {
       <div className={styles.Sidebar_close}>
         <button onClick={(e) => this._contract(e)}
             className={classnames(styles.Sidebar_close_button, testClass('sidebar-close'))}>
-          <img src={closeSrc} alt="Close" className={styles.Sidebar_close_button_icon} />
+          <Icon className={styles.Sidebar_close_button_icon} id="close" />
         </button>
       </div>
       {
