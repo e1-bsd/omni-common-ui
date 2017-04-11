@@ -5,6 +5,7 @@ import is from 'is_js';
 
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
+import Icon from 'components/Icon';
 
 const ConfirmDialog = ({
   children,
@@ -21,33 +22,36 @@ const ConfirmDialog = ({
 }) => <Dialog isOpen={isOpen}
     withCloseButton={is.function(onRequestClose)}
     isLoading={isLoading}
-    onRequestClose={(source) =>
-      (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
+    onRequestClose={(source) => (onRequestClose && source === 'button' ? onRequestClose(source) : null)}>
   <div className={styles.ConfirmDialog}>
-    {title ?
-      <div className={styles.ConfirmDialog_title}>
-        {title}
-      </div> :
-      <div className={styles.ConfirmDialog_infoIcon} />}
+    {
+      title ?
+        <div className={styles.ConfirmDialog_title}>{title}</div> :
+        <Icon id="info" className={styles.ConfirmDialog_icon} />
+    }
     <div className={styles.ConfirmDialog_content}>
       <span>{content}</span>
       {children}
     </div>
-    {! isButtonless ? <Button.Container className={styles.ConfirmDialog_buttons}
-        align="center">
-      <Button type={Button.Type.primary}
-          className={styles.ConfirmDialog_button}
-          onClick={() => onPrimaryClick()}>
-        {primaryButtonContent}
-      </Button>
-      {secondaryButtonContent ?
-        <Button type={Button.Type.default}
+    {
+      ! isButtonless &&
+      <Button.Container className={styles.ConfirmDialog_buttons}
+          align="center">
+        <Button type={Button.Type.primary}
             className={styles.ConfirmDialog_button}
-            onClick={() => onSecondaryClick()} >
-          {secondaryButtonContent}
-        </Button> :
-        false}
-    </Button.Container> : null}
+            onClick={() => onPrimaryClick()}>
+          {primaryButtonContent}
+        </Button>
+        {
+          secondaryButtonContent &&
+          <Button type={Button.Type.default}
+              className={styles.ConfirmDialog_button}
+              onClick={() => onSecondaryClick()} >
+            {secondaryButtonContent}
+          </Button>
+        }
+      </Button.Container>
+    }
   </div>
 </Dialog>;
 
