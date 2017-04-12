@@ -3,12 +3,13 @@ import styles from './style.postcss';
 import React from 'react';
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
+import Icon from 'components/Icon';
 
 const ErrorDialog = ({ onConfirmClick, isOpen }) => <Dialog withCloseButton
     isOpen={isOpen}
     onRequestClose={(source) => (source === 'button' ? onConfirmClick() : null)}>
   <div className={styles.ErrorDialog}>
-    <div className={styles.ErrorDialog_warningIcon} />
+    <Icon id="warning" className={styles.ErrorDialog_icon} />
     <div className={styles.ErrorDialog_content}>
       <span>An error occurred!</span>
     </div>
