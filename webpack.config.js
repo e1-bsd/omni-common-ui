@@ -101,7 +101,7 @@ module.exports = {
         query: {
           removeTags: true,
           removingTags: ['title', 'desc', 'defs', 'style'],
-          removingTagAttrs: ['fill'],
+          removingTagAttrs: ['fill', 'stroke'],
         },
       },
       {
