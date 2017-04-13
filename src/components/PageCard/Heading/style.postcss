@@ -1,7 +1,6 @@
 @import 'main.postcss';
 
 :root {
-  --defaultHeadingFontSize: 18px;
   --minHeight: 45px;
   --borderWidth: 1px;
   --verticalPadding: 10px;
@@ -15,6 +14,8 @@
   min-height: var(--minHeight);
   padding: var(--verticalPadding) 20px;
 
+  @mixin fontHeading;
+
   @media (--md-viewport-new) {
     padding: var(--verticalPadding) 30px;
   }
@@ -27,12 +28,11 @@
 
   &_h1 {
     flex: 1 1 0%;
-    font-size: var(--defaultHeadingFontSize);
-    font-weight: normal;
-    letter-spacing: normal;
     margin: 3px 0;  /* to compensate for lost padding */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    @mixin fontHeading;
   }
 }
