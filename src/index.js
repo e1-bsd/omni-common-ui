@@ -1,7 +1,6 @@
 import _Button from 'components/Button';
 import _ButtonContainer from 'components/Button/Container';
 import _Card from 'components/Card';
-import _ClickableIcon from 'components/ClickableIcon';
 import _PageCard from 'components/PageCard';
 import _StudentCard from 'components/StudentCard';
 import _StudentPicture from 'components/StudentPicture';
@@ -50,7 +49,6 @@ export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
 export const Card = _Card;
 export const PageCard = _PageCard;
-export const ClickableIcon = _ClickableIcon;
 export const StudentCard = _StudentCard;
 export const StudentPicture = _StudentPicture;
 export const AdultPicture = _AdultPicture;
