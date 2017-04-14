@@ -42,7 +42,7 @@ export default class IdleTimeoutHandler extends Component {
     if (this.props.router) {
       this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
     }
-    userManager.signoutRedirect();
+    userManager.forceSignoutRedirect();
   }
 
   _getCurrentRoute() {

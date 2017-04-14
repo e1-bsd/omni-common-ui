@@ -23,6 +23,21 @@ const userManagerConfig = {
   loadUserInfo: true,
 };
 
-const userManager = createUserManager(userManagerConfig);
+const customUserManager = (userManager) => {
+  const newUserManager = userManager;
+  newUserManager.forceSignoutRedirect = () => {
+    newUserManager.signOut = true;
+    newUserManager.signoutRedirect();
+  };
+  newUserManager.signinRedirectWithValidation = () => {
+    if (newUserManager.signOut === true) return;
+    newUserManager.signinRedirect();
+  };
+
+  return newUserManager;
+};
+
+const userManager = customUserManager(createUserManager(userManagerConfig));
+
 
 export default userManager;
