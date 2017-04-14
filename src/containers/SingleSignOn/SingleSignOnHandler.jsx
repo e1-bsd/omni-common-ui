@@ -30,7 +30,7 @@ class SingleSignOnHandlerImpl extends Component {
 
   _checkUserAndPrivileges(props) {
     if (! this._isUserValid()) {
-      return userManager.signinRedirect();
+      return userManager.signinRedirectWithValidation();
     }
 
     this._logUser(props);

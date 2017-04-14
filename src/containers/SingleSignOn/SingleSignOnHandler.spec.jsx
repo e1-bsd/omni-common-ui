@@ -21,7 +21,7 @@ describe('<SingleSignOnHandler />', () => {
   </SingleSignOnHandler>);
 
   beforeEach(() => {
-    signinRedirect = Sinon.stub(userManager, 'signinRedirect');
+    signinRedirect = Sinon.stub(userManager, 'signinRedirectWithValidation');
     signinRedirect.returns();
     SingleSignOnHandler = requireComponent({ featureLogin: false });
     props = {
