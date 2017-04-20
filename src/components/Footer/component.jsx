@@ -1,8 +1,9 @@
 import styles from './style.postcss';
 import React from 'react';
+import Icon from 'components/Icon';
 
 const Footer = () => <div className={styles.Footer}>
-  <div className={styles.Footer_logo} />
+  <Icon id="ef-logo" className={styles.Footer_logo} />
   <div className={styles.Footer_content}>
     <div className={styles.Footer_content_row}>
       <a className={styles.Footer_content_link}

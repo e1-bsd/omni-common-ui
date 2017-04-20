@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import Sinon from 'sinon';
 import Button from 'components/Button';
 import ErrorPage from './';
-import warningSrc from './warning.svg';
 
 describe('<ErrorPageHandler />', () => {
   describe('<ErrorPage />', () => {
@@ -24,7 +23,7 @@ describe('<ErrorPageHandler />', () => {
       const wrapper = shallow(<ErrorPage {...props} />);
       expect(wrapper.find(`.${styles.ErrorPage_text}`))
           .to.contain('Omni could not load this page.');
-      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('src', warningSrc);
+      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('id', 'warning');
       expect(wrapper.find(Button)).to.have.prop('children', 'Back');
       expect(wrapper.find(Button)).to.have.prop('linkTo', '/');
     });
@@ -37,9 +36,9 @@ describe('<ErrorPageHandler />', () => {
     });
 
     it('allows to customise the icon if config.icon is provided', () => {
-      props.config = { icon: () => '/custom/path' };
+      props.config = { icon: () => 'custom-id' };
       const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('src', '/custom/path');
+      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('id', 'custom-id');
     });
 
     it('allows to customise the error message if config.message is provided', () => {

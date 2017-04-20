@@ -1,38 +1,20 @@
-:root {
-  --dialogMaxWidth: 400px;
-  --iconBackgroundPositionX: 50%;
-  --iconHeight: 30px;
-  --secondMessageMargin: 20px;
-  --buttonWidth: 150px;
-  --buttonHeight: 40px;
-  --dialogPadding: 32px 25px;
-  --secondContentTopMargin: 20px;
-}
+@import 'main.postcss';
 
 .AlertDialog {
-  margin: var(--dialogPadding);
-  max-width: var(--dialogMaxWidth);
+  margin: 32px 25px;
+  max-width: 400px;
 
   &_icon {
+    font-size: 30px;
     margin-bottom: 40px;
-  }
 
-  &_icon:global {
-    background-image: url('success.svg');
-    background-position-x: var(--iconBackgroundPositionX);
-    background-repeat: no-repeat;
-    height: var(--iconHeight);
-  }
+    &.__success {
+      color: var(--colorCorrect);
+    }
 
-  &_warningIcon {
-    margin-bottom: 40px;
-  }
-
-  &_warningIcon:global {
-    background-image: url('warning.svg');
-    background-position-x: var(--iconBackgroundPositionX);
-    background-repeat: no-repeat;
-    height: var(--iconHeight);
+    &.__warning {
+      color: var(--colorWrong);
+    }
   }
 
   &_content {
@@ -40,12 +22,12 @@
   }
 
   &_secondContent {
-    margin-top: var(--secondContentTopMargin);
+    margin-top: 20px;
   }
 
   &_secondMessage {
     display: inline-block;
-    margin-top: var(--secondMessageMargin);
+    margin-top: 20px;
   }
 
   &_buttonWrapper {
@@ -53,7 +35,7 @@
   }
 
   &_button {
-    height: var(--buttonHeight);
-    width: var(--buttonWidth);
+    height: 40px;
+    width: 150px;
   }
 }

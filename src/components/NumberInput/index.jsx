@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './style.postcss';
 import is from 'is_js';
 import classnames from 'classnames';
+import Icon from 'components/Icon';
 
 export default class NumberInput extends Component {
   componentWillMount() {
@@ -126,12 +127,18 @@ export default class NumberInput extends Component {
         ''}
       <div className={classnames(styles.NumberInput, this.props.className)}
           style={this.props.customStyle} >
-        {this.props.disabled ?
-          '' :
-          <div className={styles.upArrow} onClick={() => this.upArrowClickHandler()} />}
-        {this.props.disabled ?
-          '' :
-          <div className={styles.downArrow} onClick={() => this.downArrowClickHandler()} />}
+        {
+          ! this.props.disabled &&
+          <div className={styles.upArrow} onClick={() => this.upArrowClickHandler()}>
+            <Icon id="chevron-small-up" />
+          </div>
+        }
+        {
+          ! this.props.disabled &&
+          <div className={styles.downArrow} onClick={() => this.downArrowClickHandler()}>
+            <Icon id="chevron-small-down" />
+          </div>
+        }
         <input className={styles.valueBox}
             type="text"
             value={this.state.value}

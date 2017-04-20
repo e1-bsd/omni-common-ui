@@ -106,7 +106,7 @@ class Breadcrumbs extends Component {
         className={styles.Breadcrumbs_crumb_back}
         onClick={() => this._onLinkClick(backLinkItem.label)}
         draggable={false}>
-      <Icon id="arrow" />
+      <Icon id="arrow-left" />
     </Link>;
   }
 

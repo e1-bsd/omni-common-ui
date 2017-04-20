@@ -3,6 +3,7 @@ import React from 'react';
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import classnames from 'classnames';
+import Icon from 'components/Icon';
 
 const AlertDialog = ({
   isWarning,
@@ -11,9 +12,10 @@ const AlertDialog = ({
   okButtonContent,
   onButtonClick,
 }) => {
-  const iconClassName = isWarning ?
-      styles.AlertDialog_warningIcon :
-      styles.AlertDialog_icon;
+  const iconClassName = classnames(styles.AlertDialog_icon, {
+    [styles.__success]: ! isWarning,
+    [styles.__warning]: isWarning,
+  });
   const primaryContentClassName = content1 && content1.length === 0 ?
       '' :
       styles.AlertDialog_content;
@@ -23,7 +25,7 @@ const AlertDialog = ({
   return (
     <Dialog isOpen>
       <div className={styles.AlertDialog}>
-        <div className={iconClassName} />
+        <Icon id={isWarning ? 'warning' : 'success'} className={iconClassName} />
         <div className={primaryContentClassName}>
           <span>{content1}</span>
         </div>
