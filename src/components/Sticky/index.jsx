@@ -2,24 +2,23 @@
 import styles from './style.postcss';
 
 import React, { Component } from 'react';
-import jQuery from 'jquery';
 import classnames from 'classnames';
-
-FixedSticky.tests.sticky = false; // Disregards all native 'sticky' implementations.
+import stickybits from 'stickybits';
 
 export class Sticky extends Component {
   componentDidMount() {
-    jQuery(this._node).fixedsticky();
+    stickybits(this._node, { useStickyClasses: true });
   }
 
   componentWillUnmount() {
-    jQuery(this._node).fixedsticky('destroy');
+    // TODO Clean up!
   }
 
   render() {
     return <div className={classnames(styles.Sticky, this.props.className)}
         ref={(n) => { this._node = n; }}>
-      {this.props.children}
+      <div className={styles.Sticky_wrapper}>{this.props.children}</div>
+      <div className={styles.Sticky_placeholder}>{this.props.children}</div>
     </div>;
   }
 }
