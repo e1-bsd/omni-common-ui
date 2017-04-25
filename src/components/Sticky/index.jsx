@@ -1,4 +1,3 @@
-/* global FixedSticky */
 import styles from './style.postcss';
 
 import React, { Component } from 'react';
