@@ -7,6 +7,7 @@ import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 import Person from 'components/Person';
+import testClass from 'domain/testClass';
 
 const Profile = (props, { withSeparatorLine, backgroundless }) => {
   const { status, statusHighlighted } = props;
@@ -28,6 +29,12 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     }
     return name;
   };
+  const nameClass = classnames(styles.StudentCard_profile_name,
+    testClass('studentCard-name'));
+  const localNameClass = classnames(styles.StudentCard_profile_localName,
+    testClass('studentCard-localName'));
+  const statusClass = classnames(styles.StudentCard_profile_status,
+    testClass('studentCard-status'));
   return <Card.Content withoutBottomPadding>
     <Person className={classes}>
       <StudentPicture src={props.avatarUrl}
@@ -35,9 +42,9 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
           className={classnames(styles.StudentCard_profile_image, {
             [styles.__bigger]: !! props.withBiggerAvatar,
           })} />
-      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
-      {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
-      <ProductionStatus className={styles.StudentCard_profile_status}
+      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, nameClass)}
+      {renderName('localName', props.localName, localNameClass)}
+      <ProductionStatus className={statusClass}
           status={status}
           highlighted={statusHighlighted} />
     </Person>
