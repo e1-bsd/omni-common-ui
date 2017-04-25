@@ -123,7 +123,6 @@
     "react-dom": "^15.4.2",
     "react-dotdotdot": "^1.0.17",
     "react-ga": "^2.1.2",
-    "react-height": "^2.2.0",
     "react-immutable-proptypes": "2.1.0",
     "react-iscroll": "^1.1.2",
     "react-modal": "1.5.2",
