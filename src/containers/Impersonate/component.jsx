@@ -27,7 +27,7 @@ class Impersonate extends Component {
   }
 
   _handleSwitchClick() {
-    this.props.postedImpersonate(this.state.impersonateEmail + suffix);
+    this.props.postedImpersonate(this.state.impersonateEmail + suffix, this.props.token);
     this.setState({ emailChanged: false });
   }
 
@@ -41,7 +41,7 @@ class Impersonate extends Component {
     const data = postImpersonateState ? postImpersonateState.get('data') : undefined;
 
     if (data) {
-      this.props.success(data);
+      this.props.success();
     }
 
     const inputClasses = classnames({ [styles.error]: ! this.state.emailChanged && errorCode },
@@ -79,6 +79,7 @@ Impersonate.propTypes = {
   success: React.PropTypes.func,
   postedImpersonate: React.PropTypes.func,
   clearImpersonateData: React.PropTypes.func,
+  token: React.PropTypes.string,
 };
 
 function mapStateToProps(state) {
@@ -86,12 +87,14 @@ function mapStateToProps(state) {
     postImpersonateState: state.get('impersonate')
       .get('postedImpersonate')
       .get('impersonate'),
+    token: state.get('singleSignOn').user.id_token,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    postedImpersonate: (email) => dispatch(postImpersonate(email)),
+    postedImpersonate: (email, token) =>
+      dispatch(postImpersonate(email, token)),
     clearImpersonateData: () => dispatch(clearImpersonateData()),
   };
 }

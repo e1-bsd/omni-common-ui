@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import connect from 'domain/connect';
 import classnames from 'classnames';
 import Dialog from 'components/Dialog';
-import Impersonate from 'containers/Impersonate';
+import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
 import userManager from 'containers/SingleSignOn/userManager';
 import is from 'is_js';
 import alertifyjs from 'alertifyjs';
@@ -84,8 +84,7 @@ class UserInfo extends Component {
   }
 
   _onSwitchBackClicked() {
-    this.props.unimpersonate();
-    this.props.removeImpersonate();
+    this.props.postImpersonate(undefined, this.props.token);
     this.setState({ impersonateData: undefined });
   }
 
@@ -103,8 +102,7 @@ class UserInfo extends Component {
     this.setState({ isShowImpersonate: false });
   }
 
-  _handleImpersonateSuccess(data) {
-    this.props.setImpersonate(data);
+  _handleImpersonateSuccess() {
     this._redirectToPortal();
   }
 
@@ -115,7 +113,7 @@ class UserInfo extends Component {
 
     return <Dialog isOpen={this.state.isShowImpersonate} className={testClass('impersonate-dialog')}>
       <Impersonate close={() => this._closeImpersonateDialog()}
-          success={(data) => this._handleImpersonateSuccess(data)} />
+          success={() => this._handleImpersonateSuccess()} />
     </Dialog>;
   }
 
@@ -163,8 +161,8 @@ class UserInfo extends Component {
     return <AdultPicture src={this.props.impersonate.avatarUrl}
         className={classes}
         gender={this.props.impersonate.gender}
-        userFirstName={this.props.impersonate.firstName}
-        userLastName={this.props.impersonate.lastName}
+        userFirstName={this.props.impersonate.givenName}
+        userLastName={this.props.impersonate.familyName}
         displayUserInitialsAsDefaultAvatar />;
   }
 
@@ -201,9 +199,8 @@ UserInfo.propTypes = {
   router: React.PropTypes.any.isRequired,
   routes: React.PropTypes.array.isRequired,
   havePrivilegesLoaded: React.PropTypes.func.isRequired,
-  setImpersonate: React.PropTypes.func.isRequired,
-  removeImpersonate: React.PropTypes.func.isRequired,
-  unimpersonate: React.PropTypes.func,
+  postImpersonate: React.PropTypes.func,
+  token: React.PropTypes.string,
   impersonate: React.PropTypes.object,
   privileges: React.PropTypes.object,
   hasUnimpersonated: React.PropTypes.bool.isRequired,
@@ -213,19 +210,22 @@ UserInfo.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const unimpersonate = state.get('impersonate').get('unimpersonate').get('unimpersonate');
   const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
     user: state.get('singleSignOn').user,
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
-    hasUnimpersonated: !! (unimpersonate && (unimpersonate.get('error') || unimpersonate.get('data'))),
+    hasUnimpersonated: !! (postedImpersonate && (postedImpersonate.get('error') || postedImpersonate.get('data'))),
     hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),
+    token: state.get('singleSignOn').user.id_token,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(privilegesActions, dispatch);
+  return Object.assign({},
+    bindActionCreators(privilegesActions, dispatch),
+    bindActionCreators(impersonateActions, dispatch)
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

@@ -67,6 +67,14 @@ export const ErrorPageHandler = (props) => {
 
   function buildMessage(response) {
     let message = ErrorMessage.for(response.errorCode) || response.message;
+
+    // To handle the pattern of exception response from the end point of identity server
+    // which return { error: string }
+    if (! message && response.error) {
+      message = response.error;
+      return message;
+    }
+
     if (is.not.array(response.args)) {
       return message;
     }
