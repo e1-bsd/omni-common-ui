@@ -118,7 +118,7 @@
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-appinsights": "^1.0.2",
-    "react-collapse": "^2.3.3",
+    "react-collapse": "^4.0.1",
     "react-daterange-picker": "1.0.0",
     "react-dom": "^15.4.2",
     "react-dotdotdot": "^1.0.17",
