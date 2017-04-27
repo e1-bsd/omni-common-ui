@@ -3,6 +3,9 @@ import styles from './style.postcss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import stickybits from 'stickybits';
+import log from 'domain/log';
+
+const CHECK_SAME_HEIGHT_MAX = 5;
 
 export class Sticky extends Component {
   constructor(props) {
@@ -13,19 +16,35 @@ export class Sticky extends Component {
 
   componentDidMount() {
     stickybits(this._container, { useStickyClasses: true });
-    this._periodicCheckId = setInterval(this._checkHeight, 250);
   }
 
   componentDidUpdate() {
+    this._startPeriodicCheck();
   }
 
   componentWillUnmount() {
+    this._stopPeriodicCheck();
+    // TODO Clean up stickybits!
+  }
+
+  _startPeriodicCheck() {
+    this._stopPeriodicCheck();
+    this._sameHeightCount = 0;
+    this._periodicCheckId = setInterval(this._checkHeight, 25);
+  }
+
+  _stopPeriodicCheck() {
     clearInterval(this._periodicCheckId);
-    // TODO Clean up!
   }
 
   _checkHeight() {
+    log.debug('Sticky - _checkHeight()');
+    if (this._sameHeightCount > CHECK_SAME_HEIGHT_MAX) {
+      return this._stopPeriodicCheck();
+    }
+
     if (this.state.height === this._bar.offsetHeight) {
+      this._sameHeightCount += 1;
       return;
     }
 
