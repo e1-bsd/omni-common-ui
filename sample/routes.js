@@ -9,6 +9,7 @@ import { routes as forms } from 'containers/FormShowcase';
 import { routes as progressBars } from 'containers/ProgressBarShowcase';
 import { routes as tabs } from 'containers/TabsShowcase';
 import { routes as selectionTable } from 'containers/SelectionTableShowcase';
+import { routes as horizontalSelect } from 'containers/HorizontalSelectShowcase';
 
 export default {
   path: '/',
@@ -26,5 +27,6 @@ export default {
     progressBars,
     tabs,
     selectionTable,
+    horizontalSelect,
   ],
 };
