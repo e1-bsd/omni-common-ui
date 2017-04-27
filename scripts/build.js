@@ -7,6 +7,8 @@ const path = require('path');
 const fs = require('fs');
 const requireAll = require('require-all');
 const spawn = require('./spawn');
+const auto = require('async/auto');
+const mkdirp = require('mkdirp');
 
 const configs = new Map(requireAll({
   dirname: path.resolve('config'),
@@ -16,34 +18,57 @@ const configs = new Map(requireAll({
 }));
 
 process.env.NODE_ENV = 'production';
+const distDirPath = path.resolve('dist-configs');
 
-const buildLog = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
-buildLog.on('open', () => {
-  console.info('📦  Generate config files');
-  const distDir = path.resolve('dist-configs');
-  fs.mkdir(distDir, () => {
+auto({
+  logStream: (cb) => {
+    const logStream = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
+    logStream.on('open', () => {
+      cb(null, logStream);
+    }).on('error', (err) => {
+      cb(err);
+    });
+  },
+  distDir: (cb) => {
+    mkdirp(distDirPath, cb);
+  },
+  buildConfigs: ['logStream', 'distDir', ({ logStream }, cb) => {
+    console.info('📦  Generate config files');
     configs.forEach((config, environment) => {
       const file = `${environment}.js`;
-      const fileDir = path.join(distDir, file);
+      const fileDir = path.join(distDirPath, file);
       try {
         fs.writeFileSync(fileDir, `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
         console.info(colors.green(`   📄  ${file} generated`));
       } catch (e) {
         console.error(colors.red(`   📄  ${file} could not be generated`));
-        buildLog.write(e);
-        process.exit(1);
+        cb(e);
+        logStream.write(e);
       }
     });
-
+  }],
+  buildApp: ['logStream', 'distDir', ({ logStream }, cb) => {
     console.info('📦  Build app');
-    const webpack = spawn('node', ['node_modules/webpack/bin/webpack.js', '-p', '--bail', '--progress', '--colors'], { env: process.env, stdio: [buildLog, buildLog, buildLog] });
-    webpack.on('close', (code) => {
-      if (code) {
-        console.error(colors.red('   💣  App build failed!'));
-        process.exit(code);
-      }
-
-      console.info(colors.green('   📦  App built'));
+    const webpack = spawn('node', [
+      'node_modules/webpack/bin/webpack.js',
+      '-p', '--bail', '--progress', '--colors',
+    ], {
+      env: process.env,
+      stdio: [logStream, logStream, logStream],
     });
-  });
+    webpack.on('close', (code) => {
+      if (code !== 0) {
+        cb(new Error(`Error code ${code}`));
+        return;
+      }
+      cb();
+    });
+  }],
+}, (err) => {
+  if (err) {
+    console.error(colors.red('   💣  App build failed!'), err);
+    process.exit(1);
+    return;  // eslint-disable-line
+  }
+  console.info(colors.green('   📦  App built'));
 });
