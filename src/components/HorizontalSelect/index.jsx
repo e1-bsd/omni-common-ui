@@ -27,10 +27,11 @@ class HorizontalSelect extends Component {
 }
 
 HorizontalSelect.propTypes = {
-  options: React.PropTypes.shape({
-    html: React.PropTypes.node,
-    value: React.PropTypes.string,
-  }),
+  options: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      html: React.PropTypes.node,
+      value: React.PropTypes.string,
+    })),
   onSelect: React.PropTypes.func,
 };
 
