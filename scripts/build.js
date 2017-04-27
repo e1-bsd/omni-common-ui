@@ -5,10 +5,12 @@ const colors = require('colors/safe');
 const { Map } = require('immutable');
 const path = require('path');
 const fs = require('fs');
+const zlib = require('zlib');
 const requireAll = require('require-all');
 const spawn = require('./spawn');
-const auto = require('async/auto');
 const mkdirp = require('mkdirp');
+const auto = require('async/auto');
+const series = require('async/series');
 
 const configs = new Map(requireAll({
   dirname: path.resolve('config'),
@@ -18,6 +20,7 @@ const configs = new Map(requireAll({
 }));
 
 process.env.NODE_ENV = 'production';
+const distGzDir = 'dist-gz';
 const distDirPath = path.resolve('dist-configs');
 
 auto({
@@ -29,11 +32,15 @@ auto({
       cb(err);
     });
   },
-  distDir: (cb) => {
+  mkDistDir: (cb) => {
     mkdirp(distDirPath, cb);
   },
-  buildConfigs: ['logStream', 'distDir', ({ logStream }, cb) => {
+  mkDistGzDir: (cb) => {
+    mkdirp(distGzDir, cb);
+  },
+  buildConfigs: ['logStream', 'mkDistDir', ({ logStream }, cb) => {
     console.info('📦  Generate config files');
+
     configs.forEach((config, environment) => {
       const file = `${environment}.js`;
       const fileDir = path.join(distDirPath, file);
@@ -47,8 +54,9 @@ auto({
       }
     });
   }],
-  buildApp: ['logStream', 'distDir', ({ logStream }, cb) => {
+  buildApp: ['logStream', 'mkDistDir', ({ logStream }, cb) => {
     console.info('📦  Build app');
+
     const webpack = spawn('node', [
       'node_modules/webpack/bin/webpack.js',
       '-p', '--bail', '--progress', '--colors',
@@ -64,10 +72,27 @@ auto({
       cb();
     });
   }],
+  distGz: ['buildApp', 'mkDistGzDir', (results, cb) => {
+    console.info('📦  Compressing and copying files in dist/ to dist-gz/');
+
+    const copyGzipFile = (filename, _cb) => {
+      const input = fs.createReadStream(path.resolve('dist', filename));
+      const output = fs.createWriteStream(path.resolve(distGzDir, filename));
+
+      input.pipe(zlib.createGzip({ level: 4 })).pipe(output);
+
+      input.on('end', _cb);
+    };
+
+    fs.readdir('dist', (err, filenames) => {
+      series(filenames.map((filename) =>
+        copyGzipFile.bind(this, filename)
+      , cb));
+    });
+  }],
 }, (err) => {
   if (err) {
     console.error(colors.red('   💣  App build failed!'), err);
-    process.exit(1);
     return;  // eslint-disable-line
   }
   console.info(colors.green('   📦  App built'));
