@@ -73,7 +73,7 @@ auto({
     });
   }],
   distGz: ['buildApp', 'mkDistGzDir', (results, cb) => {
-    console.info('📦  Compressing and copying files in dist/ to dist-gz/');
+    console.info('📦  Copying and compressing files in dist/ to dist-gz/');
 
     const copyGzipFile = (filename, _cb) => {
       const input = fs.createReadStream(path.resolve('dist', filename));
