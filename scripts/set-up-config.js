@@ -12,13 +12,16 @@ const configsDir = path.resolve('dist-configs');
 const distDir = path.resolve('dist');
 const distGzDir = path.resolve('dist-gz');
 
-const confData = fs.readFileSync(path.join(configsDir, `${options.config}.js`), 'utf8');
+const confData = fs.readFileSync(
+    path.join(configsDir, `${options.config}.js`), 'utf8');
 
 const indexFile = path.join(distDir, 'index.html');
 const indexGzFile = path.join(distGzDir, 'index.html');
 const indexData = fs.readFileSync(indexFile, 'utf8');
 
-const patchedIndexData = indexData.replace(' src="config.js">', `>${confData}`);
+const patchedIndexData = indexData.replace(
+    /<script.+data-config-sentinel.*>.*<\/script>/,
+    `<script data-config-sentinel>${confData}</script>`);
 
 gzip(patchedIndexData, (_, buf) => {
   fs.writeFile(indexGzFile, buf);
