@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import DropdownBoxItem from './DropdownBoxItem';
 import DropdownBoxContainer from './DropdownBoxContainer';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const AlignmentClasses = [
   styles.__alignRightFromBottom,
@@ -77,7 +77,7 @@ class DropdownBox extends PureComponent {
 
   render() {
     const { className, children, open, smartPosition } = this.props;
-    return <ReactCSSTransitionGroup transitionName="dropdown">
+    return <CSSTransitionGroup transitionName="dropdown">
       {
         open === true &&
         <div className={classnames(styles.DropdownBox, className)}
@@ -85,7 +85,7 @@ class DropdownBox extends PureComponent {
           {React.Children.toArray(children).filter((child) => child.type === DropdownBoxItem)}
         </div>
       }
-    </ReactCSSTransitionGroup>;
+    </CSSTransitionGroup>;
   }
 }
 
