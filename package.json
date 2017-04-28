@@ -165,8 +165,7 @@
     "webpack-combine-loaders": "2.0.3",
     "webpack-dev-middleware": "1.8.4",
     "webpack-dev-server": "1.16.2",
-    "webpack-hot-middleware": "2.13.2",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "webpack-hot-middleware": "2.13.2"
   },
   "devDependencies": {
     "babel-plugin-resolver": "1.1.0",
