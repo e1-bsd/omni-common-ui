@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Showcase from 'components/Showcase';
-import { HorizontalSelect } from 'omni-common-ui';
+import { HorizontalSelect, StudentCard } from 'omni-common-ui';
 
 class HorizontalSelectShowcase extends Component {
 
@@ -10,11 +10,20 @@ class HorizontalSelectShowcase extends Component {
     });
   }
 
+  _getOptionHtml(index) {
+    return <StudentCard vertical boderless>
+      <StudentCard.Profile name="Hello"
+          surname={index}
+          localName="王呆呆"
+          gender="male" />
+    </StudentCard>;
+  }
+
   render() {
     const options = [...Array(10).keys()].map(
       (index) => {
         const option = {
-          html: <div>{`hello ${index}`}</div>,
+          html: this._getOptionHtml(index),
           value: `hello ${index}`,
         };
         return option;
