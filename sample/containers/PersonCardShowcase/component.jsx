@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React from 'react';
 import { StudentCard, Card, Grid, Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
@@ -122,6 +124,16 @@ const StudentCardShowcase = () => <Showcase title="Student Cards" titleLink="stu
         <StudentCard borderless>
           <StudentCard.Profile name="Jane"
               surname="Bigger Avatar"
+              localName="王呆呆"
+              gender="male"
+              avatarUrl={testImage}
+              withBiggerAvatar />
+        </StudentCard>
+      </Grid.Item>
+      <Grid.Item xs={12} sm={6} md={4} lg={3}>
+        <StudentCard vertical className={styles.PersonCardShowCase_vertical}>
+          <StudentCard.Profile name="Jane"
+              surname="Vertical"
               localName="王呆呆"
               gender="male"
               avatarUrl={testImage}

@@ -50,9 +50,12 @@ class Person extends Component {
   }
 
   render() {
+    const personLinesClassName = this.props.vertical ?
+      classnames(styles.Person_lines, styles.Person_lines_vertical) :
+      styles.Person_lines;
     return <div className={classnames(styles.Person, this.props.className)}>
       {this._picture}
-      <div className={styles.Person_lines}>{this._lines}</div>
+      <div className={personLinesClassName}>{this._lines}</div>
     </div>;
   }
 }
@@ -60,6 +63,7 @@ class Person extends Component {
 Person.propTypes = {
   children: React.PropTypes.node,
   className: React.PropTypes.string,
+  vertical: React.PropTypes.bool,
 };
 
 export default Person;
