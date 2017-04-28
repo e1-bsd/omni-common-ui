@@ -3,14 +3,24 @@
 
 const colors = require('colors/safe');
 const { Map } = require('immutable');
+const { auto, parallel, series } = require('async');
 const path = require('path');
 const fs = require('fs');
 const zlib = require('zlib');
 const requireAll = require('require-all');
-const spawn = require('./spawn');
 const mkdirp = require('mkdirp');
-const auto = require('async/auto');
-const series = require('async/series');
+const mime = require('mime');
+const spawn = require('./spawn');
+
+const GZ_LEVEL = 9;
+const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs are zipped
+const DIST_CONFIGS_PATH = path.resolve('dist-configs');
+const DIST_PATH = path.resolve('dist');
+const DIST_NOGZ_PATH = path.resolve('dist-nogz');
+const DIST_GZ_PATH = path.resolve('dist-gz');
+
+const isZippableFile = (filename) =>
+  ! NOZIP_MIME_TEST.test(mime.lookup(filename));
 
 const configs = new Map(requireAll({
   dirname: path.resolve('config'),
@@ -20,41 +30,42 @@ const configs = new Map(requireAll({
 }));
 
 process.env.NODE_ENV = 'production';
-const distGzDir = 'dist-gz';
-const distDirPath = path.resolve('dist-configs');
 
 auto({
-  logStream: (cb) => {
-    const logStream = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
+  log: (cb) => {
+    const logStream = fs.createWriteStream(
+        path.resolve('build.log'), { flags: 'w+' });
     logStream.on('open', () => {
       cb(null, logStream);
     }).on('error', (err) => {
       cb(err);
     });
   },
-  mkDistDir: (cb) => {
-    mkdirp(distDirPath, cb);
+  mkDirs: (cb) => {
+    parallel([
+      (_cb) => mkdirp(DIST_CONFIGS_PATH, _cb),
+      (_cb) => mkdirp(DIST_NOGZ_PATH, _cb),
+      (_cb) => mkdirp(DIST_GZ_PATH, _cb),
+    ], cb);
   },
-  mkDistGzDir: (cb) => {
-    mkdirp(distGzDir, cb);
-  },
-  buildConfigs: ['logStream', 'mkDistDir', ({ logStream }, cb) => {
+  buildConfigs: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Generate config files');
 
     configs.forEach((config, environment) => {
       const file = `${environment}.js`;
-      const fileDir = path.join(distDirPath, file);
+      const fileDir = path.join(DIST_CONFIGS_PATH, file);
       try {
-        fs.writeFileSync(fileDir, `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
+        fs.writeFileSync(fileDir,
+            `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
         console.info(colors.green(`   📄  ${file} generated`));
       } catch (e) {
         console.error(colors.red(`   📄  ${file} could not be generated`));
         cb(e);
-        logStream.write(e);
+        log.write(e);
       }
     });
   }],
-  buildApp: ['logStream', 'mkDistDir', ({ logStream }, cb) => {
+  buildApp: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Build app');
 
     const webpack = spawn('node', [
@@ -62,7 +73,7 @@ auto({
       '-p', '--bail', '--progress', '--colors',
     ], {
       env: process.env,
-      stdio: [logStream, logStream, logStream],
+      stdio: [log, log, log],
     });
     webpack.on('close', (code) => {
       if (code !== 0) {
@@ -72,21 +83,29 @@ auto({
       cb();
     });
   }],
-  distGz: ['buildApp', 'mkDistGzDir', (results, cb) => {
-    console.info('📦  Copying and compressing files in dist/ to dist-gz/');
+  distGz: ['buildApp', 'mkDirs', (results, cb) => {
+    console.info('📦  Copying/compressing files');
+    console.info('   (gzipped: dist-gz/, bins: dist-nogz/)');
 
-    const copyGzipFile = (filename, _cb) => {
-      const input = fs.createReadStream(path.resolve('dist', filename));
-      const output = fs.createWriteStream(path.resolve(distGzDir, filename));
+    const copyAndZipFile = (filename, _cb) => {
+      const input = fs.createReadStream(path.resolve(DIST_PATH, filename));
+      const output = fs.createWriteStream(path.resolve(DIST_GZ_PATH, filename));
+      input.pipe(zlib.createGzip({ level: GZ_LEVEL })).pipe(output);
+      input.on('end', _cb);
+    };
 
-      input.pipe(zlib.createGzip({ level: 4 })).pipe(output);
-
+    const copyFile = (filename, _cb) => {
+      const input = fs.createReadStream(path.resolve(DIST_PATH, filename));
+      const output = fs.createWriteStream(path.resolve(DIST_NOGZ_PATH, filename));
+      input.pipe(output);
       input.on('end', _cb);
     };
 
     fs.readdir('dist', (err, filenames) => {
-      series(filenames.map((filename) =>
-        copyGzipFile.bind(this, filename)
+      series(filenames.map((filename) =>  // eslint-disable-line
+        isZippableFile(filename) ?
+          copyAndZipFile.bind(null, filename) :
+          copyFile.bind(null, filename)
       , cb));
     });
   }],
