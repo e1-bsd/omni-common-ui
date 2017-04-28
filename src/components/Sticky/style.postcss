@@ -1,14 +1,12 @@
 @import 'main.postcss';
 
 .Sticky {
-  position: static !important;
-
   &_placeholder {
     display: none;
     visibility: hidden;
   }
 
-  &:global(.js-is-sticky) {
+  &.__sticky {
     & .Sticky_wrapper {
       position: fixed !important;
       top: 0;

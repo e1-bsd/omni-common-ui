@@ -2,7 +2,6 @@ import styles from './style.postcss';
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import stickybits from 'stickybits';
 import log from 'domain/log';
 
 const CHECK_SAME_HEIGHT_MAX = 5;
@@ -10,12 +9,13 @@ const CHECK_SAME_HEIGHT_MAX = 5;
 export class Sticky extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { sticky: false };
+    this._onWheel = this._onWheel.bind(this);
     this._checkHeight = this._checkHeight.bind(this);
   }
 
   componentDidMount() {
-    stickybits(this._container, { useStickyClasses: true });
+    window.addEventListener('wheel', this._onWheel);
   }
 
   componentDidUpdate() {
@@ -24,7 +24,16 @@ export class Sticky extends Component {
 
   componentWillUnmount() {
     this._stopPeriodicCheck();
-    // TODO Clean up stickybits!
+    window.removeEventListener('wheel', this._onWheel);
+  }
+
+  _onWheel() {
+    const shouldBeSticky = this._container.getBoundingClientRect().top < 0;
+    if (! this.state.sticky && shouldBeSticky) {
+      this.setState({ sticky: true });
+    } else if (this.state.sticky && ! shouldBeSticky) {
+      this.setState({ sticky: false });
+    }
   }
 
   _startPeriodicCheck() {
@@ -48,12 +57,14 @@ export class Sticky extends Component {
       return;
     }
 
-    this.setState({ height: this._bar.offsetHeight });
+    this.setState({ height: this._bar.offsetHeight }, this._onWheel);
   }
 
   render() {
-    return <div className={classnames(styles.Sticky, this.props.className)}
-        ref={(n) => { this._container = n; }}>
+    const classes = classnames(styles.Sticky, this.props.className, {
+      [styles.__sticky]: this.state.sticky,
+    });
+    return <div className={classes} ref={(n) => { this._container = n; }}>
       <div className={styles.Sticky_wrapper} ref={(n) => { this._bar = n; }}>
         {this.props.children}
       </div>

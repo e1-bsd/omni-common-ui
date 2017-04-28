@@ -151,7 +151,6 @@
     "rimraf": "2.5.4",
     "scroll-to-element": "^2.0.0",
     "sinon": "^2.0.0",
-    "stickybits": "^1.2.8",
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",
     "stylelint-config-standard": "14.0.0",
