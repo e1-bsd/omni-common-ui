@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - '6.9'
+cache: yarn
 
 addons:
   firefox: 'latest'
@@ -17,7 +18,7 @@ before_install:
   - npm install -g cnpm
 
 install:
-  - yarn
+  - yarn --prefer-offline
 
 script:
   - yarn run lint:css
