@@ -11,7 +11,7 @@ export const CLEAR_IMPERSONATE_DATA = 'CLEAR_IMPERSONATE_DATA';
 
 export function postImpersonate(email, token) {
   return (dispatch) => {
-    const url = _getTokenEndPoint();
+    const url = getTokenEndPoint();
     const method = 'POST';
 
     dispatch(postImpersonateRequest()).payload
@@ -58,17 +58,18 @@ export function postImpersonate(email, token) {
         error,
         url,
         method,
+        disableDefault: true,
       });
     }
   };
 
-  function _getTokenEndPoint() {
-    return userManager.settings._metadata.token_endpoint;
-  }
-
   function _getSingleSingOnScope() {
     return userManager.settings._scope;
   }
+}
+
+export function getTokenEndPoint() {
+  return userManager.settings._metadata.token_endpoint;
 }
 
 export function clearImpersonateData() {
