@@ -17,6 +17,7 @@ export class Sticky extends Component {
   componentDidMount() {
     window.addEventListener('wheel', this._onWheel);
     window.addEventListener('touchmove', this._onWheel);
+    window.addEventListener('scroll', this._onWheel);
   }
 
   componentDidUpdate() {
@@ -27,6 +28,7 @@ export class Sticky extends Component {
     this._stopPeriodicCheck();
     window.removeEventListener('wheel', this._onWheel);
     window.removeEventListener('touchmove', this._onWheel);
+    window.removeEventListener('scroll', this._onWheel);
   }
 
   _onWheel() {
