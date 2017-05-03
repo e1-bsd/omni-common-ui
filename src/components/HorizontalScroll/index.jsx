@@ -68,7 +68,6 @@ class HorizontalScroll extends PureComponent {
     return <div className={classnames(styles.HorizontalScroll, className)}>
       <ReactIScroll className={iScrollClasses}
           iScroll={iScroll}
-          defer={false}
           options={baseOptions}
           ref={(node) => { this.hostNode = node; }}
           onBeforeScrollStart={this._onBeforeScrollStart}
