@@ -80,9 +80,11 @@ class DropdownBox extends PureComponent {
     return <CSSTransitionGroup transitionName="dropdown">
       {
         open === true &&
-        <div className={classnames(styles.DropdownBox, className)}
-            ref={smartPosition && this._onRef}>
-          {React.Children.toArray(children).filter((child) => child.type === DropdownBoxItem)}
+        <div className={styles.DropdownBox_transitionWrapper}>
+          <div className={classnames(styles.DropdownBox, className)}
+              ref={smartPosition && this._onRef}>
+            {React.Children.toArray(children).filter((child) => child.type === DropdownBoxItem)}
+          </div>
         </div>
       }
     </CSSTransitionGroup>;
