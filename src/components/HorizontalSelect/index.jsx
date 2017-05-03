@@ -9,6 +9,10 @@ class HorizontalSelect extends Component {
   constructor(props) {
     super();
     this.state = { value: props.value };
+    this.scrollToElement = {
+      selector: `.${styles.HorizontalSelect_option_active}`,
+      duration: 1000,
+    };
   }
 
   _onOptionSelect(value) {
@@ -19,7 +23,8 @@ class HorizontalSelect extends Component {
 
   render() {
     const { options } = this.props;
-    return <HorizontalScroll className={styles.HorizontalSelect}>
+    return <HorizontalScroll className={styles.HorizontalSelect}
+        scrollToElement={this.scrollToElement}>
       <div className={styles.HorizontalSelect_options_wrapper}>
         {
           options.map((option) => {
