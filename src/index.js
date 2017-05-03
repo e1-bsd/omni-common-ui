@@ -44,6 +44,7 @@ import _SelectionTable from 'components/SelectionTable';
 import _Icon from 'components/Icon';
 import _Person from 'components/Person';
 import _HorizontalScroll from 'components/HorizontalScroll';
+import _HorizontalSelect from 'components/HorizontalSelect';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
@@ -93,3 +94,4 @@ export const SelectionTable = _SelectionTable;
 export const Icon = _Icon;
 export const Person = _Person;
 export const HorizontalScroll = _HorizontalScroll;
+export const HorizontalSelect = _HorizontalSelect;

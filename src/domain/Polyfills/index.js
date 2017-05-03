@@ -1,6 +1,5 @@
 import values from 'object.values';
 import entries from 'object.entries';
-import './Sticky';
 
 const bindPolyfills = () => {
   if (! Object.values) {

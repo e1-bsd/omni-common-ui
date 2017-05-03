@@ -1,14 +1,25 @@
 @import 'main.postcss';
 
 .Sticky {
-  top: 0;
-  z-index: var(--zIndex-7--stickyNavBar);
+  &_placeholder {
+    display: none;
+    visibility: hidden;
+  }
 
-  &:global(.fixedsticky-on) {
-    width: 100%;
+  &.__sticky {
+    & .Sticky_wrapper {
+      position: fixed !important;
+      top: 0;
+      width: 100%;
+      z-index: var(--zIndex-7--stickyNavBar);
 
-    @media (--md-viewport-new) {
-      width: calc(100% - var(--sidebarWidth));
+      @media (--md-viewport-new) {
+        width: calc(100% - var(--sidebarWidth));
+      }
+    }
+
+    & .Sticky_placeholder {
+      display: block;
     }
   }
 }

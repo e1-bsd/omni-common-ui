@@ -7,13 +7,15 @@ import Card from 'components/Card';
 import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 import Person from 'components/Person';
+import testClass from 'domain/testClass';
 
-const Profile = (props, { withSeparatorLine, backgroundless }) => {
+const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
   const { status, statusHighlighted } = props;
   const classes = classnames(styles.StudentCard_profile,
       styles.__1, {
         [styles.__separated]: withSeparatorLine,
         [styles.__backgroundless]: backgroundless,
+        [styles.__vertical]: vertical,
       }, props.className);
 
   const renderName = (prop, name, nameClasses) => {
@@ -28,16 +30,27 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
     }
     return name;
   };
+  const nameClass = classnames(styles.StudentCard_profile_name,
+    testClass('studentCard-name'),
+    { [styles.__vertical]: vertical }
+  );
+  const localNameClass = classnames(styles.StudentCard_profile_localName,
+    testClass('studentCard-localName'),
+    { [styles.__vertical]: vertical }
+  );
+  const statusClass = classnames(styles.StudentCard_profile_status,
+    testClass('studentCard-status'));
   return <Card.Content withoutBottomPadding>
-    <Person className={classes}>
+    <Person className={classes} vertical={vertical}>
       <StudentPicture src={props.avatarUrl}
           gender={props.gender}
           className={classnames(styles.StudentCard_profile_image, {
             [styles.__bigger]: !! props.withBiggerAvatar,
+            [styles.__vertical]: vertical,
           })} />
-      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, styles.StudentCard_profile_name)}
-      {renderName('localName', props.localName, styles.StudentCard_profile_localName)}
-      <ProductionStatus className={styles.StudentCard_profile_status}
+      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, nameClass)}
+      {renderName('localName', props.localName, localNameClass)}
+      <ProductionStatus className={statusClass}
           status={status}
           highlighted={statusHighlighted} />
     </Person>
@@ -47,6 +60,7 @@ const Profile = (props, { withSeparatorLine, backgroundless }) => {
 Profile.contextTypes = {
   backgroundless: React.PropTypes.bool,
   withSeparatorLine: React.PropTypes.bool,
+  vertical: React.PropTypes.bool,
 };
 
 Profile.propTypes = {

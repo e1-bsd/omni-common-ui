@@ -1,0 +1,25 @@
+@import 'main.postcss';
+
+.HorizontalSelect {
+  &_options_wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    user-select: none;
+    width: fit-content;
+  }
+
+  &_option {
+    @mixin cardbg;
+    @mixin cardshadow;
+
+    border: 1px solid var(--colorBorder);
+    margin-right: 10px;
+    min-height: 100px;
+    min-width: 100px;
+
+    &_active {
+      background-color: var(--colorTableLayer2);
+      border-bottom: 6px solid var(--colorActive);
+    }
+  }
+}

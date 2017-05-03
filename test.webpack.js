@@ -7,5 +7,5 @@ bindPolyfills();
 
 chai.use(chaiEnzyme());
 
-const appDirTests = require.context('./src', true, /\.?spec\.jsx?$/);
+const appDirTests = require.context('./src', true, /\.jsx?$/);
 appDirTests.keys().forEach(appDirTests);

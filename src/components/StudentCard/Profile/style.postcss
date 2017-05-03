@@ -37,12 +37,25 @@
       max-width: var(--biggerModeImageSize);
       width: var(--biggerModeImageSize);
     }
+
+    &.__vertical {
+      align-self: center;
+      height: var(--imageSize);
+      margin-bottom: 10px;
+      max-width: var(--imageSize);
+      width: var(--imageSize);
+    }
   }
 
   &_name,
   &_localName {
     overflow: hidden;
     white-space: nowrap;
+
+    &.__vertical {
+      align-items: center;
+      line-height: 16px;
+    }
   }
 
   &_localName {
@@ -56,5 +69,9 @@
 
   &_status {
     /* ... */
+  }
+
+  &.__vertical {
+    flex-direction: column;
   }
 }

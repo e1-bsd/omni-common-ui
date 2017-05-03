@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Link from './Link';
 import is from 'is_js';
 import { OrderedMap, List, Map } from 'immutable';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
 import Icon from 'components/Icon';
@@ -144,9 +144,9 @@ class Sidebar extends Component {
         onClick={onClickBar}
         style={{ backgroundColor: this._color }}
         ref={(c) => { this._node = c; }}>
-      <ReactCSSTransitionGroup transitionName="sidebar">
+      <CSSTransitionGroup transitionName="sidebar">
         {expanded === true && this._renderExpanded()}
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     </div>;
   }
 }

@@ -30,7 +30,7 @@
     {{> assets/partials/pace/styles }}
 
     {{#if htmlWebpackPlugin.options.isProd }}
-      <script type="text/javascript" src="config.js"></script>
+      <script data-config-sentinel src="config.js"></script>
     {{/if}}
   </head>
   <body>

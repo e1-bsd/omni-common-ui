@@ -1,11 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 import styles from './style.postcss';
-import { actions as impersonateActions } from 'containers/Impersonate';
 import UserInfo from './UserInfo';
 import log from 'domain/log';
 import { connect } from 'domain/connect';
-import { bindActionCreators } from 'redux';
 import Icon from 'components/Icon';
 import is from 'is_js';
 import testClass from 'domain/testClass';
@@ -23,9 +21,6 @@ const Header = (props) => {
     <div className={styles.Header_logo} />
     <div className={styles.Header_wrap}>
       <UserInfo impersonate={props.impersonate}
-          setImpersonate={props.setImpersonate}
-          removeImpersonate={props.removeImpersonate}
-          unimpersonate={props.unimpersonate}
           router={props.router}
           routes={props.routes} />
     </div>
@@ -35,21 +30,26 @@ const Header = (props) => {
 Header.propTypes = {
   router: React.PropTypes.any.isRequired,
   routes: React.PropTypes.array.isRequired,
-  setImpersonate: React.PropTypes.func.isRequired,
-  removeImpersonate: React.PropTypes.func.isRequired,
-  unimpersonate: React.PropTypes.func.isRequired,
   impersonate: React.PropTypes.object,
   onHamburgerClick: React.PropTypes.func,
 };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(impersonateActions, dispatch);
+function mapStateToProps(state) {
+  const userProfile = state.get('singleSignOn').user.profile;
+  let impersonate;
+  if (! userProfile.impersonated_user_email) return { impersonate };
+
+  impersonate = {
+    email: userProfile.impersonated_user_email,
+    sub: userProfile.impersonated_user_id,
+    avatarUrl: userProfile.impersonated_user_avatar_url,
+    gender: userProfile.impersonated_user_gender,
+    name: userProfile.impersonated_user_name,
+    familyName: userProfile.impersonated_user_family_name,
+    middleName: userProfile.impersonated_user_middle_name,
+    givenName: userProfile.impersonated_user_given_name,
+  };
+  return { impersonate };
 }
 
-function mergeProps(stateProps, dispatchProps, ownProps) {
-  return Object.assign({}, ownProps, stateProps, dispatchProps, {
-    impersonate: dispatchProps.getImpersonate(),
-  });
-}
-
-export default connect(null, mapDispatchToProps, mergeProps)(Header);
+export default connect(mapStateToProps, null)(Header);

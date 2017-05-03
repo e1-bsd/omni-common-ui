@@ -9,7 +9,6 @@ const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
 
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
@@ -162,7 +161,6 @@ module.exports = {
           title: process.env.TITLE,
           isProd,
         }),
-        new Visualizer({ filename: '../package-stats.html' }),
       ])
       .concat(addOptionalPlugins()),
   devServer: {
