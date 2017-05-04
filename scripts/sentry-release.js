@@ -50,7 +50,7 @@ function uploadFiles() {
 function uploadFile(file) {
   const fileName = `~/${path.parse(file).base}`;
   return request({
-    url: `https://sentry.io/api/0/projects/e1-bsd/${sentryProject}/releases/${release}/files/`,
+    url: `https://sentry.io/api/0/projects/e1bsd/${sentryProject}/releases/${release}/files/`,
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
