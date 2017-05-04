@@ -19,7 +19,7 @@ createRelease(uploadFiles);
 
 function createRelease(after) {
   return request({
-    url: `https://sentry.io/api/0/projects/e1-bsd/${sentryProject}/releases/`,
+    url: `https://sentry.io/api/0/projects/e1bsd/${sentryProject}/releases/`,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
