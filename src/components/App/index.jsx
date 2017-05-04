@@ -59,7 +59,7 @@ class App extends Component {
   render() {
     return <div className={classnames(styles.App, testClass('app'))}>
       {
-        ! PRODUCTION &&
+        ! PRODUCTION && Config.get('performanceProfiler') === true &&
         <PerformanceProfiler />
       }
       <Header {...this.props} onHamburgerClick={(e) => this._onHamburgerClick(e)} />
