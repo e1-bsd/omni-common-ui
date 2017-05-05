@@ -73,7 +73,7 @@
     align-items: center;
     color: white;
     cursor: default;
-    display: flex;
+    display: none;
     flex: 0 1 0%;
     font-size: 15px;
     font-weight: var(--fontWeight-medium);
@@ -86,6 +86,10 @@
     white-space: nowrap;
     width: 1px; /* don't occupy layout space; content will overflow */
     will-change: opacity;
+
+    @media (--sm-viewport) {
+      display: flex;
+    }
 
     &::before {
       animation: spin 0.5s linear infinite;
@@ -111,7 +115,7 @@
   }
 
   &_button {
-    flex: 1;
+    flex: 1 1 auto;  /* INTERNET EXPLORER */
   }
 }
 
