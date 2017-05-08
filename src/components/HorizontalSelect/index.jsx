@@ -36,7 +36,18 @@ class HorizontalSelect extends PureComponent {
             return <li key={option.value}
                 className={className}>
               <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
-                  onClick={() => this._onOptionSelect(option.value)}
+                  onMouseDown={(e) => {
+                    this._startMouseX = e.screenX;
+                  }}
+                  onMouseUp={(e) => {
+                    if (this._startMouseX !== e.screenX) return;
+                    this._onOptionSelect(option.value);
+                    e.target.click();
+                  }}
+                  onClick={(e) => {
+                    if (! e.target) return true;
+                    e.preventDefault();
+                  }}
                   draggable={false}>
                 {option.html}
               </Link>
