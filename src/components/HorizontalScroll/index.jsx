@@ -29,20 +29,17 @@ class HorizontalScroll extends PureComponent {
   componentDidMount() {
     const { onScrollReady } = this.props;
     const isOnScrollReadySet = is.function(onScrollReady);
-    this._scrollToElement();
     if (isOnScrollReadySet) {
       this.hostNode.withIScroll(true, (scroll) => {
         isOnScrollReadySet && onScrollReady(scroll);
       });
     }
+    this._scrollToElement();
   }
 
-  shouldComponentUpdate(nextProps, { isScrolling }) {
-    if (isScrolling !== this.state.isScrolling) return false;
-    return true;
-  }
-
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    // if update was a user scroll don't do the auto scroll to element
+    if (this.state.isScrolling !== prevState.isScrolling) return;
     this._scrollToElement();
   }
 
