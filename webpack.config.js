@@ -142,7 +142,6 @@ module.exports = {
           PRODUCTION: isProd,
           VERSION: `'${version}'`,
           COMMIT: `'${commitHash}'`,
-          SENTRY_ENV: `'${nodeEnv}'`,
         }),
       ]).concat(! isProd ?
         [
