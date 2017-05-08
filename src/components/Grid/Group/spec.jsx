@@ -5,9 +5,19 @@ import Group from './';
 import Item from '../Item';
 
 describe('Grid', () => {
+  let options;
+
+  beforeEach(() => {
+    options = { context: { grid: {} } };
+  });
+
   describe('Group', () => {
     describe('when it has one child', () => {
-      const wrapper = shallow(<Group><div id="child" /></Group>);
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = shallow(<Group><div id="child" /></Group>, options);
+      });
 
       it('renders it', () => {
         expect(wrapper.contains(<div id="child" />)).to.be.true;
@@ -18,16 +28,17 @@ describe('Grid', () => {
       });
 
       it('wraps it only if it is not an Item', () => {
-        shallow(<Group><Item><div id="child" /></Item></Group>);
+        shallow(<Group><Item><div id="child" /></Item></Group>, options);
         expect(wrapper.find(Item)).to.have.length(1);
       });
     });
 
     describe('when it has several children', () => {
-      const wrapper = shallow(<Group>
-        <div id="child1" />
-        <div id="child2" />
-      </Group>);
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = shallow(<Group><div id="child1" /><div id="child2" /></Group>, options);
+      });
 
       it('renders them', () => {
         expect(wrapper.contains(<div id="child1" />)).to.be.true;
@@ -42,7 +53,7 @@ describe('Grid', () => {
         shallow(<Group>
           <div id="child1" />
           <Item><div id="child2" /></Item>
-        </Group>);
+        </Group>, options);
         expect(wrapper.find(Item)).to.have.length(2);
       });
     });

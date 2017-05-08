@@ -1,4 +1,3 @@
-import grid from '../grid.postcss';
 import styles from './style.postcss';
 
 import React from 'react';
@@ -6,7 +5,7 @@ import Item from '../Item';
 import is from 'is_js';
 import classnames from 'classnames';
 
-const Group = (props) => {
+const Group = (props, { grid }) => {
   return <div className={classnames(grid.row, styles.Group)}>
     {buildChildren()}
   </div>;
@@ -34,6 +33,10 @@ const Group = (props) => {
 
 Group.propTypes = {
   children: React.PropTypes.node,
+};
+
+Group.contextTypes = {
+  grid: React.PropTypes.object,
 };
 
 export default Group;

@@ -1,1 +1,18 @@
-.Grid { /* ... */ }
+@import 'main.postcss';
+
+.Grid {
+  &:not(.__outerMargin) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.__outerMargin {
+    padding-bottom: var(--spaceBase);
+    padding-top: var(--spaceBase);
+
+    @media (--md-viewport-new) {
+      padding-bottom: var(--spaceBaseLgViewport);
+      padding-top: var(--spaceBaseLgViewport);
+    }
+  }
+}

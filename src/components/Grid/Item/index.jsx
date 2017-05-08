@@ -1,10 +1,9 @@
-import grid from '../grid.postcss';
 import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
 
-const Item = (props) => {
+const Item = (props, { grid }) => {
   let { xs } = props;
   const { sm, md, lg } = props;
 
@@ -28,6 +27,10 @@ Item.propTypes = {
   sm: React.PropTypes.number,
   md: React.PropTypes.number,
   lg: React.PropTypes.number,
+};
+
+Item.contextTypes = {
+  grid: React.PropTypes.object,
 };
 
 export default Item;
