@@ -6,7 +6,6 @@ import HorizontalScroll from '../HorizontalScroll';
 import classnames from 'classnames';
 
 class HorizontalSelect extends PureComponent {
-
   constructor(props) {
     super();
     this.state = { value: props.value };
@@ -14,6 +13,48 @@ class HorizontalSelect extends PureComponent {
       selector: `.${styles.HorizontalSelect_option_active}`,
       duration: 1000,
     };
+
+    // this collection of goodies will prevent `onclick` firing after a drag
+    this._onMouseDown = (e) => {
+      this._startMouseX = e.screenX;
+    };
+    this._onMouseUp = (option, e) => {
+      if (this._startMouseX !== e.screenX) return;
+      this._onOptionSelect(option.value);
+      e.target.click();
+    };
+    this._onClick = (e) => {
+      if (e.screenX === 0) return true;  // manually fired above
+      e.preventDefault();
+    };
+  }
+
+  componentWillMount() {
+    this._buildOptions();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._buildOptions(nextProps);
+  }
+
+  _buildOptions(props = this.props) {
+    const { options, getLinkHrefForValue } = props;
+    this._options = options.map((option) => {
+      const className = classnames(styles.HorizontalSelect_option, {
+        [styles.HorizontalSelect_option_active]: option.value === this.state.value,
+      });
+      option._onMouseUp = this._onMouseUp.bind(null, option);  // eslint-disable-line
+      return <li key={option.value}
+          className={className}>
+        <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
+            onMouseDown={this._onMouseDown}
+            onMouseUp={option._onMouseUp}
+            onClick={this._onClick}
+            draggable={false}>
+          {option.html}
+        </Link>
+      </li>;
+    });
   }
 
   _onOptionSelect(value) {
@@ -24,36 +65,10 @@ class HorizontalSelect extends PureComponent {
   }
 
   render() {
-    const { options, getLinkHrefForValue } = this.props;
     return <HorizontalScroll className={styles.HorizontalSelect}
         scrollToElement={this.scrollToElement}>
       <ul className={styles.HorizontalSelect_options_wrapper}>
-        {
-          options.map((option) => {
-            const className = classnames(styles.HorizontalSelect_option, {
-              [styles.HorizontalSelect_option_active]: option.value === this.state.value,
-            });
-            return <li key={option.value}
-                className={className}>
-              <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
-                  onMouseDown={(e) => {
-                    this._startMouseX = e.screenX;
-                  }}
-                  onMouseUp={(e) => {
-                    if (this._startMouseX !== e.screenX) return;
-                    this._onOptionSelect(option.value);
-                    e.target.click();
-                  }}
-                  onClick={(e) => {
-                    if (! e.target) return true;
-                    e.preventDefault();
-                  }}
-                  draggable={false}>
-                {option.html}
-              </Link>
-            </li>;
-          })
-        }
+        {this._options}
       </ul>
     </HorizontalScroll>;
   }
