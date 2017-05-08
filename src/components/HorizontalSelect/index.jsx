@@ -1,11 +1,11 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
 import HorizontalScroll from '../HorizontalScroll';
 import classnames from 'classnames';
 
-class HorizontalSelect extends Component {
+class HorizontalSelect extends PureComponent {
 
   constructor(props) {
     super();
