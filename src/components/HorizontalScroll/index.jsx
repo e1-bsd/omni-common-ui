@@ -27,21 +27,37 @@ class HorizontalScroll extends PureComponent {
   }
 
   componentDidMount() {
-    const { onScrollReady, scrollToElement } = this.props;
+    const { onScrollReady } = this.props;
     const isOnScrollReadySet = is.function(onScrollReady);
-    const isScrollToElementSet = is.object(scrollToElement);
-    if (isOnScrollReadySet || isScrollToElementSet) {
+    this._scrollToElement();
+    if (isOnScrollReadySet) {
       this.hostNode.withIScroll(true, (scroll) => {
         isOnScrollReadySet && onScrollReady(scroll);
-        if (isScrollToElementSet) {
-          const { selector, duration, offsetX, offsetY, easing } = scrollToElement;
-          scroll.scrollToElement(
-              selector,
-              duration,
-              is.number(offsetX) ? offsetX : true,
-              is.number(offsetY) ? offsetY : true,
-              easing);
-        }
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, { isScrolling }) {
+    if (isScrolling !== this.state.isScrolling) return false;
+    return true;
+  }
+
+  componentDidUpdate() {
+    this._scrollToElement();
+  }
+
+  _scrollToElement() {
+    const { scrollToElement } = this.props;
+    const isScrollToElementSet = is.object(scrollToElement);
+    if (isScrollToElementSet) {
+      this.hostNode.withIScroll(true, (scroll) => {
+        const { selector, duration, offsetX, offsetY, easing } = scrollToElement;
+        scroll.scrollToElement(
+            selector,
+            duration,
+            is.number(offsetX) ? offsetX : true,
+            is.number(offsetY) ? offsetY : true,
+            easing);
       });
     }
   }
