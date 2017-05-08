@@ -1,4 +1,4 @@
-import Raven from 'raven-js';
+import buildLogToRaven from './buildLogToRaven';
 
 const methods = ['error', 'info', 'log', 'warn', 'debug'];
 const log = Object.freeze(methods.reduce((object, method) => {
@@ -7,29 +7,12 @@ const log = Object.freeze(methods.reduce((object, method) => {
 }, {}));
 
 function buildLogMethod(method) {
+  if (! PRODUCTION) {
+    return console[method]; // eslint-disable-line no-console
+  }
+
   const logToRaven = buildLogToRaven(method);
-  if ((! PRODUCTION || method === 'error') && console && console[method]) { // eslint-disable-line no-console
-    return (...args) => {
-      logToRaven(...args);
-      console[method](...args); // eslint-disable-line no-console
-    };
-  }
-
   return (...args) => logToRaven(...args);
-}
-
-function buildLogToRaven(level) {
-  if (level === 'error') {
-    return (message) => {
-      if (message instanceof Error) {
-        Raven.captureException(message, { level });
-      } else {
-        Raven.captureMessage(message, { level });
-      }
-    };
-  }
-
-  return (message) => Raven.captureBreadcrumb({ message, level: level === 'warn' ? level : 'info' });
 }
 
 export default log;
