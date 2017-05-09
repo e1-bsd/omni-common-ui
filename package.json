@@ -139,7 +139,6 @@
     "react-select": "^1.0.0-rc.3",
     "react-transform-hmr": "1.0.4",
     "react-transition-group": "^1.1.2",
-    "reactable": "0.13.2",
     "recompose": "^0.22.0",
     "recursive-readdir": "^2.1.0",
     "redux": "3.6.0",

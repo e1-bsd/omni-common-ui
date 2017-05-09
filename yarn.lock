@@ -8650,10 +8650,6 @@ react@^15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.7"
 
-reactable@0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/reactable/-/reactable-0.13.2.tgz#caa8e01a28f14b4f8d0e4d3fc7c6adf52d5fd9de"
-
 read-all-stream@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/read-all-stream/-/read-all-stream-3.1.0.tgz#35c3e177f2078ef789ee4bfafa4373074eaef4fa"
