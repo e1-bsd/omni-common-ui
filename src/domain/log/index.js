@@ -1,10 +1,11 @@
 import buildLogToRaven from './buildLogToRaven';
 
+class log {}
 const methods = ['error', 'info', 'log', 'warn', 'debug'];
-const log = Object.freeze(methods.reduce((object, method) => {
-  object[method] = buildLogMethod(method); // eslint-disable-line no-param-reassign
-  return object;
-}, {}));
+
+methods.forEach((method) => {
+  log[method] = buildLogMethod(method); // eslint-disable-line no-param-reassign
+});
 
 function buildLogMethod(method) {
   if (! PRODUCTION) {
