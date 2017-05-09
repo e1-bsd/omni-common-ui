@@ -202,7 +202,11 @@ module.exports = {
 };
 
 function getSourceMapType() {
-  return 'hidden-source-map';
+  if (isProd) {
+    return 'hidden-source-map';
+  }
+
+  return 'inline-source-map';
 }
 
 function addOptionalPlugins() {
