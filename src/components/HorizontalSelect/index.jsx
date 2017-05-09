@@ -27,48 +27,37 @@ class HorizontalSelect extends PureComponent {
       if (e.screenX === 0) return true;  // manually fired above
       e.preventDefault();
     };
-  }
-
-  componentWillMount() {
-    this._buildOptions();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._buildOptions(nextProps);
-  }
-
-  _buildOptions(props = this.props) {
-    const { options, getLinkHrefForValue } = props;
-    this._options = options.map((option) => {
-      const className = classnames(styles.HorizontalSelect_option, {
-        [styles.HorizontalSelect_option_active]: option.value === this.state.value,
+    this._onOptionSelect = (value) => {
+      this.setState({ value }, () => {
+        this.props.onSelect &&
+          this.props.onSelect(value);
       });
-      option._onMouseUp = this._onMouseUp.bind(null, option);  // eslint-disable-line
-      return <li key={option.value}
-          className={className}>
-        <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
-            onMouseDown={this._onMouseDown}
-            onMouseUp={option._onMouseUp}
-            onClick={this._onClick}
-            draggable={false}>
-          {option.html}
-        </Link>
-      </li>;
-    });
-  }
-
-  _onOptionSelect(value) {
-    this.setState({ value }, () => {
-      this.props.onSelect &&
-        this.props.onSelect(value);
-    });
+    };
   }
 
   render() {
+    const { options, getLinkHrefForValue } = this.props;
     return <HorizontalScroll className={styles.HorizontalSelect}
         scrollToElement={this.scrollToElement}>
       <ul className={styles.HorizontalSelect_options_wrapper}>
-        {this._options}
+        {
+          options.map((option) => {
+            const className = classnames(styles.HorizontalSelect_option, {
+              [styles.HorizontalSelect_option_active]: option.value === this.state.value,
+            });
+            option._onMouseUp = this._onMouseUp.bind(null, option);  // eslint-disable-line
+            return <li key={option.value}
+                className={className}>
+              <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
+                  draggable={false}
+                  onMouseDown={this._onMouseDown}
+                  onMouseUp={option._onMouseUp}
+                  onClick={this._onClick}>
+                {option.html}
+              </Link>
+            </li>;
+          })
+        }
       </ul>
     </HorizontalScroll>;
   }
