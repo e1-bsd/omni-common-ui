@@ -14,7 +14,7 @@ class HorizontalSelectShowcase extends Component {
 
   _getOptionHtml(index) {
     const className = styles.HorizontalSelectShowcase_options;
-    return <StudentCard vertical boderless backgroundless className={className}>
+    return <StudentCard vertical borderless backgroundless className={className}>
       <StudentCard.Profile name="Hello"
           surname={index}
           localName="王呆呆"
