@@ -8,7 +8,11 @@ const log = Object.freeze(methods.reduce((object, method) => {
 
 function buildLogMethod(method) {
   if (! PRODUCTION) {
-    return console[method]; // eslint-disable-line no-console
+    /* eslint-disable no-console */
+    return (console && console[method]) ?
+        console[method] :
+        () => {};
+    /* eslint-enable no-console */
   }
 
   const logToRaven = buildLogToRaven(method);
