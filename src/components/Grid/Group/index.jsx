@@ -2,7 +2,6 @@ import styles from './style.postcss';
 
 import React from 'react';
 import Item from '../Item';
-import is from 'is_js';
 import classnames from 'classnames';
 
 const Group = (props, { grid }) => {
