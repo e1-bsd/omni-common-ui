@@ -97,6 +97,11 @@
 
       &:hover {
         background-color: var(--colorTableLayer2);
+
+        /* suppress hover highlight on mobile devices */
+        @media (hover: none), (hover: on-demand) {
+          @mixin cardbg;
+        }
       }
     }
   }
