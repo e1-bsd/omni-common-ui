@@ -9,11 +9,13 @@ methods.forEach((method) => {
 
 function buildLogMethod(method) {
   if (! PRODUCTION) {
-    /* eslint-disable no-console */
-    return (console && console[method]) ?
-        console[method] :
-        () => {};
-    /* eslint-enable no-console */
+    return (...args) => {
+      /* eslint-disable no-console */
+      if (window.console && window.console[method]) {
+        return window.console[method](...args);
+      }
+      /* eslint-enable no-console */
+    };
   }
 
   const logToRaven = buildLogToRaven(method);
