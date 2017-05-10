@@ -81,6 +81,7 @@ class Button extends Component {
     // case: link to route via `linkTo`
     if (is.existy(props.linkTo)) {
       return <Link to={props.linkTo}
+          draggable={false}
           className={classnames(styles.ButtonLink, modeClasses, props.className)}
           onClick={() => { this._setActiveClassOnClick(); }}>
         {this._renderButton(type, modeClasses)}
