@@ -11,6 +11,8 @@ const wasLeftMouseButtonPressed = (e = window.event) => {
   return button === 1;
 };
 
+const movementLimit = 10;
+
 class HorizontalSelect extends PureComponent {
   constructor(props) {
     super();
@@ -26,7 +28,8 @@ class HorizontalSelect extends PureComponent {
       this._startMouseX = e.screenX;
     };
     this._onClick = (option, e) => {
-      if (this._startMouseX && this._startMouseX !== e.screenX) {
+      const movement = Math.abs(this._startMouseX - e.screenX);
+      if (this._startMouseX && movement > movementLimit) {
         // x-axis drag happened; block click
         e.preventDefault();
         return false;
