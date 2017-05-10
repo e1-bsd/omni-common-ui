@@ -42,6 +42,9 @@ class HorizontalSelect extends PureComponent {
 
   render() {
     const { options, getLinkHrefForValue } = this.props;
+    if (! is.existy(options) || options.length === 0) {
+      return null;
+    }
     return <div className={styles.HorizontalSelect_wrap}>
       <HorizontalScroll className={styles.HorizontalSelect}
           innerClassName={styles.HorizontalSelect_scroller}
@@ -79,6 +82,7 @@ HorizontalSelect.propTypes = {
     React.PropTypes.shape({
       html: React.PropTypes.node,
       value: React.PropTypes.string,
+      className: React.PropTypes.string,
     })).isRequired,
   value: React.PropTypes.string,
   getLinkHrefForValue: React.PropTypes.func.isRequired,
