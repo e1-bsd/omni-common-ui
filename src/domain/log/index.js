@@ -11,8 +11,8 @@ function buildLogMethod(method) {
   if (! PRODUCTION) {
     return (...args) => {
       /* eslint-disable no-console */
-      if (window.console && window.console[method]) {
-        return window.console[method](...args);
+      if (window.console && console[method]) {
+        return console[method](...args);
       }
       /* eslint-enable no-console */
     };
