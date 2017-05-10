@@ -2,8 +2,9 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
-import HorizontalScroll from '../HorizontalScroll';
 import classnames from 'classnames';
+import is from 'is_js';
+import HorizontalScroll from '../HorizontalScroll';
 
 const wasLeftMouseButtonPressed = (e = window.event) => {
   const button = e.which || e.button;
@@ -82,7 +83,6 @@ HorizontalSelect.propTypes = {
     React.PropTypes.shape({
       html: React.PropTypes.node,
       value: React.PropTypes.string,
-      className: React.PropTypes.string,
     })).isRequired,
   value: React.PropTypes.string,
   getLinkHrefForValue: React.PropTypes.func.isRequired,
