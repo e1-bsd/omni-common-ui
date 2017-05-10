@@ -11,7 +11,7 @@ const wasLeftMouseButtonPressed = (e = window.event) => {
   return button === 1;
 };
 
-const movementLimit = 10;
+const movementLimit = 20;
 
 class HorizontalSelect extends PureComponent {
   constructor(props) {
