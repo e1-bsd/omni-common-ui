@@ -31,6 +31,14 @@ describe('Grid', () => {
         shallow(<Group><Item><div id="child" /></Item></Group>, options);
         expect(wrapper.find(Item)).to.have.length(1);
       });
+
+      it('does not crash if no children are provided', () => {
+        expect(() => shallow(<Group />, options)).to.not.throw();
+      });
+
+      it('does not crash if an invalid child is provided', () => {
+        expect(() => shallow(<Group><div />{null}</Group>, options)).to.not.throw();
+      });
     });
 
     describe('when it has several children', () => {

@@ -11,18 +11,14 @@ const Group = (props, { grid }) => {
   </div>;
 
   function buildChildren() {
-    if (is.not.existy(props.children)) {
-      return;
-    }
-
-    if (is.not.function(props.children.map)) {
-      return wrapChildIfNeeded(props.children);
-    }
-
-    return props.children.map(wrapChildIfNeeded);
+    return React.Children.map(props.children, wrapChildIfNeeded);
   }
 
   function wrapChildIfNeeded(child) {
+    if (! child) {
+      return null;
+    }
+
     if (child.type === Item) {
       return child;
     }
