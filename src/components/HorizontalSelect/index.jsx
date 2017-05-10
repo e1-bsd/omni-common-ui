@@ -19,20 +19,18 @@ class HorizontalSelect extends PureComponent {
       duration: 1000,
     };
 
-    // this collection of goodies will prevent `onclick` firing after a drag
+    // this collection of goodies will prevent `onclick` firing after an x-axis drag
     this._onMouseDown = (e) => {
       if (! wasLeftMouseButtonPressed(e.nativeEvent)) return;
       this._startMouseX = e.screenX;
     };
-    this._onMouseUp = (option, e) => {
-      if (! wasLeftMouseButtonPressed(e.nativeEvent)) return;
-      if (this._startMouseX !== e.screenX) return;
+    this._onClick = (option, e) => {
+      if (this._startMouseX && this._startMouseX !== e.screenX) {
+        // x-axis drag happened; block click
+        e.preventDefault();
+        return false;
+      }
       this._onOptionSelect(option.value);
-      e.target.click();
-    };
-    this._onClick = (e) => {
-      if (e.screenX === 0) return;  // manually fired above
-      e.preventDefault();
     };
     this._onOptionSelect = (value) => {
       this.setState({ value }, () => {
@@ -55,14 +53,15 @@ class HorizontalSelect extends PureComponent {
                 const className = classnames(styles.HorizontalSelect_option, {
                   [styles.HorizontalSelect_option_active]: option.value === this.state.value,
                 });
-                option._onMouseUp = this._onMouseUp.bind(null, option);  // eslint-disable-line
+                if (! option._onClick) {
+                  option._onClick = this._onClick.bind(null, option);  // eslint-disable-line
+                }
                 return <li key={option.value}
                     className={className}>
                   <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
                       draggable={false}
                       onMouseDown={this._onMouseDown}
-                      onMouseUp={option._onMouseUp}
-                      onClick={this._onClick}>
+                      onClick={option._onClick}>
                     {option.html}
                   </Link>
                 </li>;
