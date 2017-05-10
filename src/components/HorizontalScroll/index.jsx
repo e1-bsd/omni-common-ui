@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import is from 'is_js';
 
 const baseOptions = {
+  deceleration: 0.01,
   bounce: false,
   scrollX: true,
   scrollY: false,
