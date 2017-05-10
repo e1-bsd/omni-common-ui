@@ -19,7 +19,8 @@ class HorizontalSelect extends PureComponent {
     this.state = { value: props.value };
     this.scrollToElement = {
       selector: `.${styles.HorizontalSelect_option_active}`,
-      duration: 1000,
+      duration: 300,
+      easing: { style: 'ease-in-out' },
     };
 
     // this collection of goodies will prevent `onclick` firing after an x-axis drag
