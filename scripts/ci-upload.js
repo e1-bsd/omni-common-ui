@@ -16,7 +16,7 @@ const options = require('command-line-args')([
   { name: 'env', alias: 'e', type: String },
 ]);
 
-const ZIP_OPTS = { level: 9, maxiterations: 8 };
+const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 10;
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
 const TEMP_FILE_PREFIX = 'omniupload';
