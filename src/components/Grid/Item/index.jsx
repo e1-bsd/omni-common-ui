@@ -5,13 +5,14 @@ import classnames from 'classnames';
 
 const Item = (props, { grid }) => {
   let { xs } = props;
-  const { sm, md, lg } = props;
+  const { sm, md, lg, className } = props;
 
   if (! xs) {
     xs = 12;
   }
 
   const classes = classnames(styles.Item,
+      className,
       { [grid[`col-xs-${xs}`]]: !! xs },
       { [grid[`col-sm-${sm}`]]: !! sm },
       { [grid[`col-md-${md}`]]: !! md },
@@ -27,6 +28,7 @@ Item.propTypes = {
   sm: React.PropTypes.number,
   md: React.PropTypes.number,
   lg: React.PropTypes.number,
+  className: React.PropTypes.string,
 };
 
 Item.contextTypes = {

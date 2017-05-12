@@ -40,6 +40,7 @@ class Grid extends PureComponent {
   render() {
     const classes = classnames(this.state.grid['container-fluid'],
         styles.Grid,
+        this.props.className,
         { [styles.__outerMargin]: this.props.outerMargin });
     return <div className={classes}>
       {this.props.children}
@@ -50,6 +51,7 @@ class Grid extends PureComponent {
 Grid.propTypes = {
   children: React.PropTypes.node,
   outerMargin: React.PropTypes.bool,
+  className: React.PropTypes.string,
 };
 
 Grid.childContextTypes = {

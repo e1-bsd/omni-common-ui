@@ -3,7 +3,7 @@ import Item from '../Item';
 import classnames from 'classnames';
 
 const Group = (props, { grid }) => {
-  return <div className={classnames(grid.row)}>
+  return <div className={classnames(grid.row, props.className)}>
     {buildChildren()}
   </div>;
 
@@ -26,6 +26,7 @@ const Group = (props, { grid }) => {
 
 Group.propTypes = {
   children: React.PropTypes.node,
+  className: React.PropTypes.string,
 };
 
 Group.contextTypes = {
