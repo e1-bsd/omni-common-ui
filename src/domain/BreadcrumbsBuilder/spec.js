@@ -39,6 +39,7 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
       expect(result).to.be.eql(expectedItems);
@@ -58,10 +59,12 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }, {
         label: 'Members',
         href: '/group/:groupId/dashboard/members',
         clickable: false,
+        hidden: false,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
       expect(result).to.be.eql(expectedItems);
@@ -79,14 +82,17 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Home',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }, {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
+        hidden: false,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
       expect(result).to.be.eql(expectedItems);
@@ -107,10 +113,12 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group 10',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
+        hidden: false,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
       expect(result).to.be.eql(expectedItems);
@@ -129,20 +137,24 @@ describe('BreadcrumbsBuilder', () => {
           label: 'Members',
           href: '/group/:groupId/members',
           clickable: false,
+          hidden: true,
         }, 'Edit'],
       }];
       expectedItems = [{
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
+        hidden: false,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
+        hidden: true,
       }, {
         label: 'Edit',
         href: '/group/:groupId/members/edit',
         clickable: false,
+        hidden: false,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
       expect(result).to.be.eql(expectedItems);
