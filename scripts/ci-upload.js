@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 
 const AWS = require('aws-sdk');
-const { priorityQueue } = require('async');
+const { queue } = require('async');
+const invariant = require('invariant');
 const path = require('path');
 const fs = require('fs');
 const mime = require('mime');
@@ -14,38 +15,59 @@ const execOrExit = require('./execOrExit');
 
 const options = require('command-line-args')([
   { name: 'env', alias: 'e', type: String },
+  { name: 'dry', alias: 'd', type: Boolean },  // dry run - no S3 upload
 ]);
 
 const ZIP_OPTS = { level: 9 };
-const QUEUE_CONCURRENCY = 10;
+const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
 const TEMP_FILE_PREFIX = 'omniupload';
 
 const config = require(path.resolve(`ci/${options.env}.json`)); // eslint-disable-line import/no-dynamic-require
 const isProductionEnv = options.env.startsWith('staging') || options.env.startsWith('production');
+const compressionAlgo = isProductionEnv ? 'zopfli' : 'zlib';
 
 if (config.region) {
   AWS.config.update({ region: config.region });
 }
 
 execOrExit(`yarn run omni-set-up-config -- --config ${options.env}`);
-console.log(`Upload to S3 (${options.env}) is starting…`);
+console.log(`Upload to S3 (${options.env}) is starting…\n`);
+options.dry && console.log('DRY RUN! No upload will actually happen.\n');
+isProductionEnv &&
+    console.log(`This production build will use ${compressionAlgo}, which is slower to compress!\n`);
 
-const buildQueue = priorityQueue(copyWorker, QUEUE_CONCURRENCY);
-const uploadQueue = priorityQueue(uploadWorker, QUEUE_CONCURRENCY);
-
+const copyQueue = queue(copyWorker, QUEUE_CONCURRENCY);
+const uploadQueue = queue(uploadWorker, QUEUE_CONCURRENCY);
 const absoluteFolder = path.resolve('dist');
+
+const indexCopyTask = {  // index.html comes last
+  file: 'index.html',
+  folder: absoluteFolder,
+};
+
+let batchSize;
+
+uploadQueue.drain = () => {
+  if (copyQueue.length() || uploadQueue.length() ||
+      copyQueue.running() || uploadQueue.running()) return;  // tasks remain!
+  copyQueue.push(indexCopyTask);
+  uploadQueue.drain = () => {};
+};
+
 fs.readdir(absoluteFolder, (err, files) => {
-  files.push(files.splice(files.indexOf('index.html'), 1)[0]);
+  const index = files.splice(files.indexOf('index.html'), 1);
+  invariant(index[0] === 'index.html', 'index.html should be present');
+  batchSize = files.length + 1;
   files.forEach((file) => {
-    buildQueue.push({
+    copyQueue.push({
       file,
       folder: absoluteFolder,
-    }, getQueuePriorityForFile(file), (_err) => {
+    }, (_err) => {
       if (_err) {
         console.error(colors.red('Error!'), file, _err);
         process.exit(1);
-      } else console.info('Copied:', file);
+      } else console.info(progress(), 'Crunched:', file);
     });
   });
 });
@@ -56,7 +78,6 @@ function copyWorker(task, callback) {
   const mimeType = mime.lookup(file);
   const isZippable = ! NOZIP_MIME_TEST.test(mimeType);
   const { createGzip } = isProductionEnv ? zopfli : zlib;
-  const compressionAlgo = isProductionEnv ? 'gzip-zopfli' : 'gzip-zlib';
   const inStream = fs.createReadStream(filePath);
   temp.open(TEMP_FILE_PREFIX, (err, tempFile) => {
     if (err) return callback(err);
@@ -70,13 +91,13 @@ function copyWorker(task, callback) {
         mimeType,
         path: tempFile.path,
         encoding: isZippable ? 'gzip' : undefined,
-      }, getQueuePriorityForFile(file), (_err) => {
+      }, (_err) => {
         if (_err) {
           console.error(colors.red('Error!'), file, _err);
           process.exit(1);
         } else {
-          console.info('Uploaded:', file,
-              isZippable ? `(${compressionAlgo})` : '');
+          console.info(progress(), 'Uploaded:', file,
+              `(${mimeType})`, isZippable ? `(${compressionAlgo})` : '');
         }
       });
       callback();
@@ -88,21 +109,26 @@ function uploadWorker(task, callback) {
   const { file, mimeType, encoding } = task;
   fs.stat(task.path, (err, { size }) => {
     if (err) return callback(err);
-    new AWS.S3().putObject({
-      Bucket: config.bucket,
-      CacheControl: file.endsWith('index.html') ? 'max-age=172800' : 'max-age=31556926',
-      ContentLength: size,
-      ContentType: mimeType,
-      ContentEncoding: encoding,
-      Key: file,
-      Body: fs.createReadStream(task.path),
-      ACL: 'public-read',
-    }, callback);
+    if (options.dry) {
+      callback();
+    } else {
+      new AWS.S3().putObject({
+        Bucket: config.bucket,
+        CacheControl: file.endsWith('index.html') ? 'max-age=172800' : 'max-age=31556926',
+        ContentLength: size,
+        ContentType: mimeType,
+        ContentEncoding: encoding,
+        Key: file,
+        Body: fs.createReadStream(task.path),
+        ACL: 'public-read',
+      }, callback);
+    }
   });
 }
 
-function getQueuePriorityForFile(filename) {
-  // process index.html last
-  if (filename.endsWith('index.html')) return 2;
-  return 1;
+function progress() {
+  const waiting =
+      copyQueue.length() + uploadQueue.length() + copyQueue.running() + uploadQueue.running();
+  const perc = `${Math.round(100 - ((waiting / batchSize) * 100))}%`;
+  return `${perc}${new Array(5 - perc.length).fill('').join(' ')}`;
 }
