@@ -11,12 +11,33 @@ const colors = require('colors/safe');
 const zlib = require('zlib');
 const zopfli = require('node-zopfli');
 const temp = require('temp').track();
+const getUsage = require('command-line-usage');
 const execOrExit = require('./execOrExit');
 
-const options = require('command-line-args')([
-  { name: 'env', alias: 'e', type: String },
-  { name: 'dry', alias: 'd', type: Boolean },  // dry run - no S3 upload
-]);
+const optionList = [{
+  name: 'env',
+  alias: 'e',
+  type: String,
+  description: 'Specifies environment to deploy to, e.g. qa',
+}, {
+  name: 'dry',
+  alias: 'd',
+  type: Boolean,
+  description: 'Dry run - skip the upload',
+}];
+
+const options = require('command-line-args')(optionList);
+
+if (! options.env) {
+  console.log(getUsage([{
+    header: 'Omni dist uploader',
+    content: 'Compresses dist assets and uploads them to the S3 bucket',
+  }, {
+    header: 'Options',
+    optionList,
+  }]));
+  process.exit(2);
+}
 
 const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
@@ -32,7 +53,7 @@ if (config.region) {
 }
 
 execOrExit(`yarn run omni-set-up-config -- --config ${options.env}`);
-console.log(`Upload to S3 (${options.env}) is starting…\n`);
+console.log(`Upload to S3 (${options.env}) is starting...\n`);
 options.dry && console.log('DRY RUN! No upload will actually happen.\n');
 isProductionEnv &&
     console.log(`This production build will use ${compressionAlgo}, which is slower to compress!\n`);
