@@ -50,5 +50,11 @@ describe('ProgressBar', () => {
       const progress = wrapper.find(`.${styles.ProgressBar_progress}`);
       expect(progress.props().style.width).to.equal('0%');
     });
+
+    it('the progress is 100 if fraction is greater than 1', () => {
+      const wrapper = shallow(<ProgressBar value={200} max={100} />);
+      const progress = wrapper.find(`.${styles.ProgressBar_progress}`);
+      expect(progress.props().style.width).to.equal('100%');
+    });
   });
 });
