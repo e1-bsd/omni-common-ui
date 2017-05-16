@@ -1,0 +1,76 @@
+@import 'main.postcss';
+
+:root {
+  --datePickerWidth: 147px;
+  --errorBorder: 2px solid #de4c4c;
+  --inputBorder: 1px solid #ccc;
+  --inputHeight: 2.3rem;
+  --inputPaddingLeft: 15px;
+  --inputFontColor: #4a4a4a;
+  --inputWidth: 110px;
+  --iconBackgroundColor: #456981;
+  --iconMarginLeft: 8px;
+  --calendarSize: 18px;
+  --borderRadiis: 5px;
+}
+
+.CalendarPicker {
+  border: var(--inputBorder);
+  border-radius: var(--borderRadiis);
+  width: var(--datePickerWidth);
+
+  &_clickArea {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &_error {
+    border: var(--errorBorder);
+  }
+
+  &_input {
+    border: none;
+    border-radius: 0;
+    color: var(--inputFontColor);
+    display: inline-block;
+    height: var(--inputHeight);
+    letter-spacing: var(--letterSpacing);
+    padding-left: var(--inputPaddingLeft);
+    width: var(--inputWidth);
+
+    &::-webkit-input-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &:-moz-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &::-moz-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+
+    &:-ms-input-placeholder {
+      color: var(--colorHintMessage);
+      opacity: var(--opacityHintMessage);
+      transition: none;
+    }
+  }
+
+  &_calendarIcon {
+    font-size: var(--calendarSize);
+  }
+
+  @media (max-width: 479px) {
+    &_calendar {
+      left: 0;
+    }
+  }
+}
