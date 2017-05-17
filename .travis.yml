@@ -18,17 +18,16 @@ node_js:
 git:
   depth: 99999 # Solves a bug that doesn't allow us to fetch other branches.
 
-cache: yarn
+cache:
+  yarn: true
+  directories:
+    - node_modules
 
 # before_install:
 #   - export DISPLAY=:99.0
 #   - sh -e /etc/init.d/xvfb start
 #   - git config --global user.email "$GIT_EMAIL"
 #   - git config --global user.name "$GIT_NAME"
-#   - npm install -g yarn
-
-# install:
-#   - yarn --prefer-offline --frozen-lockfile --no-progress
 
 # script:
 #   - yarn run lint:css
