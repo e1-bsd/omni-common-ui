@@ -29,7 +29,7 @@ export function postImpersonate(email, token) {
       const param = {
         method,
         headers: {
-          'Content-Type': '',
+          'Content-Type': 'charset=utf-8',
           Accept: '',
           Authorization: Config.get('impersonateClientAuthorization'),
         },

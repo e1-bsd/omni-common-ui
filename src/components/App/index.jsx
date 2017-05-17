@@ -48,10 +48,13 @@ class App extends Component {
 
   _setPageTitle(props) {
     this._breadcrumbs = BreadcrumbsBuilder.buildWithProps(props);
-    if (! this._breadcrumbs || this._breadcrumbs.length <= 0) {
+    const visibleBreadcrumbCount =
+        this._breadcrumbs && this._breadcrumbs.filter((bc) => ! bc.hidden).length;
+    if (! this._breadcrumbs || visibleBreadcrumbCount <= 0) {
       document.title = Config.get('displayTitle');
     } else {
-      document.title = this._breadcrumbs.reduce((result, item, index) =>
+      document.title = this._breadcrumbs.filter((bc) => ! bc.hidden)
+      .reduce((result, item, index) =>
           `${result}${index !== 0 ? ' / ' : ''}${item.label}`, `${Config.get('displayTitle')} - `);
     }
   }
@@ -59,7 +62,7 @@ class App extends Component {
   render() {
     return <div className={classnames(styles.App, testClass('app'))}>
       {
-        ! PRODUCTION &&
+        ! PRODUCTION && Config.get('performanceProfiler') === true &&
         <PerformanceProfiler />
       }
       <Header {...this.props} onHamburgerClick={(e) => this._onHamburgerClick(e)} />

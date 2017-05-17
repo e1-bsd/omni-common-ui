@@ -1,24 +1,27 @@
-language: node_js
-node_js:
-  - '6.9'
-cache: yarn
-
+sudo: required
+dist: trusty
 addons:
   firefox: 'latest'
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
-sudo: false
+language: node_js
+node_js:
+  - '6.10'
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
 
 before_install:
-  - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
-  - npm install -g yarn
-  - npm install -g cnpm
-
-install:
-  - yarn --prefer-offline
 
 script:
   - yarn run lint:css
@@ -44,7 +47,6 @@ deploy:
       branch: master
 
 after_deploy:
-  - cnpm sync omni-common-ui
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 notifications:

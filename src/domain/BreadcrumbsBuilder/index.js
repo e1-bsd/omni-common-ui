@@ -38,6 +38,7 @@ export default {
           label: label.label || label,
           href: label.href || buildRouteHref(routeIdx),
           clickable: is.boolean(label.clickable) ? label.clickable : true,
+          hidden: is.boolean(label.hidden) ? label.hidden : false,
         })));
     });
 

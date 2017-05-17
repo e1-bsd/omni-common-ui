@@ -1,3 +1,5 @@
+import styles from './style.postcss';
+
 import React, { Component } from 'react';
 import Showcase from 'components/Showcase';
 import { HorizontalSelect, StudentCard } from 'omni-common-ui';
@@ -11,7 +13,8 @@ class HorizontalSelectShowcase extends Component {
   }
 
   _getOptionHtml(index) {
-    return <StudentCard vertical boderless>
+    const className = styles.HorizontalSelectShowcase_options;
+    return <StudentCard vertical borderless backgroundless className={className}>
       <StudentCard.Profile name="Hello"
           surname={index}
           localName="王呆呆"

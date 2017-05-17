@@ -1,6 +1,6 @@
 {
   "name": "omni-common-ui",
-  "version": "0.17.4",
+  "version": "0.18.0",
   "description": "Project Omni's common UI components.",
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000",
@@ -34,6 +34,7 @@
     "classnames": "2.2.5",
     "colors": "^1.1.2",
     "command-line-args": "^3.0.4",
+    "command-line-usage": "^4.0.0",
     "copy-webpack-plugin": "^4.0.1",
     "coveralls": "^2.12.0",
     "cq-prolyfill": "0.3.2",
@@ -125,6 +126,7 @@
     "react-appinsights": "^1.0.2",
     "react-collapse": "^4.0.1",
     "react-daterange-picker": "1.0.0",
+    "react-day-picker": "2.5.0",
     "react-dom": "^15.5.4",
     "react-dotdotdot": "^1.0.17",
     "react-ga": "^2.1.2",
@@ -139,7 +141,6 @@
     "react-select": "^1.0.0-rc.3",
     "react-transform-hmr": "1.0.4",
     "react-transition-group": "^1.1.2",
-    "reactable": "0.13.2",
     "recompose": "^0.22.0",
     "recursive-readdir": "^2.1.0",
     "redux": "3.6.0",
@@ -154,6 +155,7 @@
     "scroll-to-element": "^2.0.0",
     "shelljs": "^0.7.7",
     "sinon": "^2.0.0",
+    "sprintf-js": "^1.0.3",
     "style-loader": "0.13.1",
     "stylelint": "7.5.0",
     "stylelint-config-standard": "14.0.0",
@@ -181,7 +183,7 @@
     "omni-gulp-replace": "1.0.0"
   },
   "engines": {
-    "node": "^6.6.0"
+    "node": ">=6.6.0"
   },
   "bin": {
     "omni-build-bins": "./scripts/build-bins.js",
@@ -193,6 +195,8 @@
     "omni-start-mock": "./scripts/start-mock.js",
     "omni-css-test-update": "./scripts/gemini-update.js",
     "omni-css-test": "./scripts/gemini-test.js",
-    "omni-e2e-test": "./scripts/nightwatch-run.js"
+    "omni-e2e-test": "./scripts/nightwatch-run.js",
+    "omni-ci-build": "./scripts/ci-build.js",
+    "omni-ci-upload": "./scripts/ci-upload.js"
   }
 }

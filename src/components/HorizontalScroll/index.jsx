@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import is from 'is_js';
 
 const baseOptions = {
+  deceleration: 0.01,
   bounce: false,
   scrollX: true,
   scrollY: false,
@@ -27,21 +28,34 @@ class HorizontalScroll extends PureComponent {
   }
 
   componentDidMount() {
-    const { onScrollReady, scrollToElement } = this.props;
+    const { onScrollReady } = this.props;
     const isOnScrollReadySet = is.function(onScrollReady);
-    const isScrollToElementSet = is.object(scrollToElement);
-    if (isOnScrollReadySet || isScrollToElementSet) {
+    if (isOnScrollReadySet) {
       this.hostNode.withIScroll(true, (scroll) => {
         isOnScrollReadySet && onScrollReady(scroll);
-        if (isScrollToElementSet) {
-          const { selector, duration, offsetX, offsetY, easing } = scrollToElement;
-          scroll.scrollToElement(
-              selector,
-              duration,
-              is.number(offsetX) ? offsetX : true,
-              is.number(offsetY) ? offsetY : true,
-              easing);
-        }
+      });
+    }
+    this._scrollToElement();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if update was a user scroll don't do the auto scroll to element
+    if (this.state.isScrolling !== prevState.isScrolling) return;
+    this._scrollToElement();
+  }
+
+  _scrollToElement() {
+    const { scrollToElement } = this.props;
+    const isScrollToElementSet = is.object(scrollToElement);
+    if (isScrollToElementSet) {
+      this.hostNode.withIScroll(true, (scroll) => {
+        const { selector, duration, offsetX, offsetY, easing } = scrollToElement;
+        scroll.scrollToElement(
+            selector,
+            duration,
+            is.number(offsetX) ? offsetX : true,
+            is.number(offsetY) ? offsetY : true,
+            easing);
       });
     }
   }
@@ -68,7 +82,6 @@ class HorizontalScroll extends PureComponent {
     return <div className={classnames(styles.HorizontalScroll, className)}>
       <ReactIScroll className={iScrollClasses}
           iScroll={iScroll}
-          defer={false}
           options={baseOptions}
           ref={(node) => { this.hostNode = node; }}
           onBeforeScrollStart={this._onBeforeScrollStart}

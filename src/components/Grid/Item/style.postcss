@@ -1,5 +1,13 @@
 @import 'main.postcss';
 
 .Item {
-  margin-bottom: var(--touchablePaddingVertical);
+  margin-bottom: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    margin-bottom: var(--spaceBaseLgViewport);
+  }
+
+  &:empty {
+    display: none;
+  }
 }

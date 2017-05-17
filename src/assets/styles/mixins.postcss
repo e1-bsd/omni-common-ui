@@ -41,6 +41,14 @@
   line-height: calc(18 / 14);
 }
 
+@define-mixin responsiveGridPadding {
+  padding: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding: var(--spaceBaseLgViewport);
+  }
+}
+
 @define-mixin responsiveCardPadding {
   padding: var(--spaceBase);
 

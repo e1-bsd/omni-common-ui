@@ -28,7 +28,9 @@ class Person extends Component {
 
     const picture = children.find(isPicture);
     this._picture = <picture.type {...picture.props}
-        className={classnames(picture.props.className, styles.Person_picture)} />;
+        className={classnames(picture.props.className, styles.Person_picture,
+        { [styles.Person_picture_vertical]: props.vertical }
+        )} />;
   }
 
   _showWarnings(props) {

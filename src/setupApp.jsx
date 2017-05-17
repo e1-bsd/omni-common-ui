@@ -40,7 +40,7 @@ Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
 Raven.config(Config.get('sentryDsn'), {
   release: COMMIT,
-  environment: SENTRY_ENV,
+  environment: Config.get('sentryEnvironment'),
   tags: { version: VERSION },
   debug: ! PRODUCTION,
 }).install();

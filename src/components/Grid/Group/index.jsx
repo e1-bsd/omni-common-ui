@@ -1,29 +1,21 @@
-import grid from '../grid.postcss';
-import styles from './style.postcss';
-
 import React from 'react';
 import Item from '../Item';
-import is from 'is_js';
 import classnames from 'classnames';
 
-const Group = (props) => {
-  return <div className={classnames(grid.row, styles.Group)}>
+const Group = (props, { grid }) => {
+  return <div className={classnames(grid.row, props.className)}>
     {buildChildren()}
   </div>;
 
   function buildChildren() {
-    if (is.not.existy(props.children)) {
-      return;
-    }
-
-    if (is.not.function(props.children.map)) {
-      return wrapChildIfNeeded(props.children);
-    }
-
-    return props.children.map(wrapChildIfNeeded);
+    return React.Children.map(props.children, wrapChildIfNeeded);
   }
 
   function wrapChildIfNeeded(child) {
+    if (! child) {
+      return null;
+    }
+
     if (child.type === Item) {
       return child;
     }
@@ -34,6 +26,11 @@ const Group = (props) => {
 
 Group.propTypes = {
   children: React.PropTypes.node,
+  className: React.PropTypes.string,
+};
+
+Group.contextTypes = {
+  grid: React.PropTypes.object,
 };
 
 export default Group;

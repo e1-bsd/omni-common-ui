@@ -7,6 +7,10 @@
 
   &_picture {
     margin-right: 15px;
+
+    &_vertical {
+      margin-right: 0;
+    }
   }
 
   &_lines {
@@ -20,7 +24,6 @@
     overflow: hidden;
 
     & > * {
-      line-height: 1;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -34,6 +37,10 @@
       align-items: center;
       flex-basis: auto;
       flex-direction: column;
+      line-height: 1;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

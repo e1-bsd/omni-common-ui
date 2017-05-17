@@ -17,7 +17,8 @@ const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isDev = nodeEnv === 'development';
-const isProd = ! isDev && nodeEnv !== 'test';
+const isTest = nodeEnv === 'test';
+const isProd = ! isDev && ! isTest;
 
 const commitHash = git.long();
 const tag = git.tag();
@@ -58,6 +59,7 @@ const postcssLoader = combineLoaders([
 module.exports = {
   context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
+  debug: ! isProd,
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
@@ -117,14 +119,13 @@ module.exports = {
         loader: 'json',
       },
     ],
-    postLoaders: [
-      {
+    postLoaders: isTest ?
+      [{
         test: /\.jsx?$/i,
         exclude: excludedInCoverage,
         loader: 'istanbul-instrumenter',
         enforce: 'post',
-      },
-    ],
+      }] : [],
   },
   plugins: (nodeEnv !== 'test' ?
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
@@ -142,7 +143,6 @@ module.exports = {
           PRODUCTION: isProd,
           VERSION: `'${version}'`,
           COMMIT: `'${commitHash}'`,
-          SENTRY_ENV: `'${nodeEnv}'`,
         }),
       ]).concat(! isProd ?
         [
@@ -203,7 +203,7 @@ module.exports = {
 
 function getSourceMapType() {
   if (isProd) {
-    return 'source-map';
+    return 'hidden-source-map';
   }
 
   return 'inline-source-map';
