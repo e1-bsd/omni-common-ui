@@ -35,18 +35,8 @@ module.exports = (config) => {
     autoWatch: true,
     singleRun: false,
     concurrency: 1,
-    browsers: ['Chrome'/* , 'Firefox', 'IE_no_addons' */],
-    customLaunchers: {
-      IE_no_addons: {
-        base: 'IE',
-        flags: ['-extoff', '-private'],
-      },
-    },
+    browsers: ['Chrome', 'Firefox'],
   };
-
-  if (process.env.TRAVIS) {
-    settings.browsers = ['Firefox'];
-  }
 
   config.set(settings);
 };
