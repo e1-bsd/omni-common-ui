@@ -22,7 +22,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
-  - npm install -g cnpm
 
 script:
   - yarn run lint:css
@@ -48,7 +47,6 @@ deploy:
       branch: master
 
 after_deploy:
-  - cnpm sync omni-common-ui
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 notifications:
