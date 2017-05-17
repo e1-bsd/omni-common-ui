@@ -23,7 +23,7 @@ before_install:
   - npm install -g cnpm
 
 install:
-  - yarn --prefer-offline
+  - yarn --prefer-offline --frozen-lockfile --no-progress
 
 script:
   - yarn run lint:css
