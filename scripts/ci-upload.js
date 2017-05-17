@@ -42,7 +42,8 @@ if (! options.env) {
 const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
-const TEMP_FILE_PREFIX = 'omniupload';
+const CACHE_CONTROL_INDEX = 'no-cache';  // keep history buffer. http://stackoverflow.com/a/18516720
+const CACHE_CONTROL_OTHERS = 'public, max-age=31536000';  // 1 year
 
 const config = require(path.resolve(`ci/${options.env}.json`)); // eslint-disable-line import/no-dynamic-require
 const isProductionEnv = options.env.startsWith('staging') || options.env.startsWith('production');
@@ -100,7 +101,7 @@ function copyWorker(task, callback) {
   const isZippable = ! NOZIP_MIME_TEST.test(mimeType);
   const { createGzip } = isProductionEnv ? zopfli : zlib;
   const inStream = fs.createReadStream(filePath);
-  temp.open(TEMP_FILE_PREFIX, (err, tempFile) => {
+  temp.open('omniupload', (err, tempFile) => {
     if (err) return callback(err);
     const outStream = fs.createWriteStream(tempFile.path);
     isZippable ?
@@ -135,7 +136,9 @@ function uploadWorker(task, callback) {
     } else {
       new AWS.S3().putObject({
         Bucket: config.bucket,
-        CacheControl: file.endsWith('index.html') ? 'max-age=172800' : 'max-age=31556926',
+        CacheControl: file.endsWith('index.html') ?
+            CACHE_CONTROL_INDEX :
+            CACHE_CONTROL_OTHERS,
         ContentLength: size,
         ContentType: mimeType,
         ContentEncoding: encoding,
