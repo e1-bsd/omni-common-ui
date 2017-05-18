@@ -53,6 +53,11 @@ if (config.region) {
   AWS.config.update({ region: config.region });
 }
 
+if (config.profile) {
+  console.log(`Will use the credentials profile "${config.profile}".`);
+  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: config.profile });
+}
+
 execOrExit(`yarn run omni-set-up-config -- --config ${options.env}`);
 console.log(`Upload to S3 (${options.env}) is starting...\n`);
 options.dry && console.log('DRY RUN! No upload will actually happen.\n');
