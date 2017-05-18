@@ -53,9 +53,12 @@ if (config.region) {
   AWS.config.update({ region: config.region });
 }
 
-if (config.profile) {
-  console.log(`Will use the credentials profile "${config.profile}".`);
-  AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: config.profile });
+if (config.accessKeyId) {
+  console.log('Will use custom accessKey.');
+  AWS.config.update({
+    accessKeyId: config.accessKeyId,
+    secretAccessKey: config.secretAccessKey,
+  });
 }
 
 execOrExit(`yarn run omni-set-up-config -- --config ${options.env}`);
