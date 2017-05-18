@@ -6,11 +6,9 @@ eval `ssh-agent -s` && \
 ssh-add deploy && \
 rm deploy && \
 
-git fetch --all --prune --verbose && \
 git stash && \
 git checkout master && \
-git pull && \
-git merge --no-commit $TRAVIS_BRANCH && \
+git merge --no-commit --no-ff $TRAVIS_BRANCH && \
 git add --force lib && \
 git commit -m "Merged develop ($TRAVIS_COMMIT) into master" && \
 git push origin master:master
