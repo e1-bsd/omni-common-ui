@@ -9,6 +9,7 @@ rm deploy && \
 git fetch --all --prune --verbose && \
 git stash && \
 git checkout master && \
+git pull && \
 git merge --no-commit $TRAVIS_BRANCH && \
 git add --force lib && \
 git commit -m "Merged develop ($TRAVIS_COMMIT) into master" && \
