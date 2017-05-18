@@ -34,11 +34,12 @@ export default {
       }
       labels = is.array(labels) ? labels : [labels];
       Array.prototype.push.apply(breadcrumbs,
-        labels.filter((l) => l).map((label) => ({
-          label: label.label || label,
-          href: label.href || buildRouteHref(routeIdx),
-          clickable: is.boolean(label.clickable) ? label.clickable : true,
-          hidden: is.boolean(label.hidden) ? label.hidden : false,
+        labels.filter((l) => l).map((labelOrObject) => ({
+          label: labelOrObject.label || labelOrObject,
+          href: labelOrObject.href || buildRouteHref(routeIdx),
+          clickable: is.boolean(labelOrObject.clickable) ? labelOrObject.clickable : true,
+          hidden: is.boolean(labelOrObject.hidden) ? labelOrObject.hidden : false,
+          backLinkHref: is.string(labelOrObject.backLinkHref) ? labelOrObject.backLinkHref : null,
         })));
     });
 

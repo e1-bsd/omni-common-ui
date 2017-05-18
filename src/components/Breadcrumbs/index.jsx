@@ -98,11 +98,16 @@ class Breadcrumbs extends Component {
   }
 
   _renderBackButton() {
-    const backLinkItem = this.props.items.slice(0).reverse().find((item) => item.clickable);
-    if (! is.existy(backLinkItem)) {
-      return null;
+    const reversedItems = this.props.items.slice(0).reverse();
+    const backLinkItem = reversedItems.find((item) => item.clickable);
+    let backLinkHref = reversedItems[0].backLinkHref;
+    if (! is.string(backLinkHref)) {
+      if (! is.existy(backLinkItem)) {
+        return null;
+      }
+      backLinkHref = backLinkItem.href;
     }
-    return <Link to={backLinkItem.href}
+    return <Link to={backLinkHref}
         className={styles.Breadcrumbs_crumb_back}
         onClick={() => this._onLinkClick(backLinkItem.label)}
         draggable={false}>
@@ -180,10 +185,11 @@ Breadcrumbs.propTypes = {
     label: React.PropTypes.string.isRequired,
     href: React.PropTypes.string.isRequired,
     clickable: React.PropTypes.bool.isRequired,
+    backLinkHref: React.PropTypes.string.isRequired,  // it's an override
   })).isRequired,
   singleLineMode: React.PropTypes.bool,
   router: React.PropTypes.shape({
-    push: React.PropTypes.func.isRequired
+    push: React.PropTypes.func.isRequired,
   }).isRequired,
 };
 
