@@ -51,7 +51,7 @@ deploy:
     script: bash ci.deploy-dev.sh
     skip_cleanup: true
     on:
-      branch: develop
+      branch: feature/new-travis-flow
   - provider: npm
     email: $GIT_EMAIL
     api_key: $NPM_TOKEN

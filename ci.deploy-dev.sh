@@ -7,6 +7,7 @@ ssh-add deploy && \
 rm deploy && \
 
 git fetch --all --prune --verbose && \
+git stash && \
 git checkout master && \
 git merge --no-commit $TRAVIS_BRANCH && \
 git add --force lib && \
