@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git stash && \
+git fetch --all --prune --verbose && \
 git checkout -qf master && \
 git merge --no-commit --no-ff $TRAVIS_COMMIT && \
 git add --force lib && \
