@@ -20,8 +20,15 @@ cache:
   directories:
     - node_modules
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_3a8c1431a01a_key -iv $encrypted_3a8c1431a01a_iv -in deploy.enc -out deploy -d
+  - chmod 600 deploy
+  - eval `ssh-agent -s`
+  - ssh-add deploy
+  - rm deploy
+
 install:
-  - git clone https://github.com/$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
+  - git clone git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
   - git checkout -qf $TRAVIS_COMMIT
   - git fetch --all --prune --verbose
