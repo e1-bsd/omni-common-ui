@@ -38,8 +38,8 @@ class HorizontalSelect extends PureComponent {
       this._onOptionSelect(option.value);
     };
     this._onOptionSelect = (value) => {
-      this.props.onItemClicked &&
-        this.props.onItemClicked(value);
+      this.props.onSelect &&
+        this.props.onSelect(value);
     };
   }
 
@@ -94,7 +94,7 @@ HorizontalSelect.propTypes = {
     })).isRequired,
   value: React.PropTypes.string,
   getLinkHrefForValue: React.PropTypes.func.isRequired,
-  onItemClicked: React.PropTypes.func,  // must set the new `value`
+  onSelect: React.PropTypes.func,
 };
 
 export default HorizontalSelect;
