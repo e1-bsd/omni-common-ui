@@ -59,12 +59,12 @@ deploy:
     on:
       tags: true
 
-notifications:
-  email:
-    recipients:
-      - E1ODIN_Technology@EF.com
-    on_success: change
-    on_failure: always
+# notifications:
+#   email:
+#     recipients:
+#       - E1ODIN_Technology@EF.com
+#     on_success: change
+#     on_failure: always
 
 env:
   global:

@@ -7,8 +7,8 @@ ssh-add deploy && \
 rm deploy && \
 
 git stash && \
-git checkout master && \
-git merge --no-commit --no-ff $TRAVIS_BRANCH && \
+git checkout -qf master && \
+git merge --no-commit --no-ff $TRAVIS_COMMIT && \
 git add --force lib && \
-git commit -m "Merged develop ($TRAVIS_COMMIT) into master" && \
+git commit -m "Merged $TRAVIS_BRANCH ($TRAVIS_COMMIT) into master" && \
 git push origin master:master
