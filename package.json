@@ -198,5 +198,6 @@
     "omni-e2e-test": "./scripts/nightwatch-run.js",
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
-  }
+  },
+  "version": "0.18.3-dev.1403"
 }
