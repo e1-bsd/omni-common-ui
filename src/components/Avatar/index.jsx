@@ -43,7 +43,13 @@ class Avatar extends PureComponent {
   }
 
   _getCssValueForUrl(url) {
-    return is.string(url) && is.not.empty(url) && `url("${url}")`;
+    if (is.not.string(url)) {
+      return null;
+    }
+
+    // don't let http images crash the party
+    const secureUrl = url.replace(/^http:/, '');  // //host/path uses current protocol
+    return is.not.empty(url) && `url("${secureUrl}")`;
   }
 
   render() {

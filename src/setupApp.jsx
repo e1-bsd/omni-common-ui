@@ -53,7 +53,12 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
 
   const gaKey = Config.get('gaKey');
   if (Config.get('gaKey')) {
-    ReactGA.initialize(gaKey, { debug: ! PRODUCTION, titleCase: false });
+    ReactGA.initialize(gaKey,
+      {
+        debug: ! PRODUCTION,
+        titleCase: false,
+        gaOptions: { siteSpeedSampleRate: 100 },
+      });
   }
 
   const parsedRoutes = parseRoutes([

@@ -12,6 +12,7 @@ const zlib = require('zlib');
 const zopfli = require('node-zopfli');
 const temp = require('temp').track();
 const getUsage = require('command-line-usage');
+const { countingStream } = require('stream-toolkit');
 const execOrExit = require('./execOrExit');
 
 const optionList = [{
@@ -76,19 +77,30 @@ const indexCopyTask = {  // index.html comes last
   folder: absoluteFolder,
 };
 
-let batchSize;
+let filesCount;
+let originalSizeAll = 0;
+let compressedSizeAll = 0;
 
 uploadQueue.drain = () => {
   if (copyQueue.length() || uploadQueue.length() ||
       copyQueue.running() || uploadQueue.running()) return;  // tasks remain!
   copyQueue.push(indexCopyTask);
-  uploadQueue.drain = () => {};
+  uploadQueue.drain = () => {
+    const original = originalSizeAll / 1000000;  // B to MB
+    const compressed = compressedSizeAll / 1000000;
+    const savedPerc = 100 - Math.round((compressedSizeAll / originalSizeAll) * 100);
+    console.log(
+        `\nAll done.` +
+        ` Crunched ${original.toFixed(2)}MB down to ${compressed.toFixed(2)}MB` +
+        `, saving ${savedPerc}%.`);
+    uploadQueue.drain = () => {};
+  };
 };
 
 fs.readdir(absoluteFolder, (err, files) => {
   const index = files.splice(files.indexOf('index.html'), 1);
   invariant(index[0] === 'index.html', 'index.html should be present');
-  batchSize = files.length + 1;
+  filesCount = files.length + 1;
   files.forEach((file) => {
     copyQueue.push({
       file,
@@ -108,7 +120,8 @@ function copyWorker(task, callback) {
   const mimeType = mime.lookup(file);
   const isZippable = ! NOZIP_MIME_TEST.test(mimeType);
   const { createGzip } = isProductionEnv ? zopfli : zlib;
-  const inStream = fs.createReadStream(filePath);
+  const counter = countingStream();
+  const inStream = fs.createReadStream(filePath).pipe(counter);
   temp.open('omniupload', (err, tempFile) => {
     if (err) return callback(err);
     const outStream = fs.createWriteStream(tempFile.path);
@@ -116,18 +129,17 @@ function copyWorker(task, callback) {
       inStream.pipe(createGzip(ZIP_OPTS)).pipe(outStream) :
       inStream.pipe(outStream);
     outStream.on('finish', () => {
+      originalSizeAll += counter.bytes;
       uploadQueue.push({
         file,
         mimeType,
         path: tempFile.path,
         encoding: isZippable ? 'gzip' : undefined,
+        originalSize: counter.bytes,
       }, (_err) => {
         if (_err) {
           console.error(colors.red('Error!'), file, _err);
           process.exit(1);
-        } else {
-          console.info(progress(), 'Uploaded:', file,
-              `(${mimeType})`, isZippable ? `(${compressionAlgo})` : '');
         }
       });
       callback();
@@ -136,10 +148,15 @@ function copyWorker(task, callback) {
 }
 
 function uploadWorker(task, callback) {
-  const { file, mimeType, encoding } = task;
+  const { file, mimeType, encoding, originalSize } = task;
   fs.stat(task.path, (err, { size }) => {
     if (err) return callback(err);
+    const ratio = (size / originalSize).toFixed(2);
+    let details = `(${mimeType})`;
+    details += encoding ? ` (${encoding}, ratio ${ratio})` : '';
+    compressedSizeAll += size;
     if (options.dry) {
+      console.info(progress(), 'Would upload:', file, details);
       callback();
     } else {
       new AWS.S3().putObject({
@@ -153,7 +170,10 @@ function uploadWorker(task, callback) {
         Key: file,
         Body: fs.createReadStream(task.path),
         ACL: 'public-read',
-      }, callback);
+      }, (_err) => {
+        console.info(progress(), 'Uploaded:', file, details);
+        callback(_err);
+      });
     }
   });
 }
@@ -161,6 +181,6 @@ function uploadWorker(task, callback) {
 function progress() {
   const waiting =
       copyQueue.length() + uploadQueue.length() + copyQueue.running() + uploadQueue.running();
-  const perc = `${Math.round(100 - ((waiting / batchSize) * 100))}%`;
+  const perc = `${Math.round(100 - ((waiting / filesCount) * 100))}%`;
   return `${perc}${new Array(5 - perc.length).fill('').join(' ')}`;
 }

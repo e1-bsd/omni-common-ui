@@ -1291,13 +1291,13 @@ bluebird-q@^2.1.1:
   dependencies:
     bluebird "^3.4.6"
 
+bluebird@*, bluebird@^3.0.5, bluebird@^3.3.0, bluebird@^3.3.4, bluebird@^3.4.6, bluebird@^3.4.7:
+  version "3.4.7"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
+
 bluebird@^2.10.2, bluebird@^2.9.30:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
-
-bluebird@^3.0.5, bluebird@^3.3.0, bluebird@^3.3.4, bluebird@^3.4.6, bluebird@^3.4.7:
-  version "3.4.7"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
 bmp-js@0.0.1:
   version "0.0.1"
@@ -6290,7 +6290,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@4.16.6, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.3.0:
+lodash@4.16.6:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
 
@@ -6298,7 +6298,7 @@ lodash@^3.10.1, lodash@^3.2.0, lodash@^3.8.0, lodash@^3.9.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.1.0, lodash@^4.11.1, lodash@^4.14.1, lodash@^4.15.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.5.0, lodash@^4.6.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.1.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.14.1, lodash@^4.15.0, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.0, lodash@^4.6.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -9724,6 +9724,12 @@ stream-to@~0.2.0:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/stream-to/-/stream-to-0.2.2.tgz#84306098d85fdb990b9fa300b1b3ccf55e8ef01d"
 
+stream-toolkit@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/stream-toolkit/-/stream-toolkit-2.1.0.tgz#8a71ecdb32775ced5516bc186f6982883a1bd39a"
+  dependencies:
+    bluebird "*"
+
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
@@ -10322,7 +10328,7 @@ ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@2.8.x:
+uglify-js@2.8.x, uglify-js@2.x.x, uglify-js@^2.6, uglify-js@^2.6.1:
   version "2.8.12"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.12.tgz#8a50f5d482243650b7108f6080aa3a6afe2a6c55"
   dependencies:
@@ -10330,7 +10336,7 @@ uglify-js@2.8.x:
     uglify-to-browserify "~1.0.0"
     yargs "~3.10.0"
 
-uglify-js@2.x.x, uglify-js@^2.6, uglify-js@^2.6.1, uglify-js@^2.7.3, uglify-js@~2.7.3:
+uglify-js@^2.7.3, uglify-js@~2.7.3:
   version "2.7.5"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
