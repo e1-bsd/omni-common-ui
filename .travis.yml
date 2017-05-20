@@ -26,6 +26,7 @@ before_install:
   - eval `ssh-agent -s`
   - ssh-add deploy
   - rm deploy
+  - npm config set git-tag-version false
   - source ci.checkout-develop.sh
 
 install:
