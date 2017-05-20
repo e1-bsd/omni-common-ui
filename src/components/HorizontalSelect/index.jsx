@@ -38,11 +38,14 @@ class HorizontalSelect extends PureComponent {
       this._onOptionSelect(option.value);
     };
     this._onOptionSelect = (value) => {
-      this.setState({ value }, () => {
-        this.props.onSelect &&
-          this.props.onSelect(value);
-      });
+      this.props.onSelect && this.props.onSelect(value);
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value });
+    }
   }
 
   render() {

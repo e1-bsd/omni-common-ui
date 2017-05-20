@@ -1,0 +1,304 @@
+/* Z-Index Scale (private vars) */
+
+:root {
+  --zIndex-0: 1;
+  --zIndex-1: 100;
+  --zIndex-2: 200;
+  --zIndex-3: 300;
+  --zIndex-4: 400;
+  --zIndex-5: 500;
+  --zIndex-6: 600;
+  --zIndex-7: 700;
+  --zIndex-8: 800;
+  --zIndex-9: 900;
+  --zIndex-10: 1000;
+}
+
+:root {
+  --zIndex-0--dropdownBoxLeaving: var(--zIndex-0);
+  --zIndex-1--dialogLoadingOverlay: var(--zIndex-1);
+  --zIndex-1--expandedTableRow: var(--zIndex-1);
+  --zIndex-2--dropdownBoxEntering: var(--zIndex-2);
+  --zIndex-7--headerDropdown: calc(var(--zIndex-7) + 1);
+  --zIndex-7--stickyNavBar: calc(var(--zIndex-7) + 2);
+  --zIndex-7--sidebar: calc(var(--zIndex-7) + 3);
+  --zIndex-7--header: calc(var(--zIndex-7) + 4);
+  --zIndex-8--savingBarOverlay: var(--zIndex-8);
+  --zIndex-9--savingBar: var(--zIndex-9);
+  --zIndex-10--modalPopup: var(--zIndex-10);
+  --zIndex-10--perfTools: calc(var(--zIndex-10) + 1);
+}
+
+:root {
+  --colorBg: #f2f2f2;
+  --colorCardBg: #fbfbfb;
+  --colorCardShadow: rgba(0, 0, 0, 0.15);
+  --colorBase: #fff;
+  --colorNavSectionBg: #f3f5f7;
+  --colorSideNavBgFoundation: #42667e;
+  --colorSideNavBgOperation: #008a8a;
+  --colorTableLayer1: #e8ebef;
+  --colorTableLayer2: #e5eef3;
+  --colorTableLayer3: #6799ba;
+  --colorTableLayer4: #456981;
+  --colorTableLayer5: #174361; /* TODO This one is random, not in the design */
+  --colorTableStripe: #e8ebef;
+  --colorPrimary: #0087e6;
+  --colorTextBase: #4a4a4a;
+  --colorTextGreyed: #a4a4a4;
+  --colorTextInverse: var(--colorBase);
+  --colorBorder: #ccc;
+  --colorActive: var(--colorPrimary);
+  --colorDisabled: var(--colorTextGreyed);
+  --colorCorrect: #74d17f;
+  --colorWrong: #de4c4c;
+  --colorSuspended: #f7932d;
+  --colorNeedsAttention: var(--colorSuspended);
+  --colorOnHold: var(--colorDisabled);
+  --colorButtonHover: #026cb6;
+  --colorInverseButtonHover: #ceebff;
+  --colorImpersonating: var(--colorNeedsAttention);
+  --colorHoverDarken: #0006;
+  --headerBarShadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --cardBoxShadow: 0 0 3px 1px var(--colorCardShadow);
+}
+
+:root {
+  --fontFamily: 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  --fontFamilyCondensed: 'Helvetica Neue Condensed', 'Helvetica Neue', sans-serif;
+  --fontSize-sm: 12px;
+  --fontSize-md: 14px;
+  --fontSize-lg: 16px;
+  --fontSize-xl: 18px;
+  --fontWeight-ultraLight: 100;
+  --fontWeight-light: 300;
+  --fontWeight-regular: 400;
+  --fontWeight-medium: 500;
+  --fontWeight-bold: 700;
+  --fontWeight-blackCond: 900;
+  --letterSpacing: 1px;
+  --fontSizeBase: 1em;
+  --fontSizePageHeader: 1.5em;
+  --fontSizePageSubheader: 1.125em;
+  --fontSizeSectionHeader: 0.875em;
+  --fontSizeInput: 0.875em;
+}
+
+:root {
+  --spaceBase: 20px;
+  --spaceBaseLgViewport: 30px;
+}
+
+:root {
+  --sidebarWidth: 50px;
+  --touchableMinHeight: 40px;
+  --touchableMinHeightNew: 35px;
+  --touchablePaddingHorizontal: 16px;
+  --touchablePaddingVertical: 8px;
+  --hairThin: 1px;
+  --thicker: 2px;
+  --borderRadius: 5px;
+  --buttonMinWidth: 100px;
+  --cardContentPaddingVertical: var(--touchablePaddingVertical);
+  --cardContentPaddingHorizontal: calc(var(--touchablePaddingHorizontal) - 1px);
+  --headerSize: 50px;
+}
+
+:root {
+  --opacityHintMessage: 1;
+}
+
+:root {
+  --transitionDurationBase: 300ms;
+}
+
+@custom-media --sm-viewport only screen and (min-width: 480px);
+
+@custom-media --md-viewport-new only screen and (min-width: 640px);
+
+@custom-media --md-viewport only screen and (min-width: 800px);
+
+@custom-media --lg-viewport only screen and (min-width: 980px);
+
+@define-mixin fontNormal {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-regular);
+  letter-spacing: 0.5px;
+  line-height: calc(18 / 14);
+}
+
+@define-mixin fontHeading {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-lg);
+  font-weight: var(--fontWeight-regular);
+  letter-spacing: 1px;
+  line-height: calc(18 / 16);
+}
+
+@define-mixin fontButton {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-sm);
+  font-weight: var(--fontWeight-medium);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@define-mixin fontForm {
+  font-family: var(--fontFamily);
+  font-size: 13px;
+  font-weight: var(--fontWeight-regular);
+  letter-spacing: 0.5px;
+  line-height: calc(15 / 13);
+}
+
+@define-mixin fontTableLabel {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-medium);
+  letter-spacing: 0.5px;
+  line-height: calc(18 / 14);
+}
+
+@define-mixin responsiveGridPadding {
+  padding: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding: var(--spaceBaseLgViewport);
+  }
+}
+
+@define-mixin responsiveCardPadding {
+  padding: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding: var(--spaceBase) var(--spaceBaseLgViewport);
+  }
+}
+
+@define-mixin responsiveCardPaddingHorizontal {
+  padding-left: var(--spaceBase);
+  padding-right: var(--spaceBase);
+
+  @media (--md-viewport-new) {
+    padding-left: var(--spaceBaseLgViewport);
+    padding-right: var(--spaceBaseLgViewport);
+  }
+}
+
+@define-mixin cardbg {
+  background-color: var(--colorCardBg);
+}
+
+@define-mixin cardshadow {
+  border: 0;
+  box-shadow: var(--cardBoxShadow);
+}
+
+@define-mixin cardlike {
+  @mixin cardbg;
+  @mixin cardshadow;
+  @mixin responsiveCardPadding;
+
+  position: relative;
+}
+
+.Overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 2.5em;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: var(--zIndex-10--modalPopup);
+}
+
+.LoadingOverlay {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 100%;
+  will-change: opacity, pointer-events;
+  z-index: var(--zIndex-1--dialogLoadingOverlay);
+
+  &_inner {
+    border-color: white;
+    border-radius: 50%;
+    border-style: solid;
+    border-top-color: #a5a5a5;
+    border-width: 7px;
+    box-sizing: content-box;
+    display: block;
+    flex-shrink: 0;
+    height: 40px;
+    position: relative;
+    transform: translateZ(0) rotate(0deg);
+    width: 40px;
+    will-change: transform, animation;
+    z-index: 2000;
+  }
+
+  &.__visible {
+    cursor: wait;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.__visible &_inner {
+    animation: spin 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+  }
+}
+
+.Dialog {
+  display: flex;
+  left: 0;
+  max-height: 100%;
+  max-width: 100%;
+  outline: none;
+  position: absolute;
+  width: 100%;
+
+  @media (--sm-viewport) {
+    position: static;
+    width: auto;
+  }
+
+  &_card {
+    min-width: 320px;
+    width: 100%;
+
+    @media (--sm-viewport) {
+      width: auto;
+    }
+  }
+
+  &_closeIcon {
+    cursor: pointer;
+    font-size: 10px;
+    height: 10px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 10px;
+  }
+}
+
+.Portal {
+  position: relative;
+}
+
+@keyframes spin {
+  100% { transform: translateZ(0) rotate(359deg); }
+}

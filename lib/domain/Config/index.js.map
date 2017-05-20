@@ -1,0 +1,1 @@
+{"version":3,"sources":["domain/Config/index.js"],"names":["__CONFIG__"],"mappings":";;;;;;AAAA;;AAEA;kBACe,oBAAIA,UAAJ,C","file":"index.js","sourcesContent":["import { Map } from 'immutable';\n\n// eslint-disable-next-line no-undef\nexport default Map(__CONFIG__);\n"]}
