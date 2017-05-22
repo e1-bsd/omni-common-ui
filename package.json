@@ -199,5 +199,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.18.3-dev.1403"
+  "version": "0.18.4"
 }
