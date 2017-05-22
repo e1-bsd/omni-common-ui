@@ -49,7 +49,6 @@ after_script:
 before_deploy:
   - git config --global user.email "$GIT_EMAIL"
   - git config --global user.name "$GIT_NAME"
-  - if [[ ! -z "$TRAVIS_TAG" ]]; then npm version "$TRAVIS_TAG"; fi
 
 deploy:
   - provider: script
