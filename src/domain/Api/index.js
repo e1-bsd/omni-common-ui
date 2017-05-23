@@ -11,10 +11,14 @@ class FetchTimedOutError extends Error { }
 export class ApiError extends Error {
   constructor(response = {}, message) {
     super(message || response.statusText);
-    this.status = response.status;
-    this.statusText = response.statusText;
+    // https://fetch.spec.whatwg.org/#responses
     this.ok = response.ok;
     this.url = response.url;
+    this.type = response.type;
+    this.status = response.status;
+    this.statusText = response.statusText;
+    this.headers = response.headers;
+    this.body = response.body;
   }
 }
 
