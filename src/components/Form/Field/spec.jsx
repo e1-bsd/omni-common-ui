@@ -26,9 +26,7 @@ describe('Form', () => {
       const wrapper = shallow(<Field showError={() => true}
           showRequired={() => false}
           getErrorMessage={() => errorMessage} />);
-      const errorClass = styles.Field_wrap_inputContainer_validationError;
-      const errorText = wrapper.find(`.${errorClass}`).text();
-      expect(errorText).to.equal(errorMessage);
+      expect(wrapper.text()).to.equal(errorMessage);
     });
 
     it('does not show the error message provided by getErrorMessage ' +
