@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Radio = (props) => {
   return <div>
@@ -16,9 +17,9 @@ const Radio = (props) => {
 
 
 Radio.propTypes = {
-  name: React.PropTypes.string,
-  item: React.PropTypes.string,
-  onChecked: React.PropTypes.func,
+  name: PropTypes.string,
+  item: PropTypes.string,
+  onChecked: PropTypes.func,
 };
 
 export default Radio;

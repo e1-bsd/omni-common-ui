@@ -7,6 +7,7 @@ import { OrderedMap, List, Map } from 'immutable';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
+import PropTypes from 'prop-types';
 import Icon from 'components/Icon';
 
 class Sidebar extends Component {
@@ -152,11 +153,11 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  routes: React.PropTypes.array.isRequired,
-  location: React.PropTypes.shape({ pathname: React.PropTypes.string.isRequired }).isRequired,
-  expanded: React.PropTypes.bool,
-  onCollapse: React.PropTypes.func,
-  onExpand: React.PropTypes.func,
+  routes: PropTypes.array.isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+  expanded: PropTypes.bool,
+  onCollapse: PropTypes.func,
+  onExpand: PropTypes.func,
 };
 
 export default Sidebar;

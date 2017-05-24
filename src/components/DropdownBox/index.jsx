@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import DropdownBoxItem from './DropdownBoxItem';
 import DropdownBoxContainer from './DropdownBoxContainer';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import PropTypes from 'prop-types';
 
 const AlignmentClasses = [
   styles.__alignRightFromBottom,
@@ -92,10 +93,10 @@ class DropdownBox extends PureComponent {
 }
 
 DropdownBox.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  open: React.PropTypes.bool,
-  smartPosition: React.PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  open: PropTypes.bool,
+  smartPosition: PropTypes.bool,
 };
 
 DropdownBox.Item = DropdownBoxItem;

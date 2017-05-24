@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Content = (props) => {
   const className = classnames(props.className, styles.Content,
@@ -12,9 +13,9 @@ const Content = (props) => {
 };
 
 Content.propTypes = {
-  className: React.PropTypes.string,
-  withoutBottomPadding: React.PropTypes.bool,
-  children: React.PropTypes.node,
+  className: PropTypes.string,
+  withoutBottomPadding: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default Content;

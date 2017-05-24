@@ -5,6 +5,7 @@ import Icon from 'components/Icon';
 import Header from './Header';
 import Level from './Level';
 import Leaf from './Leaf';
+import PropTypes from 'prop-types';
 
 import styles from './style.postcss';
 
@@ -130,11 +131,11 @@ class SelectionTable extends Component {
 }
 
 SelectionTable.propTypes = {
-  children: React.PropTypes.node,
-  title: React.PropTypes.string,
-  rootLinkTitle: React.PropTypes.string,
-  headerClassName: React.PropTypes.string,
-  hideRootLink: React.PropTypes.bool,
+  children: PropTypes.node,
+  title: PropTypes.string,
+  rootLinkTitle: PropTypes.string,
+  headerClassName: PropTypes.string,
+  hideRootLink: PropTypes.bool,
 };
 
 export default SelectionTable;

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 class DropdownBoxContainer extends PureComponent {
   constructor(props) {
@@ -38,9 +39,9 @@ class DropdownBoxContainer extends PureComponent {
 }
 
 DropdownBoxContainer.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  onClickOutside: React.PropTypes.func,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onClickOutside: PropTypes.func,
 };
 
 export default DropdownBoxContainer;

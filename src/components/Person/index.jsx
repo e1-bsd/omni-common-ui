@@ -5,6 +5,7 @@ import StudentPicture from 'components/StudentPicture';
 import AdultPicture from 'components/AdultPicture';
 import log from 'domain/log';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const isPicture = (c) => c.type === StudentPicture || c.type === AdultPicture;
 
@@ -63,9 +64,9 @@ class Person extends Component {
 }
 
 Person.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  vertical: React.PropTypes.bool,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  vertical: PropTypes.bool,
 };
 
 export default Person;

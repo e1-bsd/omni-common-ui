@@ -16,6 +16,7 @@ import PrivilegeChecker from 'domain/PrivilegeChecker';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 require('alertifyjs/build/css/alertify.css');
 
@@ -196,17 +197,17 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
-  router: React.PropTypes.any.isRequired,
-  routes: React.PropTypes.array.isRequired,
-  havePrivilegesLoaded: React.PropTypes.func.isRequired,
-  postImpersonate: React.PropTypes.func,
-  token: React.PropTypes.string,
-  impersonate: React.PropTypes.object,
-  privileges: React.PropTypes.object,
-  hasUnimpersonated: React.PropTypes.bool.isRequired,
-  user: React.PropTypes.object,
-  canImpersonate: React.PropTypes.bool,
-  hasImpersonateFailed: React.PropTypes.bool.isRequired,
+  router: PropTypes.any.isRequired,
+  routes: PropTypes.array.isRequired,
+  havePrivilegesLoaded: PropTypes.func.isRequired,
+  postImpersonate: PropTypes.func,
+  token: PropTypes.string,
+  impersonate: PropTypes.object,
+  privileges: PropTypes.object,
+  hasUnimpersonated: PropTypes.bool.isRequired,
+  user: PropTypes.object,
+  canImpersonate: PropTypes.bool,
+  hasImpersonateFailed: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {

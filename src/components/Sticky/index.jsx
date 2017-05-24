@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import log from 'domain/log';
+import PropTypes from 'prop-types';
 
 const CHECK_SAME_HEIGHT_MAX = 5;
 
@@ -78,8 +79,8 @@ export class Sticky extends Component {
 }
 
 Sticky.propTypes = {
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Sticky;

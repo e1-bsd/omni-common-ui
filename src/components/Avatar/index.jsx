@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 import Gender from 'domain/Gender';
+import PropTypes from 'prop-types';
 
 import generateUserInitialsAvatarSvgUri from './generateUserInitialsAvatarSvg';
 
@@ -58,15 +59,15 @@ class Avatar extends PureComponent {
 }
 
 Avatar.propTypes = {
-  className: React.PropTypes.string,
-  src: React.PropTypes.string,
-  default: React.PropTypes.string,
-  defaultMale: React.PropTypes.string,
-  defaultFemale: React.PropTypes.string,
-  gender: React.PropTypes.string,
-  userFirstName: React.PropTypes.string,
-  userLastName: React.PropTypes.string,
-  displayUserInitialsAsDefaultAvatar: React.PropTypes.bool,
+  className: PropTypes.string,
+  src: PropTypes.string,
+  default: PropTypes.string,
+  defaultMale: PropTypes.string,
+  defaultFemale: PropTypes.string,
+  gender: PropTypes.string,
+  userFirstName: PropTypes.string,
+  userLastName: PropTypes.string,
+  displayUserInitialsAsDefaultAvatar: PropTypes.bool,
 };
 
 export default Avatar;

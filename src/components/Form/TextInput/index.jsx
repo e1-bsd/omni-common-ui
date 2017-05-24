@@ -4,6 +4,7 @@ import React from 'react';
 import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Field from '../Field';
+import PropTypes from 'prop-types';
 
 const TextInput = (props) => {
   const classes = classnames(styles.TextInput,
@@ -29,13 +30,13 @@ const TextInput = (props) => {
 };
 
 TextInput.propTypes = {
-  showRequired: React.PropTypes.func.isRequired,
-  name: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  getValue: React.PropTypes.func.isRequired,
-  setValue: React.PropTypes.func.isRequired,
-  showError: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string,
+  showRequired: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  disabled: PropTypes.bool,
+  getValue: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
+  label: PropTypes.string,
 };
 
 export default formsyDecorator(TextInput);

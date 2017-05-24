@@ -9,6 +9,7 @@ import Button from 'components/Button';
 import testClass from 'domain/testClass';
 import AlertDialog from 'components/AlertDialog';
 import ApiCall from 'containers/ApiCalls';
+import PropTypes from 'prop-types';
 
 const suffix = '@ef.com';
 
@@ -89,15 +90,15 @@ class Impersonate extends Component {
 }
 
 Impersonate.propTypes = {
-  postImpersonateState: React.PropTypes.object,
-  close: React.PropTypes.func,
-  success: React.PropTypes.func,
-  postedImpersonate: React.PropTypes.func,
-  clearImpersonateData: React.PropTypes.func,
-  token: React.PropTypes.string,
-  apiKey: React.PropTypes.string,
-  error: React.PropTypes.object,
-  clean: React.PropTypes.func.isRequired,
+  postImpersonateState: PropTypes.object,
+  close: PropTypes.func,
+  success: PropTypes.func,
+  postedImpersonate: PropTypes.func,
+  clearImpersonateData: PropTypes.func,
+  token: PropTypes.string,
+  apiKey: PropTypes.string,
+  error: PropTypes.object,
+  clean: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

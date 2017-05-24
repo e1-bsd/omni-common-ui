@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Item = (props, { grid }) => {
   let { xs } = props;
@@ -23,16 +24,16 @@ const Item = (props, { grid }) => {
 };
 
 Item.propTypes = {
-  children: React.PropTypes.node,
-  xs: React.PropTypes.number,
-  sm: React.PropTypes.number,
-  md: React.PropTypes.number,
-  lg: React.PropTypes.number,
-  className: React.PropTypes.string,
+  children: PropTypes.node,
+  xs: PropTypes.number,
+  sm: PropTypes.number,
+  md: PropTypes.number,
+  lg: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Item.contextTypes = {
-  grid: React.PropTypes.object,
+  grid: PropTypes.object,
 };
 
 export default Item;

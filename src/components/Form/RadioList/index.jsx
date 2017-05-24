@@ -4,6 +4,7 @@ import React from 'react';
 import { HOC as formsyDecorator } from 'formsy-react';
 import Field from '../Field';
 import Radio from './Radio';
+import PropTypes from 'prop-types';
 
 const RadioList = (props) => {
   const { name, label, items } = props;
@@ -26,11 +27,11 @@ const RadioList = (props) => {
 };
 
 RadioList.propTypes = {
-  showRequired: React.PropTypes.func.isRequired,
-  setValue: React.PropTypes.func.isRequired,
-  name: React.PropTypes.string,
-  label: React.PropTypes.string,
-  items: React.PropTypes.array.isRequired,
+  showRequired: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  items: PropTypes.array.isRequired,
 };
 
 export default formsyDecorator(RadioList);

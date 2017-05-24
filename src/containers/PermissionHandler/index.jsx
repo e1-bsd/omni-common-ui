@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
 import Config from 'domain/Config';
+import PropTypes from 'prop-types';
 
 export const PermissionHandler = (props) => {
   const { permissionChecks, children, havePrivilegesLoaded } = props;
@@ -30,11 +31,11 @@ export const PermissionHandler = (props) => {
 };
 
 PermissionHandler.propTypes = {
-  permissionChecks: React.PropTypes.arrayOf(React.PropTypes.shape({
-    canAccess: React.PropTypes.func.isRequired,
+  permissionChecks: PropTypes.arrayOf(PropTypes.shape({
+    canAccess: PropTypes.func.isRequired,
   })),
-  children: React.PropTypes.node,
-  havePrivilegesLoaded: React.PropTypes.func.isRequired,
+  children: PropTypes.node,
+  havePrivilegesLoaded: PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state, { routes }) {

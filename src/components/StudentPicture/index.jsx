@@ -5,6 +5,7 @@ import defaultAvatarImg from './default-avatar.svg';
 import React from 'react';
 import { pure } from 'recompose';
 import Avatar from 'components/Avatar';
+import PropTypes from 'prop-types';
 
 export const StudentPicture = ({ src, className, gender }) => <Avatar src={src}
     default={defaultAvatarImg}
@@ -14,9 +15,9 @@ export const StudentPicture = ({ src, className, gender }) => <Avatar src={src}
     gender={gender} />;
 
 StudentPicture.propTypes = {
-  gender: React.PropTypes.string,
-  src: React.PropTypes.string,
-  className: React.PropTypes.string,
+  gender: PropTypes.string,
+  src: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default pure(StudentPicture);

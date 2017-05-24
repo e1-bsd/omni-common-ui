@@ -6,6 +6,7 @@ import React from 'react';
 import RcTooltip from 'rc-tooltip';
 import is from 'is_js';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Tooltip = (props) => {
   if (is.not.string(props.text) || is.empty(props.text)) {
@@ -29,12 +30,12 @@ const Tooltip = (props) => {
 };
 
 Tooltip.propTypes = {
-  children: React.PropTypes.node,
-  text: React.PropTypes.string,
-  className: React.PropTypes.string,
-  placement: React.PropTypes.string,
-  overlayClassName: React.PropTypes.string,
-  trigger: React.PropTypes.any,
+  children: PropTypes.node,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  placement: PropTypes.string,
+  overlayClassName: PropTypes.string,
+  trigger: PropTypes.any,
 };
 
 export default Tooltip;

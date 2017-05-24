@@ -1,5 +1,6 @@
 import React from 'react';
 import ColourLabel from 'components/ColourLabel';
+import PropTypes from 'prop-types';
 
 const ProductionStatus = (props) => {
   const { status, initial, highlighted } = props;
@@ -8,11 +9,11 @@ const ProductionStatus = (props) => {
 };
 
 ProductionStatus.propTypes = {
-  className: React.PropTypes.string,
-  status: React.PropTypes.string,
-  initial: React.PropTypes.string,
-  highlighted: React.PropTypes.bool,
-  unbreakable: React.PropTypes.bool,
+  className: PropTypes.string,
+  status: PropTypes.string,
+  initial: PropTypes.string,
+  highlighted: PropTypes.bool,
+  unbreakable: PropTypes.bool,
 };
 
 export default ProductionStatus;

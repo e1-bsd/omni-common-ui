@@ -7,6 +7,7 @@ import is from 'is_js';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Config from 'domain/Config';
+import PropTypes from 'prop-types';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -67,12 +68,12 @@ class LoadingOverlayHandler extends Component {
 }
 
 LoadingOverlayHandler.propTypes = {
-  loadingApiCalls: React.PropTypes.shape({
-    filter: React.PropTypes.func,
+  loadingApiCalls: PropTypes.shape({
+    filter: PropTypes.func,
   }),
-  isAnyApiCallLoading: React.PropTypes.bool.isRequired,
-  isAnyApiCallLoadingBeyondThreshold: React.PropTypes.bool.isRequired,
-  children: React.PropTypes.node.isRequired,
+  isAnyApiCallLoading: PropTypes.bool.isRequired,
+  isAnyApiCallLoadingBeyondThreshold: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 function mapStateToProps(state) {

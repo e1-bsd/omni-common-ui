@@ -1,5 +1,6 @@
 import styles from './style.postcss';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SolidCheckBox extends Component {
 
@@ -20,9 +21,9 @@ class SolidCheckBox extends Component {
 }
 
 SolidCheckBox.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  isChecked: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
+  id: PropTypes.string.isRequired,
+  isChecked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default SolidCheckBox;

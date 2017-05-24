@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import ProductionStatus from 'components/ProductionStatus';
 import Person from 'components/Person';
 import testClass from 'domain/testClass';
+import PropTypes from 'prop-types';
 
 const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
   const { status, statusHighlighted } = props;
@@ -58,22 +59,22 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
 };
 
 Profile.contextTypes = {
-  backgroundless: React.PropTypes.bool,
-  withSeparatorLine: React.PropTypes.bool,
-  vertical: React.PropTypes.bool,
+  backgroundless: PropTypes.bool,
+  withSeparatorLine: PropTypes.bool,
+  vertical: PropTypes.bool,
 };
 
 Profile.propTypes = {
-  className: React.PropTypes.string,
-  name: React.PropTypes.string,
-  surname: React.PropTypes.string,
-  localName: React.PropTypes.string,
-  gender: React.PropTypes.string,
-  avatarUrl: React.PropTypes.string,
-  status: React.PropTypes.string,
-  statusInitial: React.PropTypes.string,
-  statusHighlighted: React.PropTypes.bool,
-  withBiggerAvatar: React.PropTypes.bool,
+  className: PropTypes.string,
+  name: PropTypes.string,
+  surname: PropTypes.string,
+  localName: PropTypes.string,
+  gender: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  status: PropTypes.string,
+  statusInitial: PropTypes.string,
+  statusHighlighted: PropTypes.bool,
+  withBiggerAvatar: PropTypes.bool,
 };
 
 export default Profile;

@@ -2,6 +2,7 @@ import styles from '../style.postcss';
 
 import React from 'react';
 import Button from 'components/Button';
+import PropTypes from 'prop-types';
 
 const SaveBarButton = ({ label, isPrimary, disabled, onClick, linkHref, linkTo }) =>
   <Button autoWidth
@@ -15,12 +16,12 @@ const SaveBarButton = ({ label, isPrimary, disabled, onClick, linkHref, linkTo }
   </Button>;
 
 SaveBarButton.propTypes = {
-  label: React.PropTypes.string,
-  isPrimary: React.PropTypes.bool,
-  disabled: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-  linkHref: React.PropTypes.string,
-  linkTo: React.PropTypes.string,
+  label: PropTypes.string,
+  isPrimary: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  linkHref: PropTypes.string,
+  linkTo: PropTypes.string,
 };
 
 export default SaveBarButton;

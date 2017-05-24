@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 import Card from 'components/Card';
 
@@ -21,9 +22,9 @@ const PageCard = (props) => {
 };
 
 PageCard.propTypes = {
-  headingText: React.PropTypes.string,
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
+  headingText: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export default PageCard;

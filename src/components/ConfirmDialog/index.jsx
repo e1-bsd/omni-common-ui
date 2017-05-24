@@ -6,6 +6,7 @@ import is from 'is_js';
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const ConfirmDialog = ({
   children,
@@ -56,17 +57,17 @@ const ConfirmDialog = ({
 </Dialog>;
 
 ConfirmDialog.propTypes = {
-  isOpen: React.PropTypes.bool,
-  isLoading: React.PropTypes.bool,
-  isButtonless: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  title: React.PropTypes.string,
-  content: React.PropTypes.string,
-  primaryButtonContent: React.PropTypes.string.isRequired,
-  secondaryButtonContent: React.PropTypes.string,
-  onPrimaryClick: React.PropTypes.func,
-  onSecondaryClick: React.PropTypes.func,
-  onRequestClose: React.PropTypes.func,
+  isOpen: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  isButtonless: PropTypes.bool,
+  children: PropTypes.node,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  primaryButtonContent: PropTypes.string.isRequired,
+  secondaryButtonContent: PropTypes.string,
+  onPrimaryClick: PropTypes.func,
+  onSecondaryClick: PropTypes.func,
+  onRequestClose: PropTypes.func,
 };
 
 export default ConfirmDialog;

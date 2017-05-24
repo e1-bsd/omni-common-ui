@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 export default class InputSelect extends Component {
   constructor(props) {
@@ -107,33 +108,33 @@ export default class InputSelect extends Component {
 }
 
 InputSelect.propTypes = {
-  optionList: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.array,
+  optionList: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
   ]),
-  optionKeys: React.PropTypes.array.isRequired,
-  myStyle: React.PropTypes.object,
-  selectStyle: React.PropTypes.object,
-  className: React.PropTypes.string,
-  selectClassName: React.PropTypes.string,
-  labelClassName: React.PropTypes.string,
-  value: React.PropTypes.string,
-  labelName: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  required: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  defaultOption: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.shape({
-      key: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
+  optionKeys: PropTypes.array.isRequired,
+  myStyle: PropTypes.object,
+  selectStyle: PropTypes.object,
+  className: PropTypes.string,
+  selectClassName: PropTypes.string,
+  labelClassName: PropTypes.string,
+  value: PropTypes.string,
+  labelName: PropTypes.string,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  onChange: PropTypes.func,
+  defaultOption: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
       ]),
-      name: React.PropTypes.string,
+      name: PropTypes.string,
     }),
   ]),
-  disabledDefaultOption: React.PropTypes.bool,
-  nameIdentified: React.PropTypes.bool,
+  disabledDefaultOption: PropTypes.bool,
+  nameIdentified: PropTypes.bool,
 };
 
 InputSelect.defaultProps = {

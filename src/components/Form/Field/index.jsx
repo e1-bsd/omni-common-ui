@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Field = (props) => {
   const classes = classnames(styles.Field, getValidationClasses());
@@ -51,12 +52,12 @@ const Field = (props) => {
 };
 
 Field.propTypes = {
-  label: React.PropTypes.string,
-  showError: React.PropTypes.func.isRequired,
-  showRequired: React.PropTypes.func.isRequired,
-  getErrorMessage: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node,
-  useLabel: React.PropTypes.bool,
+  label: PropTypes.string,
+  showError: PropTypes.func.isRequired,
+  showRequired: PropTypes.func.isRequired,
+  getErrorMessage: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  useLabel: PropTypes.bool,
 };
 
 export default Field;

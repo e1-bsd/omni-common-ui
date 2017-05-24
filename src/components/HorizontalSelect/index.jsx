@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import is from 'is_js';
 import HorizontalScroll from '../HorizontalScroll';
+import PropTypes from 'prop-types';
 
 const wasLeftMouseButtonPressed = (e = window.event) => {
   const button = e.which || e.button;
@@ -86,14 +87,14 @@ class HorizontalSelect extends PureComponent {
 }
 
 HorizontalSelect.propTypes = {
-  options: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      html: React.PropTypes.node,
-      value: React.PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      html: PropTypes.node,
+      value: PropTypes.string,
     })).isRequired,
-  value: React.PropTypes.string,
-  getLinkHrefForValue: React.PropTypes.func.isRequired,
-  onSelect: React.PropTypes.func,
+  value: PropTypes.string,
+  getLinkHrefForValue: PropTypes.func.isRequired,
+  onSelect: PropTypes.func,
 };
 
 export default HorizontalSelect;
