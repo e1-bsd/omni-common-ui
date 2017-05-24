@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 import testClass from 'domain/testClass';
 
 const SaveBarButton = ({ label, isPrimary, disabled, onClick, linkHref, linkTo }) => {
-  const className = classnames(styles.SaveBar_button, testClass(`${label}-btn`));
+  const className = classnames(styles.SaveBar_button,
+    testClass(`${label.replace(/\s+/g, '')}-btn`));
   return <Button autoWidth
       type={isPrimary ? Button.Type.primaryInverse : Button.Type.defaultInverse}
       className={className}
