@@ -67,7 +67,7 @@ class UserInfo extends Component {
           this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
         }
         userManager.forceSignoutRedirect();
-      }
+      },
     }).show();
   }
 

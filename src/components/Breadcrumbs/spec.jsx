@@ -6,7 +6,6 @@ import Breadcrumbs from './';
 import styles from './style.postcss';
 
 describe('<Breadcrumbs />', () => {
-
   describe('check basic render functionality', () => {
     const groupLink = {
       label: 'group1',
@@ -33,7 +32,5 @@ describe('<Breadcrumbs />', () => {
         .to.have.text('mark attendance');
       expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).first().contains(<Link />));
     });
-
   });
-
 });
