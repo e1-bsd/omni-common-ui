@@ -5,7 +5,6 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const combineLoaders = require('webpack-combine-loaders');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -32,20 +31,20 @@ const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`)
 
 const BABEL_CACHE_ENABLED = true;
 
-const jsxLoader = combineLoaders([
+const jsxLoader = [
   {
-    loader: 'babel',
+    loader: 'babel-loader',
     query: {
       presets: ['react', 'es2015', 'stage-2'],
       cacheDirectory: BABEL_CACHE_ENABLED,
     },
   },
-]);
+];
 
-const postcssLoader = combineLoaders([
-  { loader: 'style' },
+const postcssLoader = [
+  { loader: 'style-loader' },
   {
-    loader: 'css',
+    loader: 'css-loader',
     query: {
       root: '.',
       modules: true,
@@ -53,8 +52,8 @@ const postcssLoader = combineLoaders([
       localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
     },
   },
-  { loader: 'postcss' },
-]);
+  { loader: 'postcss-loader' },
+];
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -69,36 +68,36 @@ module.exports = {
     filename: '[name].[hash].js',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(html|hbs)$/,
-        loader: 'handlebars',
+        use: 'handlebars-loader',
         query: { inlineRequires: 'assets/favicons' },
       },
       {
         test: /\.jsx?$/,
         exclude: excluded,
-        loader: jsxLoader,
+        use: jsxLoader,
       },
       {
         test: /\.css$/,
-        loader: 'style!css?root=.',
+        use: ['style-loader', 'css-loader?root=.'],
       },
       {
         test: /\.postcss$/,
-        loader: postcssLoader,
+        use: postcssLoader,
       },
       {
         test: regExpFonts,
-        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
         test: regExpFavicons,
-        loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
         test: regExpInlineSvgs,
-        loader: 'svg-inline',
+        use: 'svg-inline-loader',
         query: {
           removeTags: true,
           removingTags: ['title', 'desc', 'defs', 'style'],
@@ -108,29 +107,23 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         exclude: new RegExp(`(${regExpFavicons.source})|(${regExpInlineSvgs.source})`),
-        loaders: [
-          'url?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+        use: [
+          'url-loader?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false',
         ],
       },
-      {
-        test: /\.json$/,
-        exclude: regExpFavicons,
-        loader: 'json',
-      },
-    ],
-    postLoaders: isTest ?
-      [{
+      isTest ? {
         test: /\.jsx?$/i,
-        exclude: excludedInCoverage,
-        loader: 'istanbul-instrumenter',
         enforce: 'post',
-      }] : [],
+        exclude: excludedInCoverage,
+        use: 'istanbul-instrumenter-loader',
+        enforce: 'post',
+      } : {},
+    ],
   },
   plugins: (nodeEnv !== 'test' ?
       [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
       []).concat([
-        new webpack.optimize.OccurenceOrderPlugin(),
         new CopyWebpackPlugin([
           { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
           { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
@@ -172,12 +165,12 @@ module.exports = {
   },
   resolve: Object.assign(
     {
-      root: [
+      modules: [
         path.resolve(contextFolder),
         path.resolve(srcFolder),
         process.cwd(),
       ],
-      extensions: ['', '.js', '.jsx', '.json'],
+      extensions: ['.js', '.jsx', '.json'],
     },
     {
       alias: Object.assign(
@@ -220,6 +213,7 @@ function addOptionalPlugins() {
           warnings: false,
         },
         sourceMap: true,
+        minimize: true,
       }),
     ]);
   }
