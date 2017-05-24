@@ -129,6 +129,7 @@
     "react-dom": "^15.5.4",
     "react-dotdotdot": "^1.1.0",
     "react-ga": "^2.2.0",
+    "react-hot-loader": "next",
     "react-immutable-proptypes": "2.1.0",
     "react-iscroll": "^1.1.4",
     "react-modal": "^1.7.7",

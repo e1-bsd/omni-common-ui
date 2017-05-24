@@ -1143,7 +1143,7 @@ babel-runtime@^5.5.5:
   dependencies:
     core-js "^1.0.0"
 
-babel-template@^6.16.0, babel-template@^6.24.1:
+babel-template@^6.16.0, babel-template@^6.24.1, babel-template@^6.7.0:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-template/-/babel-template-6.24.1.tgz#04ae514f1f93b3a2537f2a0f60a5a45fb8308333"
   dependencies:
@@ -3214,6 +3214,12 @@ error-ex@^1.2.0:
   resolved "https://registry.yarnpkg.com/error-ex/-/error-ex-1.3.1.tgz#f855a86ce61adc4e8621c3cda21e7a7612c3a8dc"
   dependencies:
     is-arrayish "^0.2.1"
+
+error-stack-parser@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/error-stack-parser/-/error-stack-parser-1.3.6.tgz#e0e73b93e417138d1cd7c0b746b1a4a14854c292"
+  dependencies:
+    stackframe "^0.3.1"
 
 es-abstract@^1.6.1, es-abstract@^1.7.0:
   version "1.7.0"
@@ -8697,6 +8703,10 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
+react-deep-force-update@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
+
 react-dom@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
@@ -8730,6 +8740,17 @@ react-ga@^2.2.0:
     create-react-class "^15.5.2"
     object-assign "^4.0.1"
     prop-types "^15.5.6"
+
+react-hot-loader@next:
+  version "3.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-3.0.0-beta.7.tgz#d5847b8165d731c4d5b30d86d5d4716227a0fa83"
+  dependencies:
+    babel-template "^6.7.0"
+    global "^4.3.0"
+    react-deep-force-update "^2.0.1"
+    react-proxy "^3.0.0-alpha.0"
+    redbox-react "^1.3.6"
+    source-map "^0.4.4"
 
 react-immutable-proptypes@2.1.0:
   version "2.1.0"
@@ -8772,6 +8793,12 @@ react-proxy@^1.1.7:
   dependencies:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
+
+react-proxy@^3.0.0-alpha.0:
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
+  dependencies:
+    lodash "^4.6.1"
 
 react-radial-progress-sans-animation@0.0.1:
   version "0.0.1"
@@ -8977,6 +9004,14 @@ recursive-readdir@^2.1.0:
   resolved "https://registry.yarnpkg.com/recursive-readdir/-/recursive-readdir-2.2.1.tgz#90ef231d0778c5ce093c9a48d74e5c5422d13a99"
   dependencies:
     minimatch "3.0.3"
+
+redbox-react@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/redbox-react/-/redbox-react-1.3.6.tgz#70314c57c066257eb70b0a24dc794b5cef4f1c4e"
+  dependencies:
+    error-stack-parser "^1.3.6"
+    object-assign "^4.0.1"
+    prop-types "^15.5.4"
 
 redent@^1.0.0:
   version "1.0.0"
@@ -9850,6 +9885,10 @@ sshpk@^1.7.0:
 stable@~0.1.3:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.6.tgz#910f5d2aed7b520c6e777499c1f32e139fdecb10"
+
+stackframe@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
 
 stat-mode@^0.2.0:
   version "0.2.2"

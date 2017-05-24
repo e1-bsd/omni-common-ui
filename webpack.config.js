@@ -31,35 +31,13 @@ const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`)
 
 const BABEL_CACHE_ENABLED = true;
 
-const jsxLoader = [
-  {
-    loader: 'babel-loader',
-    query: {
-      presets: ['react', 'es2015', 'stage-2'],
-      cacheDirectory: BABEL_CACHE_ENABLED,
-    },
-  },
-];
-
-const postcssLoader = [
-  { loader: 'style-loader' },
-  {
-    loader: 'css-loader',
-    query: {
-      root: '.',
-      modules: true,
-      importLoaders: 1,
-      localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
-    },
-  },
-  { loader: 'postcss-loader' },
-];
-
 module.exports = {
   context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
-  debug: ! isProd,
   entry: {
+    reactHotLoader: 'react-hot-loader/patch',
+    devServer: 'webpack-dev-server/client?http://localhost:3000',
+    devServerHotLoader: 'webpack/hot/only-dev-server',
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
   },
@@ -71,13 +49,21 @@ module.exports = {
     rules: [
       {
         test: /\.(html|hbs)$/,
-        use: 'handlebars-loader',
-        query: { inlineRequires: 'assets/favicons' },
+        use: {
+          loader: 'handlebars-loader',
+          options: { inlineRequires: 'assets/favicons' },
+        },
       },
       {
         test: /\.jsx?$/,
         exclude: excluded,
-        use: jsxLoader,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react', 'es2015', 'stage-2'],
+            cacheDirectory: BABEL_CACHE_ENABLED,
+          },
+        },
       },
       {
         test: /\.css$/,
@@ -85,7 +71,19 @@ module.exports = {
       },
       {
         test: /\.postcss$/,
-        use: postcssLoader,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              root: '.',
+              modules: true,
+              importLoaders: 1,
+              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
+            },
+          },
+          { loader: 'postcss-loader' },
+        ],
       },
       {
         test: regExpFonts,
@@ -97,11 +95,13 @@ module.exports = {
       },
       {
         test: regExpInlineSvgs,
-        use: 'svg-inline-loader',
-        query: {
-          removeTags: true,
-          removingTags: ['title', 'desc', 'defs', 'style'],
-          removingTagAttrs: ['fill', 'stroke'],
+        use: {
+          loader: 'svg-inline-loader',
+          options: {
+            removeTags: true,
+            removingTags: ['title', 'desc', 'defs', 'style'],
+            removingTagAttrs: ['fill', 'stroke'],
+          },
         },
       },
       {
@@ -117,12 +117,11 @@ module.exports = {
         enforce: 'post',
         exclude: excludedInCoverage,
         use: 'istanbul-instrumenter-loader',
-        enforce: 'post',
       } : {},
     ],
   },
   plugins: (nodeEnv !== 'test' ?
-      [new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js')] :
+      [new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })] :
       []).concat([
         new CopyWebpackPlugin([
           { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
@@ -138,12 +137,10 @@ module.exports = {
           COMMIT: `'${commitHash}'`,
         }),
       ]).concat(! isProd ?
-        [
-          new webpack.ProvidePlugin({
-            __CONFIG__: path.resolve(`config/${process.env.CONFIG || nodeEnv}.json`),
-          }),
-        ] :
-        [])
+      [new webpack.ProvidePlugin({
+        __CONFIG__: path.resolve(`config/${process.env.CONFIG || nodeEnv}.json`),
+      })] :
+      [])
       .concat([
         new HtmlWebpackPlugin({
           template: path.join(__dirname, 'lib/index.html'),
@@ -158,10 +155,7 @@ module.exports = {
       .concat(addOptionalPlugins()),
   devServer: {
     contentBase: srcFolder,
-    outputPath: path.resolve('dist'),
-    noInfo: false,
-    stats: { colors: true },
-    historyApiFallback: true,
+    compress: true,
   },
   resolve: Object.assign(
     {
@@ -169,6 +163,7 @@ module.exports = {
         path.resolve(contextFolder),
         path.resolve(srcFolder),
         process.cwd(),
+        path.resolve('node_modules'),
       ],
       extensions: ['.js', '.jsx', '.json'],
     },
