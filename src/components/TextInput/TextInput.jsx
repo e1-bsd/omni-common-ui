@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 class TextInput extends Component {
   constructor(props) {
@@ -66,19 +67,19 @@ class TextInput extends Component {
 }
 
 TextInput.propTypes = {
-  myStyle: React.PropTypes.object,
-  inputStyle: React.PropTypes.object,
-  value: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  labelName: React.PropTypes.string,
-  name: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  required: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  suffix: React.PropTypes.string,
-  className: React.PropTypes.string,
-  inputClassName: React.PropTypes.string,
-  acceptedChars: React.PropTypes.object,
+  myStyle: PropTypes.object,
+  inputStyle: PropTypes.object,
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  labelName: PropTypes.string,
+  name: PropTypes.string,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  onChange: PropTypes.func,
+  suffix: PropTypes.string,
+  className: PropTypes.string,
+  inputClassName: PropTypes.string,
+  acceptedChars: PropTypes.object,
 };
 
 export default TextInput;

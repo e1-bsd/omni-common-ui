@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 const Showcase = (props) => {
   return <div className={styles.Showcase}>
@@ -25,10 +26,10 @@ const Showcase = (props) => {
 };
 
 Showcase.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  titleLink: React.PropTypes.string,
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
+  title: PropTypes.string.isRequired,
+  titleLink: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Showcase;

@@ -5,6 +5,7 @@ import ReactIScroll from 'react-iscroll';
 import iScroll from 'iscroll';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 const baseOptions = {
   deceleration: 0.01,
@@ -95,16 +96,16 @@ class HorizontalScroll extends PureComponent {
 }
 
 HorizontalScroll.propTypes = {
-  className: React.PropTypes.string,
-  innerClassName: React.PropTypes.string,
-  children: React.PropTypes.node,
-  onScrollReady: React.PropTypes.func,
-  scrollToElement: React.PropTypes.shape({
-    selector: React.PropTypes.string.isRequired,
-    duration: React.PropTypes.number,
-    offsetX: React.PropTypes.number,
-    offsetY: React.PropTypes.number,
-    easing: React.PropTypes.object,
+  className: PropTypes.string,
+  innerClassName: PropTypes.string,
+  children: PropTypes.node,
+  onScrollReady: PropTypes.func,
+  scrollToElement: PropTypes.shape({
+    selector: PropTypes.string.isRequired,
+    duration: PropTypes.number,
+    offsetX: PropTypes.number,
+    offsetY: PropTypes.number,
+    easing: PropTypes.object,
   }),
 };
 

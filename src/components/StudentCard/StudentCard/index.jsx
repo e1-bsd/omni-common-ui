@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React, { Component } from 'react';
 import Card from 'components/Card';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 class StudentCard extends Component {
   getChildContext() {
@@ -37,20 +38,20 @@ StudentCard.accentPosition = ['bottom', 'left'];
 StudentCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
 StudentCard.childContextTypes = {
-  backgroundless: React.PropTypes.bool,
-  withSeparatorLine: React.PropTypes.bool,
-  vertical: React.PropTypes.bool,
+  backgroundless: PropTypes.bool,
+  withSeparatorLine: PropTypes.bool,
+  vertical: PropTypes.bool,
 };
 
 StudentCard.propTypes = {
-  backgroundless: React.PropTypes.bool,
-  borderless: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  withSeparatorLine: React.PropTypes.bool,
-  statusAccentPosition: React.PropTypes.oneOf(StudentCard.accentPosition),
-  statusAccentColor: React.PropTypes.oneOf(StudentCard.accentColors),
-  children: React.PropTypes.node,
-  vertical: React.PropTypes.bool,
+  backgroundless: PropTypes.bool,
+  borderless: PropTypes.bool,
+  className: PropTypes.string,
+  withSeparatorLine: PropTypes.bool,
+  statusAccentPosition: PropTypes.oneOf(StudentCard.accentPosition),
+  statusAccentColor: PropTypes.oneOf(StudentCard.accentColors),
+  children: PropTypes.node,
+  vertical: PropTypes.bool,
 };
 
 export default StudentCard;

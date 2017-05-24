@@ -2,6 +2,7 @@ import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 const Detailsboard = (props) => {
   const classesBoard = classnames(styles.Detailsboard_board);
@@ -22,8 +23,8 @@ const Detailsboard = (props) => {
 };
 
 Detailsboard.propTypes = {
-  boardTitle: React.PropTypes.string.isRequired,
-  boardValue: React.PropTypes.string.isRequired,
+  boardTitle: PropTypes.string.isRequired,
+  boardValue: PropTypes.string.isRequired,
 };
 
 export default Detailsboard;

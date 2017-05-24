@@ -1,6 +1,7 @@
 import React from 'react';
 import Item from '../Item';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Group = (props, { grid }) => {
   return <div className={classnames(grid.row, props.className)}>
@@ -25,12 +26,12 @@ const Group = (props, { grid }) => {
 };
 
 Group.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 Group.contextTypes = {
-  grid: React.PropTypes.object,
+  grid: PropTypes.object,
 };
 
 export default Group;

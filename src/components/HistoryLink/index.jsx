@@ -4,6 +4,7 @@ import is from 'is_js';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const HistoryLink = (props) => {
   const currentRoute = props.routes[props.routes.length - 1];
@@ -29,10 +30,10 @@ const HistoryLink = (props) => {
 };
 
 HistoryLink.propTypes = {
-  className: React.PropTypes.string,
-  params: React.PropTypes.object.isRequired,
-  routes: React.PropTypes.array.isRequired,
-  buildRoute: React.PropTypes.func.isRequired,
+  className: PropTypes.string,
+  params: PropTypes.object.isRequired,
+  routes: PropTypes.array.isRequired,
+  buildRoute: PropTypes.func.isRequired,
 };
 
 export default HistoryLink;

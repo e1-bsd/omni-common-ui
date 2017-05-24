@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import Modal from 'react-modal';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import Card from 'components/Card';
 import Icon from 'components/Icon';
@@ -32,12 +33,12 @@ const Dialog = (props) => <Modal className={styles.Dialog}
 </Modal>;
 
 Dialog.propTypes = {
-  isOpen: React.PropTypes.bool.isRequired,
-  isLoading: React.PropTypes.bool,
-  withCloseButton: React.PropTypes.bool,
-  onRequestClose: React.PropTypes.func,  /* called with 'escape' or 'button' arg */
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
+  isOpen: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
+  withCloseButton: PropTypes.bool,
+  onRequestClose: PropTypes.func,  /* called with 'escape' or 'button' arg */
+  children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 export default Dialog;

@@ -1,5 +1,6 @@
 import styles from './style.postcss';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SolidRadio extends Component {
   _handleCheck(value) {
@@ -23,11 +24,11 @@ class SolidRadio extends Component {
 }
 
 SolidRadio.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string,
-  isChecked: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  isChecked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 export default SolidRadio;

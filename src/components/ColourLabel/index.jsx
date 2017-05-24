@@ -4,6 +4,7 @@ import React from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 import Tooltip from 'components/Tooltip';
+import PropTypes from 'prop-types';
 
 const ColourLabel = (props) => {
   const { text, initial, colour } = props;
@@ -44,9 +45,9 @@ const ColourLabel = (props) => {
 };
 
 ColourLabel.propTypes = {
-  initial: React.PropTypes.string,
-  text: React.PropTypes.string,
-  colour: React.PropTypes.string,
+  initial: PropTypes.string,
+  text: PropTypes.string,
+  colour: PropTypes.string,
 };
 
 export default ColourLabel;

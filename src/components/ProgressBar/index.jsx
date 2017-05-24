@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import is from 'is_js';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const ProgressBar = (props) => {
   const { value, max } = props;
@@ -43,11 +44,11 @@ function percentage(value, max) {
 }
 
 ProgressBar.propTypes = {
-  className: React.PropTypes.string,
-  value: React.PropTypes.number,
-  max: React.PropTypes.number,
-  rounded: React.PropTypes.bool,
-  larger: React.PropTypes.bool,
+  className: PropTypes.string,
+  value: PropTypes.number,
+  max: PropTypes.number,
+  rounded: PropTypes.bool,
+  larger: PropTypes.bool,
 };
 
 export default ProgressBar;

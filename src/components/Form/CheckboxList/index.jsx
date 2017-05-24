@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { HOC as formsyDecorator } from 'formsy-react';
 import Field from '../Field';
 import Checkbox from './Checkbox';
+import PropTypes from 'prop-types';
 
 class CheckboxList extends Component {
   static cmp(a, b) {
@@ -51,16 +52,16 @@ class CheckboxList extends Component {
 }
 
 CheckboxList.propTypes = {
-  setValue: React.PropTypes.func.isRequired,
-  getValue: React.PropTypes.func.isRequired,
-  name: React.PropTypes.string,
-  label: React.PropTypes.string,
-  items: React.PropTypes.array,
-  getErrorMessage: React.PropTypes.func.isRequired,
-  showRequired: React.PropTypes.func.isRequired,
-  showError: React.PropTypes.func.isRequired,
-  validations: React.PropTypes.string,
-  validationError: React.PropTypes.string,
+  setValue: PropTypes.func.isRequired,
+  getValue: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  items: PropTypes.array,
+  getErrorMessage: PropTypes.func.isRequired,
+  showRequired: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
+  validations: PropTypes.string,
+  validationError: PropTypes.string,
 };
 
 export default formsyDecorator(CheckboxList);

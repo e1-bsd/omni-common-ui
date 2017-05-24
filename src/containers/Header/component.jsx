@@ -7,6 +7,7 @@ import { connect } from 'domain/connect';
 import Icon from 'components/Icon';
 import is from 'is_js';
 import testClass from 'domain/testClass';
+import PropTypes from 'prop-types';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
@@ -28,10 +29,10 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  router: React.PropTypes.any.isRequired,
-  routes: React.PropTypes.array.isRequired,
-  impersonate: React.PropTypes.object,
-  onHamburgerClick: React.PropTypes.func,
+  router: PropTypes.any.isRequired,
+  routes: PropTypes.array.isRequired,
+  impersonate: PropTypes.object,
+  onHamburgerClick: PropTypes.func,
 };
 
 function mapStateToProps(state) {

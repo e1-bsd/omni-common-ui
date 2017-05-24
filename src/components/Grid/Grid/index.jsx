@@ -5,6 +5,7 @@ import styles from './style.postcss';
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import mediaQuery from 'domain/MediaQuery';
+import PropTypes from 'prop-types';
 
 class Grid extends PureComponent {
   constructor(props) {
@@ -49,13 +50,13 @@ class Grid extends PureComponent {
 }
 
 Grid.propTypes = {
-  children: React.PropTypes.node,
-  outerMargin: React.PropTypes.bool,
-  className: React.PropTypes.string,
+  children: PropTypes.node,
+  outerMargin: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Grid.childContextTypes = {
-  grid: React.PropTypes.object,
+  grid: PropTypes.object,
 };
 
 export default Grid;

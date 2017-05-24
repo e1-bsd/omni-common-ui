@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
@@ -8,11 +8,12 @@ import userManager from './userManager';
 import Config from 'domain/Config';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
+import PropTypes from 'prop-types';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
 MockSingleSignOnHandler.propTypes = {
-  children: React.PropTypes.node,
+  children: PropTypes.node,
 };
 
 class SingleSignOnHandlerImpl extends Component {
@@ -76,9 +77,9 @@ class SingleSignOnHandlerImpl extends Component {
 }
 
 SingleSignOnHandlerImpl.propTypes = {
-  children: React.PropTypes.node,
-  user: React.PropTypes.object,
-  fetchPrivilegesIfNeeded: React.PropTypes.func.isRequired,
+  children: PropTypes.node,
+  user: PropTypes.object,
+  fetchPrivilegesIfNeeded: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

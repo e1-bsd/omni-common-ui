@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'components/Icon';
 import styles from './style.postcss';
+import PropTypes from 'prop-types';
 
 class Level extends Component {
 
@@ -24,11 +25,11 @@ class Level extends Component {
 }
 
 Level.propTypes = {
-  children: React.PropTypes.node,
-  label: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.func,
-  route: React.PropTypes.array,
-  currentRoute: React.PropTypes.array,
+  children: PropTypes.node,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  route: PropTypes.array,
+  currentRoute: PropTypes.array,
 };
 
 export default Level;

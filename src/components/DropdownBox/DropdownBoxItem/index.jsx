@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
 import { pure } from 'recompose';
+import PropTypes from 'prop-types';
 
 const DropdownBoxItem = ({ children, onClick, show, className }) => {
   if (show === false) {
@@ -16,10 +17,10 @@ const DropdownBoxItem = ({ children, onClick, show, className }) => {
 };
 
 DropdownBoxItem.propTypes = {
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
-  onClick: React.PropTypes.func,
-  show: React.PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  show: PropTypes.bool,
 };
 
 export default pure(DropdownBoxItem);

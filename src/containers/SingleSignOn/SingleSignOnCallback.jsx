@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CallbackComponent } from 'redux-oidc';
 import { replace } from 'react-router-redux';
 import log from 'domain/log';
+import PropTypes from 'prop-types';
 
 const SingleSignOnCallback = (props) => {
   log.debug('SingleSignOnCallback - called!');
@@ -24,7 +25,7 @@ const SingleSignOnCallback = (props) => {
 };
 
 SingleSignOnCallback.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(SingleSignOnCallback);

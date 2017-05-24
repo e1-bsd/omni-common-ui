@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const InlineSvg = ({ children, className, title, onClick }) =>
   <i className={classnames(className, styles.InlineSvg)}
@@ -9,10 +10,10 @@ const InlineSvg = ({ children, className, title, onClick }) =>
       onClick={onClick} />;
 
 InlineSvg.propTypes = {
-  children: React.PropTypes.string,
-  className: React.PropTypes.string,
-  title: React.PropTypes.string,
-  onClick: React.PropTypes.func,
+  children: PropTypes.string,
+  className: PropTypes.string,
+  title: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default InlineSvg;

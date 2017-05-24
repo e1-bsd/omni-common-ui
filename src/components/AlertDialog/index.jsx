@@ -4,6 +4,7 @@ import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const AlertDialog = ({
   isWarning,
@@ -47,11 +48,11 @@ const AlertDialog = ({
 };
 
 AlertDialog.propTypes = {
-  isWarning: React.PropTypes.bool,
-  content1: React.PropTypes.string,
-  content2: React.PropTypes.string,
-  okButtonContent: React.PropTypes.string,
-  onButtonClick: React.PropTypes.func,
+  isWarning: PropTypes.bool,
+  content1: PropTypes.string,
+  content2: PropTypes.string,
+  okButtonContent: PropTypes.string,
+  onButtonClick: PropTypes.func,
 };
 
 export default AlertDialog;

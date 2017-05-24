@@ -7,6 +7,7 @@ import is from 'is_js';
 import log from 'domain/log';
 import ReactGA from 'react-ga';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
@@ -183,14 +184,14 @@ SaveBarHandler.getCurrentRouteSegment = ({ routes }) =>
   (routes ? routes[routes.length - 1] : {});
 
 SaveBarHandler.propTypes = {
-  isAnyApiCallSaving: React.PropTypes.bool.isRequired,
-  params: React.PropTypes.shape({
-    mode: React.PropTypes.string,
+  isAnyApiCallSaving: PropTypes.bool.isRequired,
+  params: PropTypes.shape({
+    mode: PropTypes.string,
   }).isRequired,
-  routes: React.PropTypes.array.isRequired,
-  pushRoute: React.PropTypes.func.isRequired,
-  buildRoute: React.PropTypes.func.isRequired,
-  children: React.PropTypes.node.isRequired,
+  routes: PropTypes.array.isRequired,
+  pushRoute: PropTypes.func.isRequired,
+  buildRoute: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 function mapStateToProps(state) {

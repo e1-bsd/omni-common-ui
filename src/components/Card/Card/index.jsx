@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const Card = (props, { backgroundless }) => {
   const classes = classnames(styles.Card,
@@ -18,13 +19,13 @@ const Card = (props, { backgroundless }) => {
 
 
 Card.contextTypes = {
-  backgroundless: React.PropTypes.bool,
+  backgroundless: PropTypes.bool,
 };
 
 Card.propTypes = {
-  borderless: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
+  borderless: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Card;
