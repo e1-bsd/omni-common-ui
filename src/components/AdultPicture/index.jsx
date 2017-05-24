@@ -5,6 +5,7 @@ import defaultAvatarImg from './default-avatar.svg';
 import React from 'react';
 import { pure } from 'recompose';
 import Avatar from 'components/Avatar';
+import PropTypes from 'prop-types';
 
 export const AdultPicture = ({
   src, className, gender, userFirstName, userLastName, displayUserInitialsAsDefaultAvatar,
@@ -19,12 +20,12 @@ export const AdultPicture = ({
     displayUserInitialsAsDefaultAvatar={displayUserInitialsAsDefaultAvatar} />;
 
 AdultPicture.propTypes = {
-  className: React.PropTypes.string,
-  src: React.PropTypes.string,
-  gender: React.PropTypes.string,
-  userFirstName: React.PropTypes.string,
-  userLastName: React.PropTypes.string,
-  displayUserInitialsAsDefaultAvatar: React.PropTypes.bool,
+  className: PropTypes.string,
+  src: PropTypes.string,
+  gender: PropTypes.string,
+  userFirstName: PropTypes.string,
+  userLastName: PropTypes.string,
+  displayUserInitialsAsDefaultAvatar: PropTypes.bool,
 };
 
 export default pure(AdultPicture);

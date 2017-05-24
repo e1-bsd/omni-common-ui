@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const CheckBox = (props) => {
   const checked = props.checked === true;
@@ -22,10 +23,10 @@ const CheckBox = (props) => {
 };
 
 CheckBox.propTypes = {
-  name: React.PropTypes.string,
-  item: React.PropTypes.string,
-  onChecked: React.PropTypes.func,
-  checked: React.PropTypes.bool,
+  name: PropTypes.string,
+  item: PropTypes.string,
+  onChecked: PropTypes.func,
+  checked: PropTypes.bool,
 };
 
 export default CheckBox;

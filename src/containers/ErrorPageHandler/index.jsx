@@ -9,6 +9,7 @@ import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
 import userManager from 'containers/SingleSignOn/userManager';
+import PropTypes from 'prop-types';
 
 export const ErrorPageHandler = (props) => {
   const { children, config, erroredApis, erroredApi, clean } = props;
@@ -88,12 +89,12 @@ export const ErrorPageHandler = (props) => {
 };
 
 ErrorPageHandler.propTypes = {
-  children: React.PropTypes.node,
-  replace: React.PropTypes.func.isRequired,
-  clean: React.PropTypes.func.isRequired,
-  erroredApis: React.PropTypes.object,
-  erroredApi: React.PropTypes.object,
-  config: React.PropTypes.object,
+  children: PropTypes.node,
+  replace: PropTypes.func.isRequired,
+  clean: PropTypes.func.isRequired,
+  erroredApis: PropTypes.object,
+  erroredApi: PropTypes.object,
+  config: PropTypes.object,
 };
 
 export function mapStateToProps(state, { routes }) {

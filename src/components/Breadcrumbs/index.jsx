@@ -7,6 +7,7 @@ import is from 'is_js';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const RESIZE_DEBOUNCE_MS = 100;
 
@@ -180,16 +181,16 @@ class Breadcrumbs extends Component {
 }
 
 Breadcrumbs.propTypes = {
-  className: React.PropTypes.string,
-  items: React.PropTypes.arrayOf(React.PropTypes.shape({
-    label: React.PropTypes.string.isRequired,
-    href: React.PropTypes.string.isRequired,
-    clickable: React.PropTypes.bool.isRequired,
-    backLinkHref: React.PropTypes.string.isRequired,  // it's an override
+  className: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired,
+    clickable: PropTypes.bool.isRequired,
+    backLinkHref: PropTypes.string.isRequired,  // it's an override
   })).isRequired,
-  singleLineMode: React.PropTypes.bool,
-  router: React.PropTypes.shape({
-    push: React.PropTypes.func.isRequired,
+  singleLineMode: PropTypes.bool,
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 

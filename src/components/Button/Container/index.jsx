@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 export const ButtonContainer = ({ align, className, children }) => <div className={
     classnames(styles.ButtonContainer, {
@@ -12,9 +13,9 @@ export const ButtonContainer = ({ align, className, children }) => <div classNam
 </div>;
 
 ButtonContainer.propTypes = {
-  align: React.PropTypes.oneOf(['left', 'right', 'center']),  // default: left
-  className: React.PropTypes.string,
-  children: React.PropTypes.node,
+  align: PropTypes.oneOf(['left', 'right', 'center']),  // default: left
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default ButtonContainer;

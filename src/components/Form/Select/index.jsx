@@ -8,6 +8,7 @@ import { HOC as formsyDecorator } from 'formsy-react';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
 import Field from '../Field';
+import PropTypes from 'prop-types';
 
 const Select = (props) => {
 
@@ -42,10 +43,10 @@ const Select = (props) => {
 };
 
 Select.propTypes = {
-  showRequired: React.PropTypes.func.isRequired,
-  setValue: React.PropTypes.func.isRequired,
-  showError: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string,
+  showRequired: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
+  label: PropTypes.string,
 };
 
 export default formsyDecorator(Select);

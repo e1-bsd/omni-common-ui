@@ -13,6 +13,7 @@ import ApiCall from 'containers/ApiCalls';
 import PerformanceProfiler from 'components/PerformanceProfiler';
 import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
+import PropTypes from 'prop-types';
 
 class App extends Component {
   constructor(props) {
@@ -92,8 +93,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  children: React.PropTypes.node,
-  isThereAnError: React.PropTypes.bool.isRequired,
+  children: PropTypes.node,
+  isThereAnError: PropTypes.bool.isRequired,
 };
 
 export function mapStateToProps(state) {

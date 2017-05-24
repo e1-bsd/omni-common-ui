@@ -6,6 +6,7 @@ import moment from 'domain/moment';
 import is from 'is_js';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 import 'react-day-picker/lib/style.css';
 import './datePicker.postcss';
@@ -188,10 +189,10 @@ export default class CalendarPicker extends Component {
 }
 
 CalendarPicker.propTypes = {
-  onDateChanged: React.PropTypes.func,
-  day: React.PropTypes.object,
-  isValid: React.PropTypes.bool,
-  disabledDayBefore: React.PropTypes.object,
-  disabledDayAfter: React.PropTypes.object,
-  isDisablePastDay: React.PropTypes.bool,
+  onDateChanged: PropTypes.func,
+  day: PropTypes.object,
+  isValid: PropTypes.bool,
+  disabledDayBefore: PropTypes.object,
+  disabledDayAfter: PropTypes.object,
+  isDisablePastDay: PropTypes.bool,
 };

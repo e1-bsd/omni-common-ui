@@ -115,6 +115,7 @@
     "postcss-reporter": "2.0.0",
     "postcss-selector-not": "2.0.0",
     "postcss-url": "5.1.2",
+    "prop-types": "^15.5.10",
     "query-string": "4.3.4",
     "raven-js": "^3.12.0",
     "rc-tooltip": "3.4.2",
@@ -199,5 +200,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.18.5-dev.1418"
+  "version": "0.18.5-dev.1420"
 }

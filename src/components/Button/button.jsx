@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 import { Type, validateType } from './type';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 class Button extends Component {
   _handleButtonClick(e) {
@@ -93,22 +94,22 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-  onClick: React.PropTypes.func,
-  type: React.PropTypes.string,
-  disabled: React.PropTypes.bool,
-  newTab: React.PropTypes.bool,
-  children: React.PropTypes.node,
-  linkTo: React.PropTypes.string,
-  linkHref: React.PropTypes.string,
-  block: React.PropTypes.bool,
-  autoWidth: React.PropTypes.bool,
-  active: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  attrs: React.PropTypes.shape({
-    type: React.PropTypes.string,
+  onClick: PropTypes.func,
+  type: PropTypes.string,
+  disabled: PropTypes.bool,
+  newTab: PropTypes.bool,
+  children: PropTypes.node,
+  linkTo: PropTypes.string,
+  linkHref: PropTypes.string,
+  block: PropTypes.bool,
+  autoWidth: PropTypes.bool,
+  active: PropTypes.bool,
+  className: PropTypes.string,
+  attrs: PropTypes.shape({
+    type: PropTypes.string,
   }),
-  onClickActiveClassAddDelay: React.PropTypes.number,  // default: 100ms
-  onClickActiveClassRemoveDelay: React.PropTypes.number,  // default: 1000ms
+  onClickActiveClassAddDelay: PropTypes.number,  // default: 100ms
+  onClickActiveClassRemoveDelay: PropTypes.number,  // default: 1000ms
 };
 
 export default Button;

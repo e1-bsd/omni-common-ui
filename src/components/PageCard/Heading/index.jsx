@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 const PageCardHeading = (props) => {
   const { className, text } = props;
@@ -19,10 +20,10 @@ const PageCardHeading = (props) => {
 };
 
 PageCardHeading.propTypes = {
-  className: React.PropTypes.string,
-  text: React.PropTypes.string,
-  stackMode: React.PropTypes.oneOf(['vertical', 'horizontal']),  // default: vertical
-  children: React.PropTypes.node,
+  className: PropTypes.string,
+  text: PropTypes.string,
+  stackMode: PropTypes.oneOf(['vertical', 'horizontal']),  // default: vertical
+  children: PropTypes.node,
 };
 
 export default PageCardHeading;

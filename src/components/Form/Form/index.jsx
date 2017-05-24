@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form as FormsyForm } from 'formsy-react';
+import PropTypes from 'prop-types';
 
 const Form = (props) => <div className={props.className}>
   <FormsyForm onSubmit={props.onSubmit}
@@ -11,12 +12,12 @@ const Form = (props) => <div className={props.className}>
 </div>;
 
 Form.propTypes = {
-  className: React.PropTypes.string,
-  onSubmit: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onValid: React.PropTypes.func,
-  onInvalid: React.PropTypes.func,
-  children: React.PropTypes.node,
+  className: PropTypes.string,
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
+  onValid: PropTypes.func,
+  onInvalid: PropTypes.func,
+  children: PropTypes.node,
 };
 
 export default Form;

@@ -4,6 +4,7 @@ import React from 'react';
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const ErrorDialog = ({ onConfirmClick, isOpen }) => <Dialog withCloseButton
     isOpen={isOpen}
@@ -21,8 +22,8 @@ const ErrorDialog = ({ onConfirmClick, isOpen }) => <Dialog withCloseButton
 </Dialog>;
 
 ErrorDialog.propTypes = {
-  isOpen: React.PropTypes.bool,
-  onConfirmClick: React.PropTypes.func,
+  isOpen: PropTypes.bool,
+  onConfirmClick: PropTypes.func,
 };
 
 export default ErrorDialog;

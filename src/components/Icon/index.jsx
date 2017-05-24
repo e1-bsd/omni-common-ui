@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import InlineSvg from 'components/InlineSvg';
 import is from 'is_js';
 import icons from './icons';
+import PropTypes from 'prop-types';
 
 const Icon = ({ className, id, title, onClick }) => {
   const classes = classnames(styles.Icon,
@@ -17,10 +18,10 @@ const Icon = ({ className, id, title, onClick }) => {
 };
 
 Icon.propTypes = {
-  className: React.PropTypes.string,
-  id: React.PropTypes.oneOf(Object.keys(icons.toObject())),
-  title: React.PropTypes.string,
-  onClick: React.PropTypes.func,
+  className: PropTypes.string,
+  id: PropTypes.oneOf(Object.keys(icons.toObject())),
+  title: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Icon;

@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Timer from './Timer';
 import userManager from './userManager';
 import log from 'domain/log';
 import Config from 'domain/Config';
 import is from 'is_js';
+import PropTypes from 'prop-types';
 
 export default class IdleTimeoutHandler extends Component {
   componentWillMount() {
@@ -55,7 +56,7 @@ export default class IdleTimeoutHandler extends Component {
 }
 
 IdleTimeoutHandler.propTypes = {
-  children: React.PropTypes.node,
-  router: React.PropTypes.any.isRequired,
-  routes: React.PropTypes.array.isRequired,
+  children: PropTypes.node,
+  router: PropTypes.any.isRequired,
+  routes: PropTypes.array.isRequired,
 };

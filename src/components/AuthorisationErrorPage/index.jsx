@@ -1,5 +1,6 @@
 import React from 'react';
 import ErrorPage from 'components/ErrorPage';
+import PropTypes from 'prop-types';
 
 const AuthorisationErrorPage = (props) => {
   const parsedProps = Object.assign({}, props);
@@ -14,7 +15,7 @@ const AuthorisationErrorPage = (props) => {
 };
 
 AuthorisationErrorPage.propTypes = {
-  config: React.PropTypes.object,
+  config: PropTypes.object,
 };
 
 export default AuthorisationErrorPage;

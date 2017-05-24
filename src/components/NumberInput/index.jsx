@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import is from 'is_js';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 export default class NumberInput extends Component {
   componentWillMount() {
@@ -150,30 +151,30 @@ export default class NumberInput extends Component {
 }
 
 NumberInput.propTypes = {
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  min: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  min: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  max: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  max: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  step: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
+  step: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
   ]),
-  onChange: React.PropTypes.func,
-  disabled: React.PropTypes.bool,
-  unwritable: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  labelName: React.PropTypes.string,
-  customStyle: React.PropTypes.object,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  unwritable: PropTypes.bool,
+  className: PropTypes.string,
+  labelName: PropTypes.string,
+  customStyle: PropTypes.object,
 };

@@ -1,6 +1,6 @@
-import React from 'react';
 import connect from 'domain/connect';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
+import PropTypes from 'prop-types';
 
 const Permission = (props) => {
   if (! PrivilegeChecker.hasPrivilege(props.state, props.permissionId)) {
@@ -15,8 +15,8 @@ function mapStateToProps(state) {
 }
 
 Permission.propTypes = {
-  permissionId: React.PropTypes.string,
-  children: React.PropTypes.node,
+  permissionId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default connect(mapStateToProps)(Permission);

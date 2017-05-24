@@ -3,6 +3,7 @@ import React from 'react';
 import Button from 'components/Button';
 import is from 'is_js';
 import Icon from 'components/Icon';
+import PropTypes from 'prop-types';
 
 const ErrorPage = (props) => {
   const { config, afterButtonClicked } = props;
@@ -55,16 +56,16 @@ const ErrorPage = (props) => {
 };
 
 ErrorPage.propTypes = {
-  replace: React.PropTypes.func.isRequired,
-  location: React.PropTypes.shape({
-    pathname: React.PropTypes.string.isRequired,
+  replace: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
   }).isRequired,
-  afterButtonClicked: React.PropTypes.func.isRequired,
-  config: React.PropTypes.shape({
-    icon: React.PropTypes.func,
-    message: React.PropTypes.func,
-    buttonText: React.PropTypes.func,
-    buttonLink: React.PropTypes.func,
+  afterButtonClicked: PropTypes.func.isRequired,
+  config: PropTypes.shape({
+    icon: PropTypes.func,
+    message: PropTypes.func,
+    buttonText: PropTypes.func,
+    buttonLink: PropTypes.func,
   }),
 };
 
