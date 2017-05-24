@@ -11,7 +11,7 @@ describe('<HorizontalSelect />', () => {
 
   beforeEach(() => {
     // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-    HorizontalSelect = require('inject?react-router!./')({
+    HorizontalSelect = require('inject-loader?react-router!./')({
       'react-router': { Link },
     }).default;
   });

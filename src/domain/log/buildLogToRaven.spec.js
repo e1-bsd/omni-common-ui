@@ -7,7 +7,7 @@ describe('log', () => {
   let buildLogToRaven;
 
   // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-  const getBuildLogToRaven = () => require('inject?raven-js&sprintf-js!./buildLogToRaven')({
+  const getBuildLogToRaven = () => require('inject-loader?raven-js&sprintf-js!./buildLogToRaven')({
     'raven-js': Raven,
     'sprintf-js': { sprintf },
   }).default;
