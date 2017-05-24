@@ -8,7 +8,7 @@ import testClass from 'domain/testClass';
 
 const SaveBarButton = ({ label, isPrimary, disabled, onClick, linkHref, linkTo }) => {
   const className = classnames(styles.SaveBar_button,
-    testClass(`${label.replace(/\s+/g, '')}-btn`));
+    testClass(`toolbar-button-${label.replace(/\s+/g, '-').toLowerCase()}`));
   return <Button autoWidth
       type={isPrimary ? Button.Type.primaryInverse : Button.Type.defaultInverse}
       className={className}
