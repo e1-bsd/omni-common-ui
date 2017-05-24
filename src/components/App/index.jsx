@@ -68,7 +68,8 @@ class App extends Component {
       }
       <Header {...this.props} onHamburgerClick={(e) => this._onHamburgerClick(e)} />
       <div className={styles.App_wrap}>
-        <Sidebar {...this.props} expanded={this.state.sidebarExpanded}
+        <Sidebar {...this.props}
+            expanded={this.state.sidebarExpanded}
             onExpand={(e) => this._expandSidebar(e)}
             onCollapse={(e) => this._collapseSidebar(e)} />
         <div className={styles.App_content}>

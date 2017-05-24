@@ -40,7 +40,8 @@ class TextInput extends Component {
     function renderInputText() {
       if (suffix) {
         return <div className={styles.TextInput_suffixWrapper}>
-          <input type="text" style={_this.props.inputStyle}
+          <input type="text"
+              style={_this.props.inputStyle}
               className={inputClasses}
               name={_this.props.name}
               disabled={_this.props.disabled}
@@ -53,7 +54,8 @@ class TextInput extends Component {
         </div>;
       }
 
-      return <input type="text" style={_this.props.inputStyle}
+      return <input type="text"
+          style={_this.props.inputStyle}
           className={inputClasses}
           name={_this.props.name}
           disabled={_this.props.disabled}

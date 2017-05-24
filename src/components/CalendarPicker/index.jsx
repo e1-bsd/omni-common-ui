@@ -172,13 +172,13 @@ export default class CalendarPicker extends Component {
                     onDayClick={this.handleDayClick}
                     selectedDays={(day) => DateUtils.isSameDay(this.props.day, day)}
                     disabledDays={(day) => this._disabledDay(day)} /> :
-                    <DayPicker ref={(el) => { this.daypicker = el; }}
-                        enableOutsideDays
-                        initialMonth={this.props.day}
-                        localeUtils={localeUtils}
-                        onDayClick={this.handleDayClick}
-                        selectedDays={(day) => DateUtils.isSameDay(this.props.day, day)}
-                        disabledDays={(day) => this._disabledDay(day)} />
+                <DayPicker ref={(el) => { this.daypicker = el; }}
+                    enableOutsideDays
+                    initialMonth={this.props.day}
+                    localeUtils={localeUtils}
+                    onDayClick={this.handleDayClick}
+                    selectedDays={(day) => DateUtils.isSameDay(this.props.day, day)}
+                    disabledDays={(day) => this._disabledDay(day)} />
               }
             </div>
           </div>

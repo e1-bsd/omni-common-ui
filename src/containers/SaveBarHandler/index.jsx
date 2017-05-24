@@ -163,14 +163,17 @@ class SaveBarHandler extends Component {
             Saving…
           </span>
           <div className={styles.SaveBar_inner_buttons}>
-            {this._getButtonsToDisplay().map((buttonDescriptor, buttonLabel) => <SaveBarButton key={
-                  buttonLabel}
-                label={buttonLabel}
-                isPrimary={buttonDescriptor.isPrimary}
-                disabled={this._getIsDisabled(buttonDescriptor)}
-                onClick={this._getOnClickHandler(buttonDescriptor, buttonLabel)}
-                linkHref={fnToValue(buttonDescriptor.linkHref, this.props)} />)
-                    .toArray()}
+            {
+              this._getButtonsToDisplay()
+                // eslint-disable-next-line react/no-array-index-key
+                .map((buttonDescriptor, buttonLabel) => <SaveBarButton key={buttonLabel}
+                    label={buttonLabel}
+                    isPrimary={buttonDescriptor.isPrimary}
+                    disabled={this._getIsDisabled(buttonDescriptor)}
+                    onClick={this._getOnClickHandler(buttonDescriptor, buttonLabel)}
+                    linkHref={fnToValue(buttonDescriptor.linkHref, this.props)} />)
+                .toArray()
+            }
           </div>
         </div>
       </aside>

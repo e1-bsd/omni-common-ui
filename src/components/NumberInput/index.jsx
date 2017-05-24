@@ -20,7 +20,7 @@ export default class NumberInput extends Component {
     });
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.value === nextProps.value &&
         this.props.min === nextProps.min &&
         this.props.max === nextProps.max &&
