@@ -24,7 +24,6 @@ module.exports = {
     require('postcss-selector-not'),
     require('postcss-color-function'),
     require('postcss-color-hex-alpha'),
-    require('postcss-nesting'),
     require('postcss-gradient-transparency-fix'),
     require('postcss-pxtorem')({
       rootValue: 14,
@@ -46,6 +45,6 @@ module.exports = {
         'iOS 7',
       ],
     }),
-    require('postcss-reporter')({ clearMessages: true }),
+    require('postcss-reporter'),
   ],
 };
