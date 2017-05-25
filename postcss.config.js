@@ -16,15 +16,21 @@ module.exports = {
         process.cwd(),
       ],
     }),
+    require('postcss-nested-ancestors'),
+    require('postcss-nested'),
+    require('postcss-current-selector'),
+    require('postcss-nesting'),
+    require('postcss-custom-properties'),
+    require('postcss-custom-media'),
+    require('postcss-custom-selectors'),
     require('postcss-url')({ url: 'rebase' }),
     require('cq-prolyfill/postcss-plugin'),
     require('postcss-mixins'),
-    require('postcss-custom-selectors'),
-    require('postcss-custom-properties'),
     require('postcss-selector-not'),
     require('postcss-color-function'),
     require('postcss-color-hex-alpha'),
     require('postcss-gradient-transparency-fix'),
+    require('postcss-calc'),
     require('postcss-pxtorem')({
       rootValue: 14,
       unitPrecision: 5,
@@ -34,8 +40,7 @@ module.exports = {
       mediaQuery: false,
       minPixelValue: 0,
     }),
-    require('postcss-calc'),
-    require('postcss-cssnext')({
+    require('autoprefixer')({
       browsers: [
         '> 0%',
         'last 2 versions',
