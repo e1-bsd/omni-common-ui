@@ -22,9 +22,6 @@ const isProd = ! isDev && ! isTest;
 const commitHash = git.long();
 const tag = git.tag();
 
-const excluded = /node_modules(\/|\\)((?!(omni-common-ui)).)/;
-const excludedInCoverage = /(node_modules(\/|\\)((?!(omni-common-ui)).)|spec\.jsx?|lib(\/|\\))/;
-
 const regExpFonts = new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
 const regExpInlineSvgs = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
 const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
@@ -33,11 +30,10 @@ const BABEL_CACHE_ENABLED = true;
 
 module.exports = {
   context: path.resolve(contextFolder),
-  devtool: getSourceMapType(),
+  devtool: 'source-map',
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
-    hotLoading: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server'],
   },
   output: {
     path: path.resolve('dist'),
@@ -54,7 +50,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: excluded,
+        exclude: /node_modules(\/|\\)((?!(omni-common-ui)).)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -79,7 +75,6 @@ module.exports = {
               minimize: true,
               import: false,
               importLoaders: 1,
-              localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
             },
           },
           { loader: 'postcss-loader' },
@@ -126,47 +121,33 @@ module.exports = {
           },
         ],
       },
-      isTest ? {
-        test: /\.jsx?$/i,
-        enforce: 'post',
-        exclude: excludedInCoverage,
-        use: 'istanbul-instrumenter-loader',
-      } : {},
     ],
   },
-  plugins: (nodeEnv !== 'test' ?
-      [new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })] :
-      []).concat([
-        new CopyWebpackPlugin([
-          { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
-          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
-          { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
-          { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
-          { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
-        ]),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
-          PRODUCTION: isProd,
-          VERSION: `'${version}'`,
-          COMMIT: `'${commitHash}'`,
-        }),
-      ]).concat(! isProd ?
-      [new webpack.ProvidePlugin({
-        __CONFIG__: path.resolve(`config/${process.env.CONFIG || nodeEnv}.json`),
-      })] :
-      [])
-      .concat([
-        new HtmlWebpackPlugin({
-          template: path.join(__dirname, 'lib/index.html'),
-          inject: 'body',
-          version,
-          tag,
-          commit: commitHash,
-          title: process.env.TITLE,
-          isProd,
-        }),
-      ])
-      .concat(addOptionalPlugins()),
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
+    new CopyWebpackPlugin([
+      { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
+    ]),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
+      PRODUCTION: isProd,
+      VERSION: `'${version}'`,
+      COMMIT: `'${commitHash}'`,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'lib/index.html'),
+      inject: 'body',
+      version,
+      tag,
+      commit: commitHash,
+      title: process.env.TITLE,
+      isProd,
+    }),
+  ],
   devServer: {
     contentBase: srcFolder,
     compress: true,
@@ -183,16 +164,14 @@ module.exports = {
     },
     {
       alias: Object.assign(
-        isCommon ?
-            { 'omni-common-ui$': 'src/index.js' } :
-            {}
-        , {
+        {
           react: path.resolve('node_modules', 'react'),
           'react-ga': path.resolve('node_modules', 'react-ga'),
           'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
           'react-addons-perf': path.resolve('node_modules', 'react-addons-perf'),
           'react-dom': path.resolve('node_modules', 'react-dom'),
-        }
+        },
+        isCommon ? { 'omni-common-ui$': 'src/index.js' } : {}
       ),
     }
   ),
@@ -202,30 +181,3 @@ module.exports = {
     'react/addons': true,
   },
 };
-
-function getSourceMapType() {
-  if (isProd) {
-    return 'hidden-source-map';
-  }
-
-  return 'inline-source-map';
-}
-
-function addOptionalPlugins() {
-  /* eslint global-require: "off" */
-  const plugins = [];
-
-  if (isProd) {
-    plugins.concat([
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-        },
-        sourceMap: true,
-        minimize: true,
-      }),
-    ]);
-  }
-
-  return [];
-}

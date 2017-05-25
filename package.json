@@ -2,7 +2,7 @@
   "name": "omni-common-ui",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000",
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000 --config webpack.dev.js",
     "build": "node node_modules/gulp/bin/gulp.js build",
     "test:start": "node node_modules/karma/bin/karma start karma.conf.js --no-single-run --browsers Chrome",
     "test:once": "node node_modules/karma/bin/karma start karma.conf.js --single-run",
@@ -175,7 +175,8 @@
     "webpack": "^2.6.0",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
     "babel-plugin-resolver": "1.1.0",
