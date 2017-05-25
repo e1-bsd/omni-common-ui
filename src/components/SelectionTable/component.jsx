@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import styles from './style.postcss';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import is from 'is_js';
 import PageCard from 'components/PageCard';
 import Icon from 'components/Icon';
@@ -7,9 +10,7 @@ import Level from './Level';
 import Leaf from './Leaf';
 import PropTypes from 'prop-types';
 
-import styles from './style.postcss';
-
-class SelectionTable extends Component {
+class SelectionTable extends PureComponent {
 
   constructor(props) {
     super(props);

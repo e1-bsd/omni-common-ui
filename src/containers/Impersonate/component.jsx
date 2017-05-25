@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { postImpersonate, clearImpersonateData, getTokenEndPoint } from './actions';
@@ -13,7 +14,7 @@ import PropTypes from 'prop-types';
 
 const suffix = '@ef.com';
 
-class Impersonate extends Component {
+class Impersonate extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

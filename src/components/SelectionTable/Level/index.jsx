@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import Icon from 'components/Icon';
 import styles from './style.postcss';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
+import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
 
-class Level extends Component {
+class Level extends PureComponent {
 
   _onLevelClick() {
     const { onClick, route, label } = this.props;

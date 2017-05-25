@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import Link from './Link';
 import is from 'is_js';
 import { OrderedMap, List, Map } from 'immutable';
@@ -10,7 +11,7 @@ import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
 import Icon from 'components/Icon';
 
-class Sidebar extends Component {
+class Sidebar extends PureComponent {
   static _getItems(props) {
     const { routes } = props;
     return new List(routes).reduce((reduction, value) => {

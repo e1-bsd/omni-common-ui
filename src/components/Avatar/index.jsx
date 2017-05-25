@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { PureComponent } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import classnames from 'classnames';
 import is from 'is_js';
 import Gender from 'domain/Gender';

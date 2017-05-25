@@ -23,11 +23,10 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
  * inlined Object.is polyfill to avoid requiring consumers ship their own
   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
  */
-function is(x, y, token) {
+function is(x, y) {
   // ! NEW ! shortcut for functions. toString before equality check
   if (typeof x === 'function' && typeof y === 'function' &&
       x.toString() === y.toString()) {
-    console.log(`saved a function equality comparison! ${token}`);
     return true;
   }
   // SameValue algorithm
@@ -46,9 +45,7 @@ function is(x, y, token) {
  * Returns true when the values of all keys are strictly equal.
  */
 function shallowEqual(objA, objB) {
-  const token = Number.parseInt(Math.random() * 10000, 10);
-
-  if (is(objA, objB, token)) {
+  if (is(objA, objB)) {
     return true;
   }
 
@@ -68,14 +65,12 @@ function shallowEqual(objA, objB) {
   for (let i = 0; i < keysA.length; i++) {
     if (
       ! hasOwnProperty.call(objB, keysA[i]) ||
-      ! is(objA[keysA[i]], objB[keysA[i]], token)
+      ! is(objA[keysA[i]], objB[keysA[i]])
     ) {
-      // console.log(`:( differs: ${keysA[i]}`, objB[keysA[i]]);
       return false;
     }
   }
 
-  console.log(`and the main method returned true ${token}`);
   return true;
 }
 

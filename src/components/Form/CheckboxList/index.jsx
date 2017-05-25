@@ -1,12 +1,13 @@
 import 'react-select/dist/react-select.css';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import { HOC as formsyDecorator } from 'formsy-react';
 import Field from '../Field';
 import Checkbox from './Checkbox';
 import PropTypes from 'prop-types';
 
-class CheckboxList extends Component {
+class CheckboxList extends PureComponent {
   static cmp(a, b) {
     return a === b;
   }

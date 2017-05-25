@@ -2,7 +2,8 @@ import gridBig from './grid-big.postcss';
 import gridCompact from './grid-compact.postcss';
 import styles from './style.postcss';
 
-import React, { PureComponent } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import classnames from 'classnames';
 import mediaQuery from 'domain/MediaQuery';
 import PropTypes from 'prop-types';

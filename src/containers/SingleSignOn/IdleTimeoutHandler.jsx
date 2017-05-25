@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import PureComponent from 'domain/PureComponent';
 import Timer from './Timer';
 import userManager from './userManager';
 import log from 'domain/log';
@@ -6,7 +6,7 @@ import Config from 'domain/Config';
 import is from 'is_js';
 import PropTypes from 'prop-types';
 
-export default class IdleTimeoutHandler extends Component {
+export default class IdleTimeoutHandler extends PureComponent {
   componentWillMount() {
     if (is.not.number(Config.get('autoSignOutTimeout'))) {
       return false;

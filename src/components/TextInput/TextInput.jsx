@@ -1,9 +1,11 @@
 import styles from './style.postcss';
-import React, { Component } from 'react';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-class TextInput extends Component {
+class TextInput extends PureComponent {
   constructor(props) {
     super(props);
 

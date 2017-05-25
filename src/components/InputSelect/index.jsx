@@ -1,11 +1,13 @@
 import styles from './style.postcss';
-import React, { Component } from 'react';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import classnames from 'classnames';
 import is from 'is_js';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
-export default class InputSelect extends Component {
+export default class InputSelect extends PureComponent {
   constructor(props) {
     super(props);
 

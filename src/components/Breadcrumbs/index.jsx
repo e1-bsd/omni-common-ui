@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import { Link } from 'react-router';
 import ReactGA from 'react-ga';
 import is from 'is_js';
@@ -11,7 +12,7 @@ import PropTypes from 'prop-types';
 
 const RESIZE_DEBOUNCE_MS = 100;
 
-class Breadcrumbs extends Component {
+class Breadcrumbs extends PureComponent {
   constructor() {
     super();
     this.state = {
