@@ -1,25 +1,13 @@
-/* eslint strict: "off" */
-/* eslint import/no-dynamic-require: "off" */
-
-'use strict';
-
 const path = require('path');
-const webpack = require('webpack');
-const git = require('git-rev-sync');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const REG_EXP_INLINE_SVGS = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
 const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
 const BABEL_CACHE_ENABLED = true;
 
-const packageInfo = require(path.resolve('package.json'));
-const version = packageInfo.version;
+const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
-
-const commitHash = git.long();
-const tag = git.tag();
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -124,20 +112,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      VERSION: `'${version}'`,
-      COMMIT: `'${commitHash}'`,
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'lib/index.html'),
-      inject: 'body',
-      version,
-      tag,
-      commit: commitHash,
-      title: process.env.TITLE,
-    }),
-  ],
   devServer: {
     contentBase: srcFolder,
     compress: true,

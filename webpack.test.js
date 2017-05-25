@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CommonConfig = require('./webpack.config.js');
+const definePlugin = require('./webpack.define-plugin.js');
+const htmlPlugin = require('./webpack.html-plugin.js');
 
 module.exports = merge.smart(CommonConfig, {
   entry: {
@@ -32,8 +34,7 @@ module.exports = merge.smart(CommonConfig, {
     new webpack.ProvidePlugin({
       __CONFIG__: path.resolve(`config/${process.env.CONFIG || process.env.NODE_ENV}.json`),
     }),
-    new webpack.DefinePlugin({
-      PRODUCTION: false,
-    }),
+    definePlugin({ PRODUCTION: false }),
+    htmlPlugin(),
   ],
 });

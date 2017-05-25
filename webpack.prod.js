@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CommonConfig = require('./webpack.config.js');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const definePlugin = require('./webpack.define-plugin.js');
+const htmlPlugin = require('./webpack.html-plugin.js');
 
 module.exports = merge.smart(CommonConfig, {
   plugins: [
@@ -15,13 +16,11 @@ module.exports = merge.smart(CommonConfig, {
       sourceMap: true,
       minimize: true,
     }),
-    new webpack.DefinePlugin({
+    definePlugin({
       'process.env.NODE_ENV': 'production',
       PRODUCTION: true,
     }),
-    new HtmlWebpackPlugin({
-      PRODUCTION,
-    }),
+    htmlPlugin({ PRODUCTION }),
     new CopyWebpackPlugin([
       { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
       { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
