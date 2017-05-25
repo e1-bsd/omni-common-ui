@@ -1,33 +1,14 @@
-/* eslint strict: "off" */
-/* eslint import/no-dynamic-require: "off" */
-
-// TODO: Use the "modern" object format for this
-// https://github.com/michael-ciniawsky/postcss-load-config#postcssconfigjs-or-postcssrcjs
+/* eslint global-require: "off" */
 
 const path = require('path');  // eslint-disable-line
-const packageInfo = require(path.resolve('package.json'));
+
+const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 const isCommon = packageInfo.name === 'omni-common-ui';
 const contextFolder = isCommon ? 'sample' : 'app';
 
-const postcssCalc = require('postcss-calc');
-const postcssCssnext = require('postcss-cssnext');
-const postcssNesting = require('postcss-nesting');
-const postcssImport = require('postcss-import');
-const postcssReporter = require('postcss-reporter');
-const postcssCustomSelectors = require('postcss-custom-selectors');
-const postcssSelectorNot = require('postcss-selector-not');
-const postcssColorFunctions = require('postcss-color-function');
-const postcssColorHexAlpha = require('postcss-color-hex-alpha');
-const postcssMixins = require('postcss-mixins');
-const postcssCustomProperties = require('postcss-custom-properties');
-const postcssContainerQueries = require('cq-prolyfill/postcss-plugin');
-const postcssUrl = require('postcss-url');
-const postcssPxToRem = require('postcss-pxtorem');
-const postcssGradientTransparencyFix = require('postcss-gradient-transparency-fix');
-
-module.exports = () => ({
+module.exports = {
   plugins: [
-    postcssImport({
+    require('postcss-import')({
       path: [
         'node_modules',
         contextFolder,
@@ -35,17 +16,17 @@ module.exports = () => ({
         process.cwd(),
       ],
     }),
-    postcssUrl({ url: 'rebase' }),
-    postcssContainerQueries,
-    postcssMixins,
-    postcssCustomSelectors,
-    postcssCustomProperties,
-    postcssSelectorNot,
-    postcssColorFunctions,
-    postcssColorHexAlpha,
-    postcssNesting,
-    postcssGradientTransparencyFix,
-    postcssPxToRem({
+    require('postcss-url')({ url: 'rebase' }),
+    require('cq-prolyfill/postcss-plugin'),
+    require('postcss-mixins'),
+    require('postcss-custom-selectors'),
+    require('postcss-custom-properties'),
+    require('postcss-selector-not'),
+    require('postcss-color-function'),
+    require('postcss-color-hex-alpha'),
+    require('postcss-nesting'),
+    require('postcss-gradient-transparency-fix'),
+    require('postcss-pxtorem')({
       rootValue: 14,
       unitPrecision: 5,
       propWhiteList: [],
@@ -54,8 +35,8 @@ module.exports = () => ({
       mediaQuery: false,
       minPixelValue: 0,
     }),
-    postcssCalc,
-    postcssCssnext({
+    require('postcss-calc'),
+    require('postcss-cssnext')({
       browsers: [
         '> 0%',
         'last 2 versions',
@@ -65,6 +46,6 @@ module.exports = () => ({
         'iOS 7',
       ],
     }),
-    postcssReporter({ clearMessages: true }),
+    require('postcss-reporter')({ clearMessages: true }),
   ],
-});
+};
