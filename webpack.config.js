@@ -7,7 +7,6 @@ const path = require('path');
 const webpack = require('webpack');
 const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const REG_EXP_INLINE_SVGS = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
 const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
@@ -55,7 +54,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader?root=.'],
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              root: '.',
+            },
+          },
+        ],
       },
       {
         test: /\.postcss$/,
@@ -118,13 +125,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([
-      { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
-      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
-      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
-      { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
-      { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
-    ]),
     new webpack.DefinePlugin({
       VERSION: `'${version}'`,
       COMMIT: `'${commitHash}'`,
@@ -142,29 +142,25 @@ module.exports = {
     contentBase: srcFolder,
     compress: true,
   },
-  resolve: Object.assign(
-    {
-      modules: [
-        path.resolve(contextFolder),
-        path.resolve(srcFolder),
-        process.cwd(),
-        path.resolve('node_modules'),
-      ],
-      extensions: ['.js', '.jsx', '.json'],
-    },
-    {
-      alias: Object.assign(
-        {
-          react: path.resolve('node_modules', 'react'),
-          'react-ga': path.resolve('node_modules', 'react-ga'),
-          'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
-          'react-addons-perf': path.resolve('node_modules', 'react-addons-perf'),
-          'react-dom': path.resolve('node_modules', 'react-dom'),
-        },
-        isCommon ? { 'omni-common-ui$': 'src/index.js' } : {}
-      ),
-    }
-  ),
+  resolve: {
+    modules: [
+      path.resolve(contextFolder),
+      path.resolve(srcFolder),
+      process.cwd(),
+      path.resolve('node_modules'),
+    ],
+    extensions: ['.js', '.jsx', '.json'],
+    alias: Object.assign(
+      {
+        react: path.resolve('node_modules', 'react'),
+        'react-ga': path.resolve('node_modules', 'react-ga'),
+        'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
+        'react-addons-perf': path.resolve('node_modules', 'react-addons-perf'),
+        'react-dom': path.resolve('node_modules', 'react-dom'),
+      },
+      isCommon ? { 'omni-common-ui$': 'src/index.js' } : {}
+    ),
+  },
   externals: {
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,

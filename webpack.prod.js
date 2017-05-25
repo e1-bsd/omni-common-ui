@@ -1,7 +1,9 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CommonConfig = require('./webpack.config.js');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge.smart(CommonConfig, {
   plugins: [
@@ -20,5 +22,12 @@ module.exports = merge.smart(CommonConfig, {
     new HtmlWebpackPlugin({
       PRODUCTION,
     }),
+    new CopyWebpackPlugin([
+      { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-512x512.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/mstile-150x150.png'), to: path.resolve('dist') },
+      { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
+    ]),
   ],
 });
