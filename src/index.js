@@ -1,3 +1,4 @@
+import _PureComponent from 'domain/PureComponent';
 import _Button from 'components/Button';
 import _ButtonContainer from 'components/Button/Container';
 import _Card from 'components/Card';
@@ -47,6 +48,7 @@ import _HorizontalScroll from 'components/HorizontalScroll';
 import _HorizontalSelect from 'components/HorizontalSelect';
 import _CalendarPicker from 'components/CalendarPicker';
 
+export const PureComponent = _PureComponent;
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
 export const Card = _Card;
