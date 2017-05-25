@@ -5,6 +5,7 @@ const CommonConfig = require('./webpack.config.js');
 
 module.exports = merge.smart(CommonConfig, {
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,

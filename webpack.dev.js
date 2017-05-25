@@ -24,6 +24,7 @@ module.exports = merge.smart(CommonConfig, {
     ],
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.ProvidePlugin({
       __CONFIG__: path.resolve(`config/${process.env.CONFIG || process.env.NODE_ENV || 'development'}.json`),
     }),
