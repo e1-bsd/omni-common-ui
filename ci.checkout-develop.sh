@@ -1,6 +1,8 @@
 #!/bin/bash
 
 if [[ "$TRAVIS_PULL_REQUEST" = false ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
+  echo "Will clone the repo again and checkout $TRAVIS_COMMIT"
+
   git clone git@github.com:$TRAVIS_REPO_SLUG.git $TRAVIS_REPO_SLUG && \
   cd $TRAVIS_REPO_SLUG && \
   git checkout -qf $TRAVIS_COMMIT && \
