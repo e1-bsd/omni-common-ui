@@ -27,5 +27,8 @@ module.exports = merge.smart(CommonConfig, {
     new webpack.ProvidePlugin({
       __CONFIG__: path.resolve(`config/${process.env.CONFIG || process.env.NODE_ENV || 'development'}.json`),
     }),
+    new webpack.DefinePlugin({
+      PRODUCTION: false,
+    }),
   ],
 });

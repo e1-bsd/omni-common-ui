@@ -9,24 +9,18 @@ const git = require('git-rev-sync');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const REG_EXP_INLINE_SVGS = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
+const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
+const BABEL_CACHE_ENABLED = true;
+
 const packageInfo = require(path.resolve('package.json'));
 const version = packageInfo.version;
 const isCommon = packageInfo.name === 'omni-common-ui';
 const srcFolder = isCommon ? 'src' : 'app';
 const contextFolder = isCommon ? 'sample' : 'app';
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isDev = nodeEnv === 'development';
-const isTest = nodeEnv === 'test';
-const isProd = ! isDev && ! isTest;
 
 const commitHash = git.long();
 const tag = git.tag();
-
-const regExpFonts = new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`);
-const regExpInlineSvgs = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
-const regExpFavicons = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
-
-const BABEL_CACHE_ENABLED = true;
 
 module.exports = {
   context: path.resolve(contextFolder),
@@ -81,15 +75,15 @@ module.exports = {
         ],
       },
       {
-        test: regExpFonts,
+        test: new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`),
         use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
-        test: regExpFavicons,
+        test: REG_EXP_FAVICONS,
         use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
       },
       {
-        test: regExpInlineSvgs,
+        test: REG_EXP_INLINE_SVGS,
         use: {
           loader: 'svg-inline-loader',
           options: {
@@ -101,7 +95,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
-        exclude: new RegExp(`(${regExpFavicons.source})|(${regExpInlineSvgs.source})`),
+        exclude: new RegExp(`(${REG_EXP_FAVICONS.source})|(${REG_EXP_INLINE_SVGS.source})`),
         use: [
           'url-loader?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
           {
@@ -133,8 +127,6 @@ module.exports = {
       { from: path.join(__dirname, 'lib/assets/favicons/favicon.ico'), to: path.resolve('dist') },
     ]),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `'${isProd ? 'production' : nodeEnv}'`,
-      PRODUCTION: isProd,
       VERSION: `'${version}'`,
       COMMIT: `'${commitHash}'`,
     }),
@@ -145,7 +137,6 @@ module.exports = {
       tag,
       commit: commitHash,
       title: process.env.TITLE,
-      isProd,
     }),
   ],
   devServer: {
