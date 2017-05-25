@@ -109,7 +109,21 @@ module.exports = {
         exclude: new RegExp(`(${regExpFavicons.source})|(${regExpInlineSvgs.source})`),
         use: [
           'url-loader?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+              mozjpeg: {
+                progressive: true,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+            },
+          },
         ],
       },
       isTest ? {
