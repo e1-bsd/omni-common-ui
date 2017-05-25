@@ -78,6 +78,8 @@ module.exports = {
             options: {
               root: '.',
               modules: true,
+              minimize: true,
+              import: false,
               importLoaders: 1,
               localIdentName: isProd ? undefined : '[local]___[hash:base64:5]',
             },
