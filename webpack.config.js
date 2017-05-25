@@ -35,11 +35,9 @@ module.exports = {
   context: path.resolve(contextFolder),
   devtool: getSourceMapType(),
   entry: {
-    reactHotLoader: 'react-hot-loader/patch',
-    devServer: 'webpack-dev-server/client?http://localhost:3000',
-    devServerHotLoader: 'webpack/hot/only-dev-server',
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
+    hotLoading: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:3000', 'webpack/hot/only-dev-server'],
   },
   output: {
     path: path.resolve('dist'),
