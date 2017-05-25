@@ -151,6 +151,7 @@
     "redux-thunk": "2.1.0",
     "request": "^2.79.0",
     "require-all": "2.0.0",
+    "reselect": "^3.0.1",
     "rimraf": "2.5.4",
     "scroll-to-element": "^2.0.0",
     "shelljs": "^0.7.7",
