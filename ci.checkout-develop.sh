@@ -7,7 +7,7 @@ if [[ "$TRAVIS_PULL_REQUEST" = false ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; t
   cd $TRAVIS_REPO_SLUG && \
   git checkout -qf $TRAVIS_COMMIT && \
   git fetch --all --prune --verbose && \
-  echo "Second cloned repo is ready"
+  echo "Second cloned repo is ready. Checked out: $(git rev-parse HEAD)"
 else
   echo "No need to clone the repo again"
 fi
