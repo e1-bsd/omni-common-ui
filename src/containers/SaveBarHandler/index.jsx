@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { push } from 'react-router-redux';
 import { Map } from 'immutable';
 import is from 'is_js';
@@ -33,7 +33,7 @@ const fnToValue = (any, props) => {
   return any;
 };
 
-class SaveBarHandler extends Component {
+class SaveBarHandler extends PureComponent {
   constructor() {
     super();
     this.state = { isVisible: false };
