@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { PureComponent } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import classnames from 'classnames';
 import DropdownBoxItem from './DropdownBoxItem';
 import DropdownBoxContainer from './DropdownBoxContainer';

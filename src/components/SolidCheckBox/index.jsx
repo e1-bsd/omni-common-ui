@@ -1,8 +1,10 @@
 import styles from './style.postcss';
-import React, { Component } from 'react';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import PropTypes from 'prop-types';
 
-class SolidCheckBox extends Component {
+class SolidCheckBox extends PureComponent {
 
   _handleCheck(checkBoxStatus) {
     this.props.onChange(checkBoxStatus);

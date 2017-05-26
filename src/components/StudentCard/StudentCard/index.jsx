@@ -1,11 +1,12 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import Card from 'components/Card';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-class StudentCard extends Component {
+class StudentCard extends PureComponent {
   getChildContext() {
     const {
       backgroundless = false,

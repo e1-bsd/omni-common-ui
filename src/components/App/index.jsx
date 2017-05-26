@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import Header from 'containers/Header';
 import Sidebar from 'containers/Sidebar';
 import Footer from 'components/Footer';
@@ -15,7 +16,7 @@ import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 import PropTypes from 'prop-types';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { sidebarExpanded: false };

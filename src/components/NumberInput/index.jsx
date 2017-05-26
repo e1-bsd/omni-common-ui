@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
 import styles from './style.postcss';
+
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import is from 'is_js';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
 
-export default class NumberInput extends Component {
+export default class NumberInput extends PureComponent {
   componentWillMount() {
     this.acceptedString = /^[0-9]+$/;
     this.setState({

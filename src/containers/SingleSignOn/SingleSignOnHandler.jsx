@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import PureComponent from 'domain/PureComponent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
@@ -16,7 +16,7 @@ MockSingleSignOnHandler.propTypes = {
   children: PropTypes.node,
 };
 
-class SingleSignOnHandlerImpl extends Component {
+class SingleSignOnHandlerImpl extends PureComponent {
   componentWillMount() {
     this._setLastUrlPath();
   }

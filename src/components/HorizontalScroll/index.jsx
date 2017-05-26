@@ -1,6 +1,7 @@
 import styles from './style.postcss';
-import React, { PureComponent } from 'react';
 
+import React from 'react';
+import PureComponent from 'domain/PureComponent';
 import ReactIScroll from 'react-iscroll';
 import iScroll from 'iscroll';
 import classnames from 'classnames';
