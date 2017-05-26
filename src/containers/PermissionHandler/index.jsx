@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import connect from 'domain/connect';
 import is from 'is_js';
 import { actions as privilegesActions } from 'containers/Privileges';
@@ -60,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(privilegesActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PermissionHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(pure(PermissionHandler));

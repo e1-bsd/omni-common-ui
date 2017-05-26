@@ -3,8 +3,8 @@ import styles from './style.postcss';
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import ColourLabel from './';
 import Tooltip from 'components/Tooltip';
+import { ColourLabel } from './';
 
 describe('<ColourLabel />', () => {
   context('when neither initial nor text is provided', () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import PropTypes from 'prop-types';
 
 const Radio = (props) => {
@@ -22,4 +23,4 @@ Radio.propTypes = {
   onChecked: PropTypes.func,
 };
 
-export default Radio;
+export default pure(Radio);

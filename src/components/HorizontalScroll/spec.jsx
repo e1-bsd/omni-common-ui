@@ -1,9 +1,10 @@
 import styles from './style.postcss';
+
 import React from 'react';
-import HorizontalScroll from './';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Sinon from 'sinon';
+import HorizontalScroll from './';
 
 describe('<HorizontalScroll />', () => {
   it('renders its children', () => {

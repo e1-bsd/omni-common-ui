@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import PropTypes from 'prop-types';
 
 const Image = (props) => <img className={styles.Image}
@@ -11,4 +12,4 @@ Image.propTypes = {
   alt: PropTypes.string,
 };
 
-export default Image;
+export default pure(Image);

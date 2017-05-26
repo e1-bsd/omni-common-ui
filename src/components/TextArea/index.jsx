@@ -2,7 +2,7 @@ import styles from './style.postcss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { pure } from 'recompose';
+import pure from 'recompose/pure';
 
 const DEFAULT_MAX_LENGTH = 500;
 

@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import Content from './';
+import { Content } from './';
 
 describe('Card.Content', () => {
   it('renders its children', () => {

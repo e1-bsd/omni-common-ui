@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import ColourLabel from 'components/ColourLabel';
 import PropTypes from 'prop-types';
 
@@ -16,4 +17,4 @@ ProductionStatus.propTypes = {
   unbreakable: PropTypes.bool,
 };
 
-export default ProductionStatus;
+export default pure(ProductionStatus);

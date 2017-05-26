@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Sinon from 'sinon';
 import Button from 'components/Button';
-import ErrorPage from './';
+import { ErrorPage } from './';
 
 describe('<ErrorPageHandler />', () => {
   describe('<ErrorPage />', () => {
