@@ -8,6 +8,7 @@ import Config from 'domain/Config';
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Simple_requests
 const CORS_SIMPLE_METHODS = ['GET', 'HEAD'];  // omit POST, we must send a `Content-Type`
+const SECURE_URL_REGEXP = /^(https:)?\/\//;
 
 export const buildUrl = (path) => Config.get('apiBase') + path;
 
@@ -36,7 +37,7 @@ export const fetch = (url, options = {}) => {
 
   // https://m.alphasights.com/killing-cors-preflight-requests-on-a-react-spa-1f9b04aa5730#4bdf
   let finalUrl = url;
-  if (url.startsWith('https:')) {
+  if (SECURE_URL_REGEXP.test(url)) {
     // eslint-disable-next-line prefer-template
     finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${user.access_token}`;
   } else {
