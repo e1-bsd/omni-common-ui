@@ -1,13 +1,13 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 import { Type, validateType } from './type';
 import is from 'is_js';
 import PropTypes from 'prop-types';
 
-class Button extends Component {
+class Button extends PureComponent {
   _handleButtonClick(e) {
     if (this.props.disabled) {
       return;

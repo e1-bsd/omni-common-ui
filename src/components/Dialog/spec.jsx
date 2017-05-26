@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
 import Sinon from 'sinon';
 
-import Dialog from './';
+import { Dialog } from './';
 
 describe('Dialog', () => {
   it('renders its children if open', () => {

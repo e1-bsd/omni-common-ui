@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import StudentPicture from 'components/StudentPicture';
 import AdultPicture from 'components/AdultPicture';
 import log from 'domain/log';
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 const isPicture = (c) => c.type === StudentPicture || c.type === AdultPicture;
 
-class Person extends Component {
+class Person extends PureComponent {
   constructor(props) {
     super(props);
     this._setUp(props);

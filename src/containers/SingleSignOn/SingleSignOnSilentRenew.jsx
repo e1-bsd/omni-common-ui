@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import { processSilentRenew } from 'redux-oidc';
 
-export default class SingleSignOnSilentRenew extends Component {
+export default class SingleSignOnSilentRenew extends PureComponent {
   componentWillMount() {
     processSilentRenew();
   }

@@ -1,5 +1,6 @@
 import styles from './style.postcss';
 import React from 'react';
+import pure from 'recompose/pure';
 import ErrorPage from 'components/ErrorPage';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
@@ -119,4 +120,4 @@ function getApiError(erroredApis) {
   return erroredApis.first();
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorPageHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(pure(ErrorPageHandler));

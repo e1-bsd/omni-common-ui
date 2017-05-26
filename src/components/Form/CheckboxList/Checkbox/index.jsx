@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -29,4 +30,4 @@ CheckBox.propTypes = {
   checked: PropTypes.bool,
 };
 
-export default CheckBox;
+export default pure(CheckBox);
