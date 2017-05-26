@@ -1,5 +1,7 @@
 import styles from './style.postcss';
+
 import React from 'react';
+import pure from 'recompose/pure';
 import Button from 'components/Button';
 import is from 'is_js';
 import Icon from 'components/Icon';
@@ -69,4 +71,4 @@ ErrorPage.propTypes = {
   }),
 };
 
-export default ErrorPage;
+export default pure(ErrorPage);

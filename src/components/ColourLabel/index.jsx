@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import is from 'is_js';
 import Tooltip from 'components/Tooltip';
@@ -50,4 +51,4 @@ ColourLabel.propTypes = {
   colour: PropTypes.string,
 };
 
-export default ColourLabel;
+export default pure(ColourLabel);

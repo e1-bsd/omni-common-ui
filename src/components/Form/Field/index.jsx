@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -60,4 +61,4 @@ Field.propTypes = {
   useLabel: PropTypes.bool,
 };
 
-export default Field;
+export default pure(Field);

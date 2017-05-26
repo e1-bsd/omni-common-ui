@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import Modal from 'react-modal';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -41,4 +42,4 @@ Dialog.propTypes = {
   className: PropTypes.string,
 };
 
-export default Dialog;
+export default pure(Dialog);

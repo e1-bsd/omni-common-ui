@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import { OidcProvider } from 'redux-oidc';
 import userManager from './userManager';
 import PropTypes from 'prop-types';
@@ -12,4 +13,4 @@ SingleSignOnProvider.propTypes = {
   store: PropTypes.object,
 };
 
-export default SingleSignOnProvider;
+export default pure(SingleSignOnProvider);

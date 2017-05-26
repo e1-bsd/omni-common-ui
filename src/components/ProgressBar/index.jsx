@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import is from 'is_js';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -51,4 +52,4 @@ ProgressBar.propTypes = {
   larger: PropTypes.bool,
 };
 
-export default ProgressBar;
+export default pure(ProgressBar);

@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -18,4 +19,4 @@ Content.propTypes = {
   children: PropTypes.node,
 };
 
-export default Content;
+export default pure(Content);
