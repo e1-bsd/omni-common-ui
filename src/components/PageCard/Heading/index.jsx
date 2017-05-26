@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import is from 'is_js';
 import PropTypes from 'prop-types';
@@ -26,4 +27,4 @@ PageCardHeading.propTypes = {
   children: PropTypes.node,
 };
 
-export default PageCardHeading;
+export default pure(PageCardHeading);

@@ -3,6 +3,7 @@ import 'rc-tooltip/assets/bootstrap.css';
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import RcTooltip from 'rc-tooltip';
 import is from 'is_js';
 import classnames from 'classnames';
@@ -38,4 +39,4 @@ Tooltip.propTypes = {
   trigger: PropTypes.any,
 };
 
-export default Tooltip;
+export default pure(Tooltip);

@@ -1,10 +1,12 @@
 import styles from './style.postcss';
+
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import is from 'is_js';
 import PropTypes from 'prop-types';
 
-const Detailsboard = (props) => {
+export const DetailsBoard = (props) => {
   const classesBoard = classnames(styles.Detailsboard_board);
   const classesH5 = classnames(styles.Detailsboard_h5);
   const classesP = classnames(styles.Detailsboard_p);
@@ -22,9 +24,9 @@ const Detailsboard = (props) => {
   }
 };
 
-Detailsboard.propTypes = {
+DetailsBoard.propTypes = {
   boardTitle: PropTypes.string.isRequired,
   boardValue: PropTypes.string.isRequired,
 };
 
-export default Detailsboard;
+export default pure(DetailsBoard);

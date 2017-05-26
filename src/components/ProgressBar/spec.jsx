@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import ProgressBar from './';
+import { ProgressBar } from './';
 
 describe('ProgressBar', () => {
   describe('when total is not provided', () => {

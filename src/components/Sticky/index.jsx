@@ -1,13 +1,13 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import log from 'domain/log';
 import PropTypes from 'prop-types';
 
 const CHECK_SAME_HEIGHT_MAX = 5;
 
-export class Sticky extends Component {
+export class Sticky extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { sticky: false };

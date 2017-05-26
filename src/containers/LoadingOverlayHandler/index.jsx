@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
 
@@ -20,7 +20,7 @@ try {
   IS_ACTIVE = false;
 }
 
-class LoadingOverlayHandler extends Component {
+class LoadingOverlayHandler extends PureComponent {
   constructor() {
     super();
     this.state = { isThrobberVisible: false };

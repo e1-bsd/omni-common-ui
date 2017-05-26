@@ -3,7 +3,7 @@ import defaultAvatarFemaleImg from './default-avatar-female.svg';
 import defaultAvatarImg from './default-avatar.svg';
 
 import React from 'react';
-import { pure } from 'recompose';
+import pure from 'recompose/pure';
 import Avatar from 'components/Avatar';
 import PropTypes from 'prop-types';
 

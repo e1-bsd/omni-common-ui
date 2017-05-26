@@ -1,3 +1,4 @@
+import { pure } from 'recompose';
 import connect from 'domain/connect';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
 import PropTypes from 'prop-types';
@@ -19,4 +20,4 @@ Permission.propTypes = {
   children: PropTypes.node,
 };
 
-export default connect(mapStateToProps)(Permission);
+export default connect(mapStateToProps)(pure(Permission));
