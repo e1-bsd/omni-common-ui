@@ -102,6 +102,7 @@
   --cardContentPaddingVertical: var(--touchablePaddingVertical);
   --cardContentPaddingHorizontal: calc(var(--touchablePaddingHorizontal) - 1px);
   --headerSize: 50px;
+  --textAreaMinHeight: 100px;
 }
 
 :root {
@@ -203,22 +204,19 @@
   position: relative;
 }
 
-.Overlay {
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.75);
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  padding: 2.5em;
-  position: fixed;
-  right: 0;
-  top: 0;
-}
-
-.Dialog {
-  display: flex;
-  max-height: 100%;
+.TextArea {
+  background-color: var(--colorBase);
+  border: var(--hairThin) solid var(--colorBorder);
+  border-radius: 5px;
   max-width: 100%;
+  min-height: var(--textAreaMinHeight);
   outline: none;
+  padding: 10px 15px;
+  width: 100%;
+
+  @mixin fontNormal;
+
+  &:focus {
+    border-color: var(--colorActive);
+  }
 }
