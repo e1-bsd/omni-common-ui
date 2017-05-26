@@ -58,10 +58,9 @@ export const fetch = (url, options = {}) => {
 function getDefaultFetchOpts(options) {
   const isCorsSimpleMethod =
       is.empty(options) ||
-      (is.object(options) && (
-        is.undefined(options.method) ||
-        (options.method &&
-          CORS_SIMPLE_METHODS.includes(options.method.toUpperCase()))));
+      is.falsy(options.method) ||
+      (is.string(options.method) &&
+        CORS_SIMPLE_METHODS.includes(options.method.toUpperCase()));
   return {
     headers: Object.assign(
       { Accept: 'application/json; charset=utf-8' },
