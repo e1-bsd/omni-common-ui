@@ -5,7 +5,7 @@ import pure from 'recompose/pure';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Field = (props) => {
+export const Field = (props) => {
   const classes = classnames(styles.Field, getValidationClasses());
   if (props.useLabel === true) {
     return <label className={classes}>{renderInner()}</label>;

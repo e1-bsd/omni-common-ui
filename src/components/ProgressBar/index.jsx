@@ -6,7 +6,7 @@ import is from 'is_js';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const ProgressBar = (props) => {
+export const ProgressBar = (props) => {
   const { value, max } = props;
 
   return <div className={classnames(styles.ProgressBar, {

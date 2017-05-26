@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Card from 'components/Card';
 import Icon from 'components/Icon';
 
-const Dialog = (props) => <Modal className={styles.Dialog}
+export const Dialog = (props) => <Modal className={styles.Dialog}
     overlayClassName={styles.Overlay}
     onRequestClose={(ev) => props.onRequestClose && props.onRequestClose('escape', ev)}
     portalClassName={styles.Portal}

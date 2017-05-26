@@ -5,7 +5,7 @@ import pure from 'recompose/pure';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const Content = (props) => {
+export const Content = (props) => {
   const className = classnames(props.className, styles.Content,
     { [styles.__bottomless]: props.withoutBottomPadding });
   return <div className={className}>

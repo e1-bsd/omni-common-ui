@@ -7,7 +7,7 @@ import is from 'is_js';
 import Tooltip from 'components/Tooltip';
 import PropTypes from 'prop-types';
 
-const ColourLabel = (props) => {
+export const ColourLabel = (props) => {
   const { text, initial, colour } = props;
 
   if (is.string(initial) && is.not.empty(initial)) {

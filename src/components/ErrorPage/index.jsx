@@ -1,13 +1,13 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import pure from 'recompose/pure';
+import { pure } from 'recompose';
 import Button from 'components/Button';
 import is from 'is_js';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
 
-const ErrorPage = (props) => {
+export const ErrorPage = (props) => {
   const { config, afterButtonClicked } = props;
 
   return <div className={styles.ErrorPage}>
