@@ -7,7 +7,6 @@ import { routes as studentCards } from 'containers/PersonCardShowcase';
 import { routes as dialogs } from 'containers/DialogShowcase';
 import { routes as forms } from 'containers/FormShowcase';
 import { routes as progressBars } from 'containers/ProgressBarShowcase';
-import { routes as tabs } from 'containers/TabsShowcase';
 import { routes as selectionTable } from 'containers/SelectionTableShowcase';
 import { routes as horizontalSelect } from 'containers/HorizontalSelectShowcase';
 import { routes as textArea } from 'containers/TextAreaShowcase';
@@ -26,7 +25,6 @@ export default {
     dialogs,
     forms,
     progressBars,
-    tabs,
     selectionTable,
     horizontalSelect,
     textArea,
