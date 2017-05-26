@@ -7,6 +7,7 @@ class DropdownBoxContainer extends PureComponent {
   constructor(props) {
     super(props);
     this._onClickedOutside = this._onClickedOutside.bind(this);
+    this._onRef = this._onRef.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +30,14 @@ class DropdownBoxContainer extends PureComponent {
     this.props.onClickOutside();
   }
 
+  _onRef(ref) {
+    this._node = ref;
+  }
+
   render() {
     const { className, children } = this.props;
     return <div className={classnames(className)}
-        ref={(c) => { this._node = c; }}>
+        ref={this._onRef}>
       {children}
     </div>;
   }
