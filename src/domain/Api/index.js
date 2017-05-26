@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
+import log from 'domain/log';
 import Store from 'domain/Store';
 import camelCase from 'camelcase';
 import Config from 'domain/Config';
@@ -34,8 +35,13 @@ export const fetch = (url, options = {}) => {
   const finalOptions = Object.assign({}, options, getDefaultFetchOpts(options));
 
   // https://m.alphasights.com/killing-cors-preflight-requests-on-a-react-spa-1f9b04aa5730#4bdf
-  // eslint-disable-next-line prefer-template
-  const finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${user.access_token}`;
+  let finalUrl = url;
+  if (url.startsWith('https:')) {
+    // eslint-disable-next-line prefer-template
+    finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${user.access_token}`;
+  } else {
+    log.warn('Refusing to append `bearer_token` to a non-secure URL', url);
+  }
 
   return new Promise((resolve, reject) => {
     const onTimeout = () => reject(new FetchTimedOutError(`Call to ${url} has taken too long!`));
