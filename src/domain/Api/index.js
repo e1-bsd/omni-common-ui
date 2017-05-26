@@ -87,6 +87,9 @@ function getTokenHeader(options) {
         Accept: 'application/json; charset=utf-8',
         Authorization: `Bearer ${token}`,
       },
+      is.object(options) && options.method && options.method.toUpperCase() !== 'GET' ? {
+        'Content-Type': 'application/json; charset=utf-8',
+      } : {},
       is.not.object(options) ? undefined : options.headers
     ),
   };
