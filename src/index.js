@@ -46,6 +46,7 @@ import _Person from 'components/Person';
 import _HorizontalScroll from 'components/HorizontalScroll';
 import _HorizontalSelect from 'components/HorizontalSelect';
 import _CalendarPicker from 'components/CalendarPicker';
+import _TextArea from 'components/TextArea';
 
 export const Button = _Button;
 export const ButtonContainer = _ButtonContainer;
@@ -97,3 +98,4 @@ export const Person = _Person;
 export const HorizontalScroll = _HorizontalScroll;
 export const HorizontalSelect = _HorizontalSelect;
 export const CalendarPicker = _CalendarPicker;
+export const TextArea = _TextArea;
