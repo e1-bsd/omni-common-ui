@@ -9,7 +9,7 @@
     "watch": "node node_modules/gulp/bin/gulp.js watch",
     "lint:css": "node node_modules/stylelint/dist/cli.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
-    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve warning\\s"
+    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\""
   },
   "main": "lib/index.js",
   "repository": {
@@ -202,5 +202,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.18.5-dev.1485"
+  "version": "0.18.5-dev.1487"
 }
