@@ -183,7 +183,7 @@ Breadcrumbs.propTypes = {
     label: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
     clickable: PropTypes.bool.isRequired,
-    backLinkHref: PropTypes.string.isRequired,  // it's an override
+    backLinkHref: PropTypes.string,  // it's an override
   })).isRequired,
   singleLineMode: PropTypes.bool,
   router: PropTypes.shape({
