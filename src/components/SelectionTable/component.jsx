@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import is from 'is_js';
+import classnames from 'classnames';
 import PageCard from 'components/PageCard';
 import Icon from 'components/Icon';
 import Header from './Header';
@@ -72,7 +73,9 @@ class SelectionTable extends PureComponent {
   }
 
   _renderHeading() {
-    const { title, rootLinkTitle, hideRootLink, headerClassName } = this.props;
+    const { title, rootLinkTitle, hideRootLink } = this.props;
+    const headerClassName = classnames(this.props.headerClassName,
+      styles.SelectionTable_header);
     const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);
