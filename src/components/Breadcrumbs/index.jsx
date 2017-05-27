@@ -125,9 +125,7 @@ class Breadcrumbs extends PureComponent {
   }
 
   render() {
-    if (! this.props.items || ! this.props.items.some((item) => ! item.hidden)) {
-      return null;
-    }
+    if (! this.props.items || this.props.items.length <= 1) return null;
 
     // make a copy of props.items so that we can mangle it
     let itemsToRender = this.props.items;
@@ -161,7 +159,6 @@ class Breadcrumbs extends PureComponent {
           const itemClassNames = classnames(styles.Breadcrumbs_crumb, {
             [indexedCrumbClassName]: !! indexedCrumbClassName,
             [styles.__clickable]: !! item.clickable,
-            [styles.__hidden]: !! item.hidden,
           });
           const itemKey = item.label + item.href;
           return <li key={itemKey}

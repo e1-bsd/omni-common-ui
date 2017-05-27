@@ -39,7 +39,6 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
@@ -60,13 +59,11 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }, {
         label: 'Members',
         href: '/group/:groupId/dashboard/members',
         clickable: false,
-        hidden: false,
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
@@ -85,19 +82,16 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Home',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }, {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
-        hidden: false,
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
@@ -119,13 +113,11 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group 10',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
-        hidden: false,
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
@@ -145,7 +137,6 @@ describe('BreadcrumbsBuilder', () => {
           label: 'Members',
           href: '/group/:groupId/members',
           clickable: false,
-          hidden: true,
           backLinkHref: '/',
         }, 'Edit'],
       }];
@@ -153,19 +144,16 @@ describe('BreadcrumbsBuilder', () => {
         label: 'Group',
         href: '/group/:groupId',
         clickable: true,
-        hidden: false,
         backLinkHref: null,
       }, {
         label: 'Members',
         href: '/group/:groupId/members',
         clickable: false,
-        hidden: true,
         backLinkHref: '/',
       }, {
         label: 'Edit',
         href: '/group/:groupId/members/edit',
         clickable: false,
-        hidden: false,
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
