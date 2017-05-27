@@ -125,7 +125,7 @@ class Breadcrumbs extends PureComponent {
   }
 
   render() {
-    if (! this.props.items || this.props.items.length <= 1) return null;
+    if (! this.props.items || this.props.items.length < 1) return null;
 
     // make a copy of props.items so that we can mangle it
     let itemsToRender = this.props.items;
