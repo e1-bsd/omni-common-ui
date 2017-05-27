@@ -9,7 +9,6 @@ import testClass from 'domain/testClass';
 import Breadcrumbs from 'components/Breadcrumbs';
 import HistoryLink from 'components/HistoryLink';
 import connect from 'domain/connect';
-import ApiCall from 'containers/ApiCalls';
 import PerformanceProfiler from 'components/PerformanceProfiler';
 import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
@@ -72,18 +71,15 @@ class App extends PureComponent {
             onExpand={(e) => this._expandSidebar(e)}
             onCollapse={(e) => this._collapseSidebar(e)} />
         <div className={styles.App_content}>
-          {
-            ! this.props.isThereAnError &&
-            <div className={styles.App_content_auxiliary}>
-              {
-                this._breadcrumbs &&
-                <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
-                    items={this._breadcrumbs}
-                    singleLineMode />
-              }
-              <HistoryLink className={styles.App_content_auxiliary_historyLink} {...this.props} />
-            </div>
-          }
+          <div className={styles.App_content_auxiliary}>
+            {
+              this._breadcrumbs &&
+              <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+                  items={this._breadcrumbs}
+                  singleLineMode />
+            }
+            <HistoryLink className={styles.App_content_auxiliary_historyLink} {...this.props} />
+          </div>
           <div className={styles.App_content_wrap}>{this.props.children}</div>
         </div>
       </div>
@@ -94,11 +90,6 @@ class App extends PureComponent {
 
 App.propTypes = {
   children: PropTypes.node,
-  isThereAnError: PropTypes.bool.isRequired,
 };
 
-export function mapStateToProps(state) {
-  return { isThereAnError: ApiCall.getErrors(state).size > 0 };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);
