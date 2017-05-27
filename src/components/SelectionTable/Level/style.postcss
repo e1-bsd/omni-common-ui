@@ -8,11 +8,8 @@
   border-bottom: 1px solid #dfdfdf;
   cursor: pointer;
   display: flex;
-  font-size: 18px;
-  font-weight: normal;
   height: 45px;
   justify-content: space-between;
-  letter-spacing: normal;
   padding: var(--verticalPadding) 20px;
 
   @media (--md-viewport-new) {
@@ -20,6 +17,8 @@
   }
 
   &_label {
+    @mixin fontHeading;
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
