@@ -38,6 +38,9 @@ describe('<ErrorPageHandler />', () => {
         ]),
         erroredApi,
         clean: Sinon.spy(),
+        location: {
+          pathname: '/x/y',
+        },
       };
     };
 
@@ -59,11 +62,23 @@ describe('<ErrorPageHandler />', () => {
       expect(wrapper).to.not.have.descendants('#inner');
     });
 
-    it('calls clean() for all the failed API calls received', () => {
-      const wrapper = mount(<ErrorPageHandler {...props} />);
-      const afterButtonClicked = wrapper.find(ErrorPage).prop('afterButtonClicked');
-      afterButtonClicked();
-      expect(props.clean.args).to.eql([['id1'], ['id2']]);
+    context('when location.pathname changes, API errors are auto-cleaned', () => {
+      it('does not call clean() on mount', () => {
+        mount(<ErrorPageHandler {...props} />);
+        expect(props.clean.called).to.be.false;
+      });
+
+      it('does not call clean() if location.pathname is the same', () => {
+        const wrapper = mount(<ErrorPageHandler {...props} />);
+        wrapper.setProps({ location: { pathname: '/x/y' } });
+        expect(props.clean.called).to.be.false;
+      });
+
+      it('calls clean() on location.pathname change', () => {
+        const wrapper = mount(<ErrorPageHandler {...props} />);
+        wrapper.setProps({ location: { pathname: '/x' } });  // user clicked a nav crumb, for instance
+        expect(props.clean.args).to.eql([['id1'], ['id2']]);
+      });
     });
 
     context('when errorHandlerRendersPopUps config option is true', () => {
