@@ -105,7 +105,6 @@ export class ErrorPageHandler extends PureComponent {
 
     return <ErrorPage erroredApi={erroredApi}
         config={config}
-        afterButtonClicked={this._cleanErrors}
         {...this.props} />;
   }
 
