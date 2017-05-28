@@ -11,7 +11,7 @@ const REG_EXP_ACCEPTED_CHARS = /^[0-9]+$/;
 export default class NumberInput extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { value: this._parseValue(props), focused: false };
+    this.state = { focused: false };
     this._parseProps(props);
     this._onUpArrowClicked = this._onUpArrowClicked.bind(this);
     this._onDownArrowClicked = this._onDownArrowClicked.bind(this);
@@ -20,111 +20,75 @@ export default class NumberInput extends PureComponent {
     this._onBlur = this._onBlur.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
-      this.setState({ value: this._parseValue(nextProps) });
-    }
-
-    this._parseProps(nextProps);
-  }
-
   componentWillUpdate(nextProps) {
     this._parseProps(nextProps);
   }
 
   _parseProps(props) {
-    this._min = this.transferToNumber(props.min);
-    this._max = this.transferToNumber(props.max);
-    this._step = this.transferToNumber(props.step, 1);
+    this._value = this._parseNumber(props.value);
+    this._defaultValue = this._parseNumber(props.defaultValue);
+    this._min = this._parseNumber(props.min);
+    this._max = this._parseNumber(props.max);
+    this._step = this._parseNumber(props.step, 1);
   }
 
-  _parseValue({ value, defaultValue }) {
-    return this.transferToNumber(value === undefined ? defaultValue : value);
-  }
-
-  transferToNumber(target, defaultValue) {
+  _parseNumber(target, defaultValue) {
     if (is.number(target)) {
       return Number(target.toFixed(0));
     }
+
     if (REG_EXP_ACCEPTED_CHARS.test(target)) {
-      return Number(target);
+      return Number(target, 10);
     }
+
     return defaultValue;
   }
 
   _onUpArrowClicked() {
-    if (this.state.value === undefined) {
-      if (is.not.undefined(this._min)) {
-        this.applyChange(this._min);
-      } else {
-        this.applyChange(this._step || 1);
-      }
-      return;
-    }
-
-    if (is.undefined(this._max) ||
-        this.state.value + this._step <= this._max) {
-      this.applyChange(this.state.value + this._step);
-    }
-
+    this._setNewValue((this._value || this._defaultValue) + 1);
     this._focusOnInput();
   }
 
   _onDownArrowClicked() {
-    if (this.state.value === undefined) {
-      if (is.not.undefined(this._min)) {
-        this.applyChange(this._min);
-      } else {
-        this.applyChange(- this._step || - 1);
-      }
-      return;
-    }
-
-    if (is.undefined(this._min) ||
-        this.state.value - this._step >= this._min) {
-      this.applyChange(this.state.value - this._step);
-    }
-
+    this._setNewValue((this._value || this._defaultValue) - 1);
     this._focusOnInput();
+  }
+
+  _setNewValue(value) {
+    this._onValueChanged({ target: { value } });
   }
 
   _focusOnInput() {
     this._input.focus();
   }
 
-  _onValueChanged(e) {
-    if (e.target.value === '') {
-      this.applyChange(e.target.value);
+  _onValueChanged({ target: { value: newValue } }) {
+    if (is.empty(newValue)) {
+      return this._sendCallbackWithNewValue(null);
     }
 
-    if (REG_EXP_ACCEPTED_CHARS.test(e.target.value)) {
-      this.setState({ value: e.target.value });
+    if (! REG_EXP_ACCEPTED_CHARS.test(newValue)) {
+      return;
+    }
 
-      if ((is.undefined(this._min) ||
-          Number(e.target.value, 10) >= this._min) &&
-          (is.undefined(this._max) ||
-          Number(e.target.value, 10) <= this._max)) {
-        this.applyChange(Number(e.target.value, 10));
-      }
+    const numberValue = Number(newValue, 10);
+    if ((is.undefined(this._min) || numberValue >= this._min) &&
+        (is.undefined(this._max) || numberValue <= this._max)) {
+      return this._sendCallbackWithNewValue(numberValue);
+    }
 
-      if (Number(e.target.value, 10) < this._min) {
-        this.applyChange(Number(this._min, 10));
-      }
+    if (numberValue < this._min) {
+      return this._sendCallbackWithNewValue(this._min);
+    }
 
-      if (Number(e.target.value, 10) > this._max) {
-        this.applyChange(Number(this._max, 10));
-      }
+    if (numberValue > this._max) {
+      return this._sendCallbackWithNewValue(this._max);
     }
   }
 
-  applyChange(value) {
-    this.setState({ value });
-    if (this.props.onChange) {
-      if (value === '') {
-        this.props.onChange({ target: {} });
-      } else {
-        this.props.onChange({ target: { value } });
-      }
+  _sendCallbackWithNewValue(value) {
+    if (is.function(this.props.onChange)) {
+      this.props.onChange(value);
     }
   }
 
@@ -150,7 +114,7 @@ export default class NumberInput extends PureComponent {
       <div className={classes}>
         <input className={styles.NumberInput_inputContainer_input}
             type="text"
-            value={this.state.value}
+            value={this._value || this._defaultValue}
             disabled={this.props.unwritable || this.props.disabled}
             onChange={this._onValueChanged}
             onFocus={this._onFocus}
@@ -193,7 +157,7 @@ NumberInput.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   unwritable: PropTypes.bool,
   className: PropTypes.string,
