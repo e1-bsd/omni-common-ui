@@ -66,6 +66,8 @@ export default class NumberInput extends PureComponent {
         this.state.value + this._step <= this._max) {
       this.applyChange(this.state.value + this._step);
     }
+
+    this._focusOnInput();
   }
 
   _onDownArrowClicked() {
@@ -82,6 +84,12 @@ export default class NumberInput extends PureComponent {
         this.state.value - this._step >= this._min) {
       this.applyChange(this.state.value - this._step);
     }
+
+    this._focusOnInput();
+  }
+
+  _focusOnInput() {
+    this._input.focus();
   }
 
   _onValueChanged(e) {
@@ -146,7 +154,8 @@ export default class NumberInput extends PureComponent {
             disabled={this.props.unwritable || this.props.disabled}
             onChange={this._onValueChanged}
             onFocus={this._onFocus}
-            onBlur={this._onBlur} />
+            onBlur={this._onBlur}
+            ref={(c) => { this._input = c; }} />
         {
           ! this.props.disabled &&
           <div className={styles.NumberInput_arrowsContainer}>
