@@ -11,11 +11,13 @@ const REG_EXP_ACCEPTED_CHARS = /^[0-9]+$/;
 export default class NumberInput extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { value: this._parseValue(props) };
+    this.state = { value: this._parseValue(props), focused: false };
     this._parseProps(props);
     this._onUpArrowClicked = this._onUpArrowClicked.bind(this);
     this._onDownArrowClicked = this._onDownArrowClicked.bind(this);
     this._onValueChanged = this._onValueChanged.bind(this);
+    this._onFocus = this._onFocus.bind(this);
+    this._onBlur = this._onBlur.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,7 +120,18 @@ export default class NumberInput extends PureComponent {
     }
   }
 
+  _onFocus() {
+    this.setState({ focused: true });
+  }
+
+  _onBlur() {
+    this.setState({ focused: false });
+  }
+
   render() {
+    const classes = classnames(styles.NumberInput_inputContainer,
+        this.props.className,
+        { [styles.__focused]: this.state.focused });
     return <div className={styles.NumberInput}>
       {
         this.props.labelName &&
@@ -126,12 +139,14 @@ export default class NumberInput extends PureComponent {
           {this.props.labelName}
         </span>
       }
-      <div className={classnames(styles.NumberInput_inputContainer, this.props.className)}>
+      <div className={classes}>
         <input className={styles.NumberInput_inputContainer_input}
             type="text"
             value={this.state.value}
             disabled={this.props.unwritable || this.props.disabled}
-            onChange={this._onValueChanged} />
+            onChange={this._onValueChanged}
+            onFocus={this._onFocus}
+            onBlur={this._onBlur} />
         {
           ! this.props.disabled &&
           <div className={styles.NumberInput_arrowsContainer}>
