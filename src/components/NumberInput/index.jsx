@@ -117,13 +117,13 @@ export default class NumberInput extends PureComponent {
 
   render() {
     return <div className={styles.NumberInputContainer}>
-      {this.props.labelName ?
+      {
+        this.props.labelName &&
         <span className={styles.NumberInputName}>
           {this.props.labelName}
-        </span> :
-        ''}
-      <div className={classnames(styles.NumberInput, this.props.className)}
-          style={this.props.customStyle} >
+        </span>
+      }
+      <div className={classnames(styles.NumberInput, this.props.className)}>
         {
           ! this.props.disabled &&
           <div className={styles.upArrow} onClick={() => this.upArrowClickHandler()}>
@@ -172,5 +172,4 @@ NumberInput.propTypes = {
   unwritable: PropTypes.bool,
   className: PropTypes.string,
   labelName: PropTypes.string,
-  customStyle: PropTypes.object,
 };
