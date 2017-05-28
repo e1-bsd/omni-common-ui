@@ -13,6 +13,9 @@ export default class NumberInput extends PureComponent {
     super(props);
     this.state = { value: this._parseValue(props) };
     this._parseProps(props);
+    this._onUpArrowClicked = this._onUpArrowClicked.bind(this);
+    this._onDownArrowClicked = this._onDownArrowClicked.bind(this);
+    this._onValueChanged = this._onValueChanged.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +50,7 @@ export default class NumberInput extends PureComponent {
     return defaultValue;
   }
 
-  upArrowClickHandler() {
+  _onUpArrowClicked() {
     if (this.state.value === undefined) {
       if (is.not.undefined(this._min)) {
         this.applyChange(this._min);
@@ -63,7 +66,7 @@ export default class NumberInput extends PureComponent {
     }
   }
 
-  downArrowClickHandler() {
+  _onDownArrowClicked() {
     if (this.state.value === undefined) {
       if (is.not.undefined(this._min)) {
         this.applyChange(this._min);
@@ -79,7 +82,7 @@ export default class NumberInput extends PureComponent {
     }
   }
 
-  valueChangeHandler(e) {
+  _onValueChanged(e) {
     if (e.target.value === '') {
       this.applyChange(e.target.value);
     }
@@ -126,13 +129,13 @@ export default class NumberInput extends PureComponent {
       <div className={classnames(styles.NumberInput, this.props.className)}>
         {
           ! this.props.disabled &&
-          <div className={styles.upArrow} onClick={() => this.upArrowClickHandler()}>
+          <div className={styles.upArrow} onClick={this._onUpArrowClicked}>
             <Icon id="chevron-small-up" />
           </div>
         }
         {
           ! this.props.disabled &&
-          <div className={styles.downArrow} onClick={() => this.downArrowClickHandler()}>
+          <div className={styles.downArrow} onClick={this._onDownArrowClicked}>
             <Icon id="chevron-small-down" />
           </div>
         }
@@ -140,7 +143,7 @@ export default class NumberInput extends PureComponent {
             type="text"
             value={this.state.value}
             disabled={this.props.unwritable || this.props.disabled}
-            onChange={(e) => this.valueChangeHandler(e)} />
+            onChange={this._onValueChanged} />
       </div>
     </div>;
   }
