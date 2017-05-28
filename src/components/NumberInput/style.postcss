@@ -1,81 +1,84 @@
 @import 'main.postcss';
 
 :root {
-  --numberInputBg: #eee;
-  --numberInputBgActive: #999;
-  --numberInputBgHover: #ccc;
+  --arrowAreaSize: calc(var(--touchableMinHeightNew) / 2);
+  --arrowSize: 7.5px;
+  --spacing: 15px;
 }
 
 .NumberInput {
-  border: 2px solid var(--colorBorder);
   display: inline-block;
-  height: 40px;
-  padding: 1px 0 1px 15px;
-  vertical-align: middle;
-  width: 70px;
 
-  &:hover {
-    & div + .valueBox {
-      padding-right: 0;
-      width: calc(100% - 15px);
+  &_label {
+    display: block;
+    font-size: var(--fontSize-md);
+    font-weight: var(--fontWeight-medium);
+    letter-spacing: 1px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  &_inputContainer {
+    align-items: stretch;
+    border: var(--hairThin) solid var(--colorBorder);
+    border-radius: var(--borderRadius);
+    display: flex;
+    flex-direction: row;
+    height: var(--touchableMinHeightNew);
+    justify-content: flex-start;
+    overflow: hidden;
+    padding-right: var(--spacing);
+    vertical-align: middle;
+    width: 73px;
+
+    &:focus-within {
+      border-color: var(--colorActive);
     }
 
-    & .upArrow,
-    & .downArrow {
-      display: flex;
+    &:hover {
+      justify-content: flex-end;
+    }
+
+    &_input {
+      background: transparent;
+      border: none;
+      flex: 1;
+      margin: 0;
+      outline: none;
+      text-align: center;
+
+      @mixin fontFormField;
+
+      &:disabled {
+        background: transparent;
+      }
     }
   }
-}
 
-.NumberInputContainer {
-  display: inline-block;
-}
-
-.NumberInputName {
-  display: block;
-  font-size: var(--fontSize-md);
-  font-weight: var(--fontWeight-medium);
-  letter-spacing: 1px;
-  line-height: 1.7;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-}
-
-.valueBox {
-  border: none;
-  height: 100%;
-  margin: 0;
-  outline: none;
-  padding: 0 15px 0 0;
-  text-align: center;
-  vertical-align: top;
-  width: 100%;
-
-  &:disabled {
-    background: transparent;
+  &_arrowsContainer {
+    display: flex;
+    flex-direction: column;
   }
-}
 
-.upArrow,
-.downArrow {
-  align-items: center;
-  background-color: var(--numberInputBg);
-  clear: both;
-  display: none;
-  float: right;
-  font-size: 15px;
-  height: 50%;
-  justify-content: center;
-  transition: none;
-  width: 15px;
-}
+  &_arrow {
+    align-items: center;
+    clear: both;
+    color: var(--colorBorder);
+    cursor: pointer;
+    display: flex;
+    float: right;
+    font-size: var(--arrowSize);
+    height: var(--arrowAreaSize);
+    justify-content: center;
+    margin-left: -calc(calc(var(--arrowAreaSize) - var(--arrowSize)) / 2);
+    margin-right: -calc(calc(var(--arrowAreaSize) - var(--arrowSize)) / 2);
+    transition: none;
+    width: var(--arrowAreaSize);
 
-.upArrow:hover,
-.downArrow:hover {
-  background-color: var(--numberInputBgHover);
-}
-
-.upArrow:active,
-.downArrow:active {
-  background-color: var(--numberInputBgActive);
+    &:hover,
+    &:active {
+      color: var(--colorActive);
+    }
+  }
 }

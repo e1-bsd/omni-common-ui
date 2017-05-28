@@ -119,31 +119,30 @@ export default class NumberInput extends PureComponent {
   }
 
   render() {
-    return <div className={styles.NumberInputContainer}>
+    return <div className={styles.NumberInput}>
       {
         this.props.labelName &&
-        <span className={styles.NumberInputName}>
+        <span className={styles.NumberInput_label}>
           {this.props.labelName}
         </span>
       }
-      <div className={classnames(styles.NumberInput, this.props.className)}>
-        {
-          ! this.props.disabled &&
-          <div className={styles.upArrow} onClick={this._onUpArrowClicked}>
-            <Icon id="chevron-small-up" />
-          </div>
-        }
-        {
-          ! this.props.disabled &&
-          <div className={styles.downArrow} onClick={this._onDownArrowClicked}>
-            <Icon id="chevron-small-down" />
-          </div>
-        }
-        <input className={styles.valueBox}
+      <div className={classnames(styles.NumberInput_inputContainer, this.props.className)}>
+        <input className={styles.NumberInput_inputContainer_input}
             type="text"
             value={this.state.value}
             disabled={this.props.unwritable || this.props.disabled}
             onChange={this._onValueChanged} />
+        {
+          ! this.props.disabled &&
+          <div className={styles.NumberInput_arrowsContainer}>
+            <div className={styles.NumberInput_arrow} onClick={this._onUpArrowClicked}>
+              <Icon id="chevron-small-up" />
+            </div>
+            <div className={styles.NumberInput_arrow} onClick={this._onDownArrowClicked}>
+              <Icon id="chevron-small-down" />
+            </div>
+          </div>
+        }
       </div>
     </div>;
   }
