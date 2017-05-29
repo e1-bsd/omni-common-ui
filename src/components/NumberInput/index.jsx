@@ -6,146 +6,136 @@ import classnames from 'classnames';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
 
+const REG_EXP_ACCEPTED_CHARS = /^[0-9]+$/;
+
 export default class NumberInput extends PureComponent {
-  componentWillMount() {
-    this.acceptedString = /^[0-9]+$/;
-    this.setState({
-      value: this.transferToNumber(this.props.value === undefined ?
-          this.props.defaultValue :
-          this.props.value, ''),
-      min: this.transferToNumber(this.props.min),
-      max: this.transferToNumber(this.props.max),
-      step: this.transferToNumber(this.props.step, 1),
-      disabled: this.props.disabled,
-      unwritable: this.props.unwritable,
-    });
+  constructor(props) {
+    super(props);
+    this.state = { focused: false };
+    this._parseProps(props);
+    this._onUpArrowClicked = this._onUpArrowClicked.bind(this);
+    this._onDownArrowClicked = this._onDownArrowClicked.bind(this);
+    this._onValueChanged = this._onValueChanged.bind(this);
+    this._onFocus = this._onFocus.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+    this._refToInput = this._refToInput.bind(this);
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.value === nextProps.value &&
-        this.props.min === nextProps.min &&
-        this.props.max === nextProps.max &&
-        this.props.step === nextProps.step &&
-        this.props.disabled === nextProps.disabled &&
-        this.props.unwritable === nextProps.unwritable) {
-      return;
-    }
-    this.setState({
-      value: this.transferToNumber(nextProps.value === undefined ?
-          nextProps.defaultValue :
-          nextProps.value),
-      min: this.transferToNumber(nextProps.min),
-      max: this.transferToNumber(nextProps.max),
-      step: this.transferToNumber(nextProps.step, 1),
-      disabled: nextProps.disabled,
-      unwritable: nextProps.unwritable,
-    });
+    this._parseProps(nextProps);
   }
 
-  transferToNumber(target, defaultValue) {
+  _parseProps(props) {
+    this._value = this._parseNumber(props.value);
+    this._defaultValue = this._parseNumber(props.defaultValue);
+    this._min = this._parseNumber(props.min);
+    this._max = this._parseNumber(props.max);
+    this._step = this._parseNumber(props.step, 1);
+  }
+
+  _parseNumber(target, defaultValue) {
     if (is.number(target)) {
       return Number(target.toFixed(0));
     }
-    if (this.acceptedString.test(target)) {
-      return Number(target);
+
+    if (REG_EXP_ACCEPTED_CHARS.test(target)) {
+      return Number(target, 10);
     }
+
     return defaultValue;
   }
 
-  upArrowClickHandler() {
-    if (this.state.value === undefined) {
-      if (is.not.undefined(this.state.min)) {
-        this.applyChange(this.state.min);
-      } else {
-        this.applyChange(this.state.step || 1);
-      }
+  _onUpArrowClicked() {
+    this._setNewValue((this._value || this._defaultValue) + 1);
+    this._focusOnInput();
+  }
+
+  _onDownArrowClicked() {
+    this._setNewValue((this._value || this._defaultValue) - 1);
+    this._focusOnInput();
+  }
+
+  _setNewValue(value) {
+    this._onValueChanged({ target: { value } });
+  }
+
+  _focusOnInput() {
+    this._input.focus();
+  }
+
+  _onValueChanged({ target: { value: newValue } }) {
+    if (is.empty(newValue)) {
+      return this._sendCallbackWithNewValue(null);
+    }
+
+    if (! REG_EXP_ACCEPTED_CHARS.test(newValue)) {
       return;
     }
 
-    if (is.undefined(this.state.max) ||
-        this.state.value + this.state.step <= this.state.max) {
-      this.applyChange(this.state.value + this.state.step);
+    const numberValue = Number(newValue, 10);
+    if ((is.undefined(this._min) || numberValue >= this._min) &&
+        (is.undefined(this._max) || numberValue <= this._max)) {
+      return this._sendCallbackWithNewValue(numberValue);
+    }
+
+    if (numberValue < this._min) {
+      return this._sendCallbackWithNewValue(this._min);
+    }
+
+    if (numberValue > this._max) {
+      return this._sendCallbackWithNewValue(this._max);
     }
   }
 
-  downArrowClickHandler() {
-    if (this.state.value === undefined) {
-      if (is.not.undefined(this.state.min)) {
-        this.applyChange(this.state.min);
-      } else {
-        this.applyChange(- this.state.step || - 1);
-      }
-      return;
-    }
-
-    if (is.undefined(this.state.min) ||
-        this.state.value - this.state.step >= this.state.min) {
-      this.applyChange(this.state.value - this.state.step);
+  _sendCallbackWithNewValue(value) {
+    if (is.function(this.props.onChange)) {
+      this.props.onChange(value);
     }
   }
 
-  valueChangeHandler(e) {
-    if (e.target.value === '') {
-      this.applyChange(e.target.value);
-    }
-
-    if (this.acceptedString.test(e.target.value)) {
-      this.setState({ value: e.target.value });
-
-      if ((is.undefined(this.state.min) ||
-          Number(e.target.value, 10) >= this.state.min) &&
-          (is.undefined(this.state.max) ||
-          Number(e.target.value, 10) <= this.state.max)) {
-        this.applyChange(Number(e.target.value, 10));
-      }
-
-      if (Number(e.target.value, 10) < this.state.min) {
-        this.applyChange(Number(this.state.min, 10));
-      }
-
-      if (Number(e.target.value, 10) > this.state.max) {
-        this.applyChange(Number(this.state.max, 10));
-      }
-    }
+  _onFocus() {
+    this.setState({ focused: true });
   }
 
-  applyChange(value) {
-    this.setState({ value });
-    if (this.props.onChange) {
-      if (value === '') {
-        this.props.onChange({ target: {} });
-      } else {
-        this.props.onChange({ target: { value } });
-      }
-    }
+  _onBlur() {
+    this.setState({ focused: false });
+  }
+
+  _refToInput(c) {
+    this._input = c;
   }
 
   render() {
-    return <div className={styles.NumberInputContainer}>
-      {this.props.labelName ?
-        <span className={styles.NumberInputName}>
+    const classes = classnames(styles.NumberInput_inputContainer,
+        this.props.className,
+        { [styles.__focused]: this.state.focused });
+    return <div className={styles.NumberInput}>
+      {
+        this.props.labelName &&
+        <span className={styles.NumberInput_label}>
           {this.props.labelName}
-        </span> :
-        ''}
-      <div className={classnames(styles.NumberInput, this.props.className)}
-          style={this.props.customStyle} >
-        {
-          ! this.props.disabled &&
-          <div className={styles.upArrow} onClick={() => this.upArrowClickHandler()}>
-            <Icon id="chevron-small-up" />
-          </div>
-        }
-        {
-          ! this.props.disabled &&
-          <div className={styles.downArrow} onClick={() => this.downArrowClickHandler()}>
-            <Icon id="chevron-small-down" />
-          </div>
-        }
-        <input className={styles.valueBox}
+        </span>
+      }
+      <div className={classes}>
+        <input className={styles.NumberInput_inputContainer_input}
             type="text"
-            value={this.state.value}
-            disabled={this.state.unwritable || this.state.disabled}
-            onChange={(e) => this.valueChangeHandler(e)} />
+            value={this._value || this._defaultValue}
+            disabled={this.props.readonly || this.props.disabled}
+            onChange={this._onValueChanged}
+            onFocus={this._onFocus}
+            onBlur={this._onBlur}
+            ref={this._refToInput} />
+        {
+          ! this.props.disabled &&
+          <div className={styles.NumberInput_arrowsContainer}>
+            <div className={styles.NumberInput_arrow} onClick={this._onUpArrowClicked}>
+              <Icon id="chevron-small-up" />
+            </div>
+            <div className={styles.NumberInput_arrow} onClick={this._onDownArrowClicked}>
+              <Icon id="chevron-small-down" />
+            </div>
+          </div>
+        }
       </div>
     </div>;
   }
@@ -172,10 +162,9 @@ NumberInput.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  unwritable: PropTypes.bool,
+  readonly: PropTypes.bool,
   className: PropTypes.string,
   labelName: PropTypes.string,
-  customStyle: PropTypes.object,
 };
