@@ -114,12 +114,20 @@
   text-transform: uppercase;
 }
 
-@define-mixin fontForm {
+@define-mixin fontFormLabel {
   font-family: var(--fontFamily);
   font-size: 13px;
   font-weight: var(--fontWeight-regular);
   letter-spacing: 0.5px;
   line-height: calc(15 / 13);
+}
+
+@define-mixin fontFormField {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize-md);
+  font-weight: var(--fontWeight-regular);
+  letter-spacing: 0.5px;
+  line-height: calc(15 / 14);
 }
 
 @define-mixin fontTableLabel {
