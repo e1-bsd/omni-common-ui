@@ -18,6 +18,7 @@ export default class NumberInput extends PureComponent {
     this._onValueChanged = this._onValueChanged.bind(this);
     this._onFocus = this._onFocus.bind(this);
     this._onBlur = this._onBlur.bind(this);
+    this._refToInput = this._refToInput.bind(this);
   }
 
   componentWillUpdate(nextProps) {
@@ -100,6 +101,10 @@ export default class NumberInput extends PureComponent {
     this.setState({ focused: false });
   }
 
+  _refToInput(c) {
+    this._input = c;
+  }
+
   render() {
     const classes = classnames(styles.NumberInput_inputContainer,
         this.props.className,
@@ -119,7 +124,7 @@ export default class NumberInput extends PureComponent {
             onChange={this._onValueChanged}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
-            ref={(c) => { this._input = c; }} />
+            ref={this._refToInput} />
         {
           ! this.props.disabled &&
           <div className={styles.NumberInput_arrowsContainer}>
