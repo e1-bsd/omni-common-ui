@@ -120,7 +120,7 @@ export default class NumberInput extends PureComponent {
         <input className={styles.NumberInput_inputContainer_input}
             type="text"
             value={this._value || this._defaultValue}
-            disabled={this.props.unwritable || this.props.disabled}
+            disabled={this.props.readonly || this.props.disabled}
             onChange={this._onValueChanged}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
@@ -164,7 +164,7 @@ NumberInput.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  unwritable: PropTypes.bool,
+  readonly: PropTypes.bool,
   className: PropTypes.string,
   labelName: PropTypes.string,
 };
