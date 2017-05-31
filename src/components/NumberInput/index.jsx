@@ -87,9 +87,9 @@ export default class NumberInput extends PureComponent {
     }
   }
 
-  _sendCallbackWithNewValue(value) {
-    if (is.function(this.props.onChange)) {
-      this.props.onChange(value);
+  _sendCallbackWithNewValue(newValue) {
+    if (newValue !== this._value && is.function(this.props.onChange)) {
+      this.props.onChange(newValue);
     }
   }
 
