@@ -1,9 +1,9 @@
 import invariant from 'invariant';
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
+import camelCase from 'camelcase';
 import log from 'domain/log';
 import Store from 'domain/Store';
-import camelCase from 'camelcase';
 import Config from 'domain/Config';
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Simple_requests
