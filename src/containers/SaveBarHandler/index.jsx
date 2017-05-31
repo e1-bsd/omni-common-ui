@@ -18,12 +18,7 @@ const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 const EDIT_MODE_MATCH_REGEXP = new RegExp('^edit$', 'i');
 
 // config feature flag
-let IS_ACTIVE;
-try {
-  IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts');
-} catch (e) {
-  IS_ACTIVE = false;
-}
+const IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts');
 
 // per-route action button settings may be supplied as functions
 const fnToValue = (any, props) => {
