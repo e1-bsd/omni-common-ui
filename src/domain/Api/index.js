@@ -9,6 +9,7 @@ import Config from 'domain/Config';
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Simple_requests
 const CORS_SIMPLE_METHODS = ['GET', 'HEAD'];  // omit POST, we must send a `Content-Type`
 const SECURE_URL_REGEXP = /^(https:)?\/\//;
+const IS_BEARER_TOKEN_IN_URLS_ENABLED = !! Config.get('includeBearerTokenInApiGetUrls');
 
 export const buildUrl = (path) => Config.get('apiBase') + path;
 
@@ -33,15 +34,18 @@ export const fetch = (url, options = {}) => {
   invariant(is.object(options), 'options must be a plain object');
 
   const user = Store.get().getState().get('singleSignOn').user || {};
-  const finalOptions = Object.assign({}, options, getDefaultFetchOpts(options));
+  const { access_token: accessToken } = user;
+  const finalOptions = Object.assign({}, options, getDefaultFetchOpts(options, accessToken));
 
   // https://m.alphasights.com/killing-cors-preflight-requests-on-a-react-spa-1f9b04aa5730#4bdf
   let finalUrl = url;
-  if (SECURE_URL_REGEXP.test(url)) {
-    // eslint-disable-next-line prefer-template
-    finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${user.access_token}`;
-  } else {
-    log.warn('Refusing to append `bearer_token` to a non-secure URL', url);
+  if (IS_BEARER_TOKEN_IN_URLS_ENABLED) {
+    if (SECURE_URL_REGEXP.test(url)) {
+      // eslint-disable-next-line prefer-template
+      finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${accessToken}`;
+    } else {
+      log.warn('Refusing to append `bearer_token` to a non-secure URL', url);
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -62,7 +66,7 @@ export const fetch = (url, options = {}) => {
   });
 };
 
-function getDefaultFetchOpts(options) {
+function getDefaultFetchOpts(options, token) {
   const isCorsSimpleMethod =
       is.empty(options) ||
       is.falsy(options.method) ||
@@ -71,6 +75,9 @@ function getDefaultFetchOpts(options) {
   return {
     headers: Object.assign(
       { Accept: 'application/json; charset=utf-8' },
+      ! IS_BEARER_TOKEN_IN_URLS_ENABLED ? {
+        Authorization: `Bearer ${token}`,
+      } : {},
       ! isCorsSimpleMethod ? {
         'Content-Type': 'application/json',
       } : {},
