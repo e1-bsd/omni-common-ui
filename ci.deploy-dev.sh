@@ -7,3 +7,4 @@ npm version "$TAG-dev.$TRAVIS_BUILD_NUMBER" && \
 git add package.json && \
 git commit --amend -m "Merged $TRAVIS_BRANCH ($TRAVIS_COMMIT) into master" && \
 git push origin master:master
+#test
