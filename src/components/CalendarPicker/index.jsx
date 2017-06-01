@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import moment from 'domain/moment';
 import is from 'is_js';
@@ -47,7 +47,7 @@ const localeUtils = {
   formatMonthTitle: (d, locale) => `${months[locale][d.getMonth()]} ${d.getFullYear()}`,
 };
 
-export default class CalendarPicker extends Component {
+export default class CalendarPicker extends PureComponent {
 
   constructor(props) {
     super(props);

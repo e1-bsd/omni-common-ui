@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import ErrorPage from 'components/ErrorPage';
 import PropTypes from 'prop-types';
 
@@ -18,4 +19,4 @@ AuthorisationErrorPage.propTypes = {
   config: PropTypes.object,
 };
 
-export default AuthorisationErrorPage;
+export default pure(AuthorisationErrorPage);

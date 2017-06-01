@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import { connect } from 'react-redux';
 import { CallbackComponent } from 'redux-oidc';
 import { replace } from 'react-router-redux';
@@ -28,4 +29,4 @@ SingleSignOnCallback.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(SingleSignOnCallback);
+export default connect()(pure(SingleSignOnCallback));

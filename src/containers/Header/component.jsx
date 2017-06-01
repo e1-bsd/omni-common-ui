@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import styles from './style.postcss';
 import UserInfo from './UserInfo';
@@ -53,4 +54,4 @@ function mapStateToProps(state) {
   return { impersonate };
 }
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, null)(pure(Header));

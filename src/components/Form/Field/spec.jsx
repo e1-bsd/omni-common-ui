@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import Field from './';
+import { Field } from './';
 
 describe('Form', () => {
   describe('Field', () => {

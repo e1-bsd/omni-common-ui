@@ -38,7 +38,6 @@ export default {
           label: labelOrObject.label || labelOrObject,
           href: labelOrObject.href || buildRouteHref(routeIdx),
           clickable: is.boolean(labelOrObject.clickable) ? labelOrObject.clickable : true,
-          hidden: is.boolean(labelOrObject.hidden) ? labelOrObject.hidden : false,
           backLinkHref: is.string(labelOrObject.backLinkHref) ? labelOrObject.backLinkHref : null,
         })));
     });

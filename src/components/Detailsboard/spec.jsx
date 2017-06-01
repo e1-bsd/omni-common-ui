@@ -3,11 +3,11 @@ import styles from './style.postcss';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import DetailBoard from './';
+import { DetailsBoard } from './';
 
-describe('DetailBoard', () => {
+describe('DetailsBoard', () => {
   it('renders itself with title and value', () => {
-    const wrapper = shallow(<DetailBoard title="test" value="test" />);
+    const wrapper = shallow(<DetailsBoard title="test" value="test" />);
     expect(wrapper).to.have.className(styles.Detailsboard_board);
   });
 });
