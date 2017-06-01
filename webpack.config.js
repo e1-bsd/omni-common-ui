@@ -55,7 +55,7 @@ module.exports = {
       {
         test: /\.postcss$/,
         use: [
-          { loader: 'style-loader' },
+          { loader: 'style-loader', options: { sourceMap: true } },
           {
             loader: 'css-loader',
             options: {
@@ -64,9 +64,10 @@ module.exports = {
               minimize: true,
               import: false,
               importLoaders: 1,
+              sourceMap: true,
             },
           },
-          { loader: 'postcss-loader' },
+          { loader: 'postcss-loader', options: { sourceMap: true } },
         ],
       },
       {
