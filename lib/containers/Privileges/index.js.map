@@ -1,0 +1,1 @@
+{"version":3,"sources":["containers/Privileges/index.js"],"names":["_actions","actions","reducer"],"mappings":";;;;;;;AAAA;;IAAYA,Q;;AACZ;;;;;;;;AAEO,IAAMC,4BAAUD,QAAhB;AACA,IAAME,6CAAN","file":"index.js","sourcesContent":["import * as _actions from './actions';\nimport _reducer from './reducer';\n\nexport const actions = _actions;\nexport const reducer = _reducer;\n"]}

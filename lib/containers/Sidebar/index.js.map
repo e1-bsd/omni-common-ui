@@ -1,0 +1,1 @@
+{"version":3,"sources":["containers/Sidebar/index.js"],"names":["SideNav"],"mappings":";;;;;;AAAA;;;;;;AAEA,IAAMA,6BAAN;;kBAEeA,O","file":"index.js","sourcesContent":["import _SideNav from './component';\n\nconst SideNav = _SideNav;\n\nexport default SideNav;\n"]}
