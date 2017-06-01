@@ -112,10 +112,6 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    contentBase: srcFolder,
-    compress: true,
-  },
   resolve: {
     modules: [
       path.resolve(contextFolder),
