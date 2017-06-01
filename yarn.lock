@@ -5127,7 +5127,7 @@ immutable-devtools@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/immutable-devtools/-/immutable-devtools-0.0.7.tgz#da0fbdd860c3a8a598967fc544bb0329ec3ad26e"
 
-immutable@3.8.1, immutable@>=3.6.0, immutable@>=3.7.6, immutable@^3.7.2:
+immutable@3.8.1, immutable@>=3.7.6, immutable@^3.7.2:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -9202,11 +9202,9 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-oidc@^3.0.0-beta.7:
-  version "3.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/redux-oidc/-/redux-oidc-3.0.0-beta.7.tgz#a703597cf6e060a55f6a91f26bbb0d3b18b86fc7"
-  optionalDependencies:
-    immutable ">=3.6.0"
+redux-oidc@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/redux-oidc/-/redux-oidc-2.2.1.tgz#9eb3edb01f989ac3cbb3588d0c300f472a2f8d1d"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
