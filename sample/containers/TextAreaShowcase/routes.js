@@ -1,6 +1,6 @@
 import component from './component';
 
 export default {
-  path: 'tabs',
+  path: 'text-area',
   component,
 };

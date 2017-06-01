@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import styles from './style.postcss';
+
+import React, { PureComponent } from 'react';
 import is from 'is_js';
+import classnames from 'classnames';
 import PageCard from 'components/PageCard';
 import Icon from 'components/Icon';
 import Header from './Header';
@@ -7,9 +10,7 @@ import Level from './Level';
 import Leaf from './Leaf';
 import PropTypes from 'prop-types';
 
-import styles from './style.postcss';
-
-class SelectionTable extends Component {
+class SelectionTable extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -72,7 +73,9 @@ class SelectionTable extends Component {
   }
 
   _renderHeading() {
-    const { title, rootLinkTitle, hideRootLink, headerClassName } = this.props;
+    const { title, rootLinkTitle, hideRootLink } = this.props;
+    const headerClassName = classnames(this.props.headerClassName,
+      styles.SelectionTable_header);
     const routes = this._cloneArray(this.state.route);
     const onHeadingRouteClick = (route) => {
       const routeIndex = routes.indexOf(route);

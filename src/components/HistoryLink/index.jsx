@@ -1,5 +1,7 @@
 import styles from './style.postcss';
+
 import React from 'react';
+import pure from 'recompose/pure';
 import is from 'is_js';
 import { Link } from 'react-router';
 import classnames from 'classnames';
@@ -36,4 +38,4 @@ HistoryLink.propTypes = {
   buildRoute: PropTypes.func.isRequired,
 };
 
-export default HistoryLink;
+export default pure(HistoryLink);

@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Header from 'containers/Header';
 import Sidebar from 'containers/Sidebar';
 import Footer from 'components/Footer';
@@ -9,13 +9,12 @@ import testClass from 'domain/testClass';
 import Breadcrumbs from 'components/Breadcrumbs';
 import HistoryLink from 'components/HistoryLink';
 import connect from 'domain/connect';
-import ApiCall from 'containers/ApiCalls';
 import PerformanceProfiler from 'components/PerformanceProfiler';
 import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 import PropTypes from 'prop-types';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { sidebarExpanded: false };
@@ -73,18 +72,15 @@ class App extends Component {
             onExpand={(e) => this._expandSidebar(e)}
             onCollapse={(e) => this._collapseSidebar(e)} />
         <div className={styles.App_content}>
-          {
-            ! this.props.isThereAnError &&
-            <div className={styles.App_content_auxiliary}>
-              {
-                this._breadcrumbs &&
-                <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
-                    items={this._breadcrumbs}
-                    singleLineMode />
-              }
-              <HistoryLink className={styles.App_content_auxiliary_historyLink} {...this.props} />
-            </div>
-          }
+          <div className={styles.App_content_auxiliary}>
+            {
+              this._breadcrumbs &&
+              <Breadcrumbs className={styles.App_content_auxiliary_breadcrumbs}
+                  items={this._breadcrumbs}
+                  singleLineMode />
+            }
+            <HistoryLink className={styles.App_content_auxiliary_historyLink} {...this.props} />
+          </div>
           <div className={styles.App_content_wrap}>{this.props.children}</div>
         </div>
       </div>
@@ -95,11 +91,6 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.node,
-  isThereAnError: PropTypes.bool.isRequired,
 };
 
-export function mapStateToProps(state) {
-  return { isThereAnError: ApiCall.getErrors(state).size > 0 };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

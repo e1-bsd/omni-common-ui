@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { push } from 'react-router-redux';
 import { Map } from 'immutable';
 import is from 'is_js';
@@ -18,12 +18,7 @@ const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
 const EDIT_MODE_MATCH_REGEXP = new RegExp('^edit$', 'i');
 
 // config feature flag
-let IS_ACTIVE;
-try {
-  IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts');
-} catch (e) {
-  IS_ACTIVE = false;
-}
+const IS_ACTIVE = !! Config.get('showSavingBarForApiPostsPuts');
 
 // per-route action button settings may be supplied as functions
 const fnToValue = (any, props) => {
@@ -33,7 +28,7 @@ const fnToValue = (any, props) => {
   return any;
 };
 
-class SaveBarHandler extends Component {
+class SaveBarHandler extends PureComponent {
   constructor() {
     super();
     this.state = { isVisible: false };

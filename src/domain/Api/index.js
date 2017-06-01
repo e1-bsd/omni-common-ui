@@ -1,8 +1,15 @@
+import invariant from 'invariant';
 import isomorphicFetch from 'isomorphic-fetch';
 import is from 'is_js';
-import Store from 'domain/Store';
 import camelCase from 'camelcase';
+import log from 'domain/log';
+import Store from 'domain/Store';
 import Config from 'domain/Config';
+
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Simple_requests
+const CORS_SIMPLE_METHODS = ['GET', 'HEAD'];  // omit POST, we must send a `Content-Type`
+const SECURE_URL_REGEXP = /^(https:)?\/\//;
+const IS_BEARER_TOKEN_IN_URLS_ENABLED = !! Config.get('includeBearerTokenInApiGetUrls');
 
 export const buildUrl = (path) => Config.get('apiBase') + path;
 
@@ -23,12 +30,29 @@ export class ApiError extends Error {
 }
 
 export const fetch = (url, options = {}) => {
-  const finalOptions = Object.assign({}, options, getTokenHeader(options));
+  invariant(is.string(url), 'url must be a string');
+  invariant(is.object(options), 'options must be a plain object');
+
+  const user = Store.get().getState().get('singleSignOn').user || {};
+  const { access_token: accessToken } = user;
+  const finalOptions = Object.assign({}, options, getDefaultFetchOpts(options, accessToken));
+
+  // https://m.alphasights.com/killing-cors-preflight-requests-on-a-react-spa-1f9b04aa5730#4bdf
+  let finalUrl = url;
+  if (IS_BEARER_TOKEN_IN_URLS_ENABLED) {
+    if (SECURE_URL_REGEXP.test(url)) {
+      // eslint-disable-next-line prefer-template
+      finalUrl = url + (url.includes('?') ? '&' : '?') + `bearer_token=${accessToken}`;
+    } else {
+      log.warn('Refusing to append `bearer_token` to a non-secure URL', url);
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const onTimeout = () => reject(new FetchTimedOutError(`Call to ${url} has taken too long!`));
     const timeout = setTimeout(onTimeout, Config.get('fetchTimeout'));
 
-    isomorphicFetch(url, finalOptions)
+    isomorphicFetch(finalUrl, finalOptions)
       .then(checkResponseStatus)
       .then(parseResponse)
       .then((response) => {
@@ -41,6 +65,26 @@ export const fetch = (url, options = {}) => {
       });
   });
 };
+
+function getDefaultFetchOpts(options, token) {
+  const isCorsSimpleMethod =
+      is.empty(options) ||
+      is.falsy(options.method) ||
+      (is.string(options.method) &&
+        CORS_SIMPLE_METHODS.includes(options.method.toUpperCase()));
+  return {
+    headers: Object.assign(
+      { Accept: 'application/json; charset=utf-8' },
+      ! IS_BEARER_TOKEN_IN_URLS_ENABLED ? {
+        Authorization: `Bearer ${token}`,
+      } : {},
+      ! isCorsSimpleMethod ? {
+        'Content-Type': 'application/json',
+      } : {},
+      is.not.object(options) ? undefined : options.headers
+    ),
+  };
+}
 
 function parseResponse(rawResponse) {
   return rawResponse.text()
@@ -76,21 +120,6 @@ function checkResponseStatus(response) {
   } catch (e) {
     throw error;
   }
-}
-
-function getTokenHeader(options) {
-  const user = Store.get().getState().get('singleSignOn').user || {};
-  const token = user.access_token;
-  return {
-    headers: Object.assign(
-      {
-        Accept: 'application/json; charset=utf-8',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      is.not.object(options) ? undefined : options.headers
-    ),
-  };
 }
 
 class Api { }

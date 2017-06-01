@@ -1,8 +1,9 @@
 import styles from './style.postcss';
-import React, { Component } from 'react';
+
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-class SolidRadio extends Component {
+class SolidRadio extends PureComponent {
   _handleCheck(value) {
     if (this.props.onChange) {
       this.props.onChange(value);

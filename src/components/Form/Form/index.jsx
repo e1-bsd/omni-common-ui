@@ -1,4 +1,5 @@
 import React from 'react';
+import pure from 'recompose/pure';
 import { Form as FormsyForm } from 'formsy-react';
 import PropTypes from 'prop-types';
 
@@ -20,4 +21,4 @@ Form.propTypes = {
   children: PropTypes.node,
 };
 
-export default Form;
+export default pure(Form);

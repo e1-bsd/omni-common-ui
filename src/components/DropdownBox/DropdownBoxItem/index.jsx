@@ -2,7 +2,7 @@ import styles from './style.postcss';
 
 import React from 'react';
 import classnames from 'classnames';
-import { pure } from 'recompose';
+import pure from 'recompose/pure';
 import PropTypes from 'prop-types';
 
 const DropdownBoxItem = ({ children, onClick, show, className }) => {

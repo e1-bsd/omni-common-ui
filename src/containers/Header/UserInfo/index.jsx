@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import connect from 'domain/connect';
 import classnames from 'classnames';
 import Dialog from 'components/Dialog';
@@ -25,7 +25,7 @@ const LOGOUT_POPUP_TITLE =
 const LOGOUT_POPUP_MSG =
     'Are you sure you want to leave this page and lose unsaved changes?';
 
-class UserInfo extends Component {
+class UserInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

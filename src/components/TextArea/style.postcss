@@ -1,0 +1,18 @@
+@import 'main.postcss';
+
+.TextArea {
+  background-color: var(--colorBase);
+  border: var(--hairThin) solid var(--colorBorder);
+  border-radius: 5px;
+  max-width: 100%;
+  min-height: var(--textAreaMinHeight);
+  outline: none;
+  padding: 10px 15px;
+  width: 100%;
+
+  @mixin fontNormal;
+
+  &:focus {
+    border-color: var(--colorActive);
+  }
+}

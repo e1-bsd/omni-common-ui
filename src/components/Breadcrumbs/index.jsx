@@ -1,6 +1,6 @@
 import styles from './style.postcss';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
 import ReactGA from 'react-ga';
 import is from 'is_js';
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 const RESIZE_DEBOUNCE_MS = 100;
 
-class Breadcrumbs extends Component {
+class Breadcrumbs extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -125,9 +125,7 @@ class Breadcrumbs extends Component {
   }
 
   render() {
-    if (! this.props.items || ! this.props.items.some((item) => ! item.hidden)) {
-      return null;
-    }
+    if (! this.props.items || this.props.items.length < 1) return null;
 
     // make a copy of props.items so that we can mangle it
     let itemsToRender = this.props.items;
@@ -161,7 +159,6 @@ class Breadcrumbs extends Component {
           const itemClassNames = classnames(styles.Breadcrumbs_crumb, {
             [indexedCrumbClassName]: !! indexedCrumbClassName,
             [styles.__clickable]: !! item.clickable,
-            [styles.__hidden]: !! item.hidden,
           });
           const itemKey = item.label + item.href;
           return <li key={itemKey}
@@ -186,7 +183,7 @@ Breadcrumbs.propTypes = {
     label: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
     clickable: PropTypes.bool.isRequired,
-    backLinkHref: PropTypes.string.isRequired,  // it's an override
+    backLinkHref: PropTypes.string,  // it's an override
   })).isRequired,
   singleLineMode: PropTypes.bool,
   router: PropTypes.shape({

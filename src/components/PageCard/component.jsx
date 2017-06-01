@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React from 'react';
+import pure from 'recompose/pure';
 import classnames from 'classnames';
 import is from 'is_js';
 import PropTypes from 'prop-types';
@@ -27,4 +28,4 @@ PageCard.propTypes = {
   className: PropTypes.string,
 };
 
-export default PageCard;
+export default pure(PageCard);
