@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/Icon/style.postcss"],"names":[],"mappings":"AAAA;EACE;IACE,gBAAgB;GACjB;CACF","file":"style.postcss","sourcesContent":[".Icon {\n  &.__clickable {\n    cursor: pointer;\n  }\n}\n"]}

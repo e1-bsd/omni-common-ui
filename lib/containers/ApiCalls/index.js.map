@@ -1,1 +1,0 @@
-{"version":3,"sources":["containers/ApiCalls/index.js"],"names":["reducer"],"mappings":";;;;;;;AAAA;;;;AACA;;;;;;AAEO,IAAMA,6CAAN","file":"index.js","sourcesContent":["import _reducer from './reducer';\nimport ApiCall from './ApiCall';\n\nexport const reducer = _reducer;\nexport default ApiCall;\n"]}

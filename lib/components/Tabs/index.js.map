@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/Tabs/index.jsx"],"names":["Tabs","propTypes"],"mappings":";;;;;;AAAA;;;;;;AAEA,IAAMA,OAAO,SAAPA,IAAO;AAAA,SAAM;AAAA;AAAA;AAAA;AAAA,GAAN;AAAA,CAAb;;AAEAA,KAAKC,SAAL,GAAiB,EAAjB;;kBAGeD,I","file":"index.js","sourcesContent":["import React from 'react';\n\nconst Tabs = () => <div>tabs</div>;\n\nTabs.propTypes = {\n};\n\nexport default Tabs;\n"]}
