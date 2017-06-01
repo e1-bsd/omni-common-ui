@@ -61,12 +61,19 @@ module.exports = {
             options: {
               root: '.',
               modules: true,
-              minimize: true,
+              // minimize: true,
               import: false,
               importLoaders: 1,
             },
           },
-          { loader: 'postcss-loader' },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: path.join(__dirname, 'postcss.config.js'),
+              },
+            },
+          },
         ],
       },
       {
