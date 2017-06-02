@@ -11,7 +11,6 @@ import Field from '../Field';
 import PropTypes from 'prop-types';
 
 const Select = (props) => {
-
   const arrowRenderer = () =>
     <span className={styles.Select_icon}>
       <Icon id="chevron-fat-down" />
@@ -43,6 +42,7 @@ const Select = (props) => {
 };
 
 Select.propTypes = {
+  getErrorMessage: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   showError: PropTypes.func.isRequired,

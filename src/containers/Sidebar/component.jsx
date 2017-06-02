@@ -127,6 +127,7 @@ class Sidebar extends PureComponent {
         </button>
       </div>
       {
+        // eslint-disable-next-line react/no-array-index-key
         this._items.map((config, link) => <Link key={link} to={link} currentPath={pathname}>
           <button className={styles.Sidebar_item}>{config.get('text')}</button>
         </Link>).toArray()

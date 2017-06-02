@@ -39,8 +39,8 @@ class CheckboxList extends PureComponent {
         validationError={validationError}
         showRequired={() => this.props.showRequired()}>
       {
-        items.map((item, i) =>
-          <Checkbox key={i}
+        items.map((item) =>
+          <Checkbox key={name}
               name={name}
               item={item}
               onChecked={(e) => this.handleChange(e, item)}

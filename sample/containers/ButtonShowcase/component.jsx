@@ -5,7 +5,8 @@ import { Button } from 'omni-common-ui';
 import Showcase from 'components/Showcase';
 import log from 'domain/log';
 
-const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
+const ButtonShowcase = () => <Showcase title="Buttons"
+    titleLink="buttons"
     className={styles.ButtonShowcase_wrap}>
   <Button.Container> {/* default */}
     <Button type={Button.Type.default}
@@ -17,7 +18,8 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
         onClick={() => log.info('Active button clicked')}>
       Active
     </Button>
-    <Button active disabled
+    <Button active
+        disabled
         type={Button.Type.default}
         onClick={() => log.info('Active button clicked')}>
       Disabled active
@@ -38,7 +40,8 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
         onClick={() => log.info('Active button clicked')}>
       Active inv
     </Button>
-    <Button active disabled
+    <Button active
+        disabled
         type={Button.Type.defaultInverse}
         onClick={() => log.info('Active button clicked')}>
       Disabled active inv
@@ -59,7 +62,8 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
         onClick={() => log.info('Active primary button clicked')}>
       Active primary
     </Button>
-    <Button active disabled
+    <Button active
+        disabled
         type={Button.Type.primary}
         onClick={() => log.info('Active primary button clicked')}>
       Disabled active primary
@@ -80,7 +84,8 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
         onClick={() => log.info('Active primary button clicked')}>
       Active primary inv
     </Button>
-    <Button active disabled
+    <Button active
+        disabled
         type={Button.Type.primaryInverse}
         onClick={() => log.info('Active primary button clicked')}>
       Disabled active primary inv
@@ -115,19 +120,24 @@ const ButtonShowcase = () => <Showcase title="Buttons" titleLink="buttons"
     </Button>
   </Button.Container>
   <Button.Container> {/* primary block */}
-    <Button block type={Button.Type.primary}
+    <Button block
+        type={Button.Type.primary}
         onClick={() => log.info('Primary block button clicked')}>
       Primary block button
     </Button>
   </Button.Container>
   <Button.Container> {/* active block */}
-    <Button active block type={Button.Type.default}
+    <Button active
+        block
+        type={Button.Type.default}
         onClick={() => log.info('Active block button clicked')}>
       Active block button
     </Button>
   </Button.Container>
   <Button.Container> {/* disabled block */}
-    <Button disabled block type={Button.Type.default}
+    <Button disabled
+        block
+        type={Button.Type.default}
         onClick={() => log.info('Disabled block button clicked')}>
       Disabled block button
     </Button>

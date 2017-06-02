@@ -11,7 +11,7 @@ describe('<SingleSignOnHandler />', () => {
   let signinRedirect;
 
   // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireComponent = (Config) => require('inject?domain/Config&./userManager!./SingleSignOnHandler')({
+  const requireComponent = (Config) => require('inject-loader?domain/Config&./userManager!./SingleSignOnHandler')({
     'domain/Config': _Config.merge(Config),
     './userManager': userManager,
   }).SingleSignOnHandler;

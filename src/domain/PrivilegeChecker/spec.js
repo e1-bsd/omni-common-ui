@@ -3,7 +3,7 @@ import _Config from 'domain/Config';
 import { Map, List } from 'immutable';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-const requireChecker = (Config) => require('inject?domain/Config!./')({
+const requireChecker = (Config) => require('inject-loader?domain/Config!./')({
   'domain/Config': _Config.merge(Config),
 }).default;
 

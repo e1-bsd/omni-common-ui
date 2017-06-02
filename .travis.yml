@@ -15,10 +15,7 @@ language: node_js
 node_js:
   - '6.10'
 
-cache:
-  yarn: true
-  directories:
-    - node_modules
+cache: yarn
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_3a8c1431a01a_key -iv $encrypted_3a8c1431a01a_iv -in deploy.enc -out deploy -d

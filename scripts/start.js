@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
+const path = require('path');
 const colors = require('colors/safe');
 const spawn = require('./spawn');
 const options = require('command-line-args')([
@@ -10,7 +11,7 @@ const options = require('command-line-args')([
 
 process.env.CONFIG = options.config || '';
 
-const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080'];
+const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080', '--config', path.resolve(__dirname, '../webpack.dev.js')];
 if (options.host) {
   command.push('--host');
   command.push(`${options.host}`);

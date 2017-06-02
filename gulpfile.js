@@ -1,6 +1,3 @@
-/* eslint strict: "off" */
-'use strict';
-
 const path = require('path');
 const gulp = require('gulp');
 const del = require('del');
@@ -37,7 +34,7 @@ gulp.task('build:js', () => gulp.src(['src/*.js', 'src/**/*.js', 'src/**/*.jsx']
       plugins: [['resolver', { resolveDirs: [path.resolve('lib')] }]],
     }))
     .pipe(replace(new RegExp(`${modulesDir}/?`, 'g'), ''))
-    .pipe(replace(new RegExp(`${libDir}[^\']*`, 'g'), (file, libPath) => {
+    .pipe(replace(new RegExp(`${libDir}[^']*`, 'g'), (file, libPath) => {
       const filePath = path.resolve(file.path.replace('/src/', '/lib/'), '..');
       return `./${path.relative(filePath, libPath)}`;
     }))

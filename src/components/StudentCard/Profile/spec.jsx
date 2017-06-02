@@ -13,7 +13,8 @@ describe('StudentCard.Profile', () => {
     const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
-      <StudentPicture src="url" gender={1}
+      <StudentPicture src="url"
+          gender={1}
           className={styles.StudentCard_profile_image} />
     );
   });
@@ -21,7 +22,8 @@ describe('StudentCard.Profile', () => {
     const wrapper = shallow(<Profile withBiggerAvatar avatarUrl="url" gender={1} />);
     expect(wrapper)
     .to.contain(
-      <StudentPicture src="url" gender={1}
+      <StudentPicture src="url"
+          gender={1}
           className={classnames(styles.StudentCard_profile_image, styles.__bigger)} />
     );
   });

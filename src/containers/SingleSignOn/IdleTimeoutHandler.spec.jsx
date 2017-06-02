@@ -10,7 +10,7 @@ describe('<IdleTimeoutHandler />', () => {
   let signoutRedirect;
 
   // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireComponent = (Config) => require('inject?domain/Config&./userManager!./IdleTimeoutHandler')({
+  const requireComponent = (Config) => require('inject-loader?domain/Config&./userManager!./IdleTimeoutHandler')({
     'domain/Config': _Config.merge(Config),
     './userManager': userManager,
   }).default;
