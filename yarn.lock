@@ -416,8 +416,8 @@ ast-types@0.9.6:
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.6.tgz#102c9e9e9005d3e7e3829bf0c4fa24ee862ee9b9"
 
 ast-types@0.x.x:
-  version "0.9.11"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.11.tgz#371177bb59232ff5ceaa1d09ee5cad705b1a5aa9"
+  version "0.9.12"
+  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.12.tgz#b136300d67026625ae15326982ca9918e5db73c9"
 
 astw@^2.0.0:
   version "2.2.0"
@@ -491,9 +491,9 @@ away@^1.0.0:
   dependencies:
     xtend "2.0.3"
 
-aws-sdk@^2.60.0:
-  version "2.60.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.60.0.tgz#5c1e678bd087753339d756ef7da0a4f5fa3393c9"
+aws-sdk@^2.61.0:
+  version "2.61.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.61.0.tgz#2c104788e1696e7060c6ffaa1c6560d6f9c884af"
   dependencies:
     buffer "5.0.6"
     crypto-browserify "1.0.9"
@@ -10716,8 +10716,8 @@ uglify-js@2.x.x, uglify-js@^2.6, uglify-js@^2.7.3, uglify-js@^2.8.27:
     uglify-to-browserify "~1.0.0"
 
 uglify-js@3.0.x:
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.14.tgz#2697af126fd215aac556facb1edfb17875204760"
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.15.tgz#aacb323a846b234602270dead8a32441a8806f42"
   dependencies:
     commander "~2.9.0"
     source-map "~0.5.1"
