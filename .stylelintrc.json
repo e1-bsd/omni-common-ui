@@ -6,12 +6,18 @@
     "font-family-name-quotes": "always-unless-keyword",
     "function-url-quotes": "always",
     "string-quotes": "single",
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": ["^"]
+      }
+    ],
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        ignorePseudoClasses: ["global", "export"]
+        "ignorePseudoClasses": ["global", "export"]
       }
-    ]
+    ],
   },
   "ignoreFiles": ["node_modules/**/*"]
 }
