@@ -39,7 +39,8 @@
     "react/wrap-multilines": ["off"],
     "react/jsx-closing-bracket-location": ["error", "after-props"],
     "react/jsx-wrap-multilines": ["off"],
-    "react/forbid-prop-types": ["warn"],
+    "react/forbid-prop-types": ["off"],
+    "react/require-default-props": ["off"],
     "react/no-unused-prop-types": ["off"],
     "react/sort-comp": ["error", {
       "order": [

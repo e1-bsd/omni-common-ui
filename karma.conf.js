@@ -13,7 +13,7 @@ module.exports = (config) => {
     preprocessors: {
       'test.webpack.js': ['webpack', 'sourcemap'],
     },
-    webpack: require(path.resolve('webpack.config.js')),
+    webpack: require(path.join(__dirname, 'webpack.test.js')),
     webpackServer: {
       noInfo: true,
     },

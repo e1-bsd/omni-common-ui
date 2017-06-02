@@ -3,7 +3,7 @@ import installDevTools from 'immutable-devtools';
 
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
