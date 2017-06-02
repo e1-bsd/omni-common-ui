@@ -7,7 +7,7 @@ describe('Api', () => {
 
   const importDeps = (config = {}) => {
     // eslint-disable-next-line global-require,import/no-webpack-loader-syntax
-    const imports = require('inject?isomorphic-fetch&domain/Config&domain/Store!./')({
+    const imports = require('inject-loader?isomorphic-fetch&domain/Config&domain/Store!./')({
       'isomorphic-fetch': isomorphicFetch = Sinon.spy(),
       'domain/Config': new Map(config),
       'domain/Store': {

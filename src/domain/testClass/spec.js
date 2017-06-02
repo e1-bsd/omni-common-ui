@@ -6,7 +6,7 @@ describe('testClass', () => {
 
   beforeEach(() => {
     // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-    testClass = require('inject?domain/Config!./')({
+    testClass = require('inject-loader?domain/Config!./')({
       'domain/Config': new Map({ enableTestClasses: true }),
     }).default;
   });
