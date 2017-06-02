@@ -6,7 +6,7 @@ describe('SingleSignOn', () => {
   let createOidcMiddleware;
 
   // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireMiddleware = (Config) => require('inject?domain/Config&redux-oidc!./')({
+  const requireMiddleware = (Config) => require('inject-loader?domain/Config&redux-oidc!./')({
     'domain/Config': _Config.merge(Config),
     'redux-oidc': createOidcMiddleware,
   });

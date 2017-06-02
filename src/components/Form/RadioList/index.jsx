@@ -13,10 +13,10 @@ const RadioList = (props) => {
       showError={() => props.showError()}
       showRequired={() => props.showRequired()}>
     {
-      items.map((item, i) =>
+      items.map((item) =>
         <Radio item={item}
             name={name}
-            key={i}
+            key={item}
             onChecked={(e, option) => handleChange(e, option)} />)
     }
   </Field>;
@@ -27,6 +27,8 @@ const RadioList = (props) => {
 };
 
 RadioList.propTypes = {
+  getErrorMessage: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   name: PropTypes.string,

@@ -71,6 +71,7 @@ auto({
     const webpack = spawn('node', [
       'node_modules/webpack/bin/webpack.js',
       '-p', '--bail', '--progress', '--colors',
+      '--config', path.resolve(__dirname, '../webpack.prod.js'),
     ], {
       env: process.env,
       stdio: [log, log, log],
