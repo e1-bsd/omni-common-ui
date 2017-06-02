@@ -6,7 +6,7 @@ import _Config from 'domain/Config';
 
 describe('<PermissionHandler />', () => {
   // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const doRequire = (Config) => require('inject?domain/Config!./')({
+  const doRequire = (Config) => require('inject-loader?domain/Config!./')({
     'domain/Config': _Config.merge(Config),
   });
 

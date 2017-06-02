@@ -7,7 +7,8 @@ const Footer = () => <div className={styles.Footer}>
   <div className={styles.Footer_content}>
     <div className={styles.Footer_content_row}>
       <a className={styles.Footer_content_link}
-          target="_blank" rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
           href="https://helpcenter.ef.com">Help Center</a>
     </div>
     <div className={styles.Footer_content_row}>

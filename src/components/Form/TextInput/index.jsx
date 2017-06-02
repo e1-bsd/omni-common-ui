@@ -30,6 +30,7 @@ const TextInput = (props) => {
 };
 
 TextInput.propTypes = {
+  getErrorMessage: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,
   name: PropTypes.string,
   disabled: PropTypes.bool,

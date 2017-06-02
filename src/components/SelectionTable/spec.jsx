@@ -34,5 +34,4 @@ describe('<SelectionTable />', () => {
     expect(wrapper.find(SelectionTable.Level)).to.have.length(3);
     expect(wrapper.find(SelectionTable.Level).first()).to.have.prop('label', 'CN-1');
   });
-
 });

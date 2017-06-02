@@ -18,7 +18,7 @@ describe('ApiCall', () => {
     beforeEach(() => {
       log = { error: Sinon.spy() };
       // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-      ApiAction = require('inject?domain/log!./ApiAction')({
+      ApiAction = require('inject-loader?domain/log!./ApiAction')({
         'domain/log': log,
       }).default;
     });
