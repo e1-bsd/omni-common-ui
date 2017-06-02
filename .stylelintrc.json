@@ -17,7 +17,7 @@
       {
         "ignorePseudoClasses": ["global", "export"]
       }
-    ],
+    ]
   },
   "ignoreFiles": ["node_modules/**/*"]
 }
