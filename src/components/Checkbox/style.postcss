@@ -1,0 +1,53 @@
+@import 'main.postcss';
+
+:root {
+  --size: 17px;
+  --borderSize: var(--hairThin);
+  --blankSpace: 2px;
+  --innerSize: calc(var(--size) - calc(var(--borderSize) * 2) - calc(var(--blankSpace) * 2));
+}
+
+.Checkbox {
+  display: inline-block;
+  margin-right: 10px;
+
+  &_label {
+    align-items: center;
+    border: var(--borderSize) solid var(--colorTextBase);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    height: var(--size);
+    justify-content: center;
+    width: var(--size);
+
+    &::after {
+      background-color: var(--colorActive);
+      border-radius: 1px;
+      content: '';
+      display: block;
+      filter: alpha(opacity=0);
+      height: var(--innerSize);
+      opacity: 0;
+      transition: opacity var(--transitionDurationBase) ease-in-out, background-color var(--transitionDurationBase) ease-in-out;
+      width: var(--innerSize);
+    }
+
+    &:hover {
+      &::after {
+        background-color: var(--colorButtonHover);
+      }
+    }
+  }
+
+  &_input {
+    float: left;
+    margin-left: -9999px;
+    visibility: hidden;
+
+    &:checked + ^&_label::after {
+      filter: alpha(opacity=100);
+      opacity: 1;
+    }
+  }
+}
