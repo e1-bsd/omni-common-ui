@@ -1,26 +1,19 @@
-import _Config from 'domain/Config';
-import Sinon from 'sinon';
+/* eslint-disable global-require */
 
-describe('SingleSignOn', () => {
-  let createOidcMiddleware;
+import { Map } from 'immutable';
+import * as ConfigPkg from 'domain/Config';
+import * as OidcPkg from 'redux-oidc';
 
-  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireMiddleware = (Config) => require('inject-loader?domain/Config&redux-oidc!./')({
-    'domain/Config': _Config.merge(Config),
-    'redux-oidc': createOidcMiddleware,
-  });
+test('exports the oidc middleware if featureLogin is true', () => {
+  ConfigPkg.default = new Map({ featureLogin: true });
+  OidcPkg.default = jest.fn();
+  require('./');
+  expect(OidcPkg.default.mock.calls.length).toBe(1);
+});
 
-  beforeEach(() => {
-    createOidcMiddleware = Sinon.spy();
-  });
-
-  it('exports the oidc middleware if featureLogin is true', () => {
-    requireMiddleware({ featureLogin: true });
-    expect(createOidcMiddleware.called).toBe(true);
-  });
-
-  it('exports a fake oidc middleware if featureLogin is not true', () => {
-    requireMiddleware({ featureLogin: false });
-    expect(createOidcMiddleware.called).toBe(false);
-  });
+test('exports a fake oidc middleware if featureLogin is not true', () => {
+  ConfigPkg.default = new Map({ featureLogin: false });
+  OidcPkg.default = jest.fn();
+  require('./');
+  expect(OidcPkg.default.mock.calls.length).toBe(0);
 });

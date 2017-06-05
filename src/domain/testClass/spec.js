@@ -1,20 +1,16 @@
-import { Map } from 'immutable';
 
-describe('testClass', () => {
-  let testClass;
+/* eslint-disable global-require */
+import testClass from './';
 
-  beforeEach(() => {
-    // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-    testClass = require('inject-loader?domain/Config!./')({
-      'domain/Config': new Map({ enableTestClasses: true }),
-    }).default;
-  });
+jest.mock('domain/Config', () => {
+  const { Map } = require('immutable');
+  return new Map({ enableTestClasses: true });
+});
 
-  it('throws an error if the given class contains unacceptable characters', () => {
-    expect(() => testClass('my thing')).toThrowError();
-  });
+test('throws an error if the given class contains unacceptable characters', () => {
+  expect(() => testClass('my thing')).toThrowError();
+});
 
-  it('does not throw if the given class is okay', () => {
-    expect(() => testClass('my-thing-5')).not.toThrowError();
-  });
+test('does not throw if the given class is okay', () => {
+  expect(() => testClass('my-thing-5')).not.toThrowError();
 });
