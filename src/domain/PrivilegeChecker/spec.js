@@ -1,16 +1,12 @@
 import { Map, List } from 'immutable';
+import * as ConfigPkg from 'domain/Config';
 import PrivilegeChecker from './';
-
-jest.mock('domain/Config', () => {
-  /* eslint-disable global-require, no-shadow */
-  const { Map } = require('immutable');
-  return new Map({ featureLogin: true });
-});
 
 let state;
 
 beforeEach(() => {
   state = new Map({ privileges: { items: new List(['pr1', 'pr2', 'PREFIX_pr3']) } });
+  ConfigPkg.default = new Map({ featureLogin: true });
 });
 
 it('returns false if the privilege is not a string', () => {
@@ -18,7 +14,7 @@ it('returns false if the privilege is not a string', () => {
 });
 
 it('throws if something else rather than a Map is provided as a state', () => {
-  expect(() => PrivilegeChecker.hasPrivilege({}, '')).toThrow();
+  expect(() => PrivilegeChecker.hasPrivilege({}, 'pr1')).toThrow();
 });
 
 it('returns false if the state is malformed', () => {
