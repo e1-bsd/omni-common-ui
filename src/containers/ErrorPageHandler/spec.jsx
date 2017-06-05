@@ -61,7 +61,7 @@ describe('<ErrorPageHandler />', () => {
       expect(wrapper).to.not.have.descendants('#inner');
     });
 
-    context('when location.pathname changes, API errors are auto-cleaned', () => {
+    describe('when location.pathname changes, API errors are auto-cleaned', () => {
       it('does not call clean() on mount', () => {
         mount(<ErrorPageHandler {...props} />);
         expect(props.clean.called).toBe(false);
@@ -80,7 +80,7 @@ describe('<ErrorPageHandler />', () => {
       });
     });
 
-    context('when errorHandlerRendersPopUps config option is true', () => {
+    describe('when errorHandlerRendersPopUps config option is true', () => {
       beforeEach(() => {
         ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: true }));
       });
@@ -109,7 +109,7 @@ describe('<ErrorPageHandler />', () => {
       });
     });
 
-    context('when errorHandlerRendersPopUps config option is not true', () => {
+    describe('when errorHandlerRendersPopUps config option is not true', () => {
       beforeEach(() => {
         ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: false }));
       });

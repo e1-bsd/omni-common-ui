@@ -55,43 +55,46 @@ describe('<Avatar />', () => {
       expect(wrapper).to.have.style('background-image', 'url("fake-default")');
     });
 
-    context('shows an SVG-based avatar containing the users initials (when enabled via prop)', () => {
-      it('happy path', () => {
-        const wrapper = shallow(<Avatar {...props}
-            userFirstName="Joe"
-            userLastName="Bloggs"
-            displayUserInitialsAsDefaultAvatar />);
-        expect(wrapper).to.have.attr('style', `background-image:url("${bloggsInitialsAvatarUri}");`);
-      });
+    describe(
+      'shows an SVG-based avatar containing the users initials (when enabled via prop)',
+      () => {
+        it('happy path', () => {
+          const wrapper = shallow(<Avatar {...props}
+              userFirstName="Joe"
+              userLastName="Bloggs"
+              displayUserInitialsAsDefaultAvatar />);
+          expect(wrapper).to.have.attr('style', `background-image:url("${bloggsInitialsAvatarUri}");`);
+        });
 
-      it('happy path - colour spec correctness check', () => {
-        const wrapper = shallow(<Avatar {...props}
-            userFirstName="Kelly"
-            displayUserInitialsAsDefaultAvatar />);
-        expect(wrapper).to.have.attr('style', `background-image:url("${redInitialsAvatarUri}");`);
-      });
+        it('happy path - colour spec correctness check', () => {
+          const wrapper = shallow(<Avatar {...props}
+              userFirstName="Kelly"
+              displayUserInitialsAsDefaultAvatar />);
+          expect(wrapper).to.have.attr('style', `background-image:url("${redInitialsAvatarUri}");`);
+        });
 
-      it('containing "??" when user name is blank', () => {
-        const wrapper = shallow(<Avatar {...props}
-            userFirstName=""
-            userLastName=""
-            displayUserInitialsAsDefaultAvatar />);
-        expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
-      });
+        it('containing "??" when user name is blank', () => {
+          const wrapper = shallow(<Avatar {...props}
+              userFirstName=""
+              userLastName=""
+              displayUserInitialsAsDefaultAvatar />);
+          expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
+        });
 
-      it('containing "??" when user name is absent', () => {
-        const wrapper = shallow(<Avatar {...props}
-            displayUserInitialsAsDefaultAvatar />);
-        expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
-      });
+        it('containing "??" when user name is absent', () => {
+          const wrapper = shallow(<Avatar {...props}
+              displayUserInitialsAsDefaultAvatar />);
+          expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
+        });
 
-      it('containing "??" when user name is a non-string value', () => {
-        const wrapper = shallow(<Avatar {...props}
-            userFirstName={null}
-            userLastName={0}
-            displayUserInitialsAsDefaultAvatar />);
-        expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
-      });
-    });
+        it('containing "??" when user name is a non-string value', () => {
+          const wrapper = shallow(<Avatar {...props}
+              userFirstName={null}
+              userLastName={0}
+              displayUserInitialsAsDefaultAvatar />);
+          expect(wrapper).to.have.attr('style', `background-image:url("${unknownInitialsAvatarUri}");`);
+        });
+      }
+    );
   });
 });

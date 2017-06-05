@@ -38,7 +38,7 @@ describe('<SingleSignOnHandler />', () => {
     signinRedirect.restore();
   });
 
-  context('when featureLogin is false', () => {
+  describe('when featureLogin is false', () => {
     it('does not call userManager.signinRedirect() even if the user is not valid', () => {
       props.user = null;
       mountComponent();
@@ -68,7 +68,7 @@ describe('<SingleSignOnHandler />', () => {
     });
   });
 
-  context('when featureLogin is true', () => {
+  describe('when featureLogin is true', () => {
     beforeEach(() => {
       SingleSignOnHandler = requireComponent({ featureLogin: true });
     });

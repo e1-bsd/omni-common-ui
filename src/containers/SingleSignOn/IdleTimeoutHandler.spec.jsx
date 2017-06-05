@@ -26,7 +26,7 @@ describe('<IdleTimeoutHandler />', () => {
     signoutRedirect.restore();
   });
 
-  context('when autoSignOutTimeout is false', () => {
+  describe('when autoSignOutTimeout is false', () => {
     it('does not call userManager.signoutRedirect()', function test(done) {
       this.timeout(5000);
       mountComponent();
@@ -42,7 +42,7 @@ describe('<IdleTimeoutHandler />', () => {
     });
   });
 
-  context('when autoSignOutTimeout is a number', () => {
+  describe('when autoSignOutTimeout is a number', () => {
     beforeEach(() => {
       IdleTimeoutHandler = requireComponent({ autoSignOutTimeout: 2 });
     });

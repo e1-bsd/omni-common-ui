@@ -19,7 +19,7 @@ describe('Dialog', () => {
     wrapper.unmount();
   });
 
-  context('loading overlay', () => {
+  describe('loading overlay', () => {
     it('shows the loading overlay when loading', () => {
       const wrapper = shallow(<Dialog isOpen isLoading><div /></Dialog>);
       expect(wrapper).to.have.descendants(
@@ -41,7 +41,7 @@ describe('Dialog', () => {
     });
   });
 
-  context('close button', () => {
+  describe('close button', () => {
     it('contains a close button icon when enabled', () => {
       const wrapper = shallow(<Dialog isOpen withCloseButton />);
       expect(wrapper).to.have.descendants(`.${styles.Dialog_closeIcon}`);

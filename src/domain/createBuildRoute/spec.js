@@ -51,7 +51,7 @@ describe('createBuildRoute', () => {
         expect(buildRoute('/newroute', { param: 'param1' })).toBe('/newroute');
       });
 
-      context('simple param syntax', () => {
+      describe('simple param syntax', () => {
         it('keeps the old route parameters if no new value is given', () => {
           const ownProps = { routes: [{ path: 'group/:groupId' }], params: { groupId: '1' } };
           const buildRoute = createBuildRoute(ownProps);
@@ -79,7 +79,7 @@ describe('createBuildRoute', () => {
         });
       });
 
-      context('optional param syntax', () => {
+      describe('optional param syntax', () => {
         it('keeps the old route parameters if no new value is given', () => {
           const ownProps = { routes: [{ path: 'group(/:groupId)' }], params: { groupId: '1' } };
           const buildRoute = createBuildRoute(ownProps);
@@ -107,7 +107,7 @@ describe('createBuildRoute', () => {
         });
       });
 
-      context('mixed param syntax', () => {
+      describe('mixed param syntax', () => {
         it('allows use when there are simple and optional params together', () => {
           const ownProps = {
             routes: [{ path: 'group/:view(/:mode)' }], params: { view: 'day', mode: 'marking' },

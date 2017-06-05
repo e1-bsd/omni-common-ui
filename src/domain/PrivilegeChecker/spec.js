@@ -41,7 +41,7 @@ describe('PrivilegeChecker', () => {
     expect(PrivilegeChecker.hasPrivilege(state, 'pr3')).toBe(true);
   });
 
-  context('when featureLogin is not true', () => {
+  describe('when featureLogin is not true', () => {
     beforeEach(() => {
       PrivilegeChecker = requireChecker({ featureLogin: false });
     });

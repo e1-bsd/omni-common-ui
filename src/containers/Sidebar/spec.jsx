@@ -43,7 +43,7 @@ describe('<Sidebar />', () => {
     expect(onExpand.called).toBe(true);
   });
 
-  context('when expanded', () => {
+  describe('when expanded', () => {
     const mountAndClick = () => {
       const wrapper = mount(<Sidebar {...props} />);
       wrapper.simulate('click');
