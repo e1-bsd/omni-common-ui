@@ -7,6 +7,7 @@ const definePlugin = require('./webpack.define-plugin.js');
 const htmlPlugin = require('./webpack.html-plugin.js');
 
 module.exports = merge.smart(CommonConfig, {
+  devtool: 'source-map',
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.optimize.UglifyJsPlugin({

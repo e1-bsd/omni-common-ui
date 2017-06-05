@@ -11,7 +11,6 @@ const contextFolder = isCommon ? 'sample' : 'app';
 
 module.exports = {
   context: path.resolve(contextFolder),
-  devtool: 'source-map',
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
