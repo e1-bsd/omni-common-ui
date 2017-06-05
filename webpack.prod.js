@@ -7,6 +7,7 @@ const definePlugin = require('./webpack.define-plugin.js');
 const htmlPlugin = require('./webpack.html-plugin.js');
 
 module.exports = merge.smart(CommonConfig, {
+  devtool: 'source-map',
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.optimize.UglifyJsPlugin({
@@ -20,7 +21,7 @@ module.exports = merge.smart(CommonConfig, {
       'process.env.NODE_ENV': 'production',
       PRODUCTION: true,
     }),
-    htmlPlugin({ PRODUCTION }),
+    htmlPlugin({ PRODUCTION: true }),
     new CopyWebpackPlugin([
       { from: path.join(__dirname, 'lib/assets/favicons/browserconfig.xml'), to: path.resolve('dist') },
       { from: path.join(__dirname, 'lib/assets/favicons/android-chrome-192x192.png'), to: path.resolve('dist') },
