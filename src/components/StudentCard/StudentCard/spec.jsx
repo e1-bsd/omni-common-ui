@@ -3,7 +3,6 @@ import profileStyles from '../Profile/style.postcss';
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
 import StudentCard from 'components/StudentCard';
 import Card from 'components/Card';
 import classnames from 'classnames';
@@ -11,7 +10,7 @@ import classnames from 'classnames';
 describe('StudentCard', () => {
   it('renders its children', () => {
     const wrapper = shallow(<StudentCard><div id="innerContent" /></StudentCard>);
-    expect(wrapper.contains(<div id="innerContent" />)).to.be.true;
+    expect(wrapper.contains(<div id="innerContent" />)).toBe(true);
   });
 
   it('renders a Card descendent', () => {
@@ -21,7 +20,7 @@ describe('StudentCard', () => {
 
   it('adds the borderless prop to Card when borderless prop is provided', () => {
     const wrapper = shallow(<StudentCard borderless />);
-    expect(wrapper.find(Card).prop('borderless')).to.be.true;
+    expect(wrapper.find(Card).prop('borderless')).toBe(true);
   });
 
   it('sets the given status accent color class when provided', () => {
@@ -33,12 +32,12 @@ describe('StudentCard', () => {
 
   it('renders a StudentCard.Profile when provided', () => {
     const wrapper = shallow(<StudentCard><StudentCard.Profile /></StudentCard>);
-    expect(wrapper).to.contain(<StudentCard.Profile />);
+    expect(wrapper).toContain(<StudentCard.Profile />);
   });
 
   it('renders a StudentCard.Content when provided', () => {
     const wrapper = shallow(<StudentCard><StudentCard.Content /></StudentCard>);
-    expect(wrapper).to.contain(<StudentCard.Content />);
+    expect(wrapper).toContain(<StudentCard.Content />);
   });
 
   it('renders a StudentCard.Profile without separator class by default', () => {

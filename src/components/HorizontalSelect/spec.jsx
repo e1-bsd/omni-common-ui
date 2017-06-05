@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { expect } from 'chai';
 import Sinon from 'sinon';
 import styles from './style.postcss';
 
@@ -22,7 +21,7 @@ describe('<HorizontalSelect />', () => {
       html: helloNodeHtml,
       value: 'hello',
     }];
-    expect(shallow(<HorizontalSelect options={options} />)).to.contain(helloNodeHtml);
+    expect(shallow(<HorizontalSelect options={options} />)).toContain(helloNodeHtml);
   });
 
   it('onSelect is called once being clicked', () => {
@@ -37,7 +36,7 @@ describe('<HorizontalSelect />', () => {
     const wrapper = mount(<HorizontalSelect options={options}
         onSelect={testOnSelect} />);
     wrapper.find(Link).last().simulate('click');
-    expect(testOnSelect.args[0]).to.eql([2]);
+    expect(testOnSelect.args[0]).toEqual([2]);
   });
 
   it('set active styles to the selected option', () => {
@@ -46,7 +45,6 @@ describe('<HorizontalSelect />', () => {
       value: 1,
     }];
     expect(shallow(<HorizontalSelect options={options} value={1} />)
-      .find(`.${styles.HorizontalSelect_option_active}`))
-      .to.have.length(1);
+      .find(`.${styles.HorizontalSelect_option_active}`)).toHaveLength(1);
   });
 });

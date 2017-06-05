@@ -2,7 +2,6 @@ import styles from './style.postcss';
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import StudentPicture from 'components/StudentPicture';
 import AdultPicture from 'components/AdultPicture';
 import Person from './';
@@ -10,12 +9,12 @@ import Person from './';
 describe('<Person />', () => {
   it('renders StudentPicture if provided', () => {
     const wrapper = shallow(<Person><StudentPicture /></Person>);
-    expect(wrapper.find(StudentPicture)).to.have.length(1);
+    expect(wrapper.find(StudentPicture)).toHaveLength(1);
   });
 
   it('renders AdultPicture if provided', () => {
     const wrapper = shallow(<Person><AdultPicture /></Person>);
-    expect(wrapper.find(AdultPicture)).to.have.length(1);
+    expect(wrapper.find(AdultPicture)).toHaveLength(1);
   });
 
   it('renders only the first picture provided', () => {
@@ -24,8 +23,8 @@ describe('<Person />', () => {
       <AdultPicture />
       <StudentPicture />
     </Person>);
-    expect(wrapper.find(AdultPicture)).to.have.length(1);
-    expect(wrapper.find(StudentPicture)).to.have.length(0);
+    expect(wrapper.find(AdultPicture)).toHaveLength(1);
+    expect(wrapper.find(StudentPicture)).toHaveLength(0);
   });
 
   it('renders all the other children as "lines"', () => {

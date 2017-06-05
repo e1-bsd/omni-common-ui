@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Icon from './';
 import icons from './icons';
@@ -9,7 +8,7 @@ describe('<Icon />', () => {
   it('renders the content of the SVG file into the DOM', () => {
     const iconId = 'magnifying-glass';
     const wrapper = shallow(<Icon id={iconId} />);
-    expect(wrapper).to.contain(icons.get(iconId));
+    expect(wrapper).toContain(icons.get(iconId));
   });
 
   it('allows passing className down to the inline SVG component', () => {
@@ -22,11 +21,11 @@ describe('<Icon />', () => {
     const onClick = Sinon.spy();
     const wrapper = shallow(<Icon id="burger" onClick={onClick} />);
     wrapper.simulate('click');
-    expect(onClick.called).to.be.true;
+    expect(onClick.called).toBe(true);
   });
 
   it('allows setting a title attribute to the icon', () => {
     const wrapper = shallow(<Icon id="burger" title="Some title" />);
-    expect(wrapper.find('[title="Some title"]')).to.have.length(1);
+    expect(wrapper.find('[title="Some title"]')).toHaveLength(1);
   });
 });

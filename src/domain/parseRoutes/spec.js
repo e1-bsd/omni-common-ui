@@ -1,13 +1,12 @@
-import { expect } from 'chai';
 import parseRoutes from './';
 
 describe('parseRoutes()', () => {
   context('when receiving strange inputs', () => {
     it('returns the same it receives', () => {
-      expect(parseRoutes(undefined)).to.equal(undefined, 'routes is undefined');
-      expect(parseRoutes(null)).to.equal(null, 'routes is null');
-      expect(parseRoutes(2)).to.equal(2, 'routes is a number');
-      expect(parseRoutes('hello')).to.equal('hello', 'routes is a string');
+      expect(parseRoutes(undefined)).toBe(undefined);
+      expect(parseRoutes(null)).toBe(null);
+      expect(parseRoutes(2)).toBe(2);
+      expect(parseRoutes('hello')).toBe('hello');
     });
   });
 
@@ -26,7 +25,7 @@ describe('parseRoutes()', () => {
         ],
       };
 
-      expect(parseRoutes(routes)).to.eql(routes);
+      expect(parseRoutes(routes)).toEqual(routes);
     });
   });
 
@@ -48,8 +47,8 @@ describe('parseRoutes()', () => {
       });
 
       const result = parseRoutes(routes, store);
-      expect(result).to.be.a('object');
-      expect(result.onEnter()).to.equal(store.getState());
+      expect(typeof result).toBe('object');
+      expect(result.onEnter()).toBe(store.getState());
     });
 
     it('returns the same it receives', () => {
@@ -71,8 +70,8 @@ describe('parseRoutes()', () => {
       };
 
       const result = parseRoutes(routes, store);
-      expect(result.childRoutes[0]).to.be.a('object');
-      expect(result.childRoutes[0].onEnter()).to.equal(store.getState());
+      expect(typeof result.childRoutes[0]).toBe('object');
+      expect(result.childRoutes[0].onEnter()).toBe(store.getState());
     });
   });
 });

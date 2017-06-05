@@ -1,6 +1,5 @@
 import styles from './style.postcss';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { ErrorPage } from './';
 
@@ -18,8 +17,7 @@ describe('<ErrorPageHandler />', () => {
 
     it('uses the default behaviour if no config is passed', () => {
       const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_text}`))
-          .to.contain('Omni could not load this page.');
+      expect(wrapper.find(`.${styles.ErrorPage_text}`)).toContain('Omni could not load this page.');
       expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('id', 'warning');
     });
 
@@ -32,7 +30,7 @@ describe('<ErrorPageHandler />', () => {
     it('allows to customise the error message if config.message is provided', () => {
       props.config = { message: () => 'my custom error' };
       const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_text}`)).to.contain('my custom error');
+      expect(wrapper.find(`.${styles.ErrorPage_text}`)).toContain('my custom error');
     });
   });
 });

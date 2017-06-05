@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import icons from './icons';
 import magnifyinGlassIcon from './magnifying-glass.svg';
 
@@ -7,7 +6,7 @@ describe('<Icon />', () => {
     const iconId = 'magnifying-glass';
 
     it('loads the icons properly into a map', () => {
-      expect(icons.get(iconId)).to.equal(magnifyinGlassIcon);
+      expect(icons.get(iconId)).toBe(magnifyinGlassIcon);
     });
   });
 });

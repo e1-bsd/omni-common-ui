@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { Link } from 'react-router';
 import Breadcrumbs from './';
 import styles from './style.postcss';
@@ -25,7 +24,7 @@ describe('<Breadcrumbs />', () => {
     });
 
     it('links has been rendered properly', () => {
-      expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`)).to.have.length(2);
+      expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`)).toHaveLength(2);
     });
 
     it('back button has been rendered properly', () => {

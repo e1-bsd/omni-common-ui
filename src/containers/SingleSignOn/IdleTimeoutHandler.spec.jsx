@@ -1,6 +1,5 @@
 import React from 'react';
 import Sinon from 'sinon';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import userManager from './userManager';
 import _Config from 'domain/Config';
@@ -32,7 +31,7 @@ describe('<IdleTimeoutHandler />', () => {
       this.timeout(5000);
       mountComponent();
       setTimeout(() => {
-        expect(signoutRedirect.called).to.be.false;
+        expect(signoutRedirect.called).toBe(false);
         done();
       }, 2000);
     });
@@ -52,7 +51,7 @@ describe('<IdleTimeoutHandler />', () => {
       this.timeout(5000);
       mountComponent();
       setTimeout(() => {
-        expect(signoutRedirect.called).to.be.true;
+        expect(signoutRedirect.called).toBe(true);
         done();
       }, 2000);
     });
@@ -63,7 +62,7 @@ describe('<IdleTimeoutHandler />', () => {
       mountComponent();
       setTimeout(() => window.document.dispatchEvent(new Event('click')), 1000);
       setTimeout(() => {
-        expect(signoutRedirect.called).to.be.false;
+        expect(signoutRedirect.called).toBe(false);
         done();
       }, 2000);
     });

@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import Form from '../';
 
@@ -15,7 +14,7 @@ describe('Form', () => {
             validationError="This is not a valid email"
             value="123" />
       </Form>);
-      expect(wrapper.find(`.${styles.__error}`)).to.have.length(1);
+      expect(wrapper.find(`.${styles.__error}`)).toHaveLength(1);
     });
   });
 });

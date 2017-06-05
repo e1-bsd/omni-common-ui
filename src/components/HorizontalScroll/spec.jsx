@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Sinon from 'sinon';
 import HorizontalScroll from './';
@@ -9,12 +8,12 @@ import HorizontalScroll from './';
 describe('<HorizontalScroll />', () => {
   it('renders its children', () => {
     const child = <div id="inner" />;
-    expect(shallow(<HorizontalScroll>{child}</HorizontalScroll>)).to.contain(child);
+    expect(shallow(<HorizontalScroll>{child}</HorizontalScroll>)).toContain(child);
   });
 
   it('calls property onScrollReady with an instance of iScroll', (done) => {
     const onScrollReady = (scroll) => {
-      expect(scroll.scrollToElement).to.be.a('function');
+      expect(typeof scroll.scrollToElement).toBe('function');
       done();
     };
 
@@ -33,7 +32,7 @@ describe('<HorizontalScroll />', () => {
       scroll.scrollToElement = (selector, duration, offsetX, offsetY) => {  // eslint-disable-line
         expect({
           selector, duration, offsetX, offsetY,
-        }).to.eql({
+        }).toEqual({
           offsetY: true,  // `offsetX` and `offsetY` default to true (centre in viewport)
           ...scrollToElementParams,
         });
@@ -57,12 +56,11 @@ describe('<HorizontalScroll />', () => {
     const spy = Sinon.spy(HorizontalScroll.prototype, 'setState');
     const wrapper = shallow(<HorizontalScroll><div /></HorizontalScroll>);
 
-    expect(wrapper.find(`.${styles.HorizontalScroll_iScroll}`).prop('onBeforeScrollStart'))
-        .to.equal(wrapper.instance()._onBeforeScrollStart);
+    expect(wrapper.find(`.${styles.HorizontalScroll_iScroll}`).prop('onBeforeScrollStart')).toBe(wrapper.instance()._onBeforeScrollStart);
 
     wrapper.instance()._onBeforeScrollStart();
 
-    expect(spy.args[0]).to.eql([{ isScrolling: true }]);
+    expect(spy.args[0]).toEqual([{ isScrolling: true }]);
 
     HorizontalScroll.prototype.setState.restore();
   });

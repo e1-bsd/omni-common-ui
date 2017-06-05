@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-import { expect } from 'chai';
 
 describe('testClass', () => {
   let testClass;
@@ -12,10 +11,10 @@ describe('testClass', () => {
   });
 
   it('throws an error if the given class contains unacceptable characters', () => {
-    expect(() => testClass('my thing')).to.throw();
+    expect(() => testClass('my thing')).toThrowError();
   });
 
   it('does not throw if the given class is okay', () => {
-    expect(() => testClass('my-thing-5')).to.not.throw();
+    expect(() => testClass('my-thing-5')).not.toThrowError();
   });
 });

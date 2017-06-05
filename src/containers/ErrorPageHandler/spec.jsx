@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import ApiCall from 'containers/ApiCalls';
 import { Map, List } from 'immutable';
@@ -26,7 +25,7 @@ describe('<ErrorPageHandler />', () => {
 
     const buildProps = (response = {}) => {
       const error = new ApiError(response);
-      if (is.not.undefined(response.response)) {
+      if (is.toBeDefined()) {
         error.response = response.response;
       }
 
@@ -65,19 +64,19 @@ describe('<ErrorPageHandler />', () => {
     context('when location.pathname changes, API errors are auto-cleaned', () => {
       it('does not call clean() on mount', () => {
         mount(<ErrorPageHandler {...props} />);
-        expect(props.clean.called).to.be.false;
+        expect(props.clean.called).toBe(false);
       });
 
       it('does not call clean() if location.pathname is the same', () => {
         const wrapper = mount(<ErrorPageHandler {...props} />);
         wrapper.setProps({ location: { pathname: '/x/y' } });
-        expect(props.clean.called).to.be.false;
+        expect(props.clean.called).toBe(false);
       });
 
       it('calls clean() on location.pathname change', () => {
         const wrapper = mount(<ErrorPageHandler {...props} />);
         wrapper.setProps({ location: { pathname: '/x' } });  // user clicked a nav crumb, for instance
-        expect(props.clean.args).to.eql([['id1'], ['id2']]);
+        expect(props.clean.args).toEqual([['id1'], ['id2']]);
       });
     });
 
@@ -156,17 +155,17 @@ describe('<ErrorPageHandler />', () => {
 
     it('returns erroredApis as empty List if no API has failed', () => {
       const { erroredApis } = mapStateToProps(state, ownProps);
-      expect(List.isList(erroredApis)).to.equal(true, 'is a List');
-      expect(erroredApis.isEmpty()).to.equal(true, 'is empty');
+      expect(List.isList(erroredApis)).toBe(true);
+      expect(erroredApis.isEmpty()).toBe(true);
     });
 
     it('returns config as undefined if no route has an errorPage property', () => {
       ownProps.routes = [{}, {}, {}];
-      expect(mapStateToProps(state, ownProps).config).to.be.undefined;
+      expect(mapStateToProps(state, ownProps).config).toBeUndefined();
     });
 
     it('returns errorPage in the last route with an errorPage property as config', () => {
-      expect(mapStateToProps(state, ownProps).config).to.equal(ownProps.routes[2].errorPage);
+      expect(mapStateToProps(state, ownProps).config).toBe(ownProps.routes[2].errorPage);
     });
 
     it('returns erroredApis with failing a list of ApiCall.State ' +
@@ -177,8 +176,8 @@ describe('<ErrorPageHandler />', () => {
         'GET /my/path': failedCall1,
         'GET /my/path/2': failedCall2,
       });
-      expect(mapStateToProps(state, ownProps).erroredApis.get(0)).to.equal(failedCall1);
-      expect(mapStateToProps(state, ownProps).erroredApis.get(1)).to.equal(failedCall2);
+      expect(mapStateToProps(state, ownProps).erroredApis.get(0)).toBe(failedCall1);
+      expect(mapStateToProps(state, ownProps).erroredApis.get(1)).toBe(failedCall2);
     });
 
     it('ignores errores APIs if disableDefault=true for them', () => {
@@ -189,8 +188,8 @@ describe('<ErrorPageHandler />', () => {
         'GET /my/path/2': failedCall2,
       });
       const { erroredApis } = mapStateToProps(state, ownProps);
-      expect(erroredApis.size).to.equal(1);
-      expect(erroredApis.get(0)).to.equal(failedCall1);
+      expect(erroredApis.size).toBe(1);
+      expect(erroredApis.get(0)).toBe(failedCall1);
     });
   });
 });

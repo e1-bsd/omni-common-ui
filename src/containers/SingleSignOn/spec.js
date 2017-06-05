@@ -1,6 +1,5 @@
 import _Config from 'domain/Config';
 import Sinon from 'sinon';
-import { expect } from 'chai';
 
 describe('SingleSignOn', () => {
   let createOidcMiddleware;
@@ -17,11 +16,11 @@ describe('SingleSignOn', () => {
 
   it('exports the oidc middleware if featureLogin is true', () => {
     requireMiddleware({ featureLogin: true });
-    expect(createOidcMiddleware.called).to.be.true;
+    expect(createOidcMiddleware.called).toBe(true);
   });
 
   it('exports a fake oidc middleware if featureLogin is not true', () => {
     requireMiddleware({ featureLogin: false });
-    expect(createOidcMiddleware.called).to.be.false;
+    expect(createOidcMiddleware.called).toBe(false);
   });
 });
