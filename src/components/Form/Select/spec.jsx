@@ -23,7 +23,7 @@ describe('Form', () => {
       expect(wrapper.find(`.${styles.__required}`)).toHaveLength(1);
     });
 
-    context('label prop existence', () => {
+    describe('label prop existence', () => {
       it('has a Field when there is a label prop present', () => {
         const wrapper = mount(<Form>
           <Form.Select name="labelled"

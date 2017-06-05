@@ -109,7 +109,7 @@ describe('ApiCall', () => {
       expect(log.error.args).toEqual([[error]]);
     });
 
-    context('#isApiAction()', () => {
+    describe('#isApiAction()', () => {
       it('returns true an action was created with ApiAction.create()', () => {
         const originalAction = buildAction({ type: 'CALL_REQUEST' });
         const callAction = ApiAction.create(originalAction);
@@ -118,7 +118,7 @@ describe('ApiCall', () => {
       });
     });
 
-    context('#isStarted()', () => {
+    describe('#isStarted()', () => {
       it('returns true if action.type ends with _REQUEST', () => {
         const callAction = ApiAction.create(buildAction({ type: 'CALL_REQUEST' }));
         expect(ApiAction.isStarted(callAction)).toBe(true);
@@ -127,7 +127,7 @@ describe('ApiCall', () => {
       });
     });
 
-    context('#isSuccess()', () => {
+    describe('#isSuccess()', () => {
       it('returns true if action.type ends with _SUCCESS', () => {
         const callAction = ApiAction.create(buildAction({ type: 'CALL_SUCCESS' }));
         expect(ApiAction.isStarted(callAction)).toBe(false);
@@ -136,7 +136,7 @@ describe('ApiCall', () => {
       });
     });
 
-    context('#isFailure()', () => {
+    describe('#isFailure()', () => {
       it('returns true if action.type ends with _FAILURE', () => {
         const callAction = ApiAction.create(buildAction());
         expect(ApiAction.isStarted(callAction)).toBe(false);

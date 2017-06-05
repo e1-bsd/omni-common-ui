@@ -12,8 +12,8 @@ describe('<PermissionHandler />', () => {
   describe('component', () => {
     let PermissionHandler;
 
-    context('when featureLogin is not true', () => {
-      before(() => {
+    describe('when featureLogin is not true', () => {
+      beforeAll(() => {
         PermissionHandler = doRequire({ featureLogin: false }).PermissionHandler;
       });
 
@@ -23,8 +23,8 @@ describe('<PermissionHandler />', () => {
       });
     });
 
-    context('when featureLogin is true', () => {
-      before(() => {
+    describe('when featureLogin is true', () => {
+      beforeAll(() => {
         PermissionHandler = doRequire({ featureLogin: true }).PermissionHandler;
       });
 
@@ -75,7 +75,7 @@ describe('<PermissionHandler />', () => {
   describe('mapStateToProps()', () => {
     let mapStateToProps;
 
-    before(() => {
+    beforeAll(() => {
       mapStateToProps = doRequire({ featureLogin: true }).mapStateToProps;
     });
 

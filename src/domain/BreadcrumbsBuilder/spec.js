@@ -20,7 +20,7 @@ describe('BreadcrumbsBuilder', () => {
     expectedItems = undefined;
   });
 
-  context('breadcrumb rendering', () => {
+  describe('breadcrumb rendering', () => {
     it('when there are no labelled route segments', () => {
       props.routes = [{
         path: '/group/1',

@@ -14,7 +14,7 @@ describe('ApiCall', () => {
         expect(() => ApiKey.create('')).toThrowError();
       });
 
-      context('when passed a normal object', () => {
+      describe('when passed a normal object', () => {
         it('throws if the object does not contain a method property of type string', () => {
           expect(() => ApiKey.create({ method: 1, url: '' })).toThrowError();
         });

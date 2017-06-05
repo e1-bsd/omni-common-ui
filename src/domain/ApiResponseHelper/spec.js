@@ -136,8 +136,8 @@ describe('ApiResponseHelper', () => {
       expect(ApiResponseHelper.create(null).data).toBeNull();
     });
 
-    context('when received an object with just one key', () => {
-      context('when the key is loading', () => {
+    describe('when received an object with just one key', () => {
+      describe('when the key is loading', () => {
         it('returns an ApiResponse with the value of loading', () => {
           expect(ApiResponseHelper.create({ loading: true }).loading).toBe(true);
           expect(ApiResponseHelper.create({ loading: false }).loading).toBe(false);
@@ -155,7 +155,7 @@ describe('ApiResponseHelper', () => {
         });
       });
 
-      context('when the key is error', () => {
+      describe('when the key is error', () => {
         it('returns an errored ApiResponse with the passed error' +
             ' if it is an instance of Error', () => {
           const error = new Error();
@@ -176,7 +176,7 @@ describe('ApiResponseHelper', () => {
         });
       });
 
-      context('when the key is data', () => {
+      describe('when the key is data', () => {
         it('returns an ApiResponse with the provided data', () => {
           expect(ApiResponseHelper.create({ data: 'hi!' }).data).toBe('hi!');
         });
@@ -189,7 +189,7 @@ describe('ApiResponseHelper', () => {
         });
       });
 
-      context('when the key is any other', () => {
+      describe('when the key is any other', () => {
         it('returns an ApiResponse with the provided object', () => {
           const object = { someKey: 'hi!' };
           expect(ApiResponseHelper.create(object).data).toBe(object);

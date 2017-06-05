@@ -24,12 +24,12 @@ describe('log', () => {
   describe('#buildLogToRaven()()', () => {
     let log;
 
-    context('when level is "error"', () => {
+    describe('when level is "error"', () => {
       beforeEach(() => {
         log = buildLogToRaven('error');
       });
 
-      context('when not passed an error', () => {
+      describe('when not passed an error', () => {
         it('calls Raven.captureMessage()', () => {
           log();
           expect(Raven.captureMessage.called).toBe(true);
@@ -41,7 +41,7 @@ describe('log', () => {
         });
       });
 
-      context('when passed an error', () => {
+      describe('when passed an error', () => {
         let error;
 
         beforeEach(() => {
@@ -63,7 +63,7 @@ describe('log', () => {
       });
     });
 
-    context('when level is "warn"', () => {
+    describe('when level is "warn"', () => {
       beforeEach(() => {
         log = buildLogToRaven('warn');
       });
@@ -78,7 +78,7 @@ describe('log', () => {
         expect(Raven.captureBreadcrumb.args[0][0]).toEqual({ message: '', level: 'warn' });
       });
 
-      context('when not using C-style format strings', () => {
+      describe('when not using C-style format strings', () => {
         it('does not call sprintf', () => {
           log('some normal string');
           expect(sprintf.called).toBe(false);
@@ -96,7 +96,7 @@ describe('log', () => {
         });
       });
 
-      context('when using C-style format strings', () => {
+      describe('when using C-style format strings', () => {
         it('calls sprintf', () => {
           log('some formatted %s string');
           expect(sprintf.called).toBe(true);
@@ -110,7 +110,7 @@ describe('log', () => {
       });
     });
 
-    context('when level is not "error" or "warn"', () => {
+    describe('when level is not "error" or "warn"', () => {
       beforeEach(() => {
         log = buildLogToRaven('whatever');
       });
