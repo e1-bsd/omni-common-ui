@@ -65,6 +65,7 @@
     "handlebars-loader": "^1.5.0",
     "history": "3.2.1",
     "html-webpack-plugin": "e1-bsd/html-webpack-plugin#5a2c99aa91a80e216b183488c1ecc19c20da2fd4",
+    "identity-obj-proxy": "^3.0.0",
     "image-webpack-loader": "^3.3.1",
     "immutable": "3.8.1",
     "immutable-devtools": "0.0.7",
@@ -75,6 +76,7 @@
     "iscroll": "e1-bsd/iscroll#v5.3.3",
     "isomorphic-fetch": "2.2.1",
     "istanbul-instrumenter-loader": "^2.0.0",
+    "jest": "^20.0.4",
     "jsdom": "^11.0.0",
     "jsrsasign": "^7.2.0",
     "jwt-simple": "^0.5.1",
@@ -192,6 +194,23 @@
   },
   "engines": {
     "node": ">=6.6.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/index.tsx"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.postcss$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)$",
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ]
   },
   "bin": {
     "omni-build-bins": "./scripts/build-bins.js",
