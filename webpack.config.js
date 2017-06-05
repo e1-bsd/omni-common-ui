@@ -78,11 +78,11 @@ module.exports = {
       },
       {
         test: new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`),
-        use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+        use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
       },
       {
         test: REG_EXP_FAVICONS,
-        use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+        use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
       },
       {
         test: REG_EXP_INLINE_SVGS,
@@ -99,7 +99,15 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg)$/,
         exclude: new RegExp(`(${REG_EXP_FAVICONS.source})|(${REG_EXP_INLINE_SVGS.source})`),
         use: [
-          'url-loader?limit=10000&hash=sha512&digest=hex&name=[hash].[ext]',
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              hash: 'sha512',
+              digest: 'hex',
+              name: '[name].[hash].[ext]',
+            },
+          },
           {
             loader: 'image-webpack-loader',
             options: {
