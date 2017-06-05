@@ -14,9 +14,6 @@ module.exports = merge.smart(CommonConfig, {
   entry: {
     hotLoading: ['react-hot-loader/patch', `webpack-dev-server/client?http://localhost:${port}`, 'webpack/hot/only-dev-server'],
   },
-  output: {
-    pathinfo: true,
-  },
   module: {
     rules: [
       {
