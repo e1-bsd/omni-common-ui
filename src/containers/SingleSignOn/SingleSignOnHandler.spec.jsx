@@ -1,6 +1,5 @@
 import React from 'react';
 import Sinon from 'sinon';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import userManager from './userManager';
 import _Config from 'domain/Config';
@@ -43,18 +42,18 @@ describe('<SingleSignOnHandler />', () => {
     it('does not call userManager.signinRedirect() even if the user is not valid', () => {
       props.user = null;
       mountComponent();
-      expect(signinRedirect.called).to.be.false;
+      expect(signinRedirect.called).toBe(false);
     });
 
     it('does not call userManager.signinRedirect() even if the user is expired', () => {
       props.user.expired = true;
       mountComponent();
-      expect(signinRedirect.called).to.be.false;
+      expect(signinRedirect.called).toBe(false);
     });
 
     it('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
       mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).to.be.false;
+      expect(props.fetchPrivilegesIfNeeded.called).toBe(false);
     });
 
     it('renders its children if the user is fine', () => {
@@ -77,18 +76,18 @@ describe('<SingleSignOnHandler />', () => {
     it('calls userManager.signinRedirect() if the user is not valid', () => {
       props.user = null;
       mountComponent();
-      expect(signinRedirect.called).to.be.true;
+      expect(signinRedirect.called).toBe(true);
     });
 
     it('calls userManager.signinRedirect() if the user is expired', () => {
       props.user.expired = true;
       mountComponent();
-      expect(signinRedirect.called).to.be.true;
+      expect(signinRedirect.called).toBe(true);
     });
 
     it('calls fetchPrivilegesIfNeeded if the user is fine', () => {
       mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).to.be.true;
+      expect(props.fetchPrivilegesIfNeeded.called).toBe(true);
     });
 
     it('renders its children if the user is fine', () => {

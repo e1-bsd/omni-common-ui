@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
 import Form from '../';
 import Field from '../Field';
@@ -21,7 +20,7 @@ describe('Form', () => {
             options={options}
             required />
       </Form>);
-      expect(wrapper.find(`.${styles.__required}`)).to.have.length(1);
+      expect(wrapper.find(`.${styles.__required}`)).toHaveLength(1);
     });
 
     context('label prop existence', () => {

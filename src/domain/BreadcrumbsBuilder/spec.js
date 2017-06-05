@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import BreadcrumbsBuilder from './';
 
 // <Breadcrumbs state params location routes buildRoute>
@@ -27,7 +26,7 @@ describe('BreadcrumbsBuilder', () => {
         path: '/group/1',
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql([]);
+      expect(result).toEqual([]);
     });
 
     it('when there is one labelled route segment', () => {
@@ -42,7 +41,7 @@ describe('BreadcrumbsBuilder', () => {
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql(expectedItems);
+      expect(result).toEqual(expectedItems);
     });
 
     it('with two items when there are two labelled route segments', () => {
@@ -67,7 +66,7 @@ describe('BreadcrumbsBuilder', () => {
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql(expectedItems);
+      expect(result).toEqual(expectedItems);
     });
 
     it('with more labels than routes when label value(s) are arrays', () => {
@@ -95,7 +94,7 @@ describe('BreadcrumbsBuilder', () => {
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql(expectedItems);
+      expect(result).toEqual(expectedItems);
     });
 
     it('with labels that are functions', () => {
@@ -121,7 +120,7 @@ describe('BreadcrumbsBuilder', () => {
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql(expectedItems);
+      expect(result).toEqual(expectedItems);
     });
 
     it('with labels of mixed types containing a full object definition', () => {
@@ -157,7 +156,7 @@ describe('BreadcrumbsBuilder', () => {
         backLinkHref: null,
       }];
       const result = BreadcrumbsBuilder.buildWithProps(props);
-      expect(result).to.be.eql(expectedItems);
+      expect(result).toEqual(expectedItems);
     });
   });
 });

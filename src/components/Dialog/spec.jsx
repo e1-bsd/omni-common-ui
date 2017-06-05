@@ -2,7 +2,6 @@ import styles from './style.postcss';
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { expect } from 'chai';
 import Sinon from 'sinon';
 
 import { Dialog } from './';
@@ -10,13 +9,13 @@ import { Dialog } from './';
 describe('Dialog', () => {
   it('renders its children if open', () => {
     const wrapper = mount(<Dialog isOpen><div id="innerContent" /></Dialog>);
-    expect(document.getElementById('innerContent')).to.exist;
+    expect(document.getElementById('innerContent')).toBeDefined();
     wrapper.unmount();
   });
 
   it('does not render its children if not open', () => {
     const wrapper = mount(<Dialog isOpen={false}><div id="innerContent" /></Dialog>);
-    expect(document.getElementById('innerContent')).to.not.exist;
+    expect(document.getElementById('innerContent')).toBeFalsy();
     wrapper.unmount();
   });
 
@@ -58,7 +57,7 @@ describe('Dialog', () => {
       const wrapper = shallow(<Dialog isOpen withCloseButton onRequestClose={onRequestClose} />);
       const button = wrapper.find(`.${styles.Dialog_closeIcon}`);
       button.simulate('click');
-      expect(onRequestClose.calledWith('button')).to.be.true;
+      expect(onRequestClose.calledWith('button')).toBe(true);
     });
   });
 });

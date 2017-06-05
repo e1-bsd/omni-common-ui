@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './';
 import Sinon from 'sinon';
@@ -31,7 +30,7 @@ describe('<Sidebar />', () => {
   });
 
   it('renders nothing if no items available', () => {
-    expect(shallow(<Sidebar />)).to.be.empty;
+    expect(shallow(<Sidebar />)).toHaveLength(0);
   });
 
   it('renders collapsed view by default', () => {
@@ -41,7 +40,7 @@ describe('<Sidebar />', () => {
   it('calls onExpand when clicking on it', () => {
     const wrapper = mount(<Sidebar {...props} />);
     wrapper.simulate('click');
-    expect(onExpand.called).to.be.true;
+    expect(onExpand.called).toBe(true);
   });
 
   context('when expanded', () => {
@@ -63,7 +62,7 @@ describe('<Sidebar />', () => {
     it('renders items', () => {
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
-      expect(items).to.have.length(3);
+      expect(items).toHaveLength(3);
       expect(items.at(0)).to.have.text('Link 1');
       expect(items.at(1)).to.have.text('Link 2');
       expect(items.at(2)).to.have.text('Current path');
@@ -72,20 +71,20 @@ describe('<Sidebar />', () => {
     it('calls onCollapse if the user clicks outside', () => {
       mountAndClick();
       document.body.dispatchEvent(new Event('click'));
-      expect(onCollapse.called).to.be.true;
+      expect(onCollapse.called).toBe(true);
     });
 
     it('calls onCollapse if the user taps outside', () => {
       mountAndClick();
       document.body.dispatchEvent(new Event('touchstart'));
-      expect(onCollapse.called).to.be.true;
+      expect(onCollapse.called).toBe(true);
     });
 
     it('allows deeper routes to override configuration', () => {
       props.routes.push({ sidebar: { '/link/1': { text: 'My link' } } });
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
-      expect(items).to.have.length(3);
+      expect(items).toHaveLength(3);
       expect(items.at(0)).to.have.text('My link');
     });
 
@@ -93,7 +92,7 @@ describe('<Sidebar />', () => {
       props.routes.push({ sidebar: { '/link/1': undefined } });
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
-      expect(items).to.have.length(2);
+      expect(items).toHaveLength(2);
       expect(items.at(0)).to.have.text('Link 2');
     });
 
@@ -103,7 +102,7 @@ describe('<Sidebar />', () => {
       props.routes[0].sidebar['/current/path'].order = 2;
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
-      expect(items).to.have.length(3);
+      expect(items).toHaveLength(3);
       expect(items.at(0)).to.have.text('Link 2');
       expect(items.at(1)).to.have.text('Current path');
       expect(items.at(2)).to.have.text('Link 1');

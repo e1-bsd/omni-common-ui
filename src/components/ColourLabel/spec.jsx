@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Tooltip from 'components/Tooltip';
 import { ColourLabel } from './';
@@ -26,7 +25,7 @@ describe('<ColourLabel />', () => {
       it('renders a small label with the initial without any tooltip', () => {
         const wrapper = shallow(<ColourLabel initial={'h'} />);
         expect(wrapper.find(`.${styles.ColourLabel_inner}`)).to.have.text('h');
-        expect(wrapper.find(Tooltip)).to.have.length(0);
+        expect(wrapper.find(Tooltip)).toHaveLength(0);
       });
     });
 
@@ -35,8 +34,8 @@ describe('<ColourLabel />', () => {
         const wrapper = shallow(<ColourLabel initial={'h'} text={'on hold'} />);
         const tooltip = wrapper.find(Tooltip);
         expect(wrapper.find(`.${styles.ColourLabel_inner}`)).to.have.text('h');
-        expect(tooltip).to.have.length(1);
-        expect(tooltip.prop('text')).to.equal('on hold');
+        expect(tooltip).toHaveLength(1);
+        expect(tooltip.prop('text')).toBe('on hold');
       });
     });
   });

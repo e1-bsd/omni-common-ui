@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import ApiCall, { reducer } from './';
 import { Map } from 'immutable';
 
@@ -13,12 +12,12 @@ describe('ApiCalls', () => {
     });
 
     it('does not modify the state if the action is not an Action', () => {
-      expect(reducer(state, {})).to.equal(state);
+      expect(reducer(state, {})).toBe(state);
     });
 
     it('removes an entry when API_CALL_CLEAN action is received', () => {
       state = state.set('key', 'value');
-      expect(reducer(state, ApiCall.clean('key')).get('key')).to.be.undefined;
+      expect(reducer(state, ApiCall.clean('key')).get('key')).toBeUndefined();
     });
 
     it('sets the proper map item to loading when received a _REQUEST action', () => {
@@ -30,12 +29,12 @@ describe('ApiCalls', () => {
 
       const key = Key.create(action);
       const value = reducer(state, action).get(key);
-      expect(State.isValue(value)).to.equal(true, 'type check');
-      expect(State.isLoading(value)).to.equal(true, 'is loading');
-      expect(State.hasSucceeded(value)).to.equal(false, 'has succeeded');
-      expect(State.hasFailed(value)).to.equal(false, 'has failed');
-      expect(value.error).to.equal(undefined, 'error is undefined');
-      expect(value.id).to.equal(key, 'state.id = key');
+      expect(State.isValue(value)).toBe(true);
+      expect(State.isLoading(value)).toBe(true);
+      expect(State.hasSucceeded(value)).toBe(false);
+      expect(State.hasFailed(value)).toBe(false);
+      expect(value.error).toBe(undefined);
+      expect(value.id).toBe(key);
     });
 
     it('sets the proper map item to success when received a _SUCCESS action', () => {
@@ -47,12 +46,12 @@ describe('ApiCalls', () => {
 
       const key = Key.create(action);
       const value = reducer(state, action).get(key);
-      expect(State.isValue(value)).to.equal(true, 'type check');
-      expect(State.isLoading(value)).to.equal(false, 'is loading');
-      expect(State.hasSucceeded(value)).to.equal(true, 'has succeeded');
-      expect(State.hasFailed(value)).to.equal(false, 'has failed');
-      expect(value.error).to.equal(undefined, 'error is undefined');
-      expect(value.id).to.equal(key, 'state.id = key');
+      expect(State.isValue(value)).toBe(true);
+      expect(State.isLoading(value)).toBe(false);
+      expect(State.hasSucceeded(value)).toBe(true);
+      expect(State.hasFailed(value)).toBe(false);
+      expect(value.error).toBe(undefined);
+      expect(value.id).toBe(key);
     });
 
     it('sets the proper map item to error when received a _FAILURE action', () => {
@@ -65,12 +64,12 @@ describe('ApiCalls', () => {
 
       const key = Key.create(action);
       const value = reducer(state, action).get(key);
-      expect(State.isValue(value)).to.equal(true, 'type check');
-      expect(State.isLoading(value)).to.equal(false, 'is loading');
-      expect(State.hasSucceeded(value)).to.equal(false, 'has succeeded');
-      expect(State.hasFailed(value)).to.equal(true, 'has failed');
-      expect(value.error).to.equal(action.error, 'error is the error');
-      expect(value.id).to.equal(key, 'state.id = key');
+      expect(State.isValue(value)).toBe(true);
+      expect(State.isLoading(value)).toBe(false);
+      expect(State.hasSucceeded(value)).toBe(false);
+      expect(State.hasFailed(value)).toBe(true);
+      expect(value.error).toBe(action.error);
+      expect(value.id).toBe(key);
     });
   });
 });

@@ -1,5 +1,4 @@
 import Sinon from 'sinon';
-import { expect } from 'chai';
 
 describe('log', () => {
   let Raven;
@@ -33,12 +32,12 @@ describe('log', () => {
       context('when not passed an error', () => {
         it('calls Raven.captureMessage()', () => {
           log();
-          expect(Raven.captureMessage.called).to.be.true;
+          expect(Raven.captureMessage.called).toBe(true);
         });
 
         it('sets level as "error"', () => {
           log();
-          expect(Raven.captureMessage.args[0][1]).to.eql({ level: 'error' });
+          expect(Raven.captureMessage.args[0][1]).toEqual({ level: 'error' });
         });
       });
 
@@ -51,15 +50,15 @@ describe('log', () => {
         });
 
         it('calls Raven.captureException()', () => {
-          expect(Raven.captureException.called).to.be.true;
+          expect(Raven.captureException.called).toBe(true);
         });
 
         it('sets level as "error"', () => {
-          expect(Raven.captureException.args[0][1]).to.eql({ level: 'error' });
+          expect(Raven.captureException.args[0][1]).toEqual({ level: 'error' });
         });
 
         it('ignores all arguments except the first one', () => {
-          expect(Raven.captureException.args[0]).to.eql([error, { level: 'error' }]);
+          expect(Raven.captureException.args[0]).toEqual([error, { level: 'error' }]);
         });
       });
     });
@@ -71,42 +70,42 @@ describe('log', () => {
 
       it('calls Raven.captureBreadcrumb()', () => {
         log();
-        expect(Raven.captureBreadcrumb.called).to.be.true;
+        expect(Raven.captureBreadcrumb.called).toBe(true);
       });
 
       it('sets level as "warn"', () => {
         log();
-        expect(Raven.captureBreadcrumb.args[0][0]).to.eql({ message: '', level: 'warn' });
+        expect(Raven.captureBreadcrumb.args[0][0]).toEqual({ message: '', level: 'warn' });
       });
 
       context('when not using C-style format strings', () => {
         it('does not call sprintf', () => {
           log('some normal string');
-          expect(sprintf.called).to.be.false;
+          expect(sprintf.called).toBe(false);
         });
 
         it('concatenates all provided parameters', () => {
           log('1', 2, '3');
-          expect(Raven.captureBreadcrumb.args[0][0].message).to.equal('1 2 3');
+          expect(Raven.captureBreadcrumb.args[0][0].message).toBe('1 2 3');
         });
 
         it('uses the whole stack of Errors', () => {
           const error = new Error();
           log('1', error, '3');
-          expect(Raven.captureBreadcrumb.args[0][0].message).to.equal(`1 ${error.stack} 3`);
+          expect(Raven.captureBreadcrumb.args[0][0].message).toBe(`1 ${error.stack} 3`);
         });
       });
 
       context('when using C-style format strings', () => {
         it('calls sprintf', () => {
           log('some formatted %s string');
-          expect(sprintf.called).to.be.true;
+          expect(sprintf.called).toBe(true);
         });
 
         it('uses the whole stack of Errors', () => {
           const error = new Error();
           log('1 %s 3', error);
-          expect(sprintf.args[0]).to.eql(['1 %s 3', error.stack]);
+          expect(sprintf.args[0]).toEqual(['1 %s 3', error.stack]);
         });
       });
     });
@@ -118,12 +117,12 @@ describe('log', () => {
 
       it('calls Raven.captureBreadcrumb()', () => {
         log();
-        expect(Raven.captureBreadcrumb.called).to.be.true;
+        expect(Raven.captureBreadcrumb.called).toBe(true);
       });
 
       it('sets level as "info"', () => {
         log();
-        expect(Raven.captureBreadcrumb.args[0][0]).to.eql({ message: '', level: 'info' });
+        expect(Raven.captureBreadcrumb.args[0][0]).toEqual({ message: '', level: 'info' });
       });
     });
   });
