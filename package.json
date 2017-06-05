@@ -4,8 +4,8 @@
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000 --config webpack.dev.js",
     "build": "node node_modules/gulp/bin/gulp.js build",
-    "test:start": "node node_modules/karma/bin/karma start karma.conf.js --no-single-run --browsers Chrome",
-    "test:once": "node node_modules/karma/bin/karma start karma.conf.js --single-run",
+    "test:start": "jest --watch",
+    "test:once": "jest --coverage",
     "watch": "node node_modules/gulp/bin/gulp.js watch",
     "lint:css": "node node_modules/stylelint/bin/stylelint.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
