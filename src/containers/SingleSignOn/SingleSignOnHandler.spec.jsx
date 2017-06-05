@@ -2,27 +2,26 @@ import React from 'react';
 import Sinon from 'sinon';
 import { mount } from 'enzyme';
 import userManager from './userManager';
-import _Config from 'domain/Config';
+import * as ConfigPkg from 'domain/Config';
+import { Map } from 'immutable';
 
-describe('<SingleSignOnHandler />', () => {
-  let SingleSignOnHandler;
-  let props;
-  let signinRedirect;
+jest.mock('./userManager', () => 'userManager');
 
-  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireComponent = (Config) => require('inject-loader?domain/Config&./userManager!./SingleSignOnHandler')({
-    'domain/Config': _Config.merge(Config),
-    './userManager': userManager,
-  }).SingleSignOnHandler;
+let props;
+let signinRedirect;
+let SingleSignOnHandler;
 
-  const mountComponent = () => mount(<SingleSignOnHandler {...props}>
-    <div id="inner" />
-  </SingleSignOnHandler>);
+const mountComponent = () => mount(<SingleSignOnHandler {...props}>
+  <div id="inner" />
+</SingleSignOnHandler>);
+
+describe('when featureLogin is false', () => {
+  ConfigPkg.default = new Map({ featureLogin: false });
+  SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
 
   beforeEach(() => {
     signinRedirect = Sinon.stub(userManager, 'signinRedirectWithValidation');
     signinRedirect.returns();
-    SingleSignOnHandler = requireComponent({ featureLogin: false });
     props = {
       fetchPrivilegesIfNeeded: Sinon.spy(),
       user: {
@@ -67,38 +66,37 @@ describe('<SingleSignOnHandler />', () => {
       expect(wrapper).to.have.descendants('#inner');
     });
   });
+});
 
-  describe('when featureLogin is true', () => {
-    beforeEach(() => {
-      SingleSignOnHandler = requireComponent({ featureLogin: true });
-    });
+describe('when featureLogin is true', () => {
+  ConfigPkg.default = new Map({ featureLogin: true });
+  SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
 
-    it('calls userManager.signinRedirect() if the user is not valid', () => {
-      props.user = null;
-      mountComponent();
-      expect(signinRedirect.called).toBe(true);
-    });
+  it('calls userManager.signinRedirect() if the user is not valid', () => {
+    props.user = null;
+    mountComponent();
+    expect(signinRedirect.called).toBe(true);
+  });
 
-    it('calls userManager.signinRedirect() if the user is expired', () => {
-      props.user.expired = true;
-      mountComponent();
-      expect(signinRedirect.called).toBe(true);
-    });
+  it('calls userManager.signinRedirect() if the user is expired', () => {
+    props.user.expired = true;
+    mountComponent();
+    expect(signinRedirect.called).toBe(true);
+  });
 
-    it('calls fetchPrivilegesIfNeeded if the user is fine', () => {
-      mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).toBe(true);
-    });
+  it('calls fetchPrivilegesIfNeeded if the user is fine', () => {
+    mountComponent();
+    expect(props.fetchPrivilegesIfNeeded.called).toBe(true);
+  });
 
-    it('renders its children if the user is fine', () => {
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
+  it('renders its children if the user is fine', () => {
+    const wrapper = mountComponent();
+    expect(wrapper).to.have.descendants('#inner');
+  });
 
-    it('does not render its children if the user is not valid', () => {
-      props.user = null;
-      const wrapper = mountComponent();
-      expect(wrapper).to.not.have.descendants('#inner');
-    });
+  it('does not render its children if the user is not valid', () => {
+    props.user = null;
+    const wrapper = mountComponent();
+    expect(wrapper).to.not.have.descendants('#inner');
   });
 });
