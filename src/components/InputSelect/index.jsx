@@ -3,7 +3,7 @@ import styles from './style.postcss';
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import is from 'is_js';
-import _ from 'lodash';
+import loFind from 'lodash.find';
 import PropTypes from 'prop-types';
 
 export default class InputSelect extends PureComponent {
@@ -31,7 +31,7 @@ export default class InputSelect extends PureComponent {
     const props = this.props;
     let option;
     if (is.array(props.optionList)) {
-      option = _.find(props.optionList, ['id', value]);
+      option = loFind(props.optionList, ['id', value]);
     } else {
       option = is.not.undefined(props.optionList[value]) ?
        props.optionList[value] :
