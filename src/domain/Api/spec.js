@@ -1,7 +1,6 @@
 /* eslint-disable global-require */
 
 import { Map } from 'immutable';
-import * as ConfigPkg from 'domain/Config';
 import isomorphicFetch from 'isomorphic-fetch';
 
 jest.mock('domain/Store', () => ({
@@ -12,15 +11,21 @@ jest.mock('domain/Store', () => ({
   },
 }));
 
-jest.mock('isomorphic-fetch', () => jest.fn());
+jest.mock('isomorphic-fetch', () => global.fetch);
+
+function mockConfig(config) {
+  require('domain/Config').default = new Map(config);
+}
 
 beforeEach(() => {
-  isomorphicFetch.mockReset();
+  jest.resetModules();
+  isomorphicFetch.resetMocks();
+  isomorphicFetch.mockResponse(JSON.stringify({ foo: 'bar' }), { status: 200 });
 });
 
 describe('#buildUrl', () => {
-  it('appends its parameter to Config.apiBase', () => {
-    ConfigPkg.default = new Map({ apiBase: 'http://host/api' });
+  test('appends its parameter to Config.apiBase', () => {
+    mockConfig({ apiBase: 'http://host/api' });
     const { buildUrl } = require('./');
     expect(buildUrl('/somePath')).toBe('http://host/api/somePath');
   });
@@ -28,10 +33,10 @@ describe('#buildUrl', () => {
 
 describe('#fetch', () => {
   describe('includeBearerTokenInApiGetUrls=undefined', () => {
-    const { fetch } = require('./');
-
-    it('calls isomorphicFetch with the expected parameters', () => {
-      fetch('https://domain/somePath');
+    test('calls isomorphicFetch with the expected parameters', async () => {
+      expect.assertions(2);
+      const { fetch } = require('./');
+      try { await fetch('https://domain/somePath'); } catch (e) { throw e; }
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['https://domain/somePath', {
         headers: {
@@ -43,10 +48,14 @@ describe('#fetch', () => {
   });
 
   describe('includeBearerTokenInApiGetUrls=true', () => {
-    ConfigPkg.default = new Map({ includeBearerTokenInApiGetUrls: true });
-    const { fetch } = require('./');
+    let fetch;
 
-    it('calls isomorphicFetch with the expected parameters (non-https)', () => {
+    beforeEach(() => {
+      mockConfig({ includeBearerTokenInApiGetUrls: true });
+      fetch = require('./').fetch;
+    });
+
+    test('calls isomorphicFetch with the expected parameters (non-https)', () => {
       fetch('http://domain/somePath');
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['http://domain/somePath', {
@@ -56,7 +65,7 @@ describe('#fetch', () => {
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters', () => {
+    test('calls isomorphicFetch with the expected parameters', () => {
       fetch('https://domain/somePath');
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['https://domain/somePath?bearer_token=TOKEN', {
@@ -66,7 +75,7 @@ describe('#fetch', () => {
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (same scheme)', () => {
+    test('calls isomorphicFetch with the expected parameters (same scheme)', () => {
       fetch('//domain/somePath');
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
@@ -76,7 +85,7 @@ describe('#fetch', () => {
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (PUT)', () => {
+    test('calls isomorphicFetch with the expected parameters (PUT)', () => {
       fetch('//domain/somePath', { method: 'PUT' });
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
@@ -88,7 +97,7 @@ describe('#fetch', () => {
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (custom headers)', () => {
+    test('calls isomorphicFetch with the expected parameters (custom headers)', () => {
       fetch('//domain/somePath', { headers: { 'X-Custom-Header': 'Content' } });
       expect(isomorphicFetch).toHaveBeenCalled();
       expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
