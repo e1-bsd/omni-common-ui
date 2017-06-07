@@ -46,12 +46,12 @@ export default class NumberInput extends PureComponent {
   }
 
   _onUpArrowClicked() {
-    this._setNewValue((this._value || this._defaultValue) + 1);
+    this._setNewValue(this._getValidNumber(this._value, this._defaultValue) + 1);
     this._focusOnInput();
   }
 
   _onDownArrowClicked() {
-    this._setNewValue((this._value || this._defaultValue) - 1);
+    this._setNewValue(this._getValidNumber(this._value, this._defaultValue) - 1);
     this._focusOnInput();
   }
 
@@ -105,7 +105,14 @@ export default class NumberInput extends PureComponent {
     this._input = c;
   }
 
+  _getValidNumber(...values) {
+    const validNumber = values.find((value) => is.number(value));
+    if (is.not.number(validNumber)) return '';
+    return validNumber;
+  }
+
   render() {
+    const inputValue = this._getValidNumber(this._value, this._defaultValue);
     const classes = classnames(styles.NumberInput_inputContainer,
         this.props.className,
         { [styles.__focused]: this.state.focused });
@@ -119,7 +126,7 @@ export default class NumberInput extends PureComponent {
       <div className={classes}>
         <input className={styles.NumberInput_inputContainer_input}
             type="text"
-            value={this._value || this._defaultValue || ''}
+            value={inputValue}
             disabled={this.props.readonly || this.props.disabled}
             onChange={this._onValueChanged}
             onFocus={this._onFocus}
