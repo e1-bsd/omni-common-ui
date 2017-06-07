@@ -1,4 +1,4 @@
-require('./bootstrap.css');
+import 'rc-tooltip/assets/bootstrap.css';
 
 import styles from './style.postcss';
 
