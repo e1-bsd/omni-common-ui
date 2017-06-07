@@ -197,6 +197,9 @@
     "node": ">=6.6.0"
   },
   "jest": {
+    "setupFiles": [
+      "./__mocks__/fetchMock.js"
+    ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
