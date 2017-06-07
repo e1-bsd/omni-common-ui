@@ -1,5 +1,15 @@
+@import 'main.postcss';
+
 .Tooltip {
   &_bubble {
     max-width: 300px;
+
+    & :global .rc-tooltip-inner {
+      box-shadow: 0 5px 10px 3px #0003;
+      font-weight: var(--fontWeight-medium);
+      letter-spacing: 1px;
+      padding: 10px;
+      white-space: pre-line;
+    }
   }
 }

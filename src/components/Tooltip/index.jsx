@@ -1,4 +1,4 @@
-import 'rc-tooltip/assets/bootstrap.css';
+require('./bootstrap.css');
 
 import styles from './style.postcss';
 
@@ -25,7 +25,8 @@ const Tooltip = (props) => {
   return <RcTooltip placement={placement}
       trigger={trigger}
       destroyPopupOnHide
-      overlay={<div className={overlayClassName}>{props.text}</div>}>
+      overlay={<div>{props.text}</div>}
+      overlayClassName={overlayClassName}>
     <div className={props.className}>{props.children}</div>
   </RcTooltip>;
 };
