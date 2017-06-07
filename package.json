@@ -213,6 +213,7 @@
     "testRegex": "src/.+\\.?(test|spec)\\.(js|jsx)$",
     "moduleFileExtensions": [
       "js",
+      "jsx",
       "json"
     ],
     "globals": {
