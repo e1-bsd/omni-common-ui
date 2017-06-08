@@ -198,7 +198,8 @@
   },
   "jest": {
     "setupFiles": [
-      "./__mocks__/fetchMock.js"
+      "./__mocks__/fetchMock.js",
+      "./__mocks__/iconListMock.js"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
@@ -207,7 +208,7 @@
       "src/index.tsx"
     ],
     "moduleNameMapper": {
-      "^.+\\.postcss$": "identity-obj-proxy"
+      "^.+\\.(css|postcss)$": "identity-obj-proxy"
     },
     "transform": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
