@@ -1,4 +1,4 @@
-jest.mock('./userManager', () => null);
+jest.mock('./userManager');
 jest.mock('./SingleSignOnHandler');
 jest.mock('redux-oidc', () => jest.fn());
 jest.mock('domain/Config');

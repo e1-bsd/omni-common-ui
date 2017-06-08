@@ -1,70 +1,64 @@
 import React from 'react';
-import Sinon from 'sinon';
 import { mount } from 'enzyme';
 import userManager from './userManager';
 import Config from 'domain/Config';
 import IdleTimeoutHandler from './IdleTimeoutHandler';
 
 jest.mock('domain/Config');
-jest.mock('./userManager', () => ({ forceSignoutRedirect: jest.fn() }));
-
-let signoutRedirect;
+jest.mock('./userManager');
 
 const mountComponent = () => mount(<IdleTimeoutHandler><div id="inner" /></IdleTimeoutHandler>);
 
 beforeEach(() => {
-  signoutRedirect = Sinon.stub(userManager, 'signoutRedirect');
-  signoutRedirect.returns();
-  Config.merge({ autoSignOutTimeout: false });
+  jest.resetAllMocks();
+  jest.useFakeTimers();
 });
 
 afterEach(() => {
-  signoutRedirect.restore();
+  jest.clearAllTimers();
 });
 
 describe('when autoSignOutTimeout is false', () => {
-  test('does not call userManager.signoutRedirect()', function test(done) {
-    this.timeout(5000);
+  beforeEach(() => {
+    Config.merge({ autoSignOutTimeout: false });
+  });
+
+  test('does not call userManager.forceSignoutRedirect()', () => {
     mountComponent();
-    setTimeout(() => {
-      expect(signoutRedirect.called).toBe(false);
-      done();
-    }, 2000);
+    jest.runAllTimers();
+    expect(userManager.forceSignoutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {
     const wrapper = mountComponent();
-    expect(wrapper).to.have.descendants('#inner');
+    expect(wrapper.find('#inner')).toHaveLength(1);
   });
 });
 
 describe('when autoSignOutTimeout is a number', () => {
+  const autoSignOutTimeout = 1;
   beforeEach(() => {
-    Config.merge({ autoSignOutTimeout: 2 });
+    Config.merge({ autoSignOutTimeout });
   });
 
-  test('calls userManager.signoutRedirect() after the seconds set in autoSignOutTimeout', function test(done) {
-    this.timeout(5000);
+  test('calls userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout', () => {
     mountComponent();
-    setTimeout(() => {
-      expect(signoutRedirect.called).toBe(true);
-      done();
-    }, 2000);
+    jest.runAllTimers();
+    expect(userManager.forceSignoutRedirect).toHaveBeenCalled();
   });
 
-  test('does not call userManager.signoutRedirect() after the seconds set in autoSignOutTimeout ' +
-      'if there are some user interactions happening', function test(done) {
-    this.timeout(5000);
+  test('does not call userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout ' +
+      'if there are some user interactions happening', () => {
+    const halfTimeoutTime = (autoSignOutTimeout * 1000) / 2;
     mountComponent();
-    setTimeout(() => window.document.dispatchEvent(new Event('click')), 1000);
-    setTimeout(() => {
-      expect(signoutRedirect.called).toBe(false);
-      done();
-    }, 2000);
+    jest.runTimersToTime(halfTimeoutTime);
+    window.document.dispatchEvent(new Event('click'));
+    jest.runTimersToTime(halfTimeoutTime);
+    expect(userManager.forceSignoutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {
     const wrapper = mountComponent();
-    expect(wrapper).to.have.descendants('#inner');
+    expect(wrapper.find('#inner')).toHaveLength(1);
   });
 });
