@@ -1,102 +1,105 @@
 import React from 'react';
-import Sinon from 'sinon';
 import { mount } from 'enzyme';
-import userManager from './userManager';
-import * as ConfigPkg from 'domain/Config';
-import { Map } from 'immutable';
 
-jest.mock('./userManager', () => 'userManager');
+jest.mock('./userManager');
+jest.mock('domain/Config');
+
+global.sessionStorage = {};
 
 let props;
-let signinRedirect;
+let userManager;
 let SingleSignOnHandler;
 
 const mountComponent = () => mount(<SingleSignOnHandler {...props}>
   <div id="inner" />
 </SingleSignOnHandler>);
 
-describe('when featureLogin is false', () => {
-  ConfigPkg.default = new Map({ featureLogin: false });
-  SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
-
-  beforeEach(() => {
-    signinRedirect = Sinon.stub(userManager, 'signinRedirectWithValidation');
-    signinRedirect.returns();
-    props = {
-      fetchPrivilegesIfNeeded: Sinon.spy(),
-      user: {
-        expired: false,
-        profile: {
-          sub: '123',
-        },
+beforeEach(() => {
+  props = {
+    fetchPrivilegesIfNeeded: jest.fn(),
+    user: {
+      expired: false,
+      profile: {
+        sub: '123',
       },
-    };
-  });
-
-  afterEach(() => {
-    signinRedirect.restore();
-  });
-
-  describe('when featureLogin is false', () => {
-    test('does not call userManager.signinRedirect() even if the user is not valid', () => {
-      props.user = null;
-      mountComponent();
-      expect(signinRedirect.called).toBe(false);
-    });
-
-    test('does not call userManager.signinRedirect() even if the user is expired', () => {
-      props.user.expired = true;
-      mountComponent();
-      expect(signinRedirect.called).toBe(false);
-    });
-
-    test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
-      mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).toBe(false);
-    });
-
-    test('renders its children if the user is fine', () => {
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
-
-    test('renders its children even if the user is not valid', () => {
-      props.user = null;
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
-  });
+    },
+  };
 });
 
-describe('when featureLogin is true', () => {
-  ConfigPkg.default = new Map({ featureLogin: true });
-  SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
+describe('when featureLogin is false', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    const Config = require('domain/Config');
+    userManager = require('./userManager');
 
-  test('calls userManager.signinRedirect() if the user is not valid', () => {
+    Config.merge({ featureLogin: false });
+    SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
+  });
+
+  test('does not call userManager.signinRedirect() even if the user is not valid', () => {
     props.user = null;
     mountComponent();
-    expect(signinRedirect.called).toBe(true);
+    expect(userManager.signinRedirect).not.toHaveBeenCalled();
   });
 
-  test('calls userManager.signinRedirect() if the user is expired', () => {
+  test('does not call userManager.signinRedirect() even if the user is expired', () => {
     props.user.expired = true;
     mountComponent();
-    expect(signinRedirect.called).toBe(true);
+    expect(userManager.signinRedirect).not.toHaveBeenCalled();
   });
 
-  test('calls fetchPrivilegesIfNeeded if the user is fine', () => {
+  test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
     mountComponent();
-    expect(props.fetchPrivilegesIfNeeded.called).toBe(true);
+    expect(props.fetchPrivilegesIfNeeded).not.toHaveBeenCalled();
   });
 
   test('renders its children if the user is fine', () => {
     const wrapper = mountComponent();
-    expect(wrapper).to.have.descendants('#inner');
+    expect(wrapper.find('#inner')).toHaveLength(1);
+  });
+
+  test('renders its children even if the user is not valid', () => {
+    props.user = null;
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(1);
+  });
+});
+
+describe('when featureLogin is true', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    const Config = require('domain/Config');
+    userManager = require('./userManager');
+
+    Config.merge({ featureLogin: true });
+    SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
+  });
+
+  test('calls userManager.signinRedirectWithValidation() if the user is not valid', () => {
+    props.user = null;
+    mountComponent();
+    expect(userManager.signinRedirectWithValidation).toHaveBeenCalled();
+  });
+
+  test('calls userManager.signinRedirectWithValidation() if the user is expired', () => {
+    props.user.expired = true;
+    mountComponent();
+    expect(userManager.signinRedirectWithValidation).toHaveBeenCalled();
+  });
+
+  test('calls fetchPrivilegesIfNeeded if the user is fine', () => {
+    mountComponent();
+    expect(props.fetchPrivilegesIfNeeded).toHaveBeenCalled();
+  });
+
+  test('renders its children if the user is fine', () => {
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(1);
   });
 
   test('does not render its children if the user is not valid', () => {
     props.user = null;
     const wrapper = mountComponent();
-    expect(wrapper).to.not.have.descendants('#inner');
+    expect(wrapper.find('#inner')).toHaveLength(0);
   });
 });
