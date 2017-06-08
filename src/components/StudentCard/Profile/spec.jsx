@@ -7,8 +7,6 @@ import { shallow } from 'enzyme';
 import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
-jest.mock('domain/Config');
-
 test('renders a StudentPicture with the given attributes', () => {
   const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
   const containsPicture = wrapper.contains(<StudentPicture src="url"

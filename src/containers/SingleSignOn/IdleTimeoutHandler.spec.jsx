@@ -4,7 +4,6 @@ import userManager from './userManager';
 import Config from 'domain/Config';
 import IdleTimeoutHandler from './IdleTimeoutHandler';
 
-jest.mock('domain/Config');
 jest.mock('./userManager');
 
 const mountComponent = () => mount(<IdleTimeoutHandler><div id="inner" /></IdleTimeoutHandler>);

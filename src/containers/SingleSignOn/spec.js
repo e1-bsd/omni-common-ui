@@ -1,7 +1,6 @@
 jest.mock('./userManager');
 jest.mock('./SingleSignOnHandler');
 jest.mock('redux-oidc', () => jest.fn());
-jest.mock('domain/Config');
 
 let createOidcMiddleware;
 let Config;

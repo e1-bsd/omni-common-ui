@@ -7,8 +7,6 @@ import StudentCard from 'components/StudentCard';
 import Card from 'components/Card';
 import classnames from 'classnames';
 
-jest.mock('domain/Config');
-
 test('renders its children', () => {
   const wrapper = shallow(<StudentCard><div id="innerContent" /></StudentCard>);
   expect(wrapper.contains(<div id="innerContent" />)).toBe(true);

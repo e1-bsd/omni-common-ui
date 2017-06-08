@@ -4,8 +4,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './';
 
-jest.mock('domain/Config');
-
 let props;
 
 beforeEach(() => {

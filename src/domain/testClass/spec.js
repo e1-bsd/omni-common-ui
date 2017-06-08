@@ -1,8 +1,9 @@
-import testClass from './';
+let testClass;
 
-jest.mock('domain/Config', () => {
-  const { Map } = require('immutable');
-  return new Map({ enableTestClasses: true });
+beforeEach(() => {
+  jest.resetModules();
+  require('domain/Config').merge({ enableTestClasses: true });
+  testClass = require('./').default;
 });
 
 test('throws an error if the given class contains unacceptable characters', () => {
