@@ -242,10 +242,12 @@
   }
 
   &_h1 {
+    cursor: default;
     flex: 1 1 0%;
     margin: 3px 0;  /* to compensate for lost padding */
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
     white-space: nowrap;
 
     @mixin fontHeading;
