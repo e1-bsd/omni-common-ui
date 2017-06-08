@@ -1,4 +1,3 @@
-import { Map } from 'immutable';
 import isomorphicFetch from 'isomorphic-fetch';
 
 jest.mock('domain/Store', () => ({
@@ -8,12 +7,8 @@ jest.mock('domain/Store', () => ({
     return { getState: () => new Map({ singleSignOn: { user: { access_token: 'TOKEN' } } }) };
   },
 }));
-
 jest.mock('isomorphic-fetch', () => global.fetch);
-
-function mockConfig(config) {
-  require('domain/Config').default = new Map(config);
-}
+jest.mock('domain/Config');
 
 beforeEach(() => {
   jest.resetModules();
@@ -23,7 +18,7 @@ beforeEach(() => {
 
 describe('#buildUrl', () => {
   test('appends its parameter to Config.apiBase', () => {
-    mockConfig({ apiBase: 'http://host/api' });
+    require('domain/Config').merge({ apiBase: 'http://host/api' });
     const { buildUrl } = require('./');
     expect(buildUrl('/somePath')).toBe('http://host/api/somePath');
   });
@@ -49,7 +44,7 @@ describe('#fetch', () => {
     let fetch;
 
     beforeEach(() => {
-      mockConfig({ includeBearerTokenInApiGetUrls: true });
+      require('domain/Config').merge({ includeBearerTokenInApiGetUrls: true });
       fetch = require('./').fetch;
     });
 
