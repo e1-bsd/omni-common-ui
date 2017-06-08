@@ -3,24 +3,14 @@
 
 const colors = require('colors/safe');
 const { Map } = require('immutable');
-const { auto, parallel, series } = require('async');
+const { auto } = require('async');
 const path = require('path');
 const fs = require('fs');
-const zlib = require('zlib');
 const requireAll = require('require-all');
 const mkdirp = require('mkdirp');
-const mime = require('mime');
 const spawn = require('./spawn');
 
-const GZ_LEVEL = 9;
-const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs are zipped
 const DIST_CONFIGS_PATH = path.resolve('dist-configs');
-const DIST_PATH = path.resolve('dist');
-const DIST_NOGZ_PATH = path.resolve('dist-nogz');
-const DIST_GZ_PATH = path.resolve('dist-gz');
-
-const isZippableFile = (filename) =>
-  ! NOZIP_MIME_TEST.test(mime.lookup(filename));
 
 const configs = new Map(requireAll({
   dirname: path.resolve('config'),
@@ -42,11 +32,7 @@ auto({
     });
   },
   mkDirs: (cb) => {
-    parallel([
-      (_cb) => mkdirp(DIST_CONFIGS_PATH, _cb),
-      (_cb) => mkdirp(DIST_NOGZ_PATH, _cb),
-      (_cb) => mkdirp(DIST_GZ_PATH, _cb),
-    ], cb);
+    mkdirp(DIST_CONFIGS_PATH, cb);
   },
   buildConfigs: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Generate config files');
@@ -82,32 +68,6 @@ auto({
         return;
       }
       cb();
-    });
-  }],
-  distGz: ['buildApp', 'mkDirs', (results, cb) => {
-    console.info('📦  Copying/compressing files');
-    console.info('   (gzipped: dist-gz/, bins: dist-nogz/)');
-
-    const copyAndZipFile = (filename, _cb) => {
-      const input = fs.createReadStream(path.resolve(DIST_PATH, filename));
-      const output = fs.createWriteStream(path.resolve(DIST_GZ_PATH, filename));
-      input.pipe(zlib.createGzip({ level: GZ_LEVEL })).pipe(output);
-      input.on('end', _cb);
-    };
-
-    const copyFile = (filename, _cb) => {
-      const input = fs.createReadStream(path.resolve(DIST_PATH, filename));
-      const output = fs.createWriteStream(path.resolve(DIST_NOGZ_PATH, filename));
-      input.pipe(output);
-      input.on('end', _cb);
-    };
-
-    fs.readdir('dist', (err, filenames) => {
-      series(filenames.map((filename) =>  // eslint-disable-line
-        isZippableFile(filename) ?
-          copyAndZipFile.bind(null, filename) :
-          copyFile.bind(null, filename)
-      , cb));
     });
   }],
 }, (err) => {
