@@ -2,8 +2,6 @@ import { Map, List } from 'immutable';
 import Config from 'domain/Config';
 import PrivilegeChecker from './';
 
-jest.mock('domain/Config');
-
 let state;
 
 beforeEach(() => {

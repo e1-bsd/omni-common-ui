@@ -8,7 +8,6 @@ jest.mock('domain/Store', () => ({
   },
 }));
 jest.mock('isomorphic-fetch', () => global.fetch);
-jest.mock('domain/Config');
 
 beforeEach(() => {
   jest.resetModules();

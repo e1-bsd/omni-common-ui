@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 jest.mock('./userManager');
-jest.mock('domain/Config');
 
 global.sessionStorage = {};
 
