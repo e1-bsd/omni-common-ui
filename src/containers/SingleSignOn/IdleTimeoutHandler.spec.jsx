@@ -27,7 +27,7 @@ describe('<IdleTimeoutHandler />', () => {
   });
 
   describe('when autoSignOutTimeout is false', () => {
-    it('does not call userManager.signoutRedirect()', function test(done) {
+    test('does not call userManager.signoutRedirect()', function test(done) {
       this.timeout(5000);
       mountComponent();
       setTimeout(() => {
@@ -36,7 +36,7 @@ describe('<IdleTimeoutHandler />', () => {
       }, 2000);
     });
 
-    it('renders its children', () => {
+    test('renders its children', () => {
       const wrapper = mountComponent();
       expect(wrapper).to.have.descendants('#inner');
     });
@@ -47,7 +47,7 @@ describe('<IdleTimeoutHandler />', () => {
       IdleTimeoutHandler = requireComponent({ autoSignOutTimeout: 2 });
     });
 
-    it('calls userManager.signoutRedirect() after the seconds set in autoSignOutTimeout', function test(done) {
+    test('calls userManager.signoutRedirect() after the seconds set in autoSignOutTimeout', function test(done) {
       this.timeout(5000);
       mountComponent();
       setTimeout(() => {
@@ -56,7 +56,7 @@ describe('<IdleTimeoutHandler />', () => {
       }, 2000);
     });
 
-    it('does not call userManager.signoutRedirect() after the seconds set in autoSignOutTimeout ' +
+    test('does not call userManager.signoutRedirect() after the seconds set in autoSignOutTimeout ' +
         'if there are some user interactions happening', function test(done) {
       this.timeout(5000);
       mountComponent();
@@ -67,7 +67,7 @@ describe('<IdleTimeoutHandler />', () => {
       }, 2000);
     });
 
-    it('renders its children', () => {
+    test('renders its children', () => {
       const wrapper = mountComponent();
       expect(wrapper).to.have.descendants('#inner');
     });

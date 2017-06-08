@@ -2,23 +2,23 @@ import { Type, validateType } from './type';
 
 describe('Button', () => {
   describe('validateType', () => {
-    it('accepts default', () => {
+    test('accepts default', () => {
       expect(validateType(Type.default)).toBe(true);
     });
 
-    it('accepts primary', () => {
+    test('accepts primary', () => {
       expect(validateType(Type.primary)).toBe(true);
     });
 
-    it('accepts defaultInverse', () => {
+    test('accepts defaultInverse', () => {
       expect(validateType(Type.defaultInverse)).toBe(true);
     });
 
-    it('accepts primaryInverse', () => {
+    test('accepts primaryInverse', () => {
       expect(validateType(Type.primaryInverse)).toBe(true);
     });
 
-    it('throws error if invalid type is passed', () => {
+    test('throws error if invalid type is passed', () => {
       expect(() => validateType('faketype')).toThrowError();
     });
   });

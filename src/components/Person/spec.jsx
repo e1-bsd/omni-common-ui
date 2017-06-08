@@ -7,17 +7,17 @@ import AdultPicture from 'components/AdultPicture';
 import Person from './';
 
 describe('<Person />', () => {
-  it('renders StudentPicture if provided', () => {
+  test('renders StudentPicture if provided', () => {
     const wrapper = shallow(<Person><StudentPicture /></Person>);
     expect(wrapper.find(StudentPicture)).toHaveLength(1);
   });
 
-  it('renders AdultPicture if provided', () => {
+  test('renders AdultPicture if provided', () => {
     const wrapper = shallow(<Person><AdultPicture /></Person>);
     expect(wrapper.find(AdultPicture)).toHaveLength(1);
   });
 
-  it('renders only the first picture provided', () => {
+  test('renders only the first picture provided', () => {
     const wrapper = shallow(<Person>
       <AdultPicture />
       <AdultPicture />
@@ -27,7 +27,7 @@ describe('<Person />', () => {
     expect(wrapper.find(StudentPicture)).toHaveLength(0);
   });
 
-  it('renders all the other children as "lines"', () => {
+  test('renders all the other children as "lines"', () => {
     const wrapper = shallow(<Person>
       <AdultPicture />
       <div id="line-1" />

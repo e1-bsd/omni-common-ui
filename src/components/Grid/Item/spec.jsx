@@ -18,22 +18,22 @@ describe('Grid', () => {
   });
 
   describe('Item', () => {
-    it('renders its children', () => {
+    test('renders its children', () => {
       const wrapper = shallow(<Item><div id="innerContent" /></Item>, options);
       expect(wrapper.contains(<div id="innerContent" />)).toBe(true);
     });
 
-    it('uses col-xs-12 if no configuration is provided', () => {
+    test('uses col-xs-12 if no configuration is provided', () => {
       const wrapper = shallow(<Item />, options);
       expect(wrapper.hasClass(grid['col-xs-12'])).toBe(true);
     });
 
-    it('uses col-xs-12 if no xs configuration is provided', () => {
+    test('uses col-xs-12 if no xs configuration is provided', () => {
       const wrapper = shallow(<Item md={2} />, options);
       expect(wrapper.hasClass(grid['col-xs-12'])).toBe(true);
     });
 
-    it('applies the classes according to the properties it is passed', () => {
+    test('applies the classes according to the properties it is passed', () => {
       const wrapper = shallow(<Item xs={12} sm={6} md={4} lg={3} />, options);
       expect(wrapper.hasClass(grid['col-xs-12'])).toBe(true);
       expect(wrapper.hasClass(grid['col-sm-6'])).toBe(true);

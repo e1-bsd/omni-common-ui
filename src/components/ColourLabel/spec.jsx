@@ -7,14 +7,14 @@ import { ColourLabel } from './';
 
 describe('<ColourLabel />', () => {
   describe('when neither initial nor text is provided', () => {
-    it('renders nothing', () => {
+    test('renders nothing', () => {
       const wrapper = shallow(<ColourLabel />);
       expect(wrapper).to.be.blank();
     });
   });
 
   describe('when initial is not provided', () => {
-    it('renders a big label with the text', () => {
+    test('renders a big label with the text', () => {
       const wrapper = shallow(<ColourLabel text={'hey'} />);
       expect(wrapper.find(`.${styles.ColourLabel_inner}`)).to.have.text('hey');
     });
@@ -22,7 +22,7 @@ describe('<ColourLabel />', () => {
 
   describe('when initial is provided', () => {
     describe('when text is not provided', () => {
-      it('renders a small label with the initial without any tooltip', () => {
+      test('renders a small label with the initial without any tooltip', () => {
         const wrapper = shallow(<ColourLabel initial={'h'} />);
         expect(wrapper.find(`.${styles.ColourLabel_inner}`)).to.have.text('h');
         expect(wrapper.find(Tooltip)).toHaveLength(0);
@@ -30,7 +30,7 @@ describe('<ColourLabel />', () => {
     });
 
     describe('when text is provided', () => {
-      it('renders a small label with the initial and a tooltip with the text', () => {
+      test('renders a small label with the initial and a tooltip with the text', () => {
         const wrapper = shallow(<ColourLabel initial={'h'} text={'on hold'} />);
         const tooltip = wrapper.find(Tooltip);
         expect(wrapper.find(`.${styles.ColourLabel_inner}`)).to.have.text('h');

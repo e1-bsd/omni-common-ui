@@ -8,19 +8,19 @@ import StudentPicture from 'components/StudentPicture';
 import Profile from './';
 
 describe('StudentCard.Profile', () => {
-  it('renders a StudentPicture with the given attributes', () => {
+  test('renders a StudentPicture with the given attributes', () => {
     const wrapper = shallow(<Profile avatarUrl="url" gender={1} />);
     expect(wrapper).toContain(<StudentPicture src="url"
         gender={1}
         className={styles.StudentCard_profile_image} />);
   });
-  it('renders a bigger StudentPicture with the withBiggerAvatar prop', () => {
+  test('renders a bigger StudentPicture with the withBiggerAvatar prop', () => {
     const wrapper = shallow(<Profile withBiggerAvatar avatarUrl="url" gender={1} />);
     expect(wrapper).toContain(<StudentPicture src="url"
         gender={1}
         className={classnames(styles.StudentCard_profile_image, styles.__bigger)} />);
   });
-  it('renders profile info with the given name', () => {
+  test('renders profile info with the given name', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
       wrapper.find(`.${styles.StudentCard_profile_name}`)
@@ -28,7 +28,7 @@ describe('StudentCard.Profile', () => {
       'John Doe'
     );
   });
-  it('renders profile info with the given surname', () => {
+  test('renders profile info with the given surname', () => {
     const wrapper = shallow(<Profile name="John" surname="Doe" localName="王呆呆" />);
     expect(
       wrapper.find(`.${styles.StudentCard_profile_localName}`)

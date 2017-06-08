@@ -23,15 +23,15 @@ describe('<Breadcrumbs />', () => {
       wrapper = shallow(<Breadcrumbs items={[groupLink, markAttendanceLink]} />);
     });
 
-    it('links has been rendered properly', () => {
+    test('links has been rendered properly', () => {
       expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`)).toHaveLength(2);
     });
 
-    it('back button has been rendered properly', () => {
+    test('back button has been rendered properly', () => {
       expect(wrapper).to.have.descendants(`.${styles.Breadcrumbs_crumb_back}`);
     });
 
-    it('only render the first item as a link', () => {
+    test('only render the first item as a link', () => {
       expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).last().find('span'))
         .to.have.text('mark attendance');
       expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).first().contains(<Link />));

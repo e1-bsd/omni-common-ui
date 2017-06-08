@@ -21,7 +21,7 @@ describe('BreadcrumbsBuilder', () => {
   });
 
   describe('breadcrumb rendering', () => {
-    it('when there are no labelled route segments', () => {
+    test('when there are no labelled route segments', () => {
       props.routes = [{
         path: '/group/1',
       }];
@@ -29,7 +29,7 @@ describe('BreadcrumbsBuilder', () => {
       expect(result).toEqual([]);
     });
 
-    it('when there is one labelled route segment', () => {
+    test('when there is one labelled route segment', () => {
       props.routes = [{
         path: 'group/:groupId',
         breadcrumbLabels: 'Group',
@@ -44,7 +44,7 @@ describe('BreadcrumbsBuilder', () => {
       expect(result).toEqual(expectedItems);
     });
 
-    it('with two items when there are two labelled route segments', () => {
+    test('with two items when there are two labelled route segments', () => {
       props.routes = [{
         path: 'group/:groupId',
         breadcrumbLabels: 'Group',
@@ -69,7 +69,7 @@ describe('BreadcrumbsBuilder', () => {
       expect(result).toEqual(expectedItems);
     });
 
-    it('with more labels than routes when label value(s) are arrays', () => {
+    test('with more labels than routes when label value(s) are arrays', () => {
       props.routes = [{
         path: 'group/:groupId',
         breadcrumbLabels: ['Home', 'Group'],
@@ -97,7 +97,7 @@ describe('BreadcrumbsBuilder', () => {
       expect(result).toEqual(expectedItems);
     });
 
-    it('with labels that are functions', () => {
+    test('with labels that are functions', () => {
       props.params = {
         groupId: '10',
       };
@@ -123,7 +123,7 @@ describe('BreadcrumbsBuilder', () => {
       expect(result).toEqual(expectedItems);
     });
 
-    it('with labels of mixed types containing a full object definition', () => {
+    test('with labels of mixed types containing a full object definition', () => {
       props.params = {
         groupId: '10',
       };

@@ -8,46 +8,46 @@ import Card from 'components/Card';
 import classnames from 'classnames';
 
 describe('StudentCard', () => {
-  it('renders its children', () => {
+  test('renders its children', () => {
     const wrapper = shallow(<StudentCard><div id="innerContent" /></StudentCard>);
     expect(wrapper.contains(<div id="innerContent" />)).toBe(true);
   });
 
-  it('renders a Card descendent', () => {
+  test('renders a Card descendent', () => {
     const wrapper = shallow(<StudentCard />);
     expect(wrapper).to.have.descendants(Card);
   });
 
-  it('adds the borderless prop to Card when borderless prop is provided', () => {
+  test('adds the borderless prop to Card when borderless prop is provided', () => {
     const wrapper = shallow(<StudentCard borderless />);
     expect(wrapper.find(Card).prop('borderless')).toBe(true);
   });
 
-  it('sets the given status accent color class when provided', () => {
+  test('sets the given status accent color class when provided', () => {
     const wrapper = shallow(<StudentCard statusAccentColor="grey" />);
     expect(
       wrapper.find('div')
     ).to.have.prop('className', classnames(styles.StudentCard, styles.__grey));
   });
 
-  it('renders a StudentCard.Profile when provided', () => {
+  test('renders a StudentCard.Profile when provided', () => {
     const wrapper = shallow(<StudentCard><StudentCard.Profile /></StudentCard>);
     expect(wrapper).toContain(<StudentCard.Profile />);
   });
 
-  it('renders a StudentCard.Content when provided', () => {
+  test('renders a StudentCard.Content when provided', () => {
     const wrapper = shallow(<StudentCard><StudentCard.Content /></StudentCard>);
     expect(wrapper).toContain(<StudentCard.Content />);
   });
 
-  it('renders a StudentCard.Profile without separator class by default', () => {
+  test('renders a StudentCard.Profile without separator class by default', () => {
     const wrapper = mount(<StudentCard><StudentCard.Profile /></StudentCard>);
     expect(
       wrapper.find(Card.Content).children()
     ).to.not.have.className(profileStyles.__separated);
   });
 
-  it('renders a StudentCard.Profile with separator class (withSeparatorLine provided)', () => {
+  test('renders a StudentCard.Profile with separator class (withSeparatorLine provided)', () => {
     const wrapper = mount(<StudentCard withSeparatorLine><StudentCard.Profile /></StudentCard>);
     expect(
       wrapper.find(Card.Content).children()

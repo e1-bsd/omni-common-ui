@@ -1,7 +1,7 @@
 import log from './';
 
 describe('log', () => {
-  it('is a class', () => {
+  test('is a class', () => {
     expect(log.prototype).toBeDefined();
   });
 
@@ -11,7 +11,7 @@ describe('log', () => {
   testMethod('warn');
   testMethod('debug');
 
-  it('does not crash if there is no "console"', () => {
+  test('does not crash if there is no "console"', () => {
     const originalConsole = window.console;
     delete window.console;
 
@@ -21,7 +21,7 @@ describe('log', () => {
   });
 
   function testMethod(method) {
-    it(`has a "${method}" method`, () => {
+    test(`has a "${method}" method`, () => {
       expect(typeof log[method]).toBe('function');
     });
   }

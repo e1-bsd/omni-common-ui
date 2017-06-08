@@ -2,7 +2,7 @@ import parseRoutes from './';
 
 describe('parseRoutes()', () => {
   describe('when receiving strange inputs', () => {
-    it('returns the same it receives', () => {
+    test('returns the same it receives', () => {
       expect(parseRoutes(undefined)).toBe(undefined);
       expect(parseRoutes(null)).toBe(null);
       expect(parseRoutes(2)).toBe(2);
@@ -11,7 +11,7 @@ describe('parseRoutes()', () => {
   });
 
   describe('when receiving a route structure with no functions', () => {
-    it('returns the same it receives', () => {
+    test('returns the same it receives', () => {
       const routes = {
         component: 'component 1',
         childRoutes: [
@@ -30,7 +30,7 @@ describe('parseRoutes()', () => {
   });
 
   describe('when receiving a route structure with functions', () => {
-    it('returns the same it receives', () => {
+    test('returns the same it receives', () => {
       const store = { getState: () => 'the state' };
       const routes = ({ getState }) => ({
         component: 'component 1',
@@ -51,7 +51,7 @@ describe('parseRoutes()', () => {
       expect(result.onEnter()).toBe(store.getState());
     });
 
-    it('returns the same it receives', () => {
+    test('returns the same it receives', () => {
       const store = { getState: () => 'the state' };
       const routes = {
         component: 'component 1',

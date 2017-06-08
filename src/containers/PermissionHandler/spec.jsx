@@ -17,7 +17,7 @@ describe('<PermissionHandler />', () => {
         PermissionHandler = doRequire({ featureLogin: false }).PermissionHandler;
       });
 
-      it('renders its children', () => {
+      test('renders its children', () => {
         const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
         expect(wrapper).to.have.descendants('#inner');
       });
@@ -28,26 +28,26 @@ describe('<PermissionHandler />', () => {
         PermissionHandler = doRequire({ featureLogin: true }).PermissionHandler;
       });
 
-      it('does nothing if no route is provided', () => {
+      test('does nothing if no route is provided', () => {
         const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
           <div id="inner" />
         </PermissionHandler>);
         expect(wrapper).toContain(<div id="inner" />);
       });
 
-      it('renders nothing if privileges have not been loaded', () => {
+      test('renders nothing if privileges have not been loaded', () => {
         const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
           <div id="inner" />
         </PermissionHandler>);
         expect(Object.keys(wrapper)).toHaveLength(0);
       });
 
-      it('throws if permissionChecks.canAccess is not a function', () => {
+      test('throws if permissionChecks.canAccess is not a function', () => {
         expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
             havePrivilegesLoaded={() => true} />)).toThrowError();
       });
 
-      it('calls permissionChecks.canAccess passing all props if it is a function', () => {
+      test('calls permissionChecks.canAccess passing all props if it is a function', () => {
         const canAccess = Sinon.spy();
         const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
         shallow(<PermissionHandler {...props} />);
@@ -55,7 +55,7 @@ describe('<PermissionHandler />', () => {
         expect(canAccess.args[0]).toEqual([props]);
       });
 
-      it('calls canAccess() for all routes until one returns false', () => {
+      test('calls canAccess() for all routes until one returns false', () => {
         const props = {
           permissionChecks: [
             { canAccess: Sinon.stub().returns(true) },
@@ -79,7 +79,7 @@ describe('<PermissionHandler />', () => {
       mapStateToProps = doRequire({ featureLogin: true }).mapStateToProps;
     });
 
-    it('returns permissionChecks as an array with all routes that have a canAccess()', () => {
+    test('returns permissionChecks as an array with all routes that have a canAccess()', () => {
       const permissionChecks1 = { canAccess: () => {} };
       const permissionChecks2 = { canAccess: () => {} };
       const routes = [{}, permissionChecks1, {}, permissionChecks2];
@@ -87,7 +87,7 @@ describe('<PermissionHandler />', () => {
       expect(result.permissionChecks).toEqual([permissionChecks1, permissionChecks2]);
     });
 
-    it('returns permissionChecks as an array with one route ' +
+    test('returns permissionChecks as an array with one route ' +
         'if there is only one that has a canAccess()', () => {
       const permissionChecks1 = { canAccess: () => {} };
       const routes = [{}, permissionChecks1, {}];
@@ -95,13 +95,13 @@ describe('<PermissionHandler />', () => {
       expect(result.permissionChecks).toEqual([permissionChecks1]);
     });
 
-    it('throws if permissionChecks has a canAccess property that is not a function', () => {
+    test('throws if permissionChecks has a canAccess property that is not a function', () => {
       const permissionChecks = { canAccess: '' };
       const routes = [{}, permissionChecks, {}];
       expect(() => mapStateToProps(null, { routes })).toThrowError();
     });
 
-    it('returns permissionChecks as an empty array if no route has canAccess()', () => {
+    test('returns permissionChecks as an empty array if no route has canAccess()', () => {
       expect(mapStateToProps(null, { routes: [{}, {}, {}] }).permissionChecks).toEqual([]);
     });
   });
