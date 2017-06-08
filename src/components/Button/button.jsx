@@ -27,9 +27,8 @@ class Button extends PureComponent {
       if (! this._node) return;
       this._node.classList.add(styles.__active);
       if (ret instanceof Promise) {
-        ret
-        .then(() => { this._unsetActiveClassIfNonActive(); })
-        .catch(() => { this._unsetActiveClassIfNonActive(); });
+        ret.then(() => { this._unsetActiveClassIfNonActive(); })
+            .catch(() => { this._unsetActiveClassIfNonActive(); });
       } else {
         setTimeout(() => {
           this._unsetActiveClassIfNonActive();

@@ -68,28 +68,22 @@ describe('when clicked', () => {
     expect(onClick.called).toBe(true);
   });
 
-  test('sets the .__active class after 100ms', (done) => {
+  test('sets the .__active class after 100ms', () => {
+    jest.useFakeTimers();
+
     const wrapper = mount(<Button onClick={() => {}} />);
     wrapper.simulate('click');
-    setTimeout(() => {
-      expect(wrapper).to.have.descendants(`.${styles.__active}`);
-      done();
-    }, 150);
+    jest.runOnlyPendingTimers();
+
+    expect(wrapper.find(`.${styles.__active}`)).toHaveLength(1);
   });
 
-  test('removes the .__active class when onClick promise is resolved', (done) => {
-    const promise = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 10);
-    });
-    const wrapper = mount(<Button onClick={() => promise}
-        onClickActiveClassAddDelay={0} />);
+  test('removes the .__active class when onClick promise is resolved', () => {
+    const promise = new Promise((resolve) => resolve());
+    const wrapper = mount(<Button onClick={promise} onClickActiveClassAddDelay={0} />);
     wrapper.simulate('click');
-    setTimeout(() => {
-      expect(wrapper.find(`.${styles.__active}`).length).toBe(0);
-      done();
-    }, 50);
+
+    expect(wrapper.find(`.${styles.__active}`)).toHaveLength(0);
   });
 
   test('does not fail if onClick is not provided', () => {
