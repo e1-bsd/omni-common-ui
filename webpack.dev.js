@@ -10,7 +10,10 @@ const isCommon = packageInfo.name === 'omni-common-ui';
 const port = isCommon ? '3000' : '8080';
 
 module.exports = merge.smart(CommonConfig, {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
+  output: {
+    devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',
+  },
   entry: {
     hotLoading: ['react-hot-loader/patch', `webpack-dev-server/client?http://localhost:${port}`, 'webpack/hot/only-dev-server'],
   },
