@@ -1,12 +1,14 @@
 import { Map, List } from 'immutable';
-import * as ConfigPkg from 'domain/Config';
+import Config from 'domain/Config';
 import PrivilegeChecker from './';
+
+jest.mock('domain/Config');
 
 let state;
 
 beforeEach(() => {
   state = new Map({ privileges: { items: new List(['pr1', 'pr2', 'PREFIX_pr3']) } });
-  ConfigPkg.default = new Map({ featureLogin: true });
+  Config.merge({ featureLogin: true });
 });
 
 test('returns false if the privilege is not a string', () => {
@@ -37,7 +39,7 @@ test('returns true if there is a privilege in the list that ends with the provid
 
 describe('when featureLogin is not true', () => {
   beforeEach(() => {
-    ConfigPkg.default = new Map({ featureLogin: false });
+    Config.merge({ featureLogin: false });
   });
 
   test('returns true', () => {
