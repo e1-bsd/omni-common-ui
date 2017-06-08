@@ -201,7 +201,7 @@
   "jest": {
     "setupFiles": [
       "./__mocks__/fetchMock.js",
-      "./__mocks__/iconListMock.js"
+      "./__mocks__/generalMocks.js"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
