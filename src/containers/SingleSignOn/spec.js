@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-
 jest.mock('./userManager', () => null);
 jest.mock('./SingleSignOnHandler');
 jest.mock('redux-oidc', () => jest.fn());

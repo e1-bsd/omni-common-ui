@@ -11,6 +11,7 @@
     "arrow-parens": ["error", "always"],
     "no-plusplus": ["off"],
     "class-methods-use-this": ["off"],
+    "global-require": ["off"],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "import/imports-first": ["off"],
