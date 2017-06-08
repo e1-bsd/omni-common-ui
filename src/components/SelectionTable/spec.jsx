@@ -4,7 +4,7 @@ import PageCard from 'components/PageCard';
 import SelectionTable from './';
 
 describe('<SelectionTable />', () => {
-  it('renders the root Level and title', () => {
+  test('renders the root Level and title', () => {
     const selectionTableTitle = 'Classroom';
     const selectionTable = <SelectionTable title={selectionTableTitle}>
       <SelectionTable.Level label="CN" />
@@ -15,7 +15,7 @@ describe('<SelectionTable />', () => {
     expect(wrapper.find(PageCard.Heading)).to.have.prop('text', selectionTableTitle);
   });
 
-  it('render sub-Level once a level is clicked', () => {
+  test('render sub-Level once a level is clicked', () => {
     const selectionTable = <SelectionTable>
       <SelectionTable.Level label="CN">
         <SelectionTable.Level label="CN-1" />

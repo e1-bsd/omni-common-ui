@@ -11,16 +11,16 @@ describe('ApiCalls', () => {
       state = Map();
     });
 
-    it('does not modify the state if the action is not an Action', () => {
+    test('does not modify the state if the action is not an Action', () => {
       expect(reducer(state, {})).toBe(state);
     });
 
-    it('removes an entry when API_CALL_CLEAN action is received', () => {
+    test('removes an entry when API_CALL_CLEAN action is received', () => {
       state = state.set('key', 'value');
       expect(reducer(state, ApiCall.clean('key')).get('key')).toBeUndefined();
     });
 
-    it('sets the proper map item to loading when received a _REQUEST action', () => {
+    test('sets the proper map item to loading when received a _REQUEST action', () => {
       const action = ApiCall.createAction({
         type: 'FETCH_REQUEST',
         url: 'url',
@@ -37,7 +37,7 @@ describe('ApiCalls', () => {
       expect(value.id).toBe(key);
     });
 
-    it('sets the proper map item to success when received a _SUCCESS action', () => {
+    test('sets the proper map item to success when received a _SUCCESS action', () => {
       const action = ApiCall.createAction({
         type: 'FETCH_SUCCESS',
         url: 'url',
@@ -54,7 +54,7 @@ describe('ApiCalls', () => {
       expect(value.id).toBe(key);
     });
 
-    it('sets the proper map item to error when received a _FAILURE action', () => {
+    test('sets the proper map item to error when received a _FAILURE action', () => {
       const action = ApiCall.createAction({
         type: 'FETCH_FAILURE',
         error: new Error(),

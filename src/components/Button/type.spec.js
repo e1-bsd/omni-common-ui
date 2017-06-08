@@ -2,19 +2,19 @@ import { Type } from './type';
 
 describe('Button', () => {
   describe('Type', () => {
-    it('has default', () => {
+    test('has default', () => {
       expect(Type.default).toBeDefined();
     });
 
-    it('has primary', () => {
+    test('has primary', () => {
       expect(Type.primary).toBeDefined();
     });
 
-    it('has defaultInverse', () => {
+    test('has defaultInverse', () => {
       expect(Type.defaultInverse).toBeDefined();
     });
 
-    it('has primaryInverse', () => {
+    test('has primaryInverse', () => {
       expect(Type.primaryInverse).toBeDefined();
     });
   });

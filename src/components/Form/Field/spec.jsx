@@ -6,21 +6,21 @@ import { Field } from './';
 
 describe('Form', () => {
   describe('Field', () => {
-    it('applies error style if showError returns true', () => {
+    test('applies error style if showError returns true', () => {
       const wrapper = shallow(<Field showError={() => true}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__error}`)).toHaveLength(1);
     });
 
-    it('does not apply error style if showError returns false', () => {
+    test('does not apply error style if showError returns false', () => {
       const wrapper = shallow(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__error}`)).toHaveLength(0);
     });
 
-    it('shows the error message provided by getErrorMessage if showError returns true', () => {
+    test('shows the error message provided by getErrorMessage if showError returns true', () => {
       const errorMessage = 'This is not a valid email';
       const wrapper = shallow(<Field showError={() => true}
           showRequired={() => false}
@@ -28,7 +28,7 @@ describe('Form', () => {
       expect(wrapper.text()).toBe(errorMessage);
     });
 
-    it('does not show the error message provided by getErrorMessage ' +
+    test('does not show the error message provided by getErrorMessage ' +
         'if showError returns false', () => {
       const wrapper = shallow(<Field showError={() => false}
           showRequired={() => false}
@@ -37,28 +37,28 @@ describe('Form', () => {
       expect(wrapper.find(`.${errorClass}`)).toHaveLength(0);
     });
 
-    it('applies required styles if showRequired retuns true', () => {
+    test('applies required styles if showRequired retuns true', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => true}
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__required}`)).toHaveLength(1);
     });
 
-    it('does not apply required styles if showRequired retuns false', () => {
+    test('does not apply required styles if showRequired retuns false', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
       expect(wrapper.find(`.${styles.__required}`)).toHaveLength(0);
     });
 
-    it('does not use a label if useLabel is not provided', () => {
+    test('does not use a label if useLabel is not provided', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''} />);
       expect(wrapper.find('label')).toHaveLength(0);
     });
 
-    it('uses a label if useLabel is provided', () => {
+    test('uses a label if useLabel is provided', () => {
       const wrapper = mount(<Field showError={() => false}
           showRequired={() => false}
           getErrorMessage={() => ''}

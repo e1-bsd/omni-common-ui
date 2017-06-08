@@ -6,7 +6,7 @@ import Form from '../';
 
 describe('Form', () => {
   describe('TextInput', () => {
-    it('works along with Formsy', () => {
+    test('works along with Formsy', () => {
       const wrapper = mount(<Form>
         <Form.TextInput name="email"
             label="Email"

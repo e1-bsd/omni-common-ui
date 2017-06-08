@@ -10,7 +10,7 @@ import { AdultPicture } from './';
 import Avatar from 'components/Avatar';
 
 describe('<AdultPicture />', () => {
-  it('passes properties properly to Avatar', () => {
+  test('passes properties properly to Avatar', () => {
     const wrapper = shallow(<AdultPicture src={testImg} className="aClass" />);
     const avatar = wrapper.find(Avatar);
     expect(avatar).to.have.prop('className', 'aClass');

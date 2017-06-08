@@ -29,15 +29,15 @@ describe('<Sidebar />', () => {
     };
   });
 
-  it('renders nothing if no items available', () => {
+  test('renders nothing if no items available', () => {
     expect(shallow(<Sidebar />)).toHaveLength(0);
   });
 
-  it('renders collapsed view by default', () => {
+  test('renders collapsed view by default', () => {
     expect(mount(<Sidebar {...props} />)).to.not.have.descendants(`.${styles.Sidebar_expanded}`);
   });
 
-  it('calls onExpand when clicking on it', () => {
+  test('calls onExpand when clicking on it', () => {
     const wrapper = mount(<Sidebar {...props} />);
     wrapper.simulate('click');
     expect(onExpand.called).toBe(true);
@@ -54,12 +54,12 @@ describe('<Sidebar />', () => {
       props.expanded = true;
     });
 
-    it('renders as expanded', () => {
+    test('renders as expanded', () => {
       const wrapper = mount(<Sidebar {...props} />);
       expect(wrapper).to.have.descendants(`.${styles.Sidebar_expanded}`);
     });
 
-    it('renders items', () => {
+    test('renders items', () => {
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
       expect(items).toHaveLength(3);
@@ -68,19 +68,19 @@ describe('<Sidebar />', () => {
       expect(items.at(2)).to.have.text('Current path');
     });
 
-    it('calls onCollapse if the user clicks outside', () => {
+    test('calls onCollapse if the user clicks outside', () => {
       mountAndClick();
       document.body.dispatchEvent(new Event('click'));
       expect(onCollapse.called).toBe(true);
     });
 
-    it('calls onCollapse if the user taps outside', () => {
+    test('calls onCollapse if the user taps outside', () => {
       mountAndClick();
       document.body.dispatchEvent(new Event('touchstart'));
       expect(onCollapse.called).toBe(true);
     });
 
-    it('allows deeper routes to override configuration', () => {
+    test('allows deeper routes to override configuration', () => {
       props.routes.push({ sidebar: { '/link/1': { text: 'My link' } } });
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
@@ -88,7 +88,7 @@ describe('<Sidebar />', () => {
       expect(items.at(0)).to.have.text('My link');
     });
 
-    it('allows deeper routes to remove an item', () => {
+    test('allows deeper routes to remove an item', () => {
       props.routes.push({ sidebar: { '/link/1': undefined } });
       const wrapper = mountAndClick();
       const items = wrapper.find(`.${styles.Sidebar_item}`);
@@ -96,7 +96,7 @@ describe('<Sidebar />', () => {
       expect(items.at(0)).to.have.text('Link 2');
     });
 
-    it('renders items according to their order property', () => {
+    test('renders items according to their order property', () => {
       props.routes[0].sidebar['/link/1'].order = 3;
       props.routes[0].sidebar['/link/2'].order = 1;
       props.routes[0].sidebar['/current/path'].order = 2;

@@ -6,23 +6,23 @@ import { Map } from 'immutable';
 import Sinon from 'sinon';
 
 describe('ApiCall', () => {
-  it('exposes API_CALL_CLEAN action type', () => {
+  test('exposes API_CALL_CLEAN action type', () => {
     expect(ApiCall.API_CALL_CLEAN).toBe('API_CALL_CLEAN');
   });
 
-  it('exposes ApiKey as Key', () => {
+  test('exposes ApiKey as Key', () => {
     expect(ApiCall.Key).toBe(_ApiKey);
   });
 
-  it('exposes ApiAction as Action', () => {
+  test('exposes ApiAction as Action', () => {
     expect(ApiCall.Action).toBe(_ApiAction);
   });
 
-  it('exposes ApiState as State', () => {
+  test('exposes ApiState as State', () => {
     expect(ApiCall.State).toBe(_ApiState);
   });
 
-  it('does not allow to reassign its inner classes', () => {
+  test('does not allow to reassign its inner classes', () => {
     expect(() => { ApiCall.State = {}; }).toThrowError();
     expect(() => { ApiCall.Action = {}; }).toThrowError();
     expect(() => { ApiCall.Key = {}; }).toThrowError();
@@ -40,12 +40,12 @@ describe('ApiCall', () => {
       }),
     });
 
-    it('returns the state for the API call with the provided key', () => {
+    test('returns the state for the API call with the provided key', () => {
       const key = ApiCall.Key.create({ method: 'GET', url: '/path/1' });
       expect(ApiCall.find(state, key)).toBe(call1);
     });
 
-    it('builds the key by itself if provided an object', () => {
+    test('builds the key by itself if provided an object', () => {
       expect(ApiCall.find(state, { method: 'POST', url: '/path/1' })).toBe(call2);
     });
   });
@@ -63,7 +63,7 @@ describe('ApiCall', () => {
       }),
     });
 
-    it('returns whether an API call should be performed or not', () => {
+    test('returns whether an API call should be performed or not', () => {
       expect(ApiCall.shouldPerform(state, 'GET /path/1')).toBe(false);
       expect(ApiCall.shouldPerform(state, 'POST /path/1')).toBe(false);
       expect(ApiCall.shouldPerform(state, 'GET /path/2')).toBe(false);
@@ -71,7 +71,7 @@ describe('ApiCall', () => {
       expect(ApiCall.shouldPerform(state, 'GET /new/path')).toBe(true);
     });
 
-    it('builds the key by itself if provided an object', () => {
+    test('builds the key by itself if provided an object', () => {
       expect(ApiCall.shouldPerform(state, { method: 'POST', url: '/path/1' })).toBe(false);
     });
   });
@@ -83,7 +83,7 @@ describe('ApiCall', () => {
       ApiCall.Action.create = originalCreate;
     });
 
-    it('calls ApiCall.Action.create()', () => {
+    test('calls ApiCall.Action.create()', () => {
       ApiCall.Action.create = Sinon.spy();
       const originalAction = { type: 'CALL_REQUEST', url: '/path', method: 'GET' };
       ApiCall.createAction(originalAction);
@@ -92,7 +92,7 @@ describe('ApiCall', () => {
   });
 
   describe('#clean()', () => {
-    it('returns an action of API_CALL_CLEAN type with the passed key', () => {
+    test('returns an action of API_CALL_CLEAN type with the passed key', () => {
       const action = ApiCall.clean('key');
       expect(action.type).toBe(ApiCall.API_CALL_CLEAN);
       expect(action.key).toBe('key');
@@ -109,7 +109,7 @@ describe('ApiCall', () => {
       }),
     });
 
-    it('returns all errored API calls', () => {
+    test('returns all errored API calls', () => {
       const errors = ApiCall.getErrors(state);
       expect(errors.size).toBe(2);
     });

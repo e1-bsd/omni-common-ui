@@ -48,32 +48,32 @@ describe('<ErrorPageHandler />', () => {
       ErrorPageHandler = getComponent();
     });
 
-    it('renders its children if no failed ApiCall.State is received as erroredApi', () => {
+    test('renders its children if no failed ApiCall.State is received as erroredApi', () => {
       props.erroredApis = new List();
       props.erroredApi = undefined;
       const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
       expect(wrapper).to.have.descendants('#inner');
     });
 
-    it('renders the error page if a failed ApiCall.State is received as erroredApi and has no response', () => {
+    test('renders the error page if a failed ApiCall.State is received as erroredApi and has no response', () => {
       const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
       expect(wrapper).to.have.descendants(ErrorPage);
       expect(wrapper).to.not.have.descendants('#inner');
     });
 
     describe('when location.pathname changes, API errors are auto-cleaned', () => {
-      it('does not call clean() on mount', () => {
+      test('does not call clean() on mount', () => {
         mount(<ErrorPageHandler {...props} />);
         expect(props.clean.called).toBe(false);
       });
 
-      it('does not call clean() if location.pathname is the same', () => {
+      test('does not call clean() if location.pathname is the same', () => {
         const wrapper = mount(<ErrorPageHandler {...props} />);
         wrapper.setProps({ location: { pathname: '/x/y' } });
         expect(props.clean.called).toBe(false);
       });
 
-      it('calls clean() on location.pathname change', () => {
+      test('calls clean() on location.pathname change', () => {
         const wrapper = mount(<ErrorPageHandler {...props} />);
         wrapper.setProps({ location: { pathname: '/x' } });  // user clicked a nav crumb, for instance
         expect(props.clean.args).toEqual([['id1'], ['id2']]);
@@ -85,14 +85,14 @@ describe('<ErrorPageHandler />', () => {
         ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: true }));
       });
 
-      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
+      test('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
         props = buildProps({ status: 500 });
         const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
         expect(wrapper).to.have.descendants(ErrorPage);
         expect(wrapper).to.not.have.descendants('#inner');
       });
 
-      it('renders the error dialog if a failed ApiCall.State is received as erroredApi ' +
+      test('renders the error dialog if a failed ApiCall.State is received as erroredApi ' +
           'and its code is not 500 and there is an object in the response property', () => {
         props = buildProps({ status: 400, response: {} });
         const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
@@ -100,7 +100,7 @@ describe('<ErrorPageHandler />', () => {
         expect(wrapper).to.have.descendants('#inner');
       });
 
-      it('does not the error dialog if a failed ApiCall.State is received as erroredApi ' +
+      test('does not the error dialog if a failed ApiCall.State is received as erroredApi ' +
           'and its code is not 500 but there is not an object in the response property', () => {
         props = buildProps({ status: 400, response: 'Some string' });
         const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
@@ -114,14 +114,14 @@ describe('<ErrorPageHandler />', () => {
         ErrorPageHandler = getComponent(Map({ errorHandlerRendersPopUps: false }));
       });
 
-      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
+      test('renders the error page if a failed ApiCall.State is received as erroredApi and its code is 500', () => {
         props = buildProps({ status: 500 });
         const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
         expect(wrapper).to.have.descendants(ErrorPage);
         expect(wrapper).to.not.have.descendants('#inner');
       });
 
-      it('renders the error page if a failed ApiCall.State is received as erroredApi and its code is not 500', () => {
+      test('renders the error page if a failed ApiCall.State is received as erroredApi and its code is not 500', () => {
         props = buildProps({ status: 400 });
         const wrapper = mount(<ErrorPageHandler {...props}><div id="inner" /></ErrorPageHandler>);
         expect(wrapper).to.have.descendants(ErrorPage);
@@ -153,22 +153,22 @@ describe('<ErrorPageHandler />', () => {
       };
     });
 
-    it('returns erroredApis as empty List if no API has failed', () => {
+    test('returns erroredApis as empty List if no API has failed', () => {
       const { erroredApis } = mapStateToProps(state, ownProps);
       expect(List.isList(erroredApis)).toBe(true);
       expect(erroredApis.isEmpty()).toBe(true);
     });
 
-    it('returns config as undefined if no route has an errorPage property', () => {
+    test('returns config as undefined if no route has an errorPage property', () => {
       ownProps.routes = [{}, {}, {}];
       expect(mapStateToProps(state, ownProps).config).toBeUndefined();
     });
 
-    it('returns errorPage in the last route with an errorPage property as config', () => {
+    test('returns errorPage in the last route with an errorPage property as config', () => {
       expect(mapStateToProps(state, ownProps).config).toBe(ownProps.routes[2].errorPage);
     });
 
-    it('returns erroredApis with failing a list of ApiCall.State ' +
+    test('returns erroredApis with failing a list of ApiCall.State ' +
         'if they exist in the state', () => {
       const failedCall1 = ApiCall.State.createFailed('GET /my/path', new Error());
       const failedCall2 = ApiCall.State.createFailed('GET /my/path/2', new Error());
@@ -180,7 +180,7 @@ describe('<ErrorPageHandler />', () => {
       expect(mapStateToProps(state, ownProps).erroredApis.get(1)).toBe(failedCall2);
     });
 
-    it('ignores errores APIs if disableDefault=true for them', () => {
+    test('ignores errores APIs if disableDefault=true for them', () => {
       const failedCall1 = ApiCall.State.createFailed('GET /my/path', new Error());
       const failedCall2 = ApiCall.State.createFailed('GET /my/path/2', new Error(), { disableDefault: true });
       state = buildState({

@@ -5,15 +5,15 @@ import { shallow } from 'enzyme';
 import { Content } from './';
 
 describe('Card.Content', () => {
-  it('renders its children', () => {
+  test('renders its children', () => {
     const wrapper = shallow(<Content><div id="innerContent" /></Content>);
     expect(wrapper.contains(<div id="innerContent" />)).toBe(true);
   });
-  it('sets the bottomless padding style when the property is supplied', () => {
+  test('sets the bottomless padding style when the property is supplied', () => {
     const wrapper = shallow(<Content withoutBottomPadding />);
     expect(wrapper).to.have.className(styles.__bottomless);
   });
-  it('does not set the bottomless padding style when the property is omitted', () => {
+  test('does not set the bottomless padding style when the property is omitted', () => {
     const wrapper = shallow(<Content />);
     expect(wrapper).to.not.have.className(styles.__bottomless);
   });

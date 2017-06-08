@@ -12,7 +12,7 @@ describe('Form', () => {
       { value: 'two', label: 'Two', clearableValue: false },
     ];
 
-    it('works along with Formsy', () => {
+    test('works along with Formsy', () => {
       const wrapper = mount(<Form>
         <Form.Select name="required"
             label="required"
@@ -24,7 +24,7 @@ describe('Form', () => {
     });
 
     describe('label prop existence', () => {
-      it('has a Field when there is a label prop present', () => {
+      test('has a Field when there is a label prop present', () => {
         const wrapper = mount(<Form>
           <Form.Select name="labelled"
               label="labelled"
@@ -34,7 +34,7 @@ describe('Form', () => {
         expect(wrapper).to.have.descendants(Field);
       });
 
-      it('does not have a Field when there is no label prop present', () => {
+      test('does not have a Field when there is no label prop present', () => {
         const wrapper = mount(<Form>
           <Form.Select name="labelless"
               value=""

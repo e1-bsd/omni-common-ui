@@ -38,29 +38,29 @@ describe('when featureLogin is false', () => {
   });
 
   describe('when featureLogin is false', () => {
-    it('does not call userManager.signinRedirect() even if the user is not valid', () => {
+    test('does not call userManager.signinRedirect() even if the user is not valid', () => {
       props.user = null;
       mountComponent();
       expect(signinRedirect.called).toBe(false);
     });
 
-    it('does not call userManager.signinRedirect() even if the user is expired', () => {
+    test('does not call userManager.signinRedirect() even if the user is expired', () => {
       props.user.expired = true;
       mountComponent();
       expect(signinRedirect.called).toBe(false);
     });
 
-    it('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
+    test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
       mountComponent();
       expect(props.fetchPrivilegesIfNeeded.called).toBe(false);
     });
 
-    it('renders its children if the user is fine', () => {
+    test('renders its children if the user is fine', () => {
       const wrapper = mountComponent();
       expect(wrapper).to.have.descendants('#inner');
     });
 
-    it('renders its children even if the user is not valid', () => {
+    test('renders its children even if the user is not valid', () => {
       props.user = null;
       const wrapper = mountComponent();
       expect(wrapper).to.have.descendants('#inner');
@@ -72,29 +72,29 @@ describe('when featureLogin is true', () => {
   ConfigPkg.default = new Map({ featureLogin: true });
   SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
 
-  it('calls userManager.signinRedirect() if the user is not valid', () => {
+  test('calls userManager.signinRedirect() if the user is not valid', () => {
     props.user = null;
     mountComponent();
     expect(signinRedirect.called).toBe(true);
   });
 
-  it('calls userManager.signinRedirect() if the user is expired', () => {
+  test('calls userManager.signinRedirect() if the user is expired', () => {
     props.user.expired = true;
     mountComponent();
     expect(signinRedirect.called).toBe(true);
   });
 
-  it('calls fetchPrivilegesIfNeeded if the user is fine', () => {
+  test('calls fetchPrivilegesIfNeeded if the user is fine', () => {
     mountComponent();
     expect(props.fetchPrivilegesIfNeeded.called).toBe(true);
   });
 
-  it('renders its children if the user is fine', () => {
+  test('renders its children if the user is fine', () => {
     const wrapper = mountComponent();
     expect(wrapper).to.have.descendants('#inner');
   });
 
-  it('does not render its children if the user is not valid', () => {
+  test('does not render its children if the user is not valid', () => {
     props.user = null;
     const wrapper = mountComponent();
     expect(wrapper).to.not.have.descendants('#inner');
