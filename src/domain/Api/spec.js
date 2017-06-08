@@ -1,11 +1,9 @@
-/* eslint-disable global-require */
-
 import { Map } from 'immutable';
 import isomorphicFetch from 'isomorphic-fetch';
 
 jest.mock('domain/Store', () => ({
   get: () => {
-    // eslint-disable-next-line global-require, no-shadow
+    // eslint-disable-next-line no-shadow
     const { Map } = require('immutable');
     return { getState: () => new Map({ singleSignOn: { user: { access_token: 'TOKEN' } } }) };
   },

@@ -9,7 +9,7 @@ import { ApiError } from 'domain/Api';
 import is from 'is_js';
 
 const ErrorPage = () => null;
-// eslint-disable-next-line import/no-webpack-loader-syntax, global-require
+// eslint-disable-next-line import/no-webpack-loader-syntax
 const requireComponent = (Config) => require('inject-loader?components/ErrorPage&domain/Config!./')({
   'components/ErrorPage': ErrorPage,
   'domain/Config': _Config.merge(Config),

@@ -1,5 +1,3 @@
-
-/* eslint-disable global-require */
 import testClass from './';
 
 jest.mock('domain/Config', () => {

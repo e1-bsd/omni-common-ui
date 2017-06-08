@@ -7,7 +7,6 @@ import ReactIScrollMock from 'react-iscroll';
 
 jest.mock('iscroll', () => jest.fn());
 jest.mock('react-iscroll', () => {
-  /* eslint-disable global-require */
   const { PureComponent } = require('react');
 
   class Mock extends PureComponent {
