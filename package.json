@@ -223,8 +223,7 @@
       "json"
     ],
     "globals": {
-      "PRODUCTION": true,
-      "__CONFIG__": {}
+      "PRODUCTION": true
     }
   },
   "bin": {
