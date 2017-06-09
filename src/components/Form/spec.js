@@ -4,20 +4,18 @@ import TextInput from './TextInput';
 import Select from './Select';
 import Field from './Field';
 
-describe('Form', () => {
-  test('can be used directly as Form component', () => {
-    expect(FormComponent).toBe(Form);
-  });
+test('can be used directly as Form component', () => {
+  expect(FormComponent).toBe(Form);
+});
 
-  test('has a TextInput property', () => {
-    expect(TextInput).toBe(Form.TextInput);
-  });
+test('has a TextInput property', () => {
+  expect(TextInput).toBe(Form.TextInput);
+});
 
-  test('has a Select property', () => {
-    expect(Select).toBe(Form.Select);
-  });
+test('has a Select property', () => {
+  expect(Select).toBe(Form.Select);
+});
 
-  test('does not expose Field component', () => {
-    expect(Field).not.toBe(Form.Field);
-  });
+test('does not expose Field component', () => {
+  expect(Field).not.toBe(Form.Field);
 });
