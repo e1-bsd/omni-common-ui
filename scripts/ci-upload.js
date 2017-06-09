@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 const AWS = require('aws-sdk');
-const { queue, retry } = require('async');
+const { queue, retryable } = require('async');
 const invariant = require('invariant');
 const path = require('path');
 const fs = require('fs');
@@ -42,7 +42,7 @@ if (! options.env) {
 
 const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
-const UPLOAD_RETRIES = { times: 100, interval: 100 };
+const UPLOAD_RETRIES = { times: 1000, interval: 100 };
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
 const CACHE_CONTROL_INDEX = 'no-cache';  // keep history buffer. http://stackoverflow.com/a/18516720
 const CACHE_CONTROL_OTHERS = 'public, max-age=31536000';  // 1 year
@@ -70,7 +70,7 @@ isProductionEnv &&
     console.log(`This production build will use ${compressionAlgo}, which is slower to compress!\n`);
 
 const copyQueue = queue(copyWorker, QUEUE_CONCURRENCY);
-const uploadQueue = queue(uploadWorker, QUEUE_CONCURRENCY);
+const uploadQueue = queue(retryable(UPLOAD_RETRIES, uploadWorker), QUEUE_CONCURRENCY);
 const absoluteFolder = path.resolve('dist');
 
 const indexCopyTask = {  // index.html comes last
@@ -160,27 +160,25 @@ function uploadWorker(task, callback) {
       console.info(progress(), 'Would upload:', file, details);
       callback();
     } else {
-      retry(UPLOAD_RETRIES, (_callback) => {
-        new AWS.S3().putObject({
-          Bucket: config.bucket,
-          CacheControl: file.endsWith('index.html') ?
-              CACHE_CONTROL_INDEX :
-              CACHE_CONTROL_OTHERS,
-          ContentLength: size,
-          ContentType: mimeType,
-          ContentEncoding: encoding,
-          Key: file,
-          Body: fs.createReadStream(task.path),
-          ACL: 'public-read',
-        }, (_err) => {
-          if (_err) {
-            console.info(progress(), 'Errored, retrying:', file);
-          } else {
-            console.info(progress(), 'Uploaded:', file, details);
-          }
-          _callback(_err);
-        });
-      }, callback);
+      new AWS.S3().putObject({
+        Bucket: config.bucket,
+        CacheControl: file.endsWith('index.html') ?
+            CACHE_CONTROL_INDEX :
+            CACHE_CONTROL_OTHERS,
+        ContentLength: size,
+        ContentType: mimeType,
+        ContentEncoding: encoding,
+        Key: file,
+        Body: fs.createReadStream(task.path),
+        ACL: 'public-read',
+      }, (_err) => {
+        if (_err) {
+          console.info(progress(), 'Errored:', file);
+        } else {
+          console.info(progress(), 'Uploaded:', file, details);
+        }
+        callback(_err);
+      });
     }
   });
 }
