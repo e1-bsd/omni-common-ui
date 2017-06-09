@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 const AWS = require('aws-sdk');
-const { queue } = require('async');
+const { queue, retryable } = require('async');
 const invariant = require('invariant');
 const path = require('path');
 const fs = require('fs');
@@ -42,6 +42,7 @@ if (! options.env) {
 
 const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
+const UPLOAD_RETRIES = { times: 1000, interval: 100 };
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
 const CACHE_CONTROL_INDEX = 'no-cache';  // keep history buffer. http://stackoverflow.com/a/18516720
 const CACHE_CONTROL_OTHERS = 'public, max-age=31536000';  // 1 year
@@ -69,7 +70,7 @@ isProductionEnv &&
     console.log(`This production build will use ${compressionAlgo}, which is slower to compress!\n`);
 
 const copyQueue = queue(copyWorker, QUEUE_CONCURRENCY);
-const uploadQueue = queue(uploadWorker, QUEUE_CONCURRENCY);
+const uploadQueue = queue(retryable(UPLOAD_RETRIES, uploadWorker), QUEUE_CONCURRENCY);
 const absoluteFolder = path.resolve('dist');
 
 const indexCopyTask = {  // index.html comes last
@@ -90,7 +91,7 @@ uploadQueue.drain = () => {
     const compressed = compressedSizeAll / 1000000;
     const savedPerc = 100 - Math.round((compressedSizeAll / originalSizeAll) * 100);
     console.log(
-        `\nAll done.` +
+        '\nAll done.' +
         ` Crunched ${original.toFixed(2)}MB down to ${compressed.toFixed(2)}MB` +
         `, saving ${savedPerc}%.`);
     uploadQueue.drain = () => {};
@@ -171,7 +172,11 @@ function uploadWorker(task, callback) {
         Body: fs.createReadStream(task.path),
         ACL: 'public-read',
       }, (_err) => {
-        console.info(progress(), 'Uploaded:', file, details);
+        if (_err) {
+          console.info(progress(), 'Errored:', file);
+        } else {
+          console.info(progress(), 'Uploaded:', file, details);
+        }
         callback(_err);
       });
     }
