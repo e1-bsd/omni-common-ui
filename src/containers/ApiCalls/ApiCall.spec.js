@@ -3,7 +3,6 @@ import _ApiKey from './ApiKey';
 import _ApiAction from './ApiAction';
 import _ApiState from './ApiState';
 import { Map } from 'immutable';
-import Sinon from 'sinon';
 
 test('exposes API_CALL_CLEAN action type', () => {
   expect(ApiCall.API_CALL_CLEAN).toBe('API_CALL_CLEAN');
@@ -83,10 +82,10 @@ describe('#createAction()', () => {
   });
 
   test('calls ApiCall.Action.create()', () => {
-    ApiCall.Action.create = Sinon.spy();
+    ApiCall.Action.create = jest.fn();
     const originalAction = { type: 'CALL_REQUEST', url: '/path', method: 'GET' };
     ApiCall.createAction(originalAction);
-    expect(ApiCall.Action.create.args[0]).toEqual([originalAction]);
+    expect(ApiCall.Action.create).toHaveBeenCalledWith(originalAction);
   });
 });
 
