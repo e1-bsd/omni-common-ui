@@ -1,27 +1,24 @@
-import _Config from 'domain/Config';
-import Sinon from 'sinon';
-import { expect } from 'chai';
+jest.mock('./userManager');
+jest.mock('./SingleSignOnHandler');
+jest.mock('redux-oidc', () => jest.fn());
 
-describe('SingleSignOn', () => {
-  let createOidcMiddleware;
+let createOidcMiddleware;
+let Config;
 
-  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireMiddleware = (Config) => require('inject-loader?domain/Config&redux-oidc!./')({
-    'domain/Config': _Config.merge(Config),
-    'redux-oidc': createOidcMiddleware,
-  });
+beforeEach(() => {
+  jest.resetModules();
+  createOidcMiddleware = require('redux-oidc');
+  Config = require('domain/Config');
+});
 
-  beforeEach(() => {
-    createOidcMiddleware = Sinon.spy();
-  });
+test('exports the oidc middleware if featureLogin is true', () => {
+  Config.merge({ featureLogin: true });
+  require('./');
+  expect(createOidcMiddleware).toHaveBeenCalledTimes(1);
+});
 
-  it('exports the oidc middleware if featureLogin is true', () => {
-    requireMiddleware({ featureLogin: true });
-    expect(createOidcMiddleware.called).to.be.true;
-  });
-
-  it('exports a fake oidc middleware if featureLogin is not true', () => {
-    requireMiddleware({ featureLogin: false });
-    expect(createOidcMiddleware.called).to.be.false;
-  });
+test('exports a fake oidc middleware if featureLogin is not true', () => {
+  Config.merge({ featureLogin: false });
+  require('./');
+  expect(createOidcMiddleware).not.toHaveBeenCalled();
 });

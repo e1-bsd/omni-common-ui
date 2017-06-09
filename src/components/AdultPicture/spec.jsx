@@ -5,18 +5,15 @@ import defaultAvatarImg from './default-avatar.svg';
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { AdultPicture } from './';
 import Avatar from 'components/Avatar';
 
-describe('<AdultPicture />', () => {
-  it('passes properties properly to Avatar', () => {
-    const wrapper = shallow(<AdultPicture src={testImg} className="aClass" />);
-    const avatar = wrapper.find(Avatar);
-    expect(avatar).to.have.prop('className', 'aClass');
-    expect(avatar).to.have.prop('default', defaultAvatarImg);
-    expect(avatar).to.have.prop('defaultMale', defaultAvatarMaleImg);
-    expect(avatar).to.have.prop('defaultFemale', defaultAvatarFemaleImg);
-    expect(avatar).to.have.prop('src', testImg);
-  });
+test('passes properties properly to Avatar', () => {
+  const wrapper = shallow(<AdultPicture src={testImg} className="aClass" />);
+  const avatar = wrapper.find(Avatar);
+  expect(avatar.prop('className')).toBe('aClass');
+  expect(avatar.prop('default')).toBe(defaultAvatarImg);
+  expect(avatar.prop('defaultMale')).toBe(defaultAvatarMaleImg);
+  expect(avatar.prop('defaultFemale')).toBe(defaultAvatarFemaleImg);
+  expect(avatar.prop('src')).toBe(testImg);
 });

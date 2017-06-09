@@ -1,22 +1,17 @@
-import { expect } from 'chai';
 import { Type } from './type';
 
-describe('Button', () => {
-  describe('Type', () => {
-    it('has default', () => {
-      expect(Type.default).to.exist;
-    });
+test('has default', () => {
+  expect(Type.default).toBeDefined();
+});
 
-    it('has primary', () => {
-      expect(Type.primary).to.exist;
-    });
+test('has primary', () => {
+  expect(Type.primary).toBeDefined();
+});
 
-    it('has defaultInverse', () => {
-      expect(Type.defaultInverse).to.exist;
-    });
+test('has defaultInverse', () => {
+  expect(Type.defaultInverse).toBeDefined();
+});
 
-    it('has primaryInverse', () => {
-      expect(Type.primaryInverse).to.exist;
-    });
-  });
+test('has primaryInverse', () => {
+  expect(Type.primaryInverse).toBeDefined();
 });

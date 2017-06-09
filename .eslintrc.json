@@ -11,6 +11,7 @@
     "arrow-parens": ["error", "always"],
     "no-plusplus": ["off"],
     "class-methods-use-this": ["off"],
+    "global-require": ["off"],
     "import/no-unresolved": ["off"],
     "import/no-extraneous-dependencies": ["off"],
     "import/imports-first": ["off"],
@@ -57,20 +58,13 @@
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "globals": {
     "PRODUCTION": false,
     "VERSION": false,
     "SENTRY_ENV": false,
-    "COMMIT": false,
-    "describe": false,
-    "context": false,
-    "it": false,
-    "beforeEach": false,
-    "afterEach": false,
-    "specify": false,
-    "before": false,
-    "after": false
+    "COMMIT": false
   }
 }

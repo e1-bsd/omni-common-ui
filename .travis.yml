@@ -37,7 +37,7 @@ before_script:
 script:
   - yarn run lint:css
   - yarn run lint:js
-  - yarn run test:once
+  - yarn test -- --coverage
   - yarn run build
 
 after_script:

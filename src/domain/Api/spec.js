@@ -1,85 +1,86 @@
-import { Map } from 'immutable';
-import { expect } from 'chai';
-import Sinon from 'sinon';
+import isomorphicFetch from 'isomorphic-fetch';
 
-describe('Api', () => {
-  let isomorphicFetch;
+jest.mock('domain/Store', () => ({
+  get: () => {
+    // eslint-disable-next-line no-shadow
+    const { Map } = require('immutable');
+    return { getState: () => new Map({ singleSignOn: { user: { access_token: 'TOKEN' } } }) };
+  },
+}));
+jest.mock('isomorphic-fetch', () => global.fetch);
 
-  const importDeps = (config = {}) => {
-    // eslint-disable-next-line global-require,import/no-webpack-loader-syntax
-    const imports = require('inject-loader?isomorphic-fetch&domain/Config&domain/Store!./')({
-      'isomorphic-fetch': isomorphicFetch = Sinon.spy(),
-      'domain/Config': new Map(config),
-      'domain/Store': {
-        get: () => ({
-          getState: () => new Map({ singleSignOn: { user: { access_token: 'TOKEN' } } }),
-        }),
-      },
-    });
-    return {
-      buildUrl: imports.buildUrl,
-      fetch: imports.fetch,
-    };
-  };
+beforeEach(() => {
+  jest.resetModules();
+  isomorphicFetch.resetMocks();
+  isomorphicFetch.mockResponse(JSON.stringify({ foo: 'bar' }), { status: 200 });
+});
 
-  describe('#buildUrl', () => {
-    it('appends its parameter to Config.apiBase', () => {
-      const { buildUrl } = importDeps({ apiBase: 'http://host/api' });
-      expect(buildUrl('/somePath')).to.equal('http://host/api/somePath');
-    });
+describe('#buildUrl', () => {
+  test('appends its parameter to Config.apiBase', () => {
+    require('domain/Config').merge({ apiBase: 'http://host/api' });
+    const { buildUrl } = require('./');
+    expect(buildUrl('/somePath')).toBe('http://host/api/somePath');
   });
+});
 
-  describe('#fetch', () => {
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=undefined)', () => {
-      const { fetch } = importDeps();
-      fetch('https://domain/somePath');
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['https://domain/somePath', {
+describe('#fetch', () => {
+  describe('includeBearerTokenInApiGetUrls=undefined', () => {
+    test('calls isomorphicFetch with the expected parameters', async () => {
+      expect.assertions(2);
+      const { fetch } = require('./');
+      try { await fetch('https://domain/somePath'); } catch (e) { throw e; }
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['https://domain/somePath', {
         headers: {
           Accept: 'application/json; charset=utf-8',
           Authorization: 'Bearer TOKEN',
         },
       }]);
     });
+  });
 
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=true, non-https)', () => {
-      const { fetch } = importDeps({ includeBearerTokenInApiGetUrls: true });
+  describe('includeBearerTokenInApiGetUrls=true', () => {
+    let fetch;
+
+    beforeEach(() => {
+      require('domain/Config').merge({ includeBearerTokenInApiGetUrls: true });
+      fetch = require('./').fetch;
+    });
+
+    test('calls isomorphicFetch with the expected parameters (non-https)', () => {
       fetch('http://domain/somePath');
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['http://domain/somePath', {
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['http://domain/somePath', {
         headers: {
           Accept: 'application/json; charset=utf-8',
         },
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=true)', () => {
-      const { fetch } = importDeps({ includeBearerTokenInApiGetUrls: true });
+    test('calls isomorphicFetch with the expected parameters', () => {
       fetch('https://domain/somePath');
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['https://domain/somePath?bearer_token=TOKEN', {
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['https://domain/somePath?bearer_token=TOKEN', {
         headers: {
           Accept: 'application/json; charset=utf-8',
         },
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=true, same scheme)', () => {
-      const { fetch } = importDeps({ includeBearerTokenInApiGetUrls: true });
+    test('calls isomorphicFetch with the expected parameters (same scheme)', () => {
       fetch('//domain/somePath');
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['//domain/somePath?bearer_token=TOKEN', {
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
         headers: {
           Accept: 'application/json; charset=utf-8',
         },
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=true, PUT)', () => {
-      const { fetch } = importDeps({ includeBearerTokenInApiGetUrls: true });
+    test('calls isomorphicFetch with the expected parameters (PUT)', () => {
       fetch('//domain/somePath', { method: 'PUT' });
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['//domain/somePath?bearer_token=TOKEN', {
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
         method: 'PUT',
         headers: {
           Accept: 'application/json; charset=utf-8',
@@ -88,11 +89,10 @@ describe('Api', () => {
       }]);
     });
 
-    it('calls isomorphicFetch with the expected parameters (includeBearerTokenInApiGetUrls=true, custom headers)', () => {
-      const { fetch } = importDeps({ includeBearerTokenInApiGetUrls: true });
+    test('calls isomorphicFetch with the expected parameters (custom headers)', () => {
       fetch('//domain/somePath', { headers: { 'X-Custom-Header': 'Content' } });
-      expect(isomorphicFetch.called).to.be.true;
-      expect(isomorphicFetch.args[0]).to.eql(['//domain/somePath?bearer_token=TOKEN', {
+      expect(isomorphicFetch).toHaveBeenCalled();
+      expect(isomorphicFetch.mock.calls[0]).toEqual(['//domain/somePath?bearer_token=TOKEN', {
         headers: {
           Accept: 'application/json; charset=utf-8',
           'X-Custom-Header': 'Content',

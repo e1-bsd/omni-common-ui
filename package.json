@@ -4,8 +4,7 @@
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000 --config webpack.dev.js",
     "build": "node node_modules/gulp/bin/gulp.js build",
-    "test:start": "node node_modules/karma/bin/karma start karma.conf.js --no-single-run --browsers Chrome",
-    "test:once": "node node_modules/karma/bin/karma start karma.conf.js --single-run",
+    "test": "jest",
     "watch": "node node_modules/gulp/bin/gulp.js watch",
     "lint:css": "node node_modules/stylelint/bin/stylelint.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
@@ -24,6 +23,7 @@
     "aws-sdk": "^2.65.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-module-resolver": "^2.7.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
@@ -64,6 +64,7 @@
     "handlebars-loader": "^1.5.0",
     "history": "3.2.1",
     "html-webpack-plugin": "e1-bsd/html-webpack-plugin#5a2c99aa91a80e216b183488c1ecc19c20da2fd4",
+    "identity-obj-proxy": "^3.0.0",
     "image-webpack-loader": "^3.3.1",
     "immutable": "3.8.1",
     "immutable-devtools": "0.0.7",
@@ -74,6 +75,8 @@
     "iscroll": "e1-bsd/iscroll#v5.3.3",
     "isomorphic-fetch": "2.2.1",
     "istanbul-instrumenter-loader": "^2.0.0",
+    "jest": "^20.0.4",
+    "jest-fetch-mock": "^1.1.1",
     "jsdom": "^11.0.0",
     "jsrsasign": "^7.2.1",
     "jwt-simple": "^0.5.1",
@@ -194,6 +197,34 @@
   "engines": {
     "node": ">=6.6.0"
   },
+  "jest": {
+    "setupFiles": [
+      "./__mocks__/fetchMock.js",
+      "./__mocks__/generalMocks.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/index.tsx"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|postcss)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(js|jsx)": "babel-jest"
+    },
+    "testRegex": "src/.+\\.?(test|spec)\\.(js|jsx)$",
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "globals": {
+      "PRODUCTION": true
+    }
+  },
   "bin": {
     "omni-build-bins": "./scripts/build-bins.js",
     "omni-start": "./scripts/start.js",
@@ -208,5 +239,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.19.0-dev.1582"
+  "version": "0.19.0-dev.1587"
 }
