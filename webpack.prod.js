@@ -18,7 +18,7 @@ module.exports = merge.smart(CommonConfig, {
       minimize: true,
     }),
     definePlugin({
-      'process.env.NODE_ENV': 'production',
+      'process.env.NODE_ENV': '"production"',
       PRODUCTION: true,
     }),
     htmlPlugin({ PRODUCTION: true }),
