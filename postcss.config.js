@@ -1,5 +1,3 @@
-/* eslint global-require: "off" */
-
 const path = require('path');  // eslint-disable-line
 
 const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require

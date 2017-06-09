@@ -1,19 +1,18 @@
-import { expect } from 'chai';
 import Grid from './';
 import GridComponent from './Grid';
 import GroupComponent from './Group';
 import ItemComponent from './Item';
 
-describe('Grid', () => {
-  it('can be used directly as Grid component', () => {
-    expect(GridComponent).to.equal(Grid);
-  });
+jest.mock('domain/MediaQuery');
 
-  it('has a Group property', () => {
-    expect(GroupComponent).to.equal(Grid.Group);
-  });
+test('can be used directly as Grid component', () => {
+  expect(GridComponent).toBe(Grid);
+});
 
-  it('has a Item property', () => {
-    expect(ItemComponent).to.equal(Grid.Item);
-  });
+test('has a Group property', () => {
+  expect(GroupComponent).toBe(Grid.Group);
+});
+
+test('has a Item property', () => {
+  expect(ItemComponent).toBe(Grid.Item);
 });

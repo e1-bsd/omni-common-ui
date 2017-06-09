@@ -1,38 +1,32 @@
 import styles from './style.postcss';
 import React from 'react';
-import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import { ErrorPage } from './';
 
-describe('<ErrorPageHandler />', () => {
-  describe('<ErrorPage />', () => {
-    let props;
+let props;
 
-    beforeEach(() => {
-      props = {
-        erroredApi: {
-          error: new Error('an error'),
-        },
-      };
-    });
+beforeEach(() => {
+  props = {
+    erroredApi: {
+      error: new Error('an error'),
+    },
+  };
+});
 
-    it('uses the default behaviour if no config is passed', () => {
-      const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_text}`))
-          .to.contain('Omni could not load this page.');
-      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('id', 'warning');
-    });
+test('uses the default behaviour if no config is passed', () => {
+  const wrapper = shallow(<ErrorPage {...props} />);
+  expect(wrapper.find(`.${styles.ErrorPage_text}`).contains('Omni could not load this page.')).toBe(true);
+  expect(wrapper.find(`.${styles.ErrorPage_image}`).prop('id')).toBe('warning');
+});
 
-    it('allows to customise the icon if config.icon is provided', () => {
-      props.config = { icon: () => 'custom-id' };
-      const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_image}`)).to.have.prop('id', 'custom-id');
-    });
+test('allows to customise the icon if config.icon is provided', () => {
+  props.config = { icon: () => 'custom-id' };
+  const wrapper = shallow(<ErrorPage {...props} />);
+  expect(wrapper.find(`.${styles.ErrorPage_image}`).prop('id')).toBe('custom-id');
+});
 
-    it('allows to customise the error message if config.message is provided', () => {
-      props.config = { message: () => 'my custom error' };
-      const wrapper = shallow(<ErrorPage {...props} />);
-      expect(wrapper.find(`.${styles.ErrorPage_text}`)).to.contain('my custom error');
-    });
-  });
+test('allows to customise the error message if config.message is provided', () => {
+  props.config = { message: () => 'my custom error' };
+  const wrapper = shallow(<ErrorPage {...props} />);
+  expect(wrapper.find(`.${styles.ErrorPage_text}`).contains('my custom error')).toBe(true);
 });

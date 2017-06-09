@@ -1,26 +1,21 @@
-import { expect } from 'chai';
 import { Type, validateType } from './type';
 
-describe('Button', () => {
-  describe('validateType', () => {
-    it('accepts default', () => {
-      expect(validateType(Type.default)).to.be.true;
-    });
+test('accepts default', () => {
+  expect(validateType(Type.default)).toBe(true);
+});
 
-    it('accepts primary', () => {
-      expect(validateType(Type.primary)).to.be.true;
-    });
+test('accepts primary', () => {
+  expect(validateType(Type.primary)).toBe(true);
+});
 
-    it('accepts defaultInverse', () => {
-      expect(validateType(Type.defaultInverse)).to.be.true;
-    });
+test('accepts defaultInverse', () => {
+  expect(validateType(Type.defaultInverse)).toBe(true);
+});
 
-    it('accepts primaryInverse', () => {
-      expect(validateType(Type.primaryInverse)).to.be.true;
-    });
+test('accepts primaryInverse', () => {
+  expect(validateType(Type.primaryInverse)).toBe(true);
+});
 
-    it('throws error if invalid type is passed', () => {
-      expect(() => validateType('faketype')).to.throw();
-    });
-  });
+test('throws error if invalid type is passed', () => {
+  expect(() => validateType('faketype')).toThrowError();
 });

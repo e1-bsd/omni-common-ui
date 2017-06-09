@@ -1,105 +1,104 @@
 import React from 'react';
-import Sinon from 'sinon';
-import { expect } from 'chai';
 import { mount } from 'enzyme';
-import userManager from './userManager';
-import _Config from 'domain/Config';
 
-describe('<SingleSignOnHandler />', () => {
-  let SingleSignOnHandler;
-  let props;
-  let signinRedirect;
+jest.mock('./userManager');
 
-  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const requireComponent = (Config) => require('inject-loader?domain/Config&./userManager!./SingleSignOnHandler')({
-    'domain/Config': _Config.merge(Config),
-    './userManager': userManager,
-  }).SingleSignOnHandler;
+global.sessionStorage = {};
 
-  const mountComponent = () => mount(<SingleSignOnHandler {...props}>
-    <div id="inner" />
-  </SingleSignOnHandler>);
+let props;
+let userManager;
+let SingleSignOnHandler;
 
-  beforeEach(() => {
-    signinRedirect = Sinon.stub(userManager, 'signinRedirectWithValidation');
-    signinRedirect.returns();
-    SingleSignOnHandler = requireComponent({ featureLogin: false });
-    props = {
-      fetchPrivilegesIfNeeded: Sinon.spy(),
-      user: {
-        expired: false,
-        profile: {
-          sub: '123',
-        },
+const mountComponent = () => mount(<SingleSignOnHandler {...props}>
+  <div id="inner" />
+</SingleSignOnHandler>);
+
+beforeEach(() => {
+  props = {
+    fetchPrivilegesIfNeeded: jest.fn(),
+    user: {
+      expired: false,
+      profile: {
+        sub: '123',
       },
-    };
+    },
+  };
+});
+
+describe('when featureLogin is false', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    const Config = require('domain/Config');
+    userManager = require('./userManager');
+
+    Config.merge({ featureLogin: false });
+    SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
   });
 
-  afterEach(() => {
-    signinRedirect.restore();
+  test('does not call userManager.signinRedirect() even if the user is not valid', () => {
+    props.user = null;
+    mountComponent();
+    expect(userManager.signinRedirect).not.toHaveBeenCalled();
   });
 
-  context('when featureLogin is false', () => {
-    it('does not call userManager.signinRedirect() even if the user is not valid', () => {
-      props.user = null;
-      mountComponent();
-      expect(signinRedirect.called).to.be.false;
-    });
-
-    it('does not call userManager.signinRedirect() even if the user is expired', () => {
-      props.user.expired = true;
-      mountComponent();
-      expect(signinRedirect.called).to.be.false;
-    });
-
-    it('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
-      mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).to.be.false;
-    });
-
-    it('renders its children if the user is fine', () => {
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
-
-    it('renders its children even if the user is not valid', () => {
-      props.user = null;
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
+  test('does not call userManager.signinRedirect() even if the user is expired', () => {
+    props.user.expired = true;
+    mountComponent();
+    expect(userManager.signinRedirect).not.toHaveBeenCalled();
   });
 
-  context('when featureLogin is true', () => {
-    beforeEach(() => {
-      SingleSignOnHandler = requireComponent({ featureLogin: true });
-    });
+  test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
+    mountComponent();
+    expect(props.fetchPrivilegesIfNeeded).not.toHaveBeenCalled();
+  });
 
-    it('calls userManager.signinRedirect() if the user is not valid', () => {
-      props.user = null;
-      mountComponent();
-      expect(signinRedirect.called).to.be.true;
-    });
+  test('renders its children if the user is fine', () => {
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(1);
+  });
 
-    it('calls userManager.signinRedirect() if the user is expired', () => {
-      props.user.expired = true;
-      mountComponent();
-      expect(signinRedirect.called).to.be.true;
-    });
+  test('renders its children even if the user is not valid', () => {
+    props.user = null;
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(1);
+  });
+});
 
-    it('calls fetchPrivilegesIfNeeded if the user is fine', () => {
-      mountComponent();
-      expect(props.fetchPrivilegesIfNeeded.called).to.be.true;
-    });
+describe('when featureLogin is true', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    const Config = require('domain/Config');
+    userManager = require('./userManager');
 
-    it('renders its children if the user is fine', () => {
-      const wrapper = mountComponent();
-      expect(wrapper).to.have.descendants('#inner');
-    });
+    Config.merge({ featureLogin: true });
+    SingleSignOnHandler = require('./SingleSignOnHandler').SingleSignOnHandler;
+  });
 
-    it('does not render its children if the user is not valid', () => {
-      props.user = null;
-      const wrapper = mountComponent();
-      expect(wrapper).to.not.have.descendants('#inner');
-    });
+  test('calls userManager.signinRedirectWithValidation() if the user is not valid', () => {
+    props.user = null;
+    mountComponent();
+    expect(userManager.signinRedirectWithValidation).toHaveBeenCalled();
+  });
+
+  test('calls userManager.signinRedirectWithValidation() if the user is expired', () => {
+    props.user.expired = true;
+    mountComponent();
+    expect(userManager.signinRedirectWithValidation).toHaveBeenCalled();
+  });
+
+  test('calls fetchPrivilegesIfNeeded if the user is fine', () => {
+    mountComponent();
+    expect(props.fetchPrivilegesIfNeeded).toHaveBeenCalled();
+  });
+
+  test('renders its children if the user is fine', () => {
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(1);
+  });
+
+  test('does not render its children if the user is not valid', () => {
+    props.user = null;
+    const wrapper = mountComponent();
+    expect(wrapper.find('#inner')).toHaveLength(0);
   });
 });

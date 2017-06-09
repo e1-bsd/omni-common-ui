@@ -1,138 +1,133 @@
-import { expect } from 'chai';
 import ApiState from './ApiState';
 
-describe('ApiCall', () => {
-  describe('ApiState', () => {
-    describe('#createSucceeded()', () => {
-      it('creates a succeeded API call state object', () => {
-        const apiState = ApiState.createSucceeded();
-        expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
-        expect(apiState.status).to.equal('succeeded');
-      });
-    });
+describe('#createSucceeded()', () => {
+  test('creates a succeeded API call state object', () => {
+    const apiState = ApiState.createSucceeded();
+    expect(ApiState.isValue(apiState)).toBe(true);
+    expect(apiState.status).toBe('succeeded');
+  });
+});
 
-    describe('#createLoading()', () => {
-      it('creates a loading API call state object', () => {
-        const apiState = ApiState.createLoading();
-        expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
-        expect(apiState.status).to.equal('loading');
-      });
+describe('#createLoading()', () => {
+  test('creates a loading API call state object', () => {
+    const apiState = ApiState.createLoading();
+    expect(ApiState.isValue(apiState)).toBe(true);
+    expect(apiState.status).toBe('loading');
+  });
 
-      it('creates a loading API call state object ' +
-          'with disableDefault=true if truthy value passed', () => {
-        const apiState = ApiState.createLoading('id', { disableDefault: true });
-        expect(apiState.disableDefault).to.be.true;
-      });
+  test('creates a loading API call state object ' +
+      'with disableDefault=true if truthy value passed', () => {
+    const apiState = ApiState.createLoading('id', { disableDefault: true });
+    expect(apiState.disableDefault).toBe(true);
+  });
 
-      it('creates a loading API call state object ' +
-          'with disableDefault=false if falsy value passed', () => {
-        const apiState = ApiState.createLoading('id');
-        expect(apiState.disableDefault).to.be.false;
-      });
-    });
+  test('creates a loading API call state object ' +
+      'with disableDefault=false if falsy value passed', () => {
+    const apiState = ApiState.createLoading('id');
+    expect(apiState.disableDefault).toBe(false);
+  });
+});
 
-    describe('#createFailed()', () => {
-      it('creates a failed API call state object', () => {
-        const apiState = ApiState.createFailed();
-        expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
-        expect(apiState.status).to.equal('failed');
-      });
+describe('#createFailed()', () => {
+  test('creates a failed API call state object', () => {
+    const apiState = ApiState.createFailed();
+    expect(ApiState.isValue(apiState)).toBe(true);
+    expect(apiState.status).toBe('failed');
+  });
 
-      it('saves the error received as parameter', () => {
-        const error = 'some error';
-        const apiState = ApiState.createFailed('key', error);
-        expect(ApiState.isValue(apiState)).to.equal(true, 'is a ApiState');
-        expect(apiState.status).to.equal('failed');
-        expect(apiState.error).to.equal(error);
-      });
+  test('saves the error received as parameter', () => {
+    const error = 'some error';
+    const apiState = ApiState.createFailed('key', error);
+    expect(ApiState.isValue(apiState)).toBe(true);
+    expect(apiState.status).toBe('failed');
+    expect(apiState.error).toBe(error);
+  });
 
-      it('creates a failed API call state object ' +
-          'with disableDefault=true if truthy value passed', () => {
-        const apiState = ApiState.createFailed('key', 'some error', { disableDefault: true });
-        expect(apiState.disableDefault).to.be.true;
-      });
+  test('creates a failed API call state object ' +
+      'with disableDefault=true if truthy value passed', () => {
+    const apiState = ApiState.createFailed('key', 'some error', { disableDefault: true });
+    expect(apiState.disableDefault).toBe(true);
+  });
 
-      it('creates a failed API call state object ' +
-          'with disableDefault=false if falsy value passed', () => {
-        const apiState = ApiState.createFailed('key', 'some error');
-        expect(apiState.disableDefault).to.be.false;
-      });
-    });
+  test('creates a failed API call state object ' +
+      'with disableDefault=false if falsy value passed', () => {
+    const apiState = ApiState.createFailed('key', 'some error');
+    expect(apiState.disableDefault).toBe(false);
+  });
+});
 
-    describe('#isValue()', () => {
-      it('returns true if passed an object created with the creators of Value', () => {
-        expect(ApiState.isValue(ApiState.createLoading())).to.equal(true, 'loading');
-        expect(ApiState.isValue(ApiState.createSucceeded())).to.equal(true, 'succeeded');
-        expect(ApiState.isValue(ApiState.createFailed())).to.equal(true, 'failed');
-      });
+describe('#isValue()', () => {
+  test('returns true if passed an object created with the creators of Value', () => {
+    expect(ApiState.isValue(ApiState.createLoading())).toBe(true);
+    expect(ApiState.isValue(ApiState.createSucceeded())).toBe(true);
+    expect(ApiState.isValue(ApiState.createFailed())).toBe(true);
+  });
 
-      it('returns false if passed an object not created with the creators of Value', () => {
-        expect(ApiState.isValue({ status: 'loading' })).to.equal(false, 'loading');
-        expect(ApiState.isValue({ status: 'succeeded' })).to.equal(false, 'succeeded');
-        expect(ApiState.isValue({ status: 'failed' })).to.equal(false, 'failed');
-        expect(ApiState.isValue({})).to.equal(false, 'empty object');
-        expect(ApiState.isValue()).to.equal(false, 'nothing');
-        expect(ApiState.isValue('')).to.equal(false, 'string');
-      });
-    });
+  test('returns false if passed an object not created with the creators of Value', () => {
+    expect(ApiState.isValue({ status: 'loading' })).toBe(false);
+    expect(ApiState.isValue({ status: 'succeeded' })).toBe(false);
+    expect(ApiState.isValue({ status: 'failed' })).toBe(false);
+    expect(ApiState.isValue({})).toBe(false);
+    expect(ApiState.isValue()).toBe(false);
+    expect(ApiState.isValue('')).toBe(false);
+  });
+});
 
-    describe('#isLoading()', () => {
-      it('returns true if passed a Value#createLoading() object', () => {
-        expect(ApiState.isLoading(ApiState.createLoading())).to.be.true;
-      });
+describe('#isLoading()', () => {
+  test('returns true if passed a Value#createLoading() object', () => {
+    expect(ApiState.isLoading(ApiState.createLoading())).toBe(true);
+  });
 
-      it('returns false if passed any object not created with Value#createLoading()', () => {
-        expect(ApiState.isLoading(ApiState.createSucceeded())).to.equal(false, 'succeeded');
-        expect(ApiState.isLoading(ApiState.createFailed())).to.equal(false, 'failed');
-      });
-    });
+  test('returns false if passed any object not created with Value#createLoading()', () => {
+    expect(ApiState.isLoading(ApiState.createSucceeded())).toBe(false);
+    expect(ApiState.isLoading(ApiState.createFailed())).toBe(false);
+  });
+});
 
-    describe('#hasSucceeded()', () => {
-      it('returns true if passed a Value#createSucceeded() object', () => {
-        expect(ApiState.hasSucceeded(ApiState.createSucceeded())).to.be.true;
-      });
+describe('#hasSucceeded()', () => {
+  test('returns true if passed a Value#createSucceeded() object', () => {
+    expect(ApiState.hasSucceeded(ApiState.createSucceeded())).toBe(true);
+  });
 
-      it('returns false if passed any object not created with Value#createSucceeded()', () => {
-        expect(ApiState.hasSucceeded(ApiState.createLoading())).to.equal(false, 'loading');
-        expect(ApiState.hasSucceeded(ApiState.createFailed())).to.equal(false, 'failed');
-      });
-    });
+  test('returns false if passed any object not created with Value#createSucceeded()', () => {
+    expect(ApiState.hasSucceeded(ApiState.createLoading())).toBe(false);
+    expect(ApiState.hasSucceeded(ApiState.createFailed())).toBe(false);
+  });
+});
 
-    describe('#hasFailed()', () => {
-      it('returns true if passed a Value#createFailed() object', () => {
-        expect(ApiState.hasFailed(ApiState.createFailed())).to.be.true;
-      });
+describe('#hasFailed()', () => {
+  test('returns true if passed a Value#createFailed() object', () => {
+    expect(ApiState.hasFailed(ApiState.createFailed())).toBe(true);
+  });
 
-      it('returns false if passed any object not created with Value#createFailed()', () => {
-        expect(ApiState.hasFailed(ApiState.createLoading())).to.equal(false, 'loading');
-        expect(ApiState.hasFailed(ApiState.createSucceeded())).to.equal(false, 'succeeded');
-      });
-    });
+  test('returns false if passed any object not created with Value#createFailed()', () => {
+    expect(ApiState.hasFailed(ApiState.createLoading())).toBe(false);
+    expect(ApiState.hasFailed(ApiState.createSucceeded())).toBe(false);
+  });
+});
 
-    describe('#shouldPerform()', () => {
-      it('returns true if passed anything that is not an ApiState', () => {
-        expect(ApiState.shouldPerform()).to.equal(true, 'undefined');
-        expect(ApiState.shouldPerform(null)).to.equal(true, 'null');
-        expect(ApiState.shouldPerform('')).to.equal(true, 'string');
-        expect(ApiState.shouldPerform({})).to.equal(true, 'object');
-      });
+describe('#shouldPerform()', () => {
+  test('returns true if passed anything that is not an ApiState', () => {
+    expect(ApiState.shouldPerform()).toBe(true);
+    expect(ApiState.shouldPerform(null)).toBe(true);
+    expect(ApiState.shouldPerform('')).toBe(true);
+    expect(ApiState.shouldPerform({})).toBe(true);
+  });
 
-      it('returns true if passed an ApiState ' +
-          'that is not loading, has not succeeded and has not failed', () => {
-        expect(ApiState.shouldPerform(ApiState.createLoading().clear())).to.be.true;
-      });
+  test('returns true if passed an ApiState ' +
+      'that is not loading, has not succeeded and has not failed', () => {
+    expect(ApiState.shouldPerform(ApiState.createLoading().clear())).toBe(true);
+  });
 
-      it('returns false if passed an ApiState that is loading', () => {
-        expect(ApiState.shouldPerform(ApiState.createLoading())).to.be.false;
-      });
+  test('returns false if passed an ApiState that is loading', () => {
+    expect(ApiState.shouldPerform(ApiState.createLoading())).toBe(false);
+  });
 
-      it('returns false if passed an ApiState that has succeeded', () => {
-        expect(ApiState.shouldPerform(ApiState.createSucceeded())).to.be.false;
-      });
+  test('returns false if passed an ApiState that has succeeded', () => {
+    expect(ApiState.shouldPerform(ApiState.createSucceeded())).toBe(false);
+  });
 
-      it('returns false if passed an ApiState that has failed', () => {
-        expect(ApiState.shouldPerform(ApiState.createFailed('error'))).to.be.false;
-      });
-    });
+  test('returns false if passed an ApiState that has failed', () => {
+    expect(ApiState.shouldPerform(ApiState.createFailed('error'))).toBe(false);
   });
 });

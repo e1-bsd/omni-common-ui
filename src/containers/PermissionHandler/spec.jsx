@@ -1,109 +1,90 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import Sinon from 'sinon';
-import _Config from 'domain/Config';
+import Config from 'domain/Config';
+import { PermissionHandler, mapStateToProps } from './';
 
-describe('<PermissionHandler />', () => {
-  // eslint-disable-next-line import/no-webpack-loader-syntax, global-require
-  const doRequire = (Config) => require('inject-loader?domain/Config!./')({
-    'domain/Config': _Config.merge(Config),
-  });
-
-  describe('component', () => {
-    let PermissionHandler;
-
-    context('when featureLogin is not true', () => {
-      before(() => {
-        PermissionHandler = doRequire({ featureLogin: false }).PermissionHandler;
-      });
-
-      it('renders its children', () => {
-        const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
-        expect(wrapper).to.have.descendants('#inner');
-      });
+describe('component', () => {
+  describe('when featureLogin is not true', () => {
+    beforeEach(() => {
+      Config.merge({ featureLogin: false });
     });
 
-    context('when featureLogin is true', () => {
-      before(() => {
-        PermissionHandler = doRequire({ featureLogin: true }).PermissionHandler;
-      });
-
-      it('does nothing if no route is provided', () => {
-        const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
-          <div id="inner" />
-        </PermissionHandler>);
-        expect(wrapper).to.contain(<div id="inner" />);
-      });
-
-      it('renders nothing if privileges have not been loaded', () => {
-        const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
-          <div id="inner" />
-        </PermissionHandler>);
-        expect(wrapper).to.be.empty;
-      });
-
-      it('throws if permissionChecks.canAccess is not a function', () => {
-        expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
-            havePrivilegesLoaded={() => true} />)).to.throw();
-      });
-
-      it('calls permissionChecks.canAccess passing all props if it is a function', () => {
-        const canAccess = Sinon.spy();
-        const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
-        shallow(<PermissionHandler {...props} />);
-        expect(canAccess.called).to.be.true;
-        expect(canAccess.args[0]).to.eql([props]);
-      });
-
-      it('calls canAccess() for all routes until one returns false', () => {
-        const props = {
-          permissionChecks: [
-            { canAccess: Sinon.stub().returns(true) },
-            { canAccess: Sinon.stub().returns(false) },
-            { canAccess: Sinon.stub().returns(false) },
-          ],
-          havePrivilegesLoaded: () => true,
-        };
-        shallow(<PermissionHandler {...props} />);
-        expect(props.permissionChecks[0].canAccess.called).to.equal(true, 'first');
-        expect(props.permissionChecks[1].canAccess.called).to.equal(true, 'second');
-        expect(props.permissionChecks[2].canAccess.called).to.equal(false, 'third');
-      });
+    test('renders its children', () => {
+      const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
+      expect(wrapper.find('#inner')).toHaveLength(1);
     });
   });
 
-  describe('mapStateToProps()', () => {
-    let mapStateToProps;
-
-    before(() => {
-      mapStateToProps = doRequire({ featureLogin: true }).mapStateToProps;
+  describe('when featureLogin is true', () => {
+    beforeEach(() => {
+      Config.merge({ featureLogin: true });
     });
 
-    it('returns permissionChecks as an array with all routes that have a canAccess()', () => {
-      const permissionChecks1 = { canAccess: () => {} };
-      const permissionChecks2 = { canAccess: () => {} };
-      const routes = [{}, permissionChecks1, {}, permissionChecks2];
-      const result = mapStateToProps(null, { routes });
-      expect(result.permissionChecks).to.eql([permissionChecks1, permissionChecks2]);
+    test('does nothing if no route is provided', () => {
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
+        <div id="inner" />
+      </PermissionHandler>);
+      expect(wrapper.contains(<div id="inner" />)).toBe(true);
     });
 
-    it('returns permissionChecks as an array with one route ' +
-        'if there is only one that has a canAccess()', () => {
-      const permissionChecks1 = { canAccess: () => {} };
-      const routes = [{}, permissionChecks1, {}];
-      const result = mapStateToProps(null, { routes });
-      expect(result.permissionChecks).to.eql([permissionChecks1]);
+    test('renders nothing if privileges have not been loaded', () => {
+      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
+        <div id="inner" />
+      </PermissionHandler>);
+      expect(wrapper.html()).toBe(null);
     });
 
-    it('throws if permissionChecks has a canAccess property that is not a function', () => {
-      const permissionChecks = { canAccess: '' };
-      const routes = [{}, permissionChecks, {}];
-      expect(() => mapStateToProps(null, { routes })).to.throw();
+    test('throws if permissionChecks.canAccess is not a function', () => {
+      expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
+          havePrivilegesLoaded={() => true} />)).toThrowError();
     });
 
-    it('returns permissionChecks as an empty array if no route has canAccess()', () => {
-      expect(mapStateToProps(null, { routes: [{}, {}, {}] }).permissionChecks).to.eql([]);
+    test('calls permissionChecks.canAccess passing all props if it is a function', () => {
+      const canAccess = jest.fn();
+      const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
+      shallow(<PermissionHandler {...props} />);
+      expect(canAccess).toHaveBeenCalledWith(props);
     });
+
+    test('calls canAccess() for all routes until one returns false', () => {
+      const props = {
+        permissionChecks: [
+          { canAccess: jest.fn().mockReturnValue(true) },
+          { canAccess: jest.fn().mockReturnValue(false) },
+          { canAccess: jest.fn().mockReturnValue(false) },
+        ],
+        havePrivilegesLoaded: () => true,
+      };
+      shallow(<PermissionHandler {...props} />);
+      expect(props.permissionChecks[0].canAccess).toHaveBeenCalled();
+      expect(props.permissionChecks[1].canAccess).toHaveBeenCalled();
+      expect(props.permissionChecks[2].canAccess).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe('mapStateToProps()', () => {
+  beforeEach(() => {
+    Config.merge({ featureLogin: true });
+  });
+
+  test('returns permissionChecks as an array with all routes that have a canAccess()', () => {
+    const permissionChecks1 = { canAccess: () => {} };
+    const permissionChecks2 = { canAccess: () => {} };
+    const routes = [{}, permissionChecks1, {}, permissionChecks2];
+    const result = mapStateToProps(null, { routes });
+    expect(result.permissionChecks).toEqual([permissionChecks1, permissionChecks2]);
+  });
+
+  test('returns permissionChecks as an array with one route ' +
+      'if there is only one that has a canAccess()', () => {
+    const permissionChecks1 = { canAccess: () => {} };
+    const routes = [{}, permissionChecks1, {}];
+    const result = mapStateToProps(null, { routes });
+    expect(result.permissionChecks).toEqual([permissionChecks1]);
+  });
+
+  test('returns permissionChecks as an empty array if no route has canAccess()', () => {
+    expect(mapStateToProps(null, { routes: [{}, {}, {}] }).permissionChecks).toEqual([]);
   });
 });

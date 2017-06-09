@@ -1,21 +1,15 @@
-import { Map } from 'immutable';
-import { expect } from 'chai';
+let testClass;
 
-describe('testClass', () => {
-  let testClass;
+beforeEach(() => {
+  jest.resetModules();
+  require('domain/Config').merge({ enableTestClasses: true });
+  testClass = require('./').default;
+});
 
-  beforeEach(() => {
-    // eslint-disable-next-line global-require, import/no-webpack-loader-syntax
-    testClass = require('inject-loader?domain/Config!./')({
-      'domain/Config': new Map({ enableTestClasses: true }),
-    }).default;
-  });
+test('throws an error if the given class contains unacceptable characters', () => {
+  expect(() => testClass('my thing')).toThrowError();
+});
 
-  it('throws an error if the given class contains unacceptable characters', () => {
-    expect(() => testClass('my thing')).to.throw();
-  });
-
-  it('does not throw if the given class is okay', () => {
-    expect(() => testClass('my-thing-5')).to.not.throw();
-  });
+test('does not throw if the given class is okay', () => {
+  expect(() => testClass('my-thing-5')).not.toThrowError();
 });
