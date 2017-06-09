@@ -3,7 +3,6 @@ import styles from './style.postcss';
 import React from 'react';
 import { Link } from 'react-router';
 import { shallow, mount } from 'enzyme';
-import Sinon from 'sinon';
 import Button from './';
 import { Type } from './type';
 
@@ -62,10 +61,10 @@ test('applies custom attrs when provided', () => {
 
 describe('when clicked', () => {
   test('calls onClick', () => {
-    const onClick = Sinon.spy();
+    const onClick = jest.fn();
     const wrapper = shallow(<Button onClick={onClick} />);
     wrapper.simulate('click');
-    expect(onClick.called).toBe(true);
+    expect(onClick).toHaveBeenCalled();
   });
 
   test('sets the .__active class after 100ms', () => {
@@ -92,9 +91,9 @@ describe('when clicked', () => {
   });
 
   test('does nothing if it is disabled', () => {
-    const onClick = Sinon.spy();
+    const onClick = jest.fn();
     const wrapper = shallow(<Button onClick={onClick} disabled />);
     wrapper.simulate('click');
-    expect(onClick.called).toBe(false);
+    expect(onClick).not.toHaveBeenCalled();
   });
 });

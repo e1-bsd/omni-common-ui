@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import ApiCall from 'containers/ApiCalls';
 import { Map, List } from 'immutable';
-import Sinon from 'sinon';
 import AlertDialog from 'components/AlertDialog';
 import Config from 'domain/Config';
 import { ApiError } from 'domain/Api';
@@ -29,7 +28,7 @@ describe('component', () => {
         ApiCall.State.createFailed('id2', new Error()),
       ]),
       erroredApi,
-      clean: Sinon.spy(),
+      clean: jest.fn(),
       location: {
         pathname: '/x/y',
       },
@@ -56,19 +55,19 @@ describe('component', () => {
   describe('when location.pathname changes, API errors are auto-cleaned', () => {
     test('does not call clean() on mount', () => {
       mount(<ErrorPageHandler {...props} />);
-      expect(props.clean.called).toBe(false);
+      expect(props.clean).not.toHaveBeenCalled();
     });
 
     test('does not call clean() if location.pathname is the same', () => {
       const wrapper = mount(<ErrorPageHandler {...props} />);
       wrapper.setProps({ location: { pathname: '/x/y' } });
-      expect(props.clean.called).toBe(false);
+      expect(props.clean).not.toHaveBeenCalled();
     });
 
     test('calls clean() on location.pathname change', () => {
       const wrapper = mount(<ErrorPageHandler {...props} />);
       wrapper.setProps({ location: { pathname: '/x' } });  // user clicked a nav crumb, for instance
-      expect(props.clean.args).toEqual([['id1'], ['id2']]);
+      expect(props.clean.mock.calls).toEqual([['id1'], ['id2']]);
     });
   });
 
