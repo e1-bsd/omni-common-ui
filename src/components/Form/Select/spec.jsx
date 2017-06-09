@@ -18,7 +18,7 @@ test('works along with Formsy', () => {
         options={options}
         required />
   </Form>);
-  expect(wrapper.find(`.${styles.__required}`)).toHaveLength(1);
+  expect(wrapper.find(`.${styles.__required}`).length).toBeGreaterThanOrEqual(1);
 });
 
 describe('label prop existence', () => {
@@ -29,7 +29,7 @@ describe('label prop existence', () => {
           value=""
           options={options} />
     </Form>);
-    expect(wrapper).to.have.descendants(Field);
+    expect(wrapper.find(Field)).toHaveLength(1);
   });
 
   test('does not have a Field when there is no label prop present', () => {
@@ -38,6 +38,6 @@ describe('label prop existence', () => {
           value=""
           options={options} />
     </Form>);
-    expect(wrapper).to.not.have.descendants(Field);
+    expect(wrapper.find(Field)).toHaveLength(0);
   });
 });
