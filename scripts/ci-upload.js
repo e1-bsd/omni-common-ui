@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 const AWS = require('aws-sdk');
-const { queue } = require('async');
+const { queue, retry } = require('async');
 const invariant = require('invariant');
 const path = require('path');
 const fs = require('fs');
@@ -42,6 +42,7 @@ if (! options.env) {
 
 const ZIP_OPTS = { level: 9 };
 const QUEUE_CONCURRENCY = 50;  // safeguard. concurrency rocks
+const UPLOAD_RETRIES = { times: 100, interval: 100 };
 const NOZIP_MIME_TEST = /^(image\/png|application\/font-woff)/; // woffs already zipped
 const CACHE_CONTROL_INDEX = 'no-cache';  // keep history buffer. http://stackoverflow.com/a/18516720
 const CACHE_CONTROL_OTHERS = 'public, max-age=31536000';  // 1 year
@@ -90,7 +91,7 @@ uploadQueue.drain = () => {
     const compressed = compressedSizeAll / 1000000;
     const savedPerc = 100 - Math.round((compressedSizeAll / originalSizeAll) * 100);
     console.log(
-        `\nAll done.` +
+        '\nAll done.' +
         ` Crunched ${original.toFixed(2)}MB down to ${compressed.toFixed(2)}MB` +
         `, saving ${savedPerc}%.`);
     uploadQueue.drain = () => {};
@@ -159,21 +160,27 @@ function uploadWorker(task, callback) {
       console.info(progress(), 'Would upload:', file, details);
       callback();
     } else {
-      new AWS.S3().putObject({
-        Bucket: config.bucket,
-        CacheControl: file.endsWith('index.html') ?
-            CACHE_CONTROL_INDEX :
-            CACHE_CONTROL_OTHERS,
-        ContentLength: size,
-        ContentType: mimeType,
-        ContentEncoding: encoding,
-        Key: file,
-        Body: fs.createReadStream(task.path),
-        ACL: 'public-read',
-      }, (_err) => {
-        console.info(progress(), 'Uploaded:', file, details);
-        callback(_err);
-      });
+      retry(UPLOAD_RETRIES, (_callback) => {
+        new AWS.S3().putObject({
+          Bucket: config.bucket,
+          CacheControl: file.endsWith('index.html') ?
+              CACHE_CONTROL_INDEX :
+              CACHE_CONTROL_OTHERS,
+          ContentLength: size,
+          ContentType: mimeType,
+          ContentEncoding: encoding,
+          Key: file,
+          Body: fs.createReadStream(task.path),
+          ACL: 'public-read',
+        }, (_err) => {
+          if (_err) {
+            console.info(progress(), 'Errored, retrying:', file);
+          } else {
+            console.info(progress(), 'Uploaded:', file, details);
+          }
+          _callback(_err);
+        });
+      }, callback);
     }
   });
 }
