@@ -192,9 +192,6 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
-    "coveragePathIgnorePatterns": [
-      "src/index.tsx"
-    ],
     "moduleNameMapper": {
       "^.+\\.(css|postcss)$": "identity-obj-proxy"
     },
