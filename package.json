@@ -239,5 +239,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.19.0-dev.1600"
+  "version": "0.19.0-dev.1604"
 }
