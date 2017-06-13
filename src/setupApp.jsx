@@ -1,4 +1,4 @@
-import 'assets/styles/base/base.postcss';
+import 'assets/styles/base.postcss';
 
 import { setupStore } from './setupStore';
 import React from 'react';
