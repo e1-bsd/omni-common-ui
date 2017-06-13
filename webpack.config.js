@@ -76,10 +76,6 @@ module.exports = {
         ],
       },
       {
-        test: new RegExp(`fonts\\${path.sep}.+\\.(woff2?|ttf|eot|otf|svg)$`),
-        use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
-      },
-      {
         test: REG_EXP_FAVICONS,
         use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
       },
