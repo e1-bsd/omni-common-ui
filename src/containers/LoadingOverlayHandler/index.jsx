@@ -49,12 +49,9 @@ class LoadingOverlayHandler extends PureComponent {
 
   render() {
     const { children } = this.props;
-    const classes = {
-      pace: true,
-      'pace-inactive': ! this.state.isThrobberVisible,
-    };
+    const classes = classnames({ pace: true, 'pace-inactive': ! this.state.isThrobberVisible });
     return <div className={styles.LoadingOverlayHandler}>
-      <div className={classnames(classes)}>
+      <div className={classes}>
         <div className="pace-activity" />
       </div>
       {children}
