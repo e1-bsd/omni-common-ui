@@ -1,6 +1,13 @@
 <script>
+  // http://github.hubspot.com/pace/#configuration
   window.paceOptions = {
+    ajax: false,
+    document: false,
+    eventLag: false,
+    elements: {
+      selectors: ['.test-app']
+    },
     restartOnPushState: false,
-    restartOnRequestAfter: false,
+    restartOnRequestAfter: false
   }
 </script>
