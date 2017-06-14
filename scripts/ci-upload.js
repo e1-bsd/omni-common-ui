@@ -173,7 +173,7 @@ function uploadWorker(task, callback) {
         ACL: 'public-read',
       }, (_err) => {
         if (_err) {
-          console.info(progress(), 'Errored:', file);
+          console.info(progress(), 'Errored, retrying:', file);
         } else {
           console.info(progress(), 'Uploaded:', file, details);
         }
