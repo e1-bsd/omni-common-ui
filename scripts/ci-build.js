@@ -6,5 +6,5 @@ const execOrExit = require('./execOrExit');
 execOrExit('yarn run clean:dists');
 execOrExit('yarn run lint:css');
 execOrExit('yarn run lint:js');
-execOrExit('yarn run test:once');
+execOrExit('yarn test -- --coverage');
 execOrExit('yarn build');
