@@ -182,7 +182,7 @@
     "omni-gulp-replace": "1.0.0"
   },
   "engines": {
-    "node": ">=6.6.0"
+    "node": ">=8.0.0"
   },
   "jest": {
     "setupFiles": [
