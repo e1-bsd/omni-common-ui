@@ -2,7 +2,7 @@
   "name": "omni-common-ui",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --hot --inline --port 3000 --config webpack.dev.js",
+    "start": "node node_modules/gulp/bin/gulp.js watch",
     "build": "node node_modules/gulp/bin/gulp.js build",
     "test": "jest",
     "watch": "node node_modules/gulp/bin/gulp.js watch",
