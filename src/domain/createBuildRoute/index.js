@@ -1,4 +1,3 @@
-import path from 'path';
 import is from 'is_js';
 
 import { formatPattern } from 'react-router';
@@ -7,7 +6,7 @@ export const createBuildRoute = (ownProps) => (...args) => {
   const route = getRoute(args);
   const params = getParams(args);
   if (is.not.object(params) || is.empty(params)) {
-    return path.resolve(ownProps.location.pathname, route);
+    return normalizeUrl(`/${ownProps.location.pathname}/${route}`);
   }
 
   let newRoute = '';
@@ -16,10 +15,10 @@ export const createBuildRoute = (ownProps) => (...args) => {
       return;
     }
 
-    newRoute = path.join(newRoute, routePiece.path);
+    newRoute = `${newRoute}/${routePiece.path}`;
   });
 
-  newRoute = path.resolve(newRoute, route);
+  newRoute = normalizeUrl(`/${newRoute}/${route}`);
 
   const finalParams = Object.assign({}, ownProps.params, params);
   newRoute = formatPattern(newRoute, finalParams);
@@ -41,6 +40,21 @@ function getParams(args) {
   }
 
   return undefined;
+}
+
+function normalizeUrl(url) {
+  let result = url.replace(/[^:]\/\//g, '/');
+  while (true) {
+    const newResult = result.replace(/[a-z0-9]*\/\.\.\/?/gi, '');
+    if (result === newResult) {
+      break;
+    }
+
+    result = newResult;
+  }
+  result = result.replace(/\.\//g, '');
+
+  return result;
 }
 
 export default createBuildRoute;

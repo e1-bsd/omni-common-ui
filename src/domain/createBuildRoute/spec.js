@@ -18,6 +18,7 @@ describe('buildRoute', () => {
   test('interprets ../ in the route', () => {
     const ownProps = { location: { pathname: 'old/path/name' } };
     const buildRoute = createBuildRoute(ownProps);
+    expect(buildRoute('..')).toMatch('/old/path');
     expect(buildRoute('../newroute')).toMatch('/old/path/newroute');
     expect(buildRoute('../../newroute')).toMatch('/old/newroute');
     expect(buildRoute('../useless/../route')).toMatch('/old/path/route');
