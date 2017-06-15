@@ -43,8 +43,8 @@ function getParams(args) {
 }
 
 function normalizeUrl(url) {
-  let result = url.replace(/[^:]\/\//g, '/');
-  while (true) {
+  let result = url.replace(/[^:]\/\//g, '/'); // Gets rid of duplicated slashes (//)
+  while (true) { // Interprets two dots (..), going up in the path for each occurrence
     const newResult = result.replace(/[a-z0-9]*\/\.\.\/?/gi, '');
     if (result === newResult) {
       break;
@@ -52,7 +52,7 @@ function normalizeUrl(url) {
 
     result = newResult;
   }
-  result = result.replace(/\.\//g, '');
+  result = result.replace(/\.\//g, ''); // Gets rid of ./
 
   return result;
 }
