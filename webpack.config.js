@@ -4,13 +4,7 @@ const REG_EXP_INLINE_SVGS = new RegExp(`(\\.inline\\.svg$)|(components\\${path.s
 const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
 const BABEL_CACHE_ENABLED = true;
 
-const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
-const isCommon = packageInfo.name === 'omni-common-ui';
-const srcFolder = isCommon ? 'src' : 'app';
-const contextFolder = isCommon ? 'sample' : 'app';
-
 module.exports = {
-  context: path.resolve(contextFolder),
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
@@ -124,22 +118,18 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(contextFolder),
-      path.resolve(srcFolder),
+      path.resolve('app'),
       process.cwd(),
       path.resolve('node_modules'),
     ],
     extensions: ['.js', '.jsx', '.json'],
-    alias: Object.assign(
-      {
-        react: path.resolve('node_modules', 'react'),
-        'react-ga': path.resolve('node_modules', 'react-ga'),
-        'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
-        'react-addons-perf': path.resolve('node_modules', 'react-addons-perf'),
-        'react-dom': path.resolve('node_modules', 'react-dom'),
-      },
-      isCommon ? { 'omni-common-ui$': 'src/index.js' } : {}
-    ),
+    alias: {
+      react: path.resolve('node_modules', 'react'),
+      'react-ga': path.resolve('node_modules', 'react-ga'),
+      'react-radial-progress': path.resolve('node_modules', 'react-radial-progress-sans-animation'),
+      'react-addons-perf': path.resolve('node_modules', 'react-addons-perf'),
+      'react-dom': path.resolve('node_modules', 'react-dom'),
+    },
   },
   externals: {
     'react/lib/ExecutionEnvironment': true,
