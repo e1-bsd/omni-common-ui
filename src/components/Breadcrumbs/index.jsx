@@ -186,9 +186,6 @@ Breadcrumbs.propTypes = {
     backLinkHref: PropTypes.string,  // it's an override
   })).isRequired,
   singleLineMode: PropTypes.bool,
-  router: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 export default Breadcrumbs;
