@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 const Select = (props) => {
   const arrowRenderer = () =>
     <span className={styles.Select_icon}>
-      <Icon id="chevron-fat-down" />
+      <Icon id="chevron-small-down" />
     </span>;
 
   const classes = classnames(styles.Select_element,
@@ -21,8 +21,12 @@ const Select = (props) => {
       { [styles.__error]: props.showError() });
 
   const select = <ReactSelect className={classes}
+      placeholder={props.placeholder || undefined}
       onChange={(e) => handleChange(e)}
       arrowRenderer={() => arrowRenderer()}
+      optionRenderer={(option) => <div className={styles.Select_option}>
+        {option.value}
+      </div>}
       {...props} />;
 
   if (is.not.undefined(props.label)) {
@@ -47,6 +51,7 @@ Select.propTypes = {
   setValue: PropTypes.func.isRequired,
   showError: PropTypes.func.isRequired,
   label: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 export default formsyDecorator(Select);

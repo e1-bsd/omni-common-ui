@@ -1,5 +1,11 @@
 @import 'main.postcss';
 
+:root {
+  --arrowAreaSize: calc(var(--touchableMinHeightNew) / 2);
+  --arrowSize: 9px;  /* 9px x 5px */
+  --spacing: 15px;
+}
+
 .Select {
   display: flex;
   margin-bottom: 1em;
@@ -11,11 +17,18 @@
 
   &_icon {
     color: var(--colorBorder);
+    font-size: var(--arrowSize);
   }
 
   &_element {
     flex: 1;
     width: 100%;
+
+    & :global .Select-input,
+    & :global .Select-value,
+    & :global .Select-placeholder {
+      padding-left: 15px !important;
+    }
 
     &.__required {
       & :global(.Select-control) {
@@ -26,5 +39,10 @@
     &_validationError {
       color: var(--colorWrong);
     }
+  }
+
+  &_option {
+    box-sizing: border-box;
+    padding: 3px 5px;
   }
 }
