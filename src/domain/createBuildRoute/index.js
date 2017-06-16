@@ -5,6 +5,10 @@ import { formatPattern } from 'react-router';
 export const createBuildRoute = (ownProps) => (...args) => {
   const route = getRoute(args);
   const params = getParams(args);
+  if (/^\//.test(route)) {
+    return normalizeUrl(route);
+  }
+
   if (is.not.object(params) || is.empty(params)) {
     return normalizeUrl(`/${ownProps.location.pathname}/${route}`);
   }
@@ -18,10 +22,8 @@ export const createBuildRoute = (ownProps) => (...args) => {
     newRoute = `${newRoute}/${routePiece.path}`;
   });
 
-  newRoute = normalizeUrl(`/${newRoute}/${route}`);
-
   const finalParams = Object.assign({}, ownProps.params, params);
-  return formatPattern(newRoute, finalParams);
+  return normalizeUrl(formatPattern(`/${newRoute}/${route}`, finalParams));
 };
 
 function getRoute(args) {
