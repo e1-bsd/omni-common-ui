@@ -43,9 +43,9 @@ function getParams(args) {
 }
 
 export function normalizeUrl(url) {
-  let result = url.replace(/(^|[a-z0-9])\/+/gi, '$1/'); // Gets rid of duplicated slashes (//)
+  let result = url.replace(/(^|[\w-])\/+/gi, '$1/'); // Gets rid of duplicated slashes (//)
   while (true) { // Interprets two dots (..), going up in the path for each occurrence
-    const newResult = result.replace(/((^\/)|[a-z0-9]*\/)\.\.\/?/gi, '$2');
+    const newResult = result.replace(/((^\/)|[\w-]*\/)\.\.\/?/gi, '$2');
     if (result === newResult) {
       break;
     }

@@ -147,11 +147,17 @@ describe('normalizeUrl()', () => {
   test('removes duplicated slashes', () => {
     expect(normalizeUrl('/test//path')).toMatch('/test/path');
     expect(normalizeUrl('/test///path')).toMatch('/test/path');
+    expect(normalizeUrl('/test_///path')).toMatch('/test_/path');
+    expect(normalizeUrl('/test9///path')).toMatch('/test9/path');
+    expect(normalizeUrl('/test-///path')).toMatch('/test-/path');
   });
 
   test('resolves two dots going up one level', () => {
     expect(normalizeUrl('/test/../path')).toMatch('/path');
     expect(normalizeUrl('/test/path/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path9/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path_/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path-/..')).toMatch('/test');
     expect(normalizeUrl('/test/sublevel/../path')).toMatch('/test/path');
     expect(normalizeUrl('/../test/path')).toMatch('/test/path');
   });
