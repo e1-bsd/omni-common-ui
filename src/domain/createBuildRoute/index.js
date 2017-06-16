@@ -21,9 +21,7 @@ export const createBuildRoute = (ownProps) => (...args) => {
   newRoute = normalizeUrl(`/${newRoute}/${route}`);
 
   const finalParams = Object.assign({}, ownProps.params, params);
-  newRoute = formatPattern(newRoute, finalParams);
-
-  return newRoute.replace(/\/$/, '');
+  return formatPattern(newRoute, finalParams);
 };
 
 function getRoute(args) {
@@ -52,7 +50,8 @@ export function normalizeUrl(url) {
 
     result = newResult;
   }
-  result = result.replace(/\.\//g, ''); // Gets rid of ./
+  result = result.replace(/(\/\.|\.\/)/g, ''); // Gets rid of ./
+  result = result.replace(/\/$/, '');
 
   return result;
 }
