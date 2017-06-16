@@ -1,4 +1,4 @@
-import { createBuildRoute } from './';
+import { createBuildRoute, normalizeUrl } from './';
 
 test('is a function', () => {
   expect(typeof createBuildRoute).toBe('function');
@@ -18,6 +18,7 @@ describe('buildRoute', () => {
   test('interprets ../ in the route', () => {
     const ownProps = { location: { pathname: 'old/path/name' } };
     const buildRoute = createBuildRoute(ownProps);
+    expect(buildRoute('..')).toMatch('/old/path');
     expect(buildRoute('../newroute')).toMatch('/old/path/newroute');
     expect(buildRoute('../../newroute')).toMatch('/old/newroute');
     expect(buildRoute('../useless/../route')).toMatch('/old/path/route');
@@ -135,5 +136,37 @@ describe('buildRoute', () => {
         expect(() => buildRoute({ mode: 'marking' })).toThrowError();
       });
     });
+  });
+});
+
+describe('normalizeUrl()', () => {
+  test('supports file:// protocol', () => {
+    expect(normalizeUrl('file:///test/path')).toMatch('file:///test/path');
+  });
+
+  test('removes duplicated slashes', () => {
+    expect(normalizeUrl('/test//path')).toMatch('/test/path');
+    expect(normalizeUrl('/test///path')).toMatch('/test/path');
+    expect(normalizeUrl('/test_///path')).toMatch('/test_/path');
+    expect(normalizeUrl('/test9///path')).toMatch('/test9/path');
+    expect(normalizeUrl('/test-///path')).toMatch('/test-/path');
+  });
+
+  test('resolves two dots going up one level', () => {
+    expect(normalizeUrl('/test/../path')).toMatch('/path');
+    expect(normalizeUrl('/test/path/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path9/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path_/..')).toMatch('/test');
+    expect(normalizeUrl('/test/path-/..')).toMatch('/test');
+    expect(normalizeUrl('/test/sublevel/../path')).toMatch('/test/path');
+    expect(normalizeUrl('/../test/path')).toMatch('/test/path');
+  });
+
+  test('gets rid of "." items', () => {
+    expect(normalizeUrl('/test/./path')).toMatch('/test/path');
+    expect(normalizeUrl('/test/path/.')).toMatch('/test/path');
+    expect(normalizeUrl('/./test/path')).toMatch('/test/path');
+    expect(normalizeUrl('./test/path')).toMatch('test/path');
+    expect(normalizeUrl('./test/././path')).toMatch('test/path');
   });
 });
