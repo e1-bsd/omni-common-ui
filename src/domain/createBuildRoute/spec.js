@@ -1,4 +1,4 @@
-import { createBuildRoute } from './';
+import { createBuildRoute, normalizeUrl } from './';
 
 test('is a function', () => {
   expect(typeof createBuildRoute).toBe('function');
@@ -136,5 +136,31 @@ describe('buildRoute', () => {
         expect(() => buildRoute({ mode: 'marking' })).toThrowError();
       });
     });
+  });
+});
+
+describe('normalizeUrl()', () => {
+  test('supports file:// protocol', () => {
+    expect(normalizeUrl('file:///test/path')).toMatch('file:///test/path');
+  });
+
+  test('removes duplicated slashes', () => {
+    expect(normalizeUrl('/test//path')).toMatch('/test/path');
+    expect(normalizeUrl('/test///path')).toMatch('/test/path');
+  });
+
+  test('resolves two dots going up one level', () => {
+    expect(normalizeUrl('/test/../path')).toMatch('/path');
+    expect(normalizeUrl('/test/path/..')).toMatch('/test');
+    expect(normalizeUrl('/test/sublevel/../path')).toMatch('/test/path');
+    expect(normalizeUrl('/../test/path')).toMatch('/test/path');
+  });
+
+  test('gets rid of "." items', () => {
+    expect(normalizeUrl('/test/./path')).toMatch('/test/path');
+    expect(normalizeUrl('/test/path/.')).toMatch('/test/path');
+    expect(normalizeUrl('/./test/path')).toMatch('/test/path');
+    expect(normalizeUrl('./test/path')).toMatch('test/path');
+    expect(normalizeUrl('./test/././path')).toMatch('test/path');
   });
 });
