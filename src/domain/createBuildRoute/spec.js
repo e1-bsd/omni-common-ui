@@ -10,13 +10,13 @@ test('returns a function', () => {
 
 describe('buildRoute', () => {
   test('joins a simple route', () => {
-    const ownProps = { location: { pathname: 'oldpathname' } };
+    const ownProps = { routes: [{ path: 'oldpathname' }] };
     const buildRoute = createBuildRoute(ownProps);
     expect(buildRoute('newroute')).toBe('/oldpathname/newroute');
   });
 
   test('interprets ../ in the route', () => {
-    const ownProps = { location: { pathname: 'old/path/name' } };
+    const ownProps = { routes: [{ path: 'old/path/name' }] };
     const buildRoute = createBuildRoute(ownProps);
     expect(buildRoute('..')).toBe('/old/path');
     expect(buildRoute('../newroute')).toBe('/old/path/newroute');
@@ -25,9 +25,14 @@ describe('buildRoute', () => {
   });
 
   test('interprets routes starting with /', () => {
-    const ownProps = { location: { pathname: 'old/path/name' } };
+    const ownProps = { routes: [{ path: 'old/path/name' }] };
     const buildRoute = createBuildRoute(ownProps);
     expect(buildRoute('/newroute')).toBe('/newroute');
+  });
+
+  test('does not break if no routes array is provided', () => {
+    const buildRoute = createBuildRoute({});
+    expect(buildRoute('newroute')).toBe('/newroute');
   });
 
   describe('when provided with an object with route parameters', () => {
@@ -120,7 +125,6 @@ describe('buildRoute', () => {
         const ownProps = {
           routes: [{ path: 'group/:view(/:mode)' }],
           params: { view: 'day', mode: '' },
-          location: { pathname: '/group/day' },
         };
         const buildRoute = createBuildRoute(ownProps);
         expect(buildRoute('./marking')).toBe('/group/day/marking');
@@ -130,7 +134,6 @@ describe('buildRoute', () => {
         const ownProps = {
           routes: [{ path: 'group/:view(/:mode)' }],
           params: { },
-          location: { pathname: '/group/day' },
         };
         const buildRoute = createBuildRoute(ownProps);
         expect(() => buildRoute({ mode: 'marking' })).toThrowError();

@@ -5,25 +5,9 @@ import { formatPattern } from 'react-router';
 export const createBuildRoute = (ownProps) => (...args) => {
   const route = getRoute(args);
   const params = getParams(args);
-  if (/^\//.test(route)) {
-    return normalizeUrl(route);
-  }
-
-  if (is.not.object(params) || is.empty(params)) {
-    return normalizeUrl(`/${ownProps.location.pathname}/${route}`);
-  }
-
-  let newRoute = '';
-  ownProps.routes.forEach((routePiece) => {
-    if (is.not.string(routePiece.path)) {
-      return;
-    }
-
-    newRoute = `${newRoute}/${routePiece.path}`;
-  });
-
+  const root = /^\//.test(route) ? '/' : getRoot(ownProps.routes);
   const finalParams = Object.assign({}, ownProps.params, params);
-  return normalizeUrl(formatPattern(`/${newRoute}/${route}`, finalParams));
+  return normalizeUrl(formatPattern(`/${root}/${route}`, finalParams));
 };
 
 function getRoute(args) {
@@ -40,6 +24,19 @@ function getParams(args) {
   }
 
   return undefined;
+}
+
+function getRoot(routes = []) {
+  let newRoute = '';
+  routes.forEach((routePiece) => {
+    if (is.not.string(routePiece.path)) {
+      return;
+    }
+
+    newRoute = `${newRoute}/${routePiece.path}`;
+  });
+
+  return newRoute;
 }
 
 export function normalizeUrl(url) {
