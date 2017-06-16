@@ -5,25 +5,9 @@ import { formatPattern } from 'react-router';
 export const createBuildRoute = (ownProps) => (...args) => {
   const route = getRoute(args);
   const params = getParams(args);
-  if (is.not.object(params) || is.empty(params)) {
-    return normalizeUrl(`/${ownProps.location.pathname}/${route}`);
-  }
-
-  let newRoute = '';
-  ownProps.routes.forEach((routePiece) => {
-    if (is.not.string(routePiece.path)) {
-      return;
-    }
-
-    newRoute = `${newRoute}/${routePiece.path}`;
-  });
-
-  newRoute = normalizeUrl(`/${newRoute}/${route}`);
-
+  const root = /^\//.test(route) ? '/' : getRoot(ownProps.routes);
   const finalParams = Object.assign({}, ownProps.params, params);
-  newRoute = formatPattern(newRoute, finalParams);
-
-  return newRoute.replace(/\/$/, '');
+  return normalizeUrl(formatPattern(`/${root}/${route}`, finalParams));
 };
 
 function getRoute(args) {
@@ -42,6 +26,19 @@ function getParams(args) {
   return undefined;
 }
 
+function getRoot(routes = []) {
+  let newRoute = '';
+  routes.forEach((routePiece) => {
+    if (is.not.string(routePiece.path)) {
+      return;
+    }
+
+    newRoute = `${newRoute}/${routePiece.path}`;
+  });
+
+  return newRoute;
+}
+
 export function normalizeUrl(url) {
   let result = url.replace(/(^|[\w-])\/+/gi, '$1/'); // Gets rid of duplicated slashes (//)
   while (true) { // Interprets two dots (..), going up in the path for each occurrence
@@ -52,7 +49,8 @@ export function normalizeUrl(url) {
 
     result = newResult;
   }
-  result = result.replace(/\.\//g, ''); // Gets rid of ./
+  result = result.replace(/(\/\.|\.\/)/g, ''); // Gets rid of ./
+  result = result.replace(/\/$/, '');
 
   return result;
 }

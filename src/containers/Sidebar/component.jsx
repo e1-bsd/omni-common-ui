@@ -100,6 +100,7 @@ class Sidebar extends PureComponent {
   }
 
   _onPageScrolled() {
+    if (! this._node) return;
     const expandedNode = this._node.querySelector(`.${styles.Sidebar_expanded}`);
     if (! expandedNode) {
       return;
