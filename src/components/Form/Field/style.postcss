@@ -16,6 +16,10 @@
       flex-direction: column;
     }
 
+    &:not(.__stackedVertically) &_label {
+      width: 5em;
+    }
+
     &_label {
       padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
     }
@@ -41,6 +45,12 @@
         color: var(--colorWrong);
         display: block;
       }
+    }
+
+    /* override option "active" colour */
+    & :global(.Select-option.is-selected) {
+      background-color: var(--colorActive);
+      color: var(--colorTextInverse);
     }
   }
 
