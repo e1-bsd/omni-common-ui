@@ -10,6 +10,18 @@ const requiredPropNoops = {
   getErrorMessage: () => '',
 };
 
+describe('applies className and labelTextClassName', () => {
+  test('applies className to itself', () => {
+    const wrapper = mount(<Field {...requiredPropNoops} className="fieldextra" />);
+    expect(wrapper.find(`.${styles.Field}.fieldextra`)).toHaveLength(1);
+  });
+
+  test('applies labelTextClassName to label span', () => {
+    const wrapper = mount(<Field {...requiredPropNoops} labelTextClassName="labelextra" />);
+    expect(wrapper.find(`.${styles.Field_wrap_label}.labelextra`)).toHaveLength(1);
+  });
+});
+
 describe('applies the error state style', () => {
   test('applies error style if showError returns true', () => {
     const wrapper = shallow(<Field {...requiredPropNoops} showError={() => true} />);

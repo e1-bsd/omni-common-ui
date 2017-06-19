@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 export const Field = (props) => {
-  const classes = classnames(styles.Field, getValidationClasses(), {
+  const classes = classnames(styles.Field, props.className, getValidationClasses(), {
     [styles.__stackedHorizontally]: props.neighborStackMode === 'horizontal',
   });
   if (props.useLabel === true) {
@@ -19,7 +19,9 @@ export const Field = (props) => {
     return <div className={classnames(styles.Field_wrap, {
       [styles.__stackedVertically]: props.innerStackMode === 'vertical',
     })}>
-      <span className={styles.Field_wrap_label}>{props.label}</span>
+      <span className={classnames(styles.Field_wrap_label, props.labelTextClassName)}>
+        {props.label}
+      </span>
       <div className={styles.Field_wrap_inputContainer}>
         {props.children}
         {renderError()}
@@ -57,6 +59,8 @@ export const Field = (props) => {
 };
 
 Field.propTypes = {
+  className: PropTypes.string,
+  labelTextClassName: PropTypes.string,
   label: PropTypes.string,
   showError: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,

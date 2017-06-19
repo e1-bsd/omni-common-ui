@@ -39,9 +39,11 @@ describe('label prop existence', () => {
           label="labelled"
           value=""
           options={options}
-          fieldOptions={{ neighborStackMode: 'horizontal' }} />
+          fieldOptions={{ neighborStackMode: 'horizontal', className: 'class' }} />
     </Form>);
-    expect(wrapper.find(Field).prop('neighborStackMode')).toBe('horizontal');
+    const field = wrapper.find(Field);
+    expect(field.prop('neighborStackMode')).toBe('horizontal');
+    expect(field.prop('className')).toBe('class');
   });
 
   test('does not have a Field when there is no label prop present', () => {

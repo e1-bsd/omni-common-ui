@@ -54,6 +54,8 @@ Select.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   fieldOptions: PropTypes.shape({
+    className: PropTypes.string,
+    labelTextClassName: PropTypes.string,
     neighborStackMode: PropTypes.oneOf(['default', 'horizontal']),
     innerStackMode: PropTypes.oneOf(['horizontal', 'vertical']),  // default: horizontal
   }),
