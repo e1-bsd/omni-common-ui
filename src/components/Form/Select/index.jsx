@@ -25,7 +25,7 @@ const Select = (props) => {
       onChange={(e) => handleChange(e)}
       arrowRenderer={() => arrowRenderer()}
       optionRenderer={(option) => <div className={styles.Select_option}>
-        {option.value}
+        {option.label || option.value}
       </div>}
       {...props} />;
 
