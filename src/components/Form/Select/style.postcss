@@ -7,9 +7,6 @@
 }
 
 .Select {
-  display: flex;
-  margin-bottom: 1em;
-
   &_label {
     padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
     width: 5em;
@@ -30,6 +27,12 @@
       padding-left: 15px !important;
     }
 
+    /* override "active" option colour */
+    & :global .Select-option.is-selected {
+      background-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
+
     &.__required {
       & :global(.Select-control) {
         border-color: var(--colorWrong);
@@ -43,6 +46,6 @@
 
   &_option {
     box-sizing: border-box;
-    padding: 3px 5px;
+    padding: 3px;
   }
 }
