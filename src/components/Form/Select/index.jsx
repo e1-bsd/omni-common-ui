@@ -51,6 +51,8 @@ Select.propTypes = {
   showRequired: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   showError: PropTypes.func.isRequired,
+  clearable: PropTypes.bool,   // default: true
+  searchable: PropTypes.bool,  // default: true
   label: PropTypes.string,
   placeholder: PropTypes.string,
   fieldOptions: PropTypes.shape({
