@@ -17,17 +17,18 @@ const Select = (props) => {
     </span>;
 
   const classes = classnames(styles.Select_element,
+      props.className,
       { [styles.__required]: props.showRequired() },
       { [styles.__error]: props.showError() });
 
-  const select = <ReactSelect className={classes}
-      placeholder={props.placeholder || undefined}
+  const select = <ReactSelect placeholder={props.placeholder || undefined}
       onChange={(e) => handleChange(e)}
       arrowRenderer={() => arrowRenderer()}
       optionRenderer={(option) => <div className={styles.Select_option}>
         {option.label || option.value}
       </div>}
-      {...props} />;
+      {...props}
+      className={classes} />;
 
   if (is.not.undefined(props.label)) {
     return <Field label={props.label}
@@ -47,6 +48,7 @@ const Select = (props) => {
 };
 
 Select.propTypes = {
+  className: PropTypes.string,
   getErrorMessage: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
