@@ -6,7 +6,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 export const Field = (props) => {
-  const classes = classnames(styles.Field, getValidationClasses());
+  const classes = classnames(styles.Field, getValidationClasses(), {
+    [styles.__stackedHorizontally]: props.neighborStackMode === 'horizontal',
+  });
   if (props.useLabel === true) {
     return <label className={classes}>{renderInner()}</label>;
   }
@@ -14,7 +16,9 @@ export const Field = (props) => {
   return <div className={classes}>{renderInner()}</div>;
 
   function renderInner() {
-    return <div className={styles.Field_wrap}>
+    return <div className={classnames(styles.Field_wrap, {
+      [styles.__stackedVertically]: props.innerStackMode === 'vertical',
+    })}>
       <span className={styles.Field_wrap_label}>{props.label}</span>
       <div className={styles.Field_wrap_inputContainer}>
         {props.children}
@@ -59,6 +63,9 @@ Field.propTypes = {
   getErrorMessage: PropTypes.func.isRequired,
   children: PropTypes.node,
   useLabel: PropTypes.bool,
+  neighborStackMode: PropTypes.oneOf(['default', 'horizontal']),
+  innerStackMode: PropTypes.oneOf(['horizontal', 'vertical']),  // default: horizontal
+
 };
 
 export default pure(Field);

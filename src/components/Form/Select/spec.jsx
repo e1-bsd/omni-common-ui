@@ -30,6 +30,18 @@ describe('label prop existence', () => {
           options={options} />
     </Form>);
     expect(wrapper.find(Field)).toHaveLength(1);
+    expect(wrapper.find(Field).prop('useLabel')).toBeTruthy();
+  });
+
+  test('passes options to Field when there is are label and fieldOptions props present', () => {
+    const wrapper = mount(<Form>
+      <Form.Select name="labelled"
+          label="labelled"
+          value=""
+          options={options}
+          fieldOptions={{ neighborStackMode: 'horizontal' }} />
+    </Form>);
+    expect(wrapper.find(Field).prop('neighborStackMode')).toBe('horizontal');
   });
 
   test('does not have a Field when there is no label prop present', () => {

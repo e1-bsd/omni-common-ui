@@ -4,13 +4,20 @@
   display: flex;
   margin-bottom: 1em;
 
+  &.__stackedHorizontally {
+    display: inline-block;
+  }
+
   &_wrap {
     display: flex;
-    flex: 1;
+    flex: 1 1 auto;
+
+    &.__stackedVertically {
+      flex-direction: column;
+    }
 
     &_label {
       padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
-      width: 5em;
     }
 
     &_inputContainer {

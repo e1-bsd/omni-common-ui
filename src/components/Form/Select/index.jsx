@@ -34,7 +34,8 @@ const Select = (props) => {
         getErrorMessage={() => props.getErrorMessage()}
         showError={() => props.showError()}
         showRequired={() => props.showRequired()}
-        useLabel>
+        useLabel
+        {...props.fieldOptions}>
       {select}
     </Field>;
   }
@@ -52,6 +53,10 @@ Select.propTypes = {
   showError: PropTypes.func.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  fieldOptions: PropTypes.shape({
+    neighborStackMode: PropTypes.oneOf(['default', 'horizontal']),
+    innerStackMode: PropTypes.oneOf(['horizontal', 'vertical']),  // default: horizontal
+  }),
 };
 
 export default formsyDecorator(Select);
