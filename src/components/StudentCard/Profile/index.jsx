@@ -19,11 +19,15 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
         [styles.__vertical]: vertical,
       }, props.className);
 
-  const renderName = (prop, name, nameClasses) => {
+  const renderName = (prop, name, nameClasses, onClick) => {
     if (! name) {
       return;
     }
-    return <div className={nameClasses} data-prop={prop}>{name}</div>;
+    return <div className={nameClasses}
+        data-prop={prop}
+        onClick={onClick}>
+      {name}
+    </div>;
   };
   const getStr = (name) => {
     if (is.undefined(name)) {
@@ -41,6 +45,7 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
   );
   const statusClass = classnames(styles.StudentCard_profile_status,
     testClass('studentCard-status'));
+  const name = `${getStr(props.name)} ${getStr(props.surname)}`;
   return <Card.Content withoutBottomPadding>
     <Person className={classes} vertical={vertical}>
       <StudentPicture src={props.avatarUrl}
@@ -49,7 +54,7 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
             [styles.__bigger]: !! props.withBiggerAvatar,
             [styles.__vertical]: vertical,
           })} />
-      {renderName('name', `${getStr(props.name)} ${getStr(props.surname)}`, nameClass)}
+      {renderName('name', name, nameClass, props.onNameClick)}
       {renderName('localName', props.localName, localNameClass)}
       <ProductionStatus className={statusClass}
           status={status}
@@ -75,6 +80,7 @@ Profile.propTypes = {
   statusInitial: PropTypes.string,
   statusHighlighted: PropTypes.bool,
   withBiggerAvatar: PropTypes.bool,
+  onNameClick: PropTypes.func,
 };
 
 export default Profile;
