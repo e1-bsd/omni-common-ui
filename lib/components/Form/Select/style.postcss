@@ -214,10 +214,13 @@
   position: relative;
 }
 
-.Select {
-  display: flex;
-  margin-bottom: 1em;
+:root {
+  --arrowAreaSize: calc(var(--touchableMinHeightNew) / 2);
+  --arrowSize: 9px;  /* arrow dimensions: 9px x 5px */
+  --spacing: 15px;
+}
 
+.Select {
   &_label {
     padding: calc(var(--touchablePaddingVertical) + var(--hairThin)) 0;
     width: 5em;
@@ -225,11 +228,24 @@
 
   &_icon {
     color: var(--colorBorder);
+    font-size: var(--arrowSize);
   }
 
   &_element {
     flex: 1;
     width: 100%;
+
+    & :global .Select-input,
+    & :global .Select-value,
+    & :global .Select-placeholder {
+      padding-left: 15px !important;
+    }
+
+    /* override "active" option color */
+    & :global .Select-option.is-selected {
+      background-color: var(--colorActive);
+      color: var(--colorTextInverse);
+    }
 
     &.__required {
       & :global(.Select-control) {
@@ -240,5 +256,10 @@
     &_validationError {
       color: var(--colorWrong);
     }
+  }
+
+  &_option {
+    box-sizing: border-box;
+    padding: 3px;
   }
 }
