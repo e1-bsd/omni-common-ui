@@ -23,7 +23,10 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
     if (! name) {
       return;
     }
-    return <div className={nameClasses}
+    const nameClass = classnames(nameClasses, {
+      [styles.__active]: is.existy(onClick),
+    });
+    return <div className={nameClass}
         data-prop={prop}
         onClick={onClick}>
       {name}
