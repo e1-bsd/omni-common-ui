@@ -52,7 +52,6 @@
     "eslint-plugin-react": "^7.0.1",
     "express": "^4.15.3",
     "faker": "^4.1.0",
-    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.11.2",
     "flexboxgrid": "6.3.1",
     "formsy-react": "^0.19.2",
@@ -219,5 +218,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.19.0-dev.1655"
+  "version": "0.19.0-dev.1658"
 }
