@@ -69,7 +69,6 @@ Field.propTypes = {
   useLabel: PropTypes.bool,
   neighborStackMode: PropTypes.oneOf(['default', 'horizontal']),
   innerStackMode: PropTypes.oneOf(['horizontal', 'vertical']),  // default: horizontal
-
 };
 
 export default pure(Field);
