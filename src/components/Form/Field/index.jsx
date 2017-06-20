@@ -6,7 +6,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 export const Field = (props) => {
-  const classes = classnames(styles.Field, getValidationClasses());
+  const classes = classnames(styles.Field, props.className, getValidationClasses(), {
+    [styles.__stackedHorizontally]: props.neighborStackMode === 'horizontal',
+  });
   if (props.useLabel === true) {
     return <label className={classes}>{renderInner()}</label>;
   }
@@ -14,8 +16,12 @@ export const Field = (props) => {
   return <div className={classes}>{renderInner()}</div>;
 
   function renderInner() {
-    return <div className={styles.Field_wrap}>
-      <span className={styles.Field_wrap_label}>{props.label}</span>
+    return <div className={classnames(styles.Field_wrap, {
+      [styles.__stackedVertically]: props.innerStackMode === 'vertical',
+    })}>
+      <span className={classnames(styles.Field_wrap_label, props.labelTextClassName)}>
+        {props.label}
+      </span>
       <div className={styles.Field_wrap_inputContainer}>
         {props.children}
         {renderError()}
@@ -53,12 +59,16 @@ export const Field = (props) => {
 };
 
 Field.propTypes = {
+  className: PropTypes.string,
+  labelTextClassName: PropTypes.string,
   label: PropTypes.string,
   showError: PropTypes.func.isRequired,
   showRequired: PropTypes.func.isRequired,
   getErrorMessage: PropTypes.func.isRequired,
   children: PropTypes.node,
   useLabel: PropTypes.bool,
+  neighborStackMode: PropTypes.oneOf(['default', 'horizontal']),
+  innerStackMode: PropTypes.oneOf(['horizontal', 'vertical']),  // default: horizontal
 };
 
 export default pure(Field);
