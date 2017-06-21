@@ -9,6 +9,7 @@ import ProductionStatus from 'components/ProductionStatus';
 import Person from 'components/Person';
 import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
   const { status, statusHighlighted } = props;
@@ -19,18 +20,14 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
         [styles.__vertical]: vertical,
       }, props.className);
 
-  const renderName = (prop, name, nameClasses, onClick) => {
+  const renderName = (prop, name, nameClasses, nameLink) => {
     if (! name) {
       return;
     }
-    const nameClass = classnames(nameClasses, {
-      [styles.__active]: is.existy(onClick),
-    });
-    return <div className={nameClass}
-        data-prop={prop}
-        onClick={onClick}>
-      {name}
-    </div>;
+    const nameProps = { className: nameClasses, 'data-prop': prop };
+    return is.existy(nameLink) ?
+      <Link {...nameProps} to={nameLink}>{name}</Link> :
+      <div {...nameProps}>{name}</div>;
   };
   const getStr = (name) => {
     if (is.undefined(name)) {
@@ -57,7 +54,7 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
             [styles.__bigger]: !! props.withBiggerAvatar,
             [styles.__vertical]: vertical,
           })} />
-      {renderName('name', name, nameClass, props.onNameClick)}
+      {renderName('name', name, nameClass, props.nameLink)}
       {renderName('localName', props.localName, localNameClass)}
       <ProductionStatus className={statusClass}
           status={status}
@@ -83,7 +80,7 @@ Profile.propTypes = {
   statusInitial: PropTypes.string,
   statusHighlighted: PropTypes.bool,
   withBiggerAvatar: PropTypes.bool,
-  onNameClick: PropTypes.func,
+  nameLink: PropTypes.string,
 };
 
 export default Profile;
