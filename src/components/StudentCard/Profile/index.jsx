@@ -27,7 +27,7 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
     const nameProps = { className: nameClasses, 'data-prop': prop };
     return is.existy(nameLink) ?
       <Link {...nameProps} to={nameLink}>{name}</Link> :
-      <div {...nameProps}>name</div>;
+      <div {...nameProps}>{name}</div>;
   };
   const getStr = (name) => {
     if (is.undefined(name)) {
