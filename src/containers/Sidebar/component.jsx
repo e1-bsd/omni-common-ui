@@ -92,6 +92,7 @@ class Sidebar extends PureComponent {
   }
 
   _onClickedOutside(evt) {
+    if (! this._node) return;
     if (this._node.contains(evt.target)) {
       return;
     }
