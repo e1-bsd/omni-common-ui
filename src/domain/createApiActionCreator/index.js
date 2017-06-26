@@ -13,7 +13,7 @@ import ApiCall from 'containers/ApiCalls';
  */
 
 const createApiActionCreator = (
-    requestActionType, successActionType, failureActionType, url, method) =>
+    requestActionType, successActionType, failureActionType, url, method = 'GET') =>
   (dispatch) => {
     return dispatch(createFetchRequestAction()).payload
       .then((response) => dispatch(createFetchSuccessAction(response)))
