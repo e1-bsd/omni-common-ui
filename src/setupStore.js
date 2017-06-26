@@ -28,7 +28,7 @@ export function setupStore(reducer) {
 
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
-    applyMiddleware(
+    applyMiddleware.apply(this, [
       singleSignOnMiddleware,
       reduxRouterMiddleware,
       thunk,
@@ -36,7 +36,7 @@ export function setupStore(reducer) {
       notificationsTriggerConfig ?
           createNotificationsMiddleware(notificationsTriggerConfig) :
           undefined,
-    )
+    ].filter((i) => i))
   )(createStore);
 
   const store = createStoreWithMiddleware(createReducer(reducer),
