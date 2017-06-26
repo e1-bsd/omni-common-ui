@@ -1,7 +1,7 @@
 import is from 'is_js';
 import invariant from 'invariant';
 import EventEmitter from 'event-emitter';
-import createApiActionBoilerplate from 'domain/createApiActionBoilerplate';
+import createApiActionCreator from 'domain/createApiActionCreator';
 import { buildUrl } from 'domain/Api';
 import log from 'domain/log';
 
@@ -65,7 +65,7 @@ export function createNotificationsMiddleware(config = {}) {
       const fullUrl = buildUrl(apiUrl);
 
       store.dispatch(
-          createApiActionBoilerplate(
+          createApiActionCreator(
               requestActionType, successActionType, failureActionType, fullUrl, method));
     });
 

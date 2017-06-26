@@ -12,7 +12,7 @@ import ApiCall from 'containers/ApiCalls';
  * ```
  */
 
-const createApiActionBoilerplate = (
+const createApiActionCreator = (
     requestActionType, successActionType, failureActionType, url, method) =>
   (dispatch) => {
     return dispatch(createFetchRequestAction()).payload
@@ -48,8 +48,8 @@ const createApiActionBoilerplate = (
   };
 
 const curried = (...args) => {
-  if (args.length >= createApiActionBoilerplate.length) {
-    return createApiActionBoilerplate.apply(this, args);
+  if (args.length >= createApiActionCreator.length) {
+    return createApiActionCreator.apply(this, args);
   }
   return (...rest) => curried.apply(this, args.concat(rest));
 };
