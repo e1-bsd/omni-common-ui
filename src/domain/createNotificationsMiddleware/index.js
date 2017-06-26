@@ -10,13 +10,10 @@ class Strategy extends EventEmitter {
     super();
     invariant(is.object(config), 'config must be an object');
     this._config = config;
-    if (config.triggerOnStart) {
-      this._trigger();
-    }
-  }
-
-  _trigger() {
-    this.emit('notification');
+    if (! is.number(config.triggerOnStartAfterMs)) return;
+    window.setTimeout(() => {
+      this.emit('notification');
+    }, config.triggerOnStartAfterMs);
   }
 }
 
@@ -25,7 +22,7 @@ class TimerStrategy extends Strategy {
     super(config);
     if (! is.number(config.intervalMs)) return;
     window.setInterval(() => {
-      super._trigger();
+      this.emit('notification');
     }, config.intervalMs);
   }
 }
@@ -69,7 +66,7 @@ export function createNotificationsMiddleware(config = {}) {
 
       store.dispatch(
           createApiActionBoilerplate(
-              requestActionType, successActionType, failureActionType)(fullUrl, method));
+              requestActionType, successActionType, failureActionType, fullUrl, method));
     });
 
     log.info(`Pulling notifications using the \`${config.strategy}\` strategy`);

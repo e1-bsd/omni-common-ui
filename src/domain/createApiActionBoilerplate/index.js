@@ -1,42 +1,57 @@
 import { fetch } from 'domain/Api';
 import ApiCall from 'containers/ApiCalls';
 
-export function createApiActionBoilerplate(
-    requestActionType, successActionType, failureActionType) {
-  return function actionCreator(url, method = 'GET') {
-    return (dispatch) => {
-      return dispatch(fetchNotificationsRequest()).payload
-        .then((response) => dispatch(fetchNotificationsSuccess(response)))
-        .catch((error) => dispatch(fetchNotificationsFailure(error)));
+/*
+ * Supports currying so that args can be recycled more conveniently.
+ * A contrived example:
+ * ```
+ * const createCreatorForX =
+ *    createApiActionCreator('X_REQUEST', 'X_SUCCESS', 'X_FAILURE', 'http://...');
+ * const getXActionCreator = createCreatorForX('GET');
+ * const postXActionCreator = createCreatorForX('POST');
+ * ```
+ */
 
-      function fetchNotificationsRequest() {
-        return ApiCall.createAction({
-          type: requestActionType,
-          payload: fetch(url),
-          url,
-          method,
-        });
-      }
+const createApiActionBoilerplate = (
+    requestActionType, successActionType, failureActionType, url, method) =>
+  (dispatch) => {
+    return dispatch(createFetchRequestAction()).payload
+      .then((response) => dispatch(createFetchSuccessAction(response)))
+      .catch((error) => dispatch(createFetchFailureAction(error)));
 
-      function fetchNotificationsSuccess(response) {
-        return ApiCall.createAction({
-          type: successActionType,
-          payload: response,
-          url,
-          method,
-        });
-      }
+    function createFetchRequestAction() {
+      return ApiCall.createAction({
+        type: requestActionType,
+        payload: fetch(url),
+        url,
+        method,
+      });
+    }
 
-      function fetchNotificationsFailure(error) {
-        return ApiCall.createAction({
-          type: failureActionType,
-          error,
-          url,
-          method,
-        });
-      }
-    };
+    function createFetchSuccessAction(response) {
+      return ApiCall.createAction({
+        type: successActionType,
+        payload: response,
+        url,
+        method,
+      });
+    }
+
+    function createFetchFailureAction(error) {
+      return ApiCall.createAction({
+        type: failureActionType,
+        error,
+        url,
+        method,
+      });
+    }
   };
-}
 
-export default createApiActionBoilerplate;
+const curried = (...args) => {
+  if (args.length >= createApiActionBoilerplate.length) {
+    return createApiActionBoilerplate.apply(this, args);
+  }
+  return (...rest) => curried.apply(this, args.concat(rest));
+};
+
+export default curried;
