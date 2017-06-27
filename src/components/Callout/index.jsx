@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import is from 'is_js';
 import domAlign from 'dom-align';
 import debounce from 'lodash.debounce';
+import classnames from 'classnames';
 
 const RESIZE_DEBOUNCE_MS = 30;
 
@@ -78,7 +79,7 @@ class Callout extends PureComponent {
   }
 
   render() {
-    const { content, children } = this.props;
+    const { popupClassName, content, children } = this.props;
     return <div className={styles.Callout}
         ref={this._onRef}>
       <div className={styles.Callout_trigger}
@@ -91,7 +92,7 @@ class Callout extends PureComponent {
         <div className={styles.Callout_notch}
             ref={this._onNotchRef}
             key="Callout#notch" />,
-        <div className={styles.Callout_popup}
+        <div className={classnames(styles.Callout_popup, popupClassName)}
             ref={this._onCalloutRef}
             key="Callout#popup">
           {content}
@@ -106,6 +107,7 @@ Callout.defaultProps = {
 };
 
 Callout.propTypes = {
+  popupClassName: PropTypes.string,
   children: PropTypes.node,
   content: PropTypes.node,
   points: PropTypes.arrayOf((val, key) => {
