@@ -152,6 +152,7 @@
     "rimraf": "^2.6.1",
     "scroll-to-element": "^2.0.0",
     "shelljs": "^0.7.8",
+    "signalr-no-jquery": "^0.1.8",
     "sprintf-js": "^1.1.1",
     "stream-toolkit": "^2.1.0",
     "style-loader": "^0.18.2",
