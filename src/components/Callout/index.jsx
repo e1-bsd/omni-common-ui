@@ -2,63 +2,120 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import is from 'is_js';
 import domAlign from 'dom-align';
+import debounce from 'lodash.debounce';
+
+const RESIZE_DEBOUNCE_MS = 30;
 
 class Callout extends PureComponent {
   constructor() {
     super();
     this.state = { open: false };
     this._onClick = this._onClick.bind(this);
-    this._getRef = this._getRef.bind(this);
-    this._getCalloutRef = this._getCalloutRef.bind(this);
+    this._onRef = this._onRef.bind(this);
+    this._onNotchRef = this._onNotchRef.bind(this);
+    this._onCalloutRef = this._onCalloutRef.bind(this);
+    this._onClickedOutside = this._onClickedOutside.bind(this);
   }
 
   componentDidMount() {
     this._updatePosition();
+    document.body.addEventListener('click', this._onClickedOutside);
+    document.body.addEventListener('touchstart', this._onClickedOutside);
+    window.addEventListener('resize', this._onResizeHandler = debounce(() => {
+      this._updatePosition();
+    }, RESIZE_DEBOUNCE_MS, {
+      leading: true,  // nicer iOS screen rotate
+      trailing: true,
+    }), false);
   }
 
   componentDidUpdate() {
     this._updatePosition();
   }
 
+  componentWillUnmount() {
+    document.body.removeEventListener('click', this._onClickedOutside);
+    document.body.removeEventListener('touchstart', this._onClickedOutside);
+    window.removeEventListener('resize', this._onResizeHandler);
+  }
+
   _updatePosition() {
-    domAlign(this._calloutNode, this._node.children[0], {
-      points: ['tr', 'bc'],
-      offset: [65, 25],
+    if (! this._calloutNode) return;
+    const { points, offset } = this.props;
+    const notchPoints = ['tl', 'bl'];
+    domAlign(this._notchNode, this._node.children[0], {
+      points: notchPoints,
+      offset: [0, 15],
     });
+    domAlign(this._calloutNode, this._node.children[0], {
+      points, offset });
+  }
+
+  _onClickedOutside(evt) {
+    if ((this._node && this._node.contains(evt.target)) ||
+        (this._calloutNode && this._calloutNode.contains(evt.target))) {
+      return;
+    }
+    this.setState({ open: false });
   }
 
   _onClick() {
     this.setState({ open: ! this.state.open });
   }
 
-  _getRef(node) {
+  _onRef(node) {
     this._node = node;
   }
 
-  _getCalloutRef(node) {
+  _onNotchRef(node) {
+    this._notchNode = node;
+  }
+
+  _onCalloutRef(node) {
     this._calloutNode = node;
   }
 
   render() {
     const { content, children } = this.props;
     return <div className={styles.Callout}
-        ref={this._getRef}>
-      <div onClick={this._onClick}>
+        ref={this._onRef}>
+      <div className={styles.Callout_trigger}
+          onClick={this._onClick}
+          role="button"
+          tabIndex="0">
         {children}
       </div>
-      {this.state.open &&
-      <div className={styles.Callout_popup}
-          ref={this._getCalloutRef}>
-        {content}
-      </div>}
+      {this.state.open && [
+        <div className={styles.Callout_notch}
+            ref={this._onNotchRef}
+            key="Callout#notch" />,
+        <div className={styles.Callout_popup}
+            ref={this._onCalloutRef}
+            key="Callout#popup">
+          {content}
+        </div>]}
     </div>;
   }
 }
 
+Callout.defaultProps = {
+  points: ['tr', 'bc'],
+  offset: [65, 25],
+};
+
 Callout.propTypes = {
-  content: PropTypes.node,
   children: PropTypes.node,
+  content: PropTypes.node,
+  points: PropTypes.arrayOf((val, key) => {
+    if (is.string(val) && val.length === 2 && key < 2) return true;
+    return new Error('`points` should use the format required by dom-align');
+  }),
+  offset: PropTypes.arrayOf((val, key) => {
+    if (is.number(val) && val.length === 2 && key < 2) return true;
+    return new Error('`offset` should use the format required by dom-align');
+  }),
 };
 
 export default Callout;

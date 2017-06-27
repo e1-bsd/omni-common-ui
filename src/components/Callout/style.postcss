@@ -1,10 +1,50 @@
 @import 'main.postcss';
 
 .Callout {
+  &_trigger {
+    cursor: pointer;
+    outline: 0;
+  }
+
+  &_notch,
   &_popup {
-    border: 1px solid black;
-    height: 390px;
     position: absolute;
+  }
+
+  &_notch {
+    border-bottom: 10px solid var(--colorBorder);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    z-index: var(--zIndex-8--notificationsDropdownNotch);
+
+    &::after {
+      border-bottom: 9px solid #fbfbfb;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      content: '';
+      left: -9px;
+      position: absolute;
+      top: 2px;
+    }
+  }
+
+  &_popup {
+    background: var(--colorCardBg);
+    border: 1px solid var(--colorBorder);
+    border-radius: 3px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.15);
+    height: 390px;
     width: 460px;
+    z-index: var(--zIndex-7--notificationsDropdown);
+
+    @media (--xs-viewport) {
+      border-left: none;
+      border-radius: 0;
+      border-right: none;
+      box-shadow: none;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100%;
+    }
   }
 }
