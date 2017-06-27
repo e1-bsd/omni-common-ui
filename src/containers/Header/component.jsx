@@ -6,6 +6,7 @@ import log from 'domain/log';
 import { connect } from 'domain/connect';
 import Icon from 'components/Icon';
 import is from 'is_js';
+import Config from 'domain/Config';
 import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
 import UserInfo from './UserInfo';
@@ -23,7 +24,9 @@ const Header = (props) => {
     </div>
     <div className={styles.Header_logo} />
     <div className={styles.Header_wrap}>
-      <NotificationsTray />
+      {Config.get('notificationsTray') ?
+        <NotificationsTray /> :
+        null}
       <UserInfo impersonate={props.impersonate}
           router={props.router}
           routes={props.routes} />
