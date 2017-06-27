@@ -121,7 +121,7 @@
     "react-appinsights": "^1.0.2",
     "react-collapse": "^4.0.2",
     "react-daterange-picker": "^1.1.0",
-    "react-day-picker": "^5.5.3",
+    "react-day-picker": "2.5.0",
     "react-dom": "^15.5.4",
     "react-dotdotdot": "^1.1.0",
     "react-ga": "^2.2.0",
