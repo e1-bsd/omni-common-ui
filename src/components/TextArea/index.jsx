@@ -6,11 +6,14 @@ import pure from 'recompose/pure';
 
 const DEFAULT_MAX_LENGTH = 500;
 
-const TextArea = ({ value, onChange, maxLength, className }) =>
-  <textarea className={classnames(styles.TextArea, className)}
-      onChange={onChange}
+const TextArea = (props) => {
+  const { value, onChange, maxLength, className } = props;
+  return <textarea onChange={onChange}
       maxLength={maxLength || DEFAULT_MAX_LENGTH}
-      value={value} />;
+      value={value}
+      {...props}
+      className={classnames(styles.TextArea, className)} />;
+};
 
 TextArea.propTypes = {
   className: PropTypes.string,
