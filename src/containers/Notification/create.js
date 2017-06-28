@@ -5,6 +5,7 @@ const reviver = ([key, val]) => {
   if (! val) return [key, val];
   switch (key) {
     case 'timestamp':
+    case 'notedDateTimeUtc':
       return ['moment', moment(val)];
     default:
       return [key, val];

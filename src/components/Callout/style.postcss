@@ -1,5 +1,9 @@
 @import 'main.postcss';
 
+:root {
+  --calloutNotchSize: 10px;
+}
+
 .Callout {
   &_trigger {
     cursor: pointer;
@@ -12,17 +16,17 @@
   }
 
   &_notch {
-    border-bottom: 10px solid var(--colorBorder);
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
+    border-bottom: var(--calloutNotchSize) solid var(--colorBorder);
+    border-left: var(--calloutNotchSize) solid transparent;
+    border-right: var(--calloutNotchSize) solid transparent;
     z-index: var(--zIndex-8--notificationsDropdownNotch);
 
     &::after {
-      border-bottom: 9px solid #fbfbfb;
-      border-left: 9px solid transparent;
-      border-right: 9px solid transparent;
+      border-bottom: calc(var(--calloutNotchSize) - 1px) solid var(--colorCardBg);
+      border-left: calc(var(--calloutNotchSize) - 1px) solid transparent;
+      border-right: calc(var(--calloutNotchSize) - 1px) solid transparent;
       content: '';
-      left: -9px;
+      left: calc(0% - calc(var(--calloutNotchSize) - 1px));
       position: absolute;
       top: 2px;
     }

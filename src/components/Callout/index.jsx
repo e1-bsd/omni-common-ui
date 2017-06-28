@@ -14,9 +14,6 @@ class Callout extends PureComponent {
     super();
     this.state = { open: false };
     this._onClick = this._onClick.bind(this);
-    this._onRef = this._onRef.bind(this);
-    this._onNotchRef = this._onNotchRef.bind(this);
-    this._onCalloutRef = this._onCalloutRef.bind(this);
     this._onClickedOutside = this._onClickedOutside.bind(this);
   }
 
@@ -66,27 +63,15 @@ class Callout extends PureComponent {
     this.setState({ open: ! this.state.open });
   }
 
-  _onRef(node) {
-    this._node = node;
-  }
-
-  _onNotchRef(node) {
-    this._notchNode = node;
-  }
-
-  _onCalloutRef(node) {
-    this._calloutNode = node;
-  }
-
   render() {
     const { popupClassName, content, children } = this.props;
     const newContent = React.cloneElement(content, {
       className: classnames(styles.Callout_popup, popupClassName),
-      ref: this._onCalloutRef,
+      ref: (node) => { this._calloutNode = node; },
       key: 'Callout#popup',
     });
     return <div className={styles.Callout}
-        ref={this._onRef}>
+        ref={(node) => { this._node = node; }}>
       <div className={styles.Callout_trigger}
           onClick={this._onClick}
           role="button"
@@ -95,7 +80,7 @@ class Callout extends PureComponent {
       </div>
       {this.state.open && [
         <div className={styles.Callout_notch}
-            ref={this._onNotchRef}
+            ref={(node) => { this._notchNode = node; }}
             key="Callout#notch" />,
         newContent] }
     </div>;
