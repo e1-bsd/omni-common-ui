@@ -17,13 +17,16 @@
 :root {
   --zIndex-0--dropdownBoxLeaving: var(--zIndex-0);
   --zIndex-1--dialogLoadingOverlay: var(--zIndex-1);
-  --zIndex-1--expandedTableRow: var(--zIndex-1);
+  --zIndex-1--expandedTableRow: calc(var(--zIndex-1) + 1);
+  --zIndex-1--iScrollHorizontalScrollbar: calc(var(--zIndex-1) + 2);
   --zIndex-2--dropdownBoxEntering: var(--zIndex-2);
   --zIndex-7--headerDropdown: calc(var(--zIndex-7) + 1);
-  --zIndex-7--stickyNavBar: calc(var(--zIndex-7) + 2);
+  --zIndex-7--notificationsDropdown: calc(var(--zIndex-7) + 2);
+  --zIndex-7--stickyNavBar: calc(var(--zIndex-7) + 3);
   --zIndex-7--sidebar: calc(var(--zIndex-7) + 3);
   --zIndex-7--header: calc(var(--zIndex-7) + 4);
   --zIndex-8--savingBarOverlay: var(--zIndex-8);
+  --zIndex-8--notificationsDropdownNotch: calc(var(--zIndex-8) + 1);
   --zIndex-9--savingBar: var(--zIndex-9);
   --zIndex-10--modalPopup: var(--zIndex-10);
   --zIndex-10--perfTools: calc(var(--zIndex-10) + 1);
@@ -62,6 +65,7 @@
 
 :root {
   --tooltipBoxShadow: 0 5px 10px 3px #0003;
+  --headerBoxShadow: 0 0 5px 0 #999;
   --cardBoxShadow: 0 0 3px 1px rgba(0, 0, 0, 0.15);
   --headerBarShadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -114,6 +118,8 @@
 :root {
   --transitionDurationBase: 300ms;
 }
+
+@custom-media --xs-viewport only screen and (min-width: 0) and (max-width: 479px);
 
 @custom-media --sm-viewport only screen and (min-width: 480px);
 
@@ -216,7 +222,7 @@
 
 .Header {
   background-color: #fff;
-  box-shadow: 0 0 5px 0 #999;
+  box-shadow: var(--headerBoxShadow);
   display: flex;
   flex: none;
   flex-direction: row;
@@ -256,7 +262,7 @@
   }
 
   &_wrap {
-    align-items: stretch;
+    align-items: center;
     display: flex;
     flex: 1;
     flex-direction: row;
