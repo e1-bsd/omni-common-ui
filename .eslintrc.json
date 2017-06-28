@@ -43,6 +43,7 @@
     "react/forbid-prop-types": ["off"],
     "react/require-default-props": ["off"],
     "react/no-unused-prop-types": ["off"],
+    "react/no-unescaped-entities": ["off"],
     "react/sort-comp": ["error", {
       "order": [
         "static-methods",
