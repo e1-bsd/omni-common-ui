@@ -1,7 +1,7 @@
 @import 'main.postcss';
 
 .NotificationsTray {
-  margin-right: 20px;
+  margin-right: var(--spaceBase);
 
   &_icon svg {
     height: 18px;
@@ -9,6 +9,35 @@
   }
 
   &_popup {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    user-select: none;
+
+    & h1,
+    & h2 {
+      font-weight: var(--fontWeight-regular);
+      margin: 0;
+    }
+
+    & h1 {
+      font-size: 30px;
+    }
+
+    & h2 {
+      font-size: var(--fontSize-xl);
+    }
+
+    & aside {
+      color: var(--colorTextGreyed);
+    }
+
+    &_inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
     &_heading,
     &_list li {
       &::after {
@@ -23,41 +52,72 @@
 
     &_heading {
       cursor: default;
-      padding: 20px;
+      flex: 0 0 auto;
+      padding: var(--spaceBase);
       padding-bottom: 0;
       user-select: none;
 
-      & h1 {
-        font-size: 18px;
-        font-weight: var(--fontWeight-regular);
-        margin: 0;
+      & h2 {
         padding-bottom: 15px;
       }
     }
 
+    &_empty {
+      cursor: default;
+      flex: 0 1 100%;
+      padding: var(--spaceBase);
+    }
+
     &_list {
+      flex: 0 1 100%;
       list-style-type: none;
       margin: 0;
       overflow: auto;
       padding-left: 0;
-
-      & > li {
-        padding: 15px 0;
-      }
+      position: relative;
     }
   }
 
   &_notification {
     align-items: center;
+    cursor: pointer;
     display: flex;
     height: 40px;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 var(--spaceBase);
     white-space: nowrap;
 
-    & > span {
-      overflow: none;
+    &_blurb {
+      flex: 0 1 70%;
+      overflow: hidden;
+      padding-right: var(--spaceBase);
       text-overflow: ellipsis;
+
+      @media (--xs-viewport) {
+        flex-basis: 95%;
+      }
+    }
+
+    &_time {
+      color: black;
+      flex: 0 0 25%;
+      font-size: 95%;
+      opacity: 0.6;
+      text-align: right;
+
+      @media (--xs-viewport) {
+        display: none;
+      }
+    }
+
+    &_icon {
+      flex: 0 0 5%;
+      justify-content: flex-end;
+
+      & svg {
+        height: 10px;
+        width: 10px;
+      }
     }
   }
 }

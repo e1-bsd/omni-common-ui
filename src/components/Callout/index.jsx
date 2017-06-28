@@ -80,6 +80,11 @@ class Callout extends PureComponent {
 
   render() {
     const { popupClassName, content, children } = this.props;
+    const newContent = React.cloneElement(content, {
+      className: classnames(styles.Callout_popup, popupClassName),
+      ref: this._onCalloutRef,
+      key: 'Callout#popup',
+    });
     return <div className={styles.Callout}
         ref={this._onRef}>
       <div className={styles.Callout_trigger}
@@ -92,11 +97,7 @@ class Callout extends PureComponent {
         <div className={styles.Callout_notch}
             ref={this._onNotchRef}
             key="Callout#notch" />,
-        <div className={classnames(styles.Callout_popup, popupClassName)}
-            ref={this._onCalloutRef}
-            key="Callout#popup">
-          {content}
-        </div>]}
+        newContent] }
     </div>;
   }
 }

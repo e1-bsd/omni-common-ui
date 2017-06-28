@@ -21,27 +21,36 @@ class NotificationsTray extends PureComponent {
 
   render() {
     const { notifications } = this.props;
-    return <Callout popupClassName={styles.NotificationsTray_popup}
-        content={
-          <div>
-            <div className={styles.NotificationsTray_popup_heading}>
-              <h1>Notifications</h1>
-            </div>
-            <ul className={styles.NotificationsTray_popup_list}>
-              {notifications && notifications.map((notification) => <li>
-                <div className={styles.NotificationsTray_popup_notification}>
-                  <span>
-                    {notification.studentName} has a new {notification.category} note
-                  </span>
-                  <span>
-                    {moment(notification.notedDateTimeUtc).fromNow()}
-                  </span>
-                  <Icon id="chevron-small-right" />
-                </div>
-              </li>)}
-            </ul>
-          </div>
-        }>
+    return <Callout content={
+      <div>
+        <div className={styles.NotificationsTray_popup_heading}>
+          <h2>Notifications</h2>
+        </div>
+        {(! notifications || ! notifications.size) ?
+          <div className={styles.NotificationsTray_popup_empty}>
+            <h1>Hello!</h1>
+            <p>You don't have any notifications yet.</p>
+            <aside>New notifications will appear here when teachers<br />
+              add internal notes for your students.</aside>
+          </div> : null}
+        {notifications && notifications.size ?
+          <ul className={styles.NotificationsTray_popup_list}>
+            {notifications.map((notification) => <li>
+              <div className={styles.NotificationsTray_notification}>
+                <span className={styles.NotificationsTray_notification_blurb}>
+                  {notification.studentName} has a new {notification.category} note
+                </span>
+                <span className={styles.NotificationsTray_notification_time}>
+                  {moment(notification.notedDateTimeUtc).fromNow()}
+                </span>
+                <Icon className={styles.NotificationsTray_notification_icon}
+                    id="chevron-small-right" />
+              </div>
+            </li>)}
+          </ul> : null}
+      </div>
+    }
+        popupClassName={styles.NotificationsTray_popup}>
       <div className={styles.NotificationsTray}>
         <Icon className={styles.NotificationsTray_icon}
             id="bell" />
