@@ -2,13 +2,15 @@ import React from 'react';
 import pure from 'recompose/pure';
 import classnames from 'classnames';
 import styles from './style.postcss';
-import UserInfo from './UserInfo';
 import log from 'domain/log';
 import { connect } from 'domain/connect';
 import Icon from 'components/Icon';
 import is from 'is_js';
+import Config from 'domain/Config';
 import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
+import UserInfo from './UserInfo';
+import NotificationsTray from './NotificationsTray';
 
 const Header = (props) => {
   log.debug('Header - impersonateData', props.impersonate);
@@ -22,6 +24,9 @@ const Header = (props) => {
     </div>
     <div className={styles.Header_logo} />
     <div className={styles.Header_wrap}>
+      {Config.get('notificationsTray') ?
+        <NotificationsTray /> :
+        null}
       <UserInfo impersonate={props.impersonate}
           router={props.router}
           routes={props.routes} />
