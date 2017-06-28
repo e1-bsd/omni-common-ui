@@ -62,7 +62,7 @@ deploy:
 
 notifications:
   slack:
-    on_success: always
+    on_success: change
     on_failure: always
     secure: U+dYmbZcLrHZq1e7aeyrvZcZhCeTp2v0NcM3QyJoSAitNWbDkP0VTL/AfnNiVQFVGbjP1Ym7ixte7pznAyGozChLNnqRUxPBP1QwJczZ897j1ePuEU0DyIpJ6W6d7ULcGmmXnDkatcnCo9CHUB9QcICj3X+IP9dvu6yg/DhtlU8T98/GOeqOuzS1ypVA9g6mrG8ua+INE8Vda86OADLtTghV/ep0Z1NE17DlBVZbYNg+mg5I4EeVC4qyynKB/53DpHsG/MsFbJaTUIlWIWs/R5Il3be01t/cLzruUaIEOocJkow/Ni2t8Zj+oFKWUUy13Pwnygu39UjPkaVcR2vcUEuXgEr1SFJ4HB3oPDXiHpcq6Ts0YJnxJa1vNrCNTmAtXkgCus2s3IIxfsUVwALJ6s7QdGYJaq4jwyk/GJvg6CrMBfdgz71ilxpbdLhmJZNh1Qy/J2wHaYPz9jwJtReN/38QC47rArE5QiWmqzBn9Dnzl62QQ+b3oYsTLtHVZnu/ndyETOoh1ONZAqI/iIUCPFfn0iLsIVemYxG5LeYKHSnoB8idnTRXL6ZRv29LEm0GeZRTdY9L77W2Du/dYl9UmjfdM9dpIOrHubxA8m6joG5VeEO+2C+JLpRrH3OF01rTyaLkz9rU1BxlftoRGyc9iwxL2sBysCc9NBC6hKNVM2U=
   email:
