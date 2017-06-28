@@ -215,10 +215,9 @@
 }
 
 :root {
-  --size: 17px;
-  --borderSize: var(--hairThin);
+  --size: 16px;
+  --borderSize: 1px;
   --blankSpace: 2px;
-  --innerSize: calc(var(--size) - calc(var(--borderSize) * 2) - calc(var(--blankSpace) * 2));
 }
 
 .Checkbox {
@@ -226,7 +225,7 @@
   margin-right: 10px;
 
   &_label {
-    align-items: center;
+    align-items: stretch;
     border: var(--borderSize) solid var(--colorTextBase);
     border-radius: 2px;
     cursor: pointer;
@@ -237,14 +236,14 @@
 
     &::after {
       background-color: var(--colorActive);
-      border-radius: 1px;
+      border: var(--blankSpace) solid var(--colorBase); /* Implemented this way to avoid crazy sub pixel calculations */
+      border-radius: 3px;
       content: '';
       display: block;
       filter: alpha(opacity=0);
-      height: var(--innerSize);
+      flex: 1 0 0;
       opacity: 0;
       transition: opacity var(--transitionDurationBase) ease-in-out, background-color var(--transitionDurationBase) ease-in-out;
-      width: var(--innerSize);
     }
 
     &:hover {
