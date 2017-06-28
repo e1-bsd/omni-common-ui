@@ -55,9 +55,6 @@ export function createNotificationsMiddleware(config = {}) {
     const emitter = new StrategyClass(config);
     emitter.on('notification', () => {
       const {
-        requestActionType,
-        successActionType,
-        failureActionType,
         method,
         apiUrl,
       } = config.dispatch;
@@ -65,8 +62,7 @@ export function createNotificationsMiddleware(config = {}) {
       const fullUrl = buildUrl(apiUrl);
 
       store.dispatch(
-          createApiActionCreator(
-              requestActionType, successActionType, failureActionType, fullUrl, method));
+          createApiActionCreator('NOTIFICATIONS', fullUrl, method));
     });
 
     log.info(`Pulling notifications using the \`${config.strategy}\` strategy`);
