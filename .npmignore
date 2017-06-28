@@ -3,7 +3,7 @@
 !/package.json
 !/lib
 !/.eslintrc.json
-!/.stylelintrc
+!/.stylelintrc.json
 !/webpack.config.js
 !/postcss.config.js
 !/.gemini.conf.js
