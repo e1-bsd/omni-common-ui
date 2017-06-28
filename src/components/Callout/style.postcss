@@ -1,0 +1,55 @@
+@import 'main.postcss';
+
+:root {
+  --calloutNotchSize: 10px;
+}
+
+.Callout {
+  &_trigger {
+    cursor: pointer;
+    outline: 0;
+  }
+
+  &_notch,
+  &_popup {
+    position: absolute;
+  }
+
+  &_notch {
+    border-bottom: var(--calloutNotchSize) solid var(--colorBorder);
+    border-left: var(--calloutNotchSize) solid transparent;
+    border-right: var(--calloutNotchSize) solid transparent;
+    z-index: var(--zIndex-8--notificationsDropdownNotch);
+
+    &::after {
+      border-bottom: calc(var(--calloutNotchSize) - 1px) solid var(--colorCardBg);
+      border-left: calc(var(--calloutNotchSize) - 1px) solid transparent;
+      border-right: calc(var(--calloutNotchSize) - 1px) solid transparent;
+      content: '';
+      left: calc(0% - calc(var(--calloutNotchSize) - 1px));
+      position: absolute;
+      top: 2px;
+    }
+  }
+
+  &_popup {
+    background: var(--colorCardBg);
+    border: 1px solid var(--colorBorder);
+    border-radius: 3px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
+    height: 390px;
+    overflow: hidden;
+    width: 460px;
+    z-index: var(--zIndex-7--notificationsDropdown);
+
+    @media (--xs-viewport) {
+      border-left: none;
+      border-radius: 0;
+      border-right: none;
+      box-shadow: none;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100%;
+    }
+  }
+}
