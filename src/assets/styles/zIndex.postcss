@@ -17,7 +17,8 @@
 :root {
   --zIndex-0--dropdownBoxLeaving: var(--zIndex-0);
   --zIndex-1--dialogLoadingOverlay: var(--zIndex-1);
-  --zIndex-1--expandedTableRow: var(--zIndex-1);
+  --zIndex-1--expandedTableRow: calc(var(--zIndex-1) + 1);
+  --zIndex-1--iScrollHorizontalScrollbar: calc(var(--zIndex-1) + 2);
   --zIndex-2--dropdownBoxEntering: var(--zIndex-2);
   --zIndex-7--headerDropdown: calc(var(--zIndex-7) + 1);
   --zIndex-7--notificationsDropdown: calc(var(--zIndex-7) + 2);
