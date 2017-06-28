@@ -3,7 +3,6 @@ import styles from './style.postcss';
 import React, { PureComponent } from 'react';
 import Cursor from 'immutable-cursor';
 import Config from 'domain/Config';
-import moment from 'domain/moment';
 import connect from 'domain/connect';
 import Icon from 'components/Icon';
 import Callout from 'components/Callout';
@@ -38,10 +37,10 @@ class NotificationsTray extends PureComponent {
             {notifications.map((notification) => <li>
               <div className={styles.NotificationsTray_notification}>
                 <span className={styles.NotificationsTray_notification_blurb}>
-                  {notification.studentName} has a new {notification.category} note
+                  {notification.blurb}
                 </span>
                 <span className={styles.NotificationsTray_notification_time}>
-                  {moment(notification.notedDateTimeUtc).fromNow()}
+                  {notification.moment.fromNow()}
                 </span>
                 <Icon className={styles.NotificationsTray_notification_icon}
                     id="chevron-small-right" />
@@ -52,7 +51,7 @@ class NotificationsTray extends PureComponent {
     }
         popupClassName={styles.NotificationsTray_popup}>
       <div className={styles.NotificationsTray}>
-        <Icon className={styles.NotificationsTray_icon}
+        <Icon className={styles.NotificationsTray_chevron}
             id="bell" />
       </div>
     </Callout>;
