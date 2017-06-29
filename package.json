@@ -201,6 +201,7 @@
       "\\.(js|jsx)": "babel-jest"
     },
     "testRegex": "src/.+\\.?(test|spec)\\.(js|jsx)$",
+    "testResultsProcessor": "./node_modules/jest-junit",
     "moduleFileExtensions": [
       "js",
       "jsx",
@@ -221,5 +222,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.20.3-dev.1749"
+  "version": "0.20.3-dev.1750"
 }
