@@ -285,6 +285,12 @@
       cursor: default;
       flex: 0 1 100%;
       padding: var(--spaceBase);
+
+      & br {
+        @media (--xs-viewport) {
+          display: none;
+        }
+      }
     }
 
     &_list {
