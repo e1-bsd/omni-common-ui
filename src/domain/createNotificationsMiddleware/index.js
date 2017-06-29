@@ -52,8 +52,7 @@ export function createNotificationsMiddleware(config = {}) {
     const emitter = new StrategyClass(config);
     emitter.on('notification', () => {
       const {
-        method,
-        apiUrl,
+        method, apiUrl,
       } = config.dispatch;
 
       const fullUrl = buildUrl(apiUrl);
