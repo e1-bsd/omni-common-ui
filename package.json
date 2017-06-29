@@ -201,6 +201,7 @@
       "\\.(js|jsx)": "babel-jest"
     },
     "testRegex": "src/.+\\.?(test|spec)\\.(js|jsx)$",
+    "testResultsProcessor": "./node_modules/jest-junit",
     "moduleFileExtensions": [
       "js",
       "jsx",
