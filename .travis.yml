@@ -1,13 +1,10 @@
 sudo: required
 dist: trusty
 addons:
-  firefox: latest
   apt:
     sources:
-      - google-chrome
       - ubuntu-toolchain-r-test
     packages:
-      - google-chrome-stable
       - gcc-4.8
       - g++-4.8
 
@@ -29,10 +26,6 @@ before_install:
 install:
   - npm install -g yarn
   - yarn --prefer-offline --no-progress --frozen-lockfile
-
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
 
 script:
   - yarn run lint:css
