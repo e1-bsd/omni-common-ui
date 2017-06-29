@@ -2,6 +2,7 @@
 !/karma.conf.js
 !/package.json
 !/lib
+!/src
 !/.eslintrc.json
 !/.stylelintrc.json
 !/webpack.config.js
