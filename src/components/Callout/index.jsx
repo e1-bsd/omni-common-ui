@@ -56,11 +56,18 @@ class Callout extends PureComponent {
         (this._calloutNode && this._calloutNode.contains(evt.target))) {
       return;
     }
-    this.setState({ open: false });
+    const { onOpenStateChanged } = this.props;
+    this.setState({ open: false }, () => {
+      onOpenStateChanged && onOpenStateChanged(false);
+    });
   }
 
   _onClick() {
-    this.setState({ open: ! this.state.open });
+    const newOpen = ! this.state.open;
+    const { onOpenStateChanged } = this.props;
+    this.setState({ open: newOpen }, () => {
+      onOpenStateChanged && onOpenStateChanged(newOpen);
+    });
   }
 
   render() {
@@ -104,6 +111,7 @@ Callout.propTypes = {
     if (is.number(val) && val.length === 2 && key < 2) return true;
     return new Error('`offset` should use the format required by dom-align');
   }),
+  onOpenStateChanged: PropTypes.func,
 };
 
 export default Callout;
