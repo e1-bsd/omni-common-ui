@@ -11,10 +11,7 @@ import Callout from 'components/Callout';
 class NotificationsTray extends PureComponent {
   constructor() {
     super();
-    this.state = {
-      open: false,
-      viewingNotification: null,
-    };
+    this.state = { viewingNotification: null };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
     this._renderCalloutPopupContent = this._renderCalloutPopupContent.bind(this);
@@ -74,7 +71,7 @@ class NotificationsTray extends PureComponent {
         <div className={classnames(styles.NotificationsTray_popup_heading, styles.__clickable)}
             onClick={this._onClickBackToNotifications}
             role="button"
-            tabIndex="0">
+            tabIndex="-1">
           <Icon className={styles.NotificationsTray_popup_heading_chevron}
               id="chevron-small-left" />
           <h2>Back to notifications</h2>
