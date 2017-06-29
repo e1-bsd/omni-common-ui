@@ -20,12 +20,12 @@ class NotificationsTray extends PureComponent {
       <div className={styles.NotificationsTray_popup_heading}>
         <h2>Notifications</h2>
       </div>
-      {(! notifications || ! notifications.size) ?
+      {! notifications || ! notifications.size ?
         <div className={styles.NotificationsTray_popup_empty}>
           <h1>Hello!</h1>
           <p>You don't have any notifications yet.</p>
-          <aside>New notifications will appear here when teachers<br />
-            add internal notes for your students.</aside>
+          <aside>New notifications will appear here when<br />
+            teachers add internal notes for your students.</aside>
         </div> : null}
       {notifications && notifications.size ?
         <ul className={styles.NotificationsTray_popup_list}>
