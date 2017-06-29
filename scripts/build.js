@@ -73,7 +73,9 @@ auto({
 }, (err) => {
   if (err) {
     console.error(colors.red('   💣  App build failed!'), err);
-    return;  // eslint-disable-line
+    process.exit(1);
+    return;
   }
+
   console.info(colors.green('   📦  App built'));
 });
