@@ -75,6 +75,7 @@
     "istanbul-instrumenter-loader": "^2.0.0",
     "jest": "^20.0.4",
     "jest-fetch-mock": "^1.1.1",
+    "jest-junit": "^1.5.1",
     "jsdom": "^11.0.0",
     "jsrsasign": "^7.2.1",
     "jwt-simple": "^0.5.1",
@@ -220,5 +221,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.20.3-dev.1747"
+  "version": "0.20.3-dev.1749"
 }
