@@ -14,6 +14,7 @@ class NotificationsTray extends PureComponent {
     this.state = { viewingNotification: null };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
+    this._onCalloutOpenStateChanged = this._onCalloutOpenStateChanged.bind(this);
     this._renderCalloutPopupContent = this._renderCalloutPopupContent.bind(this);
   }
 
@@ -24,6 +25,11 @@ class NotificationsTray extends PureComponent {
   }
 
   _onClickBackToNotifications() {
+    this.setState({ viewingNotification: null });
+  }
+
+  _onCalloutOpenStateChanged(isOpen) {
+    if (! isOpen || ! this.state.viewingNotification) return;
     this.setState({ viewingNotification: null });
   }
 
@@ -84,7 +90,8 @@ class NotificationsTray extends PureComponent {
 
   render() {
     return <Callout popupClassName={styles.NotificationsTray_popup}
-        content={this._renderCalloutPopupContent()}>
+        content={this._renderCalloutPopupContent()}
+        onOpenStateChanged={this._onCalloutOpenStateChanged}>
       <div className={styles.NotificationsTray}>
         <Icon className={styles.NotificationsTray_icon}
             id="bell" />
