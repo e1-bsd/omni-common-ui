@@ -9,6 +9,7 @@ const fs = require('fs');
 const requireAll = require('require-all');
 const mkdirp = require('mkdirp');
 const spawn = require('./spawn');
+const { Spinner } = require('cli-spinner');
 
 const DIST_CONFIGS_PATH = path.resolve('dist-configs');
 
@@ -47,6 +48,9 @@ auto({
   buildApp: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Build app');
 
+    const spinner = new Spinner();
+    spinner.start();
+
     const webpack = spawn('node', [
       'node_modules/webpack/bin/webpack.js',
       '-p', '--bail', '--progress', '--colors',
@@ -56,6 +60,7 @@ auto({
       stdio: [log, log, log],
     });
     webpack.on('close', (code) => {
+      spinner.stop(true);
       if (code !== 0) {
         cb(new Error(`Error code ${code}`));
         return;
@@ -79,4 +84,5 @@ auto({
   }
 
   console.info(colors.green('   📦  App built'));
+  process.exit(0);
 });
