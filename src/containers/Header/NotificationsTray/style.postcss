@@ -1,5 +1,9 @@
 @import 'main.postcss';
 
+:root {
+  --slideTransitionDuration: 0.4s;
+}
+
 .NotificationsTray {
   margin-right: var(--spaceBase);
 
@@ -37,17 +41,23 @@
       outline: 1px solid var(--colorBorder);
       position: absolute;
       top: 0;
-      transform: translateX(0%);
-      transition: transform 0.3s ease;
+      transform: translateX(0%) translate3d(0, 0, 0);
+      transition: transform var(--slideTransitionDuration) ease;
       width: 100%;
+      will-change: transform;
 
       &:not(.__active) {
         outline: 0;
-        transform: translateX(100%);
+        transform: translateX(100%) translate3d(0, 0, 0);
+
+        & * {
+          /* wait for the slide transition to finish then put outline: 0 on the kids */
+          animation: goOutlineless 0.01s linear var(--slideTransitionDuration) forwards;
+        }
       }
 
       &.__previous {
-        transform: translateX(-100%);
+        transform: translateX(-100%) translate3d(0, 0, 0);
       }
     }
 
@@ -152,4 +162,8 @@
       justify-content: flex-end;
     }
   }
+}
+
+@keyframes goOutlineless {
+  100% { outline: 0; }
 }
