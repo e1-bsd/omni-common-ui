@@ -6,6 +6,7 @@ import is from 'is_js';
 import domAlign from 'dom-align';
 import debounce from 'lodash.debounce';
 import classnames from 'classnames';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 const RESIZE_DEBOUNCE_MS = 30;
 
@@ -85,11 +86,15 @@ class Callout extends PureComponent {
           tabIndex="0">
         {children}
       </div>
-      {this.state.open && [
-        <div className={styles.Callout_notch}
-            ref={(node) => { this._notchNode = node; }}
-            key="Callout#notch" />,
-        newContent] }
+      <CSSTransitionGroup transitionName="popup"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}>
+        {this.state.open &&
+          <div className={styles.Callout_notch}
+              ref={(node) => { this._notchNode = node; }}
+              key="Callout#notch" /> }
+        {this.state.open && newContent}
+      </CSSTransitionGroup>
     </div>;
   }
 }
