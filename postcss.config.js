@@ -33,7 +33,7 @@ module.exports = {
       rootValue: 14,
       unitPrecision: 5,
       propWhiteList: [],
-      selectorBlackList: [],
+      selectorBlackList: [':export'],
       replace: true,
       mediaQuery: false,
       minPixelValue: 0,
