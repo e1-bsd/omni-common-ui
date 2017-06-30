@@ -30,6 +30,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "cheerio": "^1.0.0-rc.1",
     "classnames": "2.2.5",
+    "cli-spinner": "^0.2.6",
     "colors": "^1.1.2",
     "command-line-args": "^4.0.6",
     "command-line-usage": "^4.0.0",
@@ -222,5 +223,5 @@
     "omni-ci-build": "./scripts/ci-build.js",
     "omni-ci-upload": "./scripts/ci-upload.js"
   },
-  "version": "0.20.3-dev.1755"
+  "version": "0.20.3-dev.1757"
 }
