@@ -40,10 +40,13 @@ auto({
         console.info(colors.green(`   📄  ${file} generated`));
       } catch (e) {
         console.error(colors.red(`   📄  ${file} could not be generated`));
-        cb(e);
         log.write(e);
+        cb(e);
+        throw e;
       }
     });
+
+    cb();
   }],
   buildApp: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Build app');
@@ -84,5 +87,4 @@ auto({
   }
 
   console.info(colors.green('   📦  App built'));
-  process.exit(0);
 });
