@@ -2,6 +2,7 @@
 
 :root {
   --calloutNotchSize: 10px;
+  --transitionDurationBase: 100ms;
 }
 
 .Callout {
@@ -12,7 +13,28 @@
 
   &_notch,
   &_popup {
+    opacity: 1;
     position: absolute;
+    transform: translateZ(0);
+    transform-origin: top center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    will-change: opacity, transform;
+
+    &:global(.popup-enter),
+    &:global(.popup-leave.popup-leave-active) {
+      opacity: 0.01;
+      transform: scale(1);
+    }
+
+    &:global(.popup-leave),
+    &:global(.popup-enter.popup-enter-active) {
+      opacity: 1;
+    }
+
+    &:global(.popup-enter.popup-enter-active) {
+      opacity: 1;
+      transform: scale(1.02);
+    }
   }
 
   &_notch {
