@@ -11,7 +11,7 @@ const options = require('command-line-args')([
 
 process.env.CONFIG = options.config || '';
 
-const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--progress', '--hot', '--inline', '--port', '8080', '--config', path.resolve(__dirname, '../webpack.dev.js')];
+const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--profile', '--progress', '--hot', '--inline', '--port', '8080', '--config', path.resolve(__dirname, '../webpack.dev.js')];
 if (options.host) {
   command.push('--host');
   command.push(`${options.host}`);
