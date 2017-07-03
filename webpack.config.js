@@ -16,13 +16,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(html|hbs)$/,
-        use: {
-          loader: 'handlebars-loader',
-          options: { inlineRequires: 'assets/favicons' },
-        },
-      },
-      {
         test: /\.jsx?$/,
         exclude: /node_modules(\/|\\)((?!(omni-common-ui)).)/,
         use: {
