@@ -52,13 +52,21 @@ export function createNotificationsMiddleware(config = {}) {
     const emitter = new StrategyClass(config);
     emitter.on('notification', () => {
       const {
-        method, apiUrl,
+        method, apiUrl, disableDefault,
       } = config.dispatch;
 
       const fullUrl = buildUrl(apiUrl);
+      const actionExtras = disableDefault ? { disableDefault: true } : {};
 
       store.dispatch(
-          createApiActionCreator('NOTIFICATIONS', fullUrl, method));
+          createApiActionCreator({
+            actionObjectName: 'NOTIFICATIONS',
+            url: fullUrl,
+            method,
+            requestExtras: actionExtras,  // disableDefault in request, success, failure
+            successExtras: actionExtras,
+            failureExtras: actionExtras,
+          }));
     });
 
     log.info(`Pulling notifications using the \`${config.strategy}\` strategy`);
