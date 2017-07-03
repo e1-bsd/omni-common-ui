@@ -233,16 +233,16 @@
 
   &_notch,
   &_popup {
-    opacity: 1;
     position: absolute;
-    transform: translateZ(0);
     transform-origin: top center;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    will-change: opacity, transform;
+    transition-duration: 0.2s;  /* split because SAFARI */
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+    will-change: transform, opacity;
 
     &:global(.popup-enter),
     &:global(.popup-leave.popup-leave-active) {
-      opacity: 0.01;
+      opacity: 0;
       transform: scale(1);
     }
 
@@ -253,7 +253,7 @@
 
     &:global(.popup-enter.popup-enter-active) {
       opacity: 1;
-      transform: scale(1.02);
+      transform: scale(1.05);
     }
   }
 
@@ -264,7 +264,7 @@
     z-index: var(--zIndex-8--notificationsDropdownNotch);
 
     &::after {
-      border-bottom: calc(var(--calloutNotchSize) - 1px) solid var(--colorCardBg);
+      border-bottom: calc(var(--calloutNotchSize) - 1px) solid var(--colorBase);
       border-left: calc(var(--calloutNotchSize) - 1px) solid transparent;
       border-right: calc(var(--calloutNotchSize) - 1px) solid transparent;
       content: '';
@@ -275,7 +275,7 @@
   }
 
   &_popup {
-    background: var(--colorCardBg);
+    background: var(--colorBase);
     border: 1px solid var(--colorBorder);
     border-radius: 3px;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
