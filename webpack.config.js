@@ -1,7 +1,7 @@
 const path = require('path');
 
 const REG_EXP_INLINE_SVGS = new RegExp(`(\\.inline\\.svg$)|(components\\${path.sep}Icon\\${path.sep}.+\\.svg$)`);
-const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+$`);
+const REG_EXP_FAVICONS = new RegExp(`assets\\${path.sep}favicons\\${path.sep}.+(svg|png)$`);
 const BABEL_CACHE_ENABLED = true;
 
 module.exports = {
@@ -15,13 +15,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(html|hbs)$/,
-        use: {
-          loader: 'handlebars-loader',
-          options: { inlineRequires: 'assets/favicons' },
-        },
-      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules(\/|\\)((?!(omni-common-ui)).)/,
@@ -70,10 +63,6 @@ module.exports = {
         ],
       },
       {
-        test: REG_EXP_FAVICONS,
-        use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
-      },
-      {
         test: REG_EXP_INLINE_SVGS,
         use: {
           loader: 'svg-inline-loader',
@@ -112,6 +101,30 @@ module.exports = {
               },
             },
           },
+        ],
+      },
+      {
+        test: REG_EXP_FAVICONS,
+        use: 'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
+      },
+      {
+        test: /favicon\.ico$/,
+        use: 'file-loader?name=[name].[ext]',
+      },
+      {
+        test: /browserconfig\.xml$/,
+        use: [
+          'file-loader?name=[name].[ext]',
+          'extract-loader',
+          'browserconfig-loader',
+        ],
+      },
+      {
+        test: /manifest\.json$/,
+        use: [
+          'file-loader?hash=sha512&digest=hex&name=[name].[hash].[ext]',
+          'extricate-loader',
+          'interpolate-loader',
         ],
       },
     ],
