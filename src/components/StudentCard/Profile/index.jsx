@@ -1,24 +1,16 @@
 import styles from './style.postcss';
 
 import React from 'react';
-import is from 'is_js';
-import StudentPicture from 'components/StudentPicture';
-import Card from 'components/Card';
-import classnames from 'classnames';
-import ProductionStatus from 'components/ProductionStatus';
-import Person from 'components/Person';
-import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import classnames from 'classnames';
+import is from 'is_js';
+import Card from 'components/Card';
+import testClass from 'domain/testClass';
+import StudentCard from '../';
 
 const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
   const { status, statusHighlighted } = props;
-  const classes = classnames(styles.StudentCard_profile,
-      styles.__1, {
-        [styles.__separated]: withSeparatorLine,
-        [styles.__backgroundless]: backgroundless,
-        [styles.__vertical]: vertical,
-      }, props.className);
 
   const renderName = (prop, name, nameClasses, nameLink) => {
     if (! name) {
@@ -29,37 +21,39 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
       <Link {...nameProps} to={nameLink}>{name}</Link> :
       <div {...nameProps}>{name}</div>;
   };
+
   const getStr = (name) => {
     if (is.undefined(name)) {
       return '';
     }
     return name;
   };
+
   const nameClass = classnames(styles.StudentCard_profile_name,
     testClass('studentCard-name'),
     { [styles.__vertical]: vertical }
   );
+
   const localNameClass = classnames(styles.StudentCard_profile_localName,
     testClass('studentCard-localName'),
     { [styles.__vertical]: vertical }
   );
-  const statusClass = classnames(styles.StudentCard_profile_status,
-    testClass('studentCard-status'));
+
   const name = `${getStr(props.name)} ${getStr(props.surname)}`;
+
   return <Card.Content withoutBottomPadding>
-    <Person className={classes} vertical={vertical}>
-      <StudentPicture src={props.avatarUrl}
-          gender={props.gender}
-          className={classnames(styles.StudentCard_profile_image, {
-            [styles.__bigger]: !! props.withBiggerAvatar,
-            [styles.__vertical]: vertical,
-          })} />
-      {renderName('name', name, nameClass, props.nameLink)}
-      {renderName('localName', props.localName, localNameClass)}
-      <ProductionStatus className={statusClass}
-          status={status}
-          highlighted={statusHighlighted} />
-    </Person>
+    <StudentCard.Person className={props.className}
+        avatarUrl={props.avatarUrl}
+        gender={props.gender}
+        nameNode={renderName('name', name, nameClass, props.nameLink)}
+        localNameNode={renderName('localName', props.localName, localNameClass)}
+        backgroundless={backgroundless}
+        vertical={vertical}
+        withBiggerAvatar={props.withBiggerAvatar}
+        withSeparatorLine={withSeparatorLine}
+        productionStatusClassName={testClass('studentCard-status')}
+        productionStatus={status}
+        productionStatusHighlighted={statusHighlighted} />
   </Card.Content>;
 };
 
@@ -74,7 +68,7 @@ Profile.propTypes = {
   name: PropTypes.string,
   surname: PropTypes.string,
   localName: PropTypes.string,
-  gender: PropTypes.string,
+  gender: PropTypes.any,
   avatarUrl: PropTypes.string,
   status: PropTypes.string,
   statusInitial: PropTypes.string,
