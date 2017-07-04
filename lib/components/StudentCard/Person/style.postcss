@@ -220,20 +220,52 @@
   position: relative;
 }
 
-.StudentCard_profile {
-  &_name,
-  &_localName {
-    overflow: hidden;
-    white-space: nowrap;
+:root {
+  --imageSize: 50px;
+  --biggerModeImageSize: 60px;
+}
 
-    &.__vertical {
-      align-items: center;
-      line-height: 16px;
-    }
+.Person {
+  align-items: center;
+
+  /* for the subtle line when Content is present */
+  display: flex;
+  padding-bottom: 15px;
+  padding-top: calc(var(--touchablePaddingVertical) - 1px);  /* total: 15px */
+
+  &:not(.__backgroundless) {
+    background-color: var(--colorCardBg);
   }
 
-  &_localName {
-    color: var(--colorTextGreyed);
-    line-height: 16px !important;
+  &.__separated {
+    border-bottom: var(--hairThin) solid #e9e9e9;
+  }
+
+  &.__vertical {
+    flex-direction: column;
+    padding-bottom: 5px;
+  }
+
+  &_picture {
+    align-self: flex-start;
+    border-radius: 50%;
+    display: block;
+    height: var(--imageSize);
+    max-width: var(--imageSize);
+    width: var(--imageSize);
+
+    &.__bigger {
+      height: var(--biggerModeImageSize);
+      max-width: var(--biggerModeImageSize);
+      width: var(--biggerModeImageSize);
+    }
+
+    &.__vertical {
+      align-self: center;
+      height: var(--imageSize);
+      margin-bottom: 10px;
+      max-width: var(--imageSize);
+      width: var(--imageSize);
+    }
   }
 }
