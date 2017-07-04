@@ -28,8 +28,8 @@ install:
   - yarn --prefer-offline --no-progress --frozen-lockfile
 
 script:
-  - yarn run lint:css
-  - yarn run lint:js
+  - yarn run lint:css -- --quiet
+  - yarn run lint:js -- --quiet
   - yarn test -- --coverage
   - yarn run build
 
