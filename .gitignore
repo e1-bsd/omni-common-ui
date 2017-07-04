@@ -1,7 +1,6 @@
 /.dlls
 /.idea
 /bower_components
-/config/development.json
 /deploy_key.pem
 /dist*
 /lib
