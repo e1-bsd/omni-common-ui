@@ -15,7 +15,7 @@ export const Dialog = (props) => <Modal className={styles.Dialog}
     portalClassName={styles.Portal}
     isOpen={props.isOpen}>
   <Card className={classnames(styles.Dialog_card, props.className)}>
-    <Card.Content>
+    <Card.Content className={classnames({ [styles.__paddingless]: props.paddingless })}>
       {props.children}
     </Card.Content>
     {
@@ -40,6 +40,7 @@ Dialog.propTypes = {
   onRequestClose: PropTypes.func,  /* called with 'escape' or 'button' arg */
   children: PropTypes.node,
   className: PropTypes.string,
+  paddingless: PropTypes.bool,
 };
 
 export default pure(Dialog);
