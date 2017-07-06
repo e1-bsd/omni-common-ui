@@ -221,7 +221,8 @@
 }
 
 :root {
-  --slideTransitionDuration: 0.4s;
+  --slideTransitionDuration: 0.3s;
+  --slideTransitionDelay: 0.2s;
 }
 
 .NotificationsTray {
@@ -262,7 +263,7 @@
       position: absolute;
       top: 0;
       transform: translateX(0%) translate3d(0, 0, 0);
-      transition: transform var(--slideTransitionDuration) ease;
+      transition: transform var(--slideTransitionDuration) ease var(--slideTransitionDelay);
       width: 100%;
       will-change: transform;
 
