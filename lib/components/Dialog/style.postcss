@@ -284,21 +284,16 @@
   max-height: 100%;
   max-width: 100%;
   outline: none;
-  position: absolute;
+  position: static;
   width: 100%;
 
-  @media (--sm-viewport) {
-    position: static;
+  @media (--md-viewport-new) {
+    min-width: 470px;
     width: auto;
   }
 
   &_card {
-    min-width: 320px;
     width: 100%;
-
-    @media (--sm-viewport) {
-      width: auto;
-    }
   }
 
   &_closeIcon {
