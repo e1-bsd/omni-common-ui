@@ -1,0 +1,169 @@
+@import 'main.postcss';
+
+:root {
+  --slideTransitionDuration: 0.4s;
+}
+
+.NotificationsTray {
+  margin-right: var(--spaceBase);
+
+  &_icon {
+    font-size: 18px;
+  }
+
+  &_popup {
+    height: 100%;
+    user-select: none;
+
+    & h1,
+    & h2 {
+      font-weight: var(--fontWeight-regular);
+      margin: 0;
+    }
+
+    & h1 {
+      font-size: 30px;
+    }
+
+    & h2 {
+      font-size: var(--fontSize-xl);
+    }
+
+    & aside {
+      color: var(--colorTextGreyed);
+    }
+
+    &_slide {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      left: 0;
+      outline: 1px solid var(--colorBorder);
+      position: absolute;
+      top: 0;
+      transform: translateX(0%) translate3d(0, 0, 0);
+      transition: transform var(--slideTransitionDuration) ease;
+      width: 100%;
+      will-change: transform;
+
+      &:not(.__active) {
+        outline: 0;
+        transform: translateX(100%) translate3d(0, 0, 0);
+
+        & * {
+          /* wait for the slide transition to finish then put outline: 0 on the kids */
+          animation: goOutlineless 0.01s linear var(--slideTransitionDuration) forwards;
+        }
+      }
+
+      &.__previous {
+        transform: translateX(-100%) translate3d(0, 0, 0);
+      }
+    }
+
+    &_heading,
+    &_list li {
+      &::after {
+        background: var(--colorBorder);
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+    }
+
+    &_heading {
+      align-items: center;
+      cursor: default;
+      display: flex;
+      flex: 0 0 auto;
+      height: 55px;
+      padding: 0 var(--spaceBase);
+      padding-top: 5px;
+      position: relative;
+      user-select: none;
+
+      &::after {
+        bottom: 0;
+      }
+
+      &.__clickable {
+        cursor: pointer;
+
+        & h2 {
+          font-size: var(--fontSize-md);  /* meh */
+        }
+      }
+
+      &_chevron {
+        font-size: 10px;
+        margin-right: 8px;
+      }
+    }
+
+    &_empty {
+      cursor: default;
+      flex: 0 1 100%;
+      padding: var(--spaceBase);
+
+      & br {
+        @media (--xs-viewport) {
+          display: none;
+        }
+      }
+    }
+
+    &_list {
+      flex: 0 1 100%;
+      list-style-type: none;
+      margin: 0;
+      overflow: auto;
+      padding-left: 0;
+      position: relative;
+    }
+  }
+
+  &_notification {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    padding: 0 var(--spaceBase);
+    white-space: nowrap;
+
+    &_blurb {
+      flex: 0 1 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (--xs-viewport) {
+        flex-basis: 95%;
+      }
+    }
+
+    &_time {
+      color: black;
+      flex: 0 0 30%;
+      font-size: 95%;
+      opacity: 0.6;
+      padding-left: 8px;
+      text-align: right;
+
+      @media (--xs-viewport) {
+        display: none;
+      }
+    }
+
+    &_chevron {
+      flex: 0 0 5%;
+      font-size: 10px;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@keyframes goOutlineless {
+  100% { outline: 0; }
+}

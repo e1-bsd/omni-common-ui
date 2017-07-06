@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
-  Version: {{ htmlWebpackPlugin.options.version }}
-  Commit: {{ htmlWebpackPlugin.options.commit }}
+  Version: <%= htmlWebpackPlugin.options.version %>
+  Commit: <%= htmlWebpackPlugin.options.commit %>
 -->
 <html>
   <head>
@@ -9,26 +9,27 @@
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-    <title>{{ htmlWebpackPlugin.options.title }}</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
 
     <base href="/">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="./assets/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="./assets/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="./assets/favicons/manifest.json">
-    <link rel="mask-icon" href="./assets/favicons/safari-pinned-tab.svg" color="#0087e6">
+    <link rel="apple-touch-icon" sizes="180x180" href="${require('./assets/favicons/apple-touch-icon.png')}">
+    <link rel="icon" type="image/png" href="${require('./assets/favicons/favicon-32x32.png')}" sizes="32x32">
+    <link rel="icon" type="image/png" href="${require('./assets/favicons/favicon-16x16.png')}" sizes="16x16">
+    <link rel="manifest" href="${require('./assets/favicons/manifest.json')}">
+    <link rel="mask-icon" href="${require('./assets/favicons/safari-pinned-tab.svg')}" color="#0087e6">
+    <meta name="msapplication-config" content="${require('./assets/favicons/browserconfig.xml')}" />
     <meta name="theme-color" content="#ffffff">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    {{> assets/partials/init/styles }}
-    {{> assets/partials/pace/styles }}
+    ${require('raw-loader!./assets/partials/init/styles.html')}
+    ${require('raw-loader!./assets/partials/pace/styles.html')}
 
-    {{#if htmlWebpackPlugin.options.PRODUCTION }}
+    <% if (htmlWebpackPlugin.options.PRODUCTION) { %>
       <script data-config-sentinel src="config.js"></script>
-    {{/if}}
+    <% } %>
   </head>
   <body>
     <div id="root">

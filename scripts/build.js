@@ -9,6 +9,7 @@ const fs = require('fs');
 const requireAll = require('require-all');
 const mkdirp = require('mkdirp');
 const spawn = require('./spawn');
+const { Spinner } = require('cli-spinner');
 
 const DIST_CONFIGS_PATH = path.resolve('dist-configs');
 
@@ -23,17 +24,11 @@ process.env.NODE_ENV = 'production';
 
 auto({
   log: (cb) => {
-    const logStream = fs.createWriteStream(
-        path.resolve('build.log'), { flags: 'w+' });
-    logStream.on('open', () => {
-      cb(null, logStream);
-    }).on('error', (err) => {
-      cb(err);
-    });
+    const logStream = fs.createWriteStream(path.resolve('build.log'), { flags: 'w+' });
+    logStream.on('open', () => cb(null, logStream))
+        .on('error', (err) => cb(err));
   },
-  mkDirs: (cb) => {
-    mkdirp(DIST_CONFIGS_PATH, cb);
-  },
+  mkDirs: (cb) => mkdirp(DIST_CONFIGS_PATH, cb),
   buildConfigs: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Generate config files');
 
@@ -41,18 +36,23 @@ auto({
       const file = `${environment}.js`;
       const fileDir = path.join(DIST_CONFIGS_PATH, file);
       try {
-        fs.writeFileSync(fileDir,
-            `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
+        fs.writeFileSync(fileDir, `var __CONFIG__ = Object.freeze(${JSON.stringify(config)})`);
         console.info(colors.green(`   📄  ${file} generated`));
       } catch (e) {
         console.error(colors.red(`   📄  ${file} could not be generated`));
-        cb(e);
         log.write(e);
+        cb(e);
+        throw e;
       }
     });
+
+    cb();
   }],
   buildApp: ['log', 'mkDirs', ({ log }, cb) => {
     console.info('📦  Build app');
+
+    const spinner = new Spinner();
+    spinner.start();
 
     const webpack = spawn('node', [
       'node_modules/webpack/bin/webpack.js',
@@ -63,6 +63,7 @@ auto({
       stdio: [log, log, log],
     });
     webpack.on('close', (code) => {
+      spinner.stop(true);
       if (code !== 0) {
         cb(new Error(`Error code ${code}`));
         return;
@@ -72,8 +73,18 @@ auto({
   }],
 }, (err) => {
   if (err) {
-    console.error(colors.red('   💣  App build failed!'), err);
-    return;  // eslint-disable-line
+    console.error(colors.red('   💣  App build failed!'));
+
+    console.error(colors.magenta('\n\n##### LOG START #####'));
+    const logStream = fs.createReadStream(path.resolve('build.log'));
+    logStream.on('open', () => logStream.pipe(process.stderr))
+        .on('end', () => {
+          console.error(colors.magenta('##### LOG END #####\n\n'));
+          process.exit(1);
+        });
+
+    return;
   }
+
   console.info(colors.green('   📦  App built'));
 });

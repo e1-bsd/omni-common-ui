@@ -1,10 +1,1 @@
-/*
-!/karma.conf.js
-!/package.json
-!/lib
-!/.eslintrc.json
-!/.stylelintrc
-!/webpack.config.js
-!/postcss.config.js
-!/.gemini.conf.js
-!/scripts
+/node_modules

@@ -1,0 +1,77 @@
+@import 'main.postcss';
+
+:root {
+  --calloutNotchSize: 10px;
+  --transitionDurationBase: 100ms;
+}
+
+.Callout {
+  &_trigger {
+    cursor: pointer;
+    outline: 0;
+  }
+
+  &_notch,
+  &_popup {
+    position: absolute;
+    transform-origin: top center;
+    transition-duration: 0.2s;  /* split because SAFARI */
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+    will-change: transform, opacity;
+
+    &:global(.popup-enter),
+    &:global(.popup-leave.popup-leave-active) {
+      opacity: 0;
+      transform: scale(1);
+    }
+
+    &:global(.popup-leave),
+    &:global(.popup-enter.popup-enter-active) {
+      opacity: 1;
+    }
+
+    &:global(.popup-enter.popup-enter-active) {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  &_notch {
+    border-bottom: var(--calloutNotchSize) solid var(--colorBorder);
+    border-left: var(--calloutNotchSize) solid transparent;
+    border-right: var(--calloutNotchSize) solid transparent;
+    z-index: var(--zIndex-8--notificationsDropdownNotch);
+
+    &::after {
+      border-bottom: calc(var(--calloutNotchSize) - 1px) solid var(--colorBase);
+      border-left: calc(var(--calloutNotchSize) - 1px) solid transparent;
+      border-right: calc(var(--calloutNotchSize) - 1px) solid transparent;
+      content: '';
+      left: calc(0% - calc(var(--calloutNotchSize) - 1px));
+      position: absolute;
+      top: 2px;
+    }
+  }
+
+  &_popup {
+    background: var(--colorBase);
+    border: 1px solid var(--colorBorder);
+    border-radius: 3px;
+    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
+    height: 390px;
+    overflow: hidden;
+    width: 460px;
+    z-index: var(--zIndex-7--notificationsDropdown);
+
+    @media (--xs-viewport) {
+      border-left: none;
+      border-radius: 0;
+      border-right: none;
+      box-shadow: none;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100%;
+    }
+  }
+}

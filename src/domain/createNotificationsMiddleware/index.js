@@ -42,9 +42,6 @@ const STRATEGIES = {
 export function createNotificationsMiddleware(config = {}) {
   invariant(is.string(config.strategy), 'trigger strategy must be a string');
   invariant(is.object(config.dispatch), 'trigger dispatch must be an object');
-  invariant(is.string(config.dispatch.requestActionType), 'dispatch requestActionType must be a string');
-  invariant(is.string(config.dispatch.successActionType), 'dispatch successActionType must be a string');
-  invariant(is.string(config.dispatch.failureActionType), 'dispatch failureActionType must be a string');
   invariant(is.string(config.dispatch.apiUrl), 'dispatch apiUrl must be a string');
 
   const StrategyClass = STRATEGIES[config.strategy];
@@ -55,18 +52,21 @@ export function createNotificationsMiddleware(config = {}) {
     const emitter = new StrategyClass(config);
     emitter.on('notification', () => {
       const {
-        requestActionType,
-        successActionType,
-        failureActionType,
-        method,
-        apiUrl,
+        method, apiUrl, disableDefault,
       } = config.dispatch;
 
       const fullUrl = buildUrl(apiUrl);
+      const actionExtras = disableDefault ? { disableDefault: true } : {};
 
       store.dispatch(
-          createApiActionCreator(
-              requestActionType, successActionType, failureActionType, fullUrl, method));
+          createApiActionCreator({
+            actionObjectName: 'NOTIFICATIONS',
+            url: fullUrl,
+            method,
+            requestExtras: actionExtras,  // disableDefault in request, success, failure
+            successExtras: actionExtras,
+            failureExtras: actionExtras,
+          }));
     });
 
     log.info(`Pulling notifications using the \`${config.strategy}\` strategy`);

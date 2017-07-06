@@ -2,12 +2,13 @@
 
 .Header {
   background-color: #fff;
-  box-shadow: 0 0 5px 0 #999;
+  box-shadow: var(--headerBoxShadow);
   display: flex;
   flex: none;
   flex-direction: row;
   height: var(--headerSize);
   position: relative;
+  user-select: none;
   z-index: var(--zIndex-7--header);
 
   &_burger {
@@ -42,7 +43,7 @@
   }
 
   &_wrap {
-    align-items: stretch;
+    align-items: center;
     display: flex;
     flex: 1;
     flex-direction: row;
