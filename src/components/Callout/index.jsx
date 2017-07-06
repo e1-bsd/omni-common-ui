@@ -71,6 +71,11 @@ class Callout extends PureComponent {
     });
   }
 
+  close() {
+    if (! this.state.open) return;
+    this.setState({ open: false });
+  }
+
   render() {
     const { popupClassName, content, children } = this.props;
     const newContent = React.cloneElement(content, {

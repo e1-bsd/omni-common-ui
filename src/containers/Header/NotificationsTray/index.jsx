@@ -83,15 +83,21 @@ class NotificationsTray extends PureComponent {
           <h2>Back to notifications</h2>
         </div>
         {viewingNotification && viewingNotification.getNotificationViewNode &&
-            viewingNotification.getNotificationViewNode()}
+            viewingNotification.getNotificationViewNode(this)}
       </div>
     </div>;
+  }
+
+  close() {
+    if (! this._callout) return;
+    this._callout.close();
   }
 
   render() {
     return <Callout popupClassName={styles.NotificationsTray_popup}
         content={this._renderCalloutPopupContent()}
-        onOpenStateChanged={this._onCalloutOpenStateChanged}>
+        onOpenStateChanged={this._onCalloutOpenStateChanged}
+        ref={(comp) => { this._callout = comp; }}>
       <div className={styles.NotificationsTray}>
         <Icon className={styles.NotificationsTray_icon}
             id="bell" />
