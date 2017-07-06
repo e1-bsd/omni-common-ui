@@ -1,38 +1,11 @@
 import is from 'is_js';
 import invariant from 'invariant';
-import EventEmitter from 'event-emitter';
 import createApiActionCreator from 'domain/createApiActionCreator';
 import { buildUrl } from 'domain/Api';
 import log from 'domain/log';
 
-class Strategy extends EventEmitter {
-  constructor(config) {
-    super();
-    invariant(is.object(config), 'config must be an object');
-    this._config = config;
-    if (! is.number(config.triggerOnStartAfterMs)) return;
-    window.setTimeout(() => {
-      this.emit('notification');
-    }, config.triggerOnStartAfterMs);
-  }
-}
-
-class TimerStrategy extends Strategy {
-  constructor(config) {
-    super(config);
-    if (! is.number(config.intervalMs)) return;
-    window.setInterval(() => {
-      this.emit('notification');
-    }, config.intervalMs);
-  }
-}
-
-class SignalRStrategy extends Strategy {
-  constructor(config) {
-    super(config);
-    invariant(false, 'NOT IMPLEMENTED');
-  }
-}
+import TimerStrategy from './timer';
+import SignalRStrategy from './signalr';
 
 const STRATEGIES = {
   timer: TimerStrategy,
