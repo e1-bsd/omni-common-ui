@@ -43,9 +43,17 @@
       position: absolute;
       top: 0;
       transform: translateX(0%) translate3d(0, 0, 0);
-      transition: transform var(--slideTransitionDuration) ease var(--slideTransitionDelay);
+      transition: transform var(--slideTransitionDuration) ease;
       width: 100%;
       will-change: transform;
+
+      /* a short delay when transitioning from the main slide */
+      &.__previous:first-child {
+        &,
+        & + * {
+          transition-delay: var(--slideTransitionDelay);
+        }
+      }
 
       &:not(.__active) {
         outline: 0;
