@@ -24,7 +24,7 @@ const Header = (props) => {
     </div>
     <div className={styles.Header_logo} />
     <div className={styles.Header_wrap}>
-      {Config.get('notificationsTray') ?
+      {Config.get('notificationsTray') && ! props.impersonate ?
         <NotificationsTray /> :
         null}
       <UserInfo impersonate={props.impersonate}
