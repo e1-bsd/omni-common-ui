@@ -41,8 +41,3 @@ test('renders a StudentCard.Profile without separator class by default', () => {
   const wrapper = mount(<StudentCard><StudentCard.Profile /></StudentCard>);
   expect(wrapper.find(Card.Content).children().hasClass(profileStyles.__separated)).toBe(false);
 });
-
-test('renders a StudentCard.Profile with separator class (withSeparatorLine provided)', () => {
-  const wrapper = mount(<StudentCard withSeparatorLine><StudentCard.Profile /></StudentCard>);
-  expect(wrapper.find(Card.Content).children().hasClass(profileStyles.__separated)).toBe(true);
-});
