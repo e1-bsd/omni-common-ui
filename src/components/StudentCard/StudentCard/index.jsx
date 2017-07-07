@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 class StudentCard extends PureComponent {
   getChildContext() {
-    const { backgroundless = false, vertical = false } = this.props;
-    return { backgroundless, vertical };
+    const { backgroundless = false, withSeparatorLine = false, vertical = false } = this.props;
+    return { backgroundless, withSeparatorLine, vertical };
   }
 
   render() {
@@ -31,6 +31,7 @@ StudentCard.accentColors = ['grey', 'green', 'amber', 'red', 'invalid'];
 
 StudentCard.childContextTypes = {
   backgroundless: PropTypes.bool,
+  withSeparatorLine: PropTypes.bool,
   vertical: PropTypes.bool,
 };
 
@@ -38,6 +39,7 @@ StudentCard.propTypes = {
   backgroundless: PropTypes.bool,
   borderless: PropTypes.bool,
   className: PropTypes.string,
+  withSeparatorLine: PropTypes.bool,
   statusAccentPosition: PropTypes.oneOf(StudentCard.accentPosition),
   statusAccentColor: PropTypes.oneOf(StudentCard.accentColors),
   children: PropTypes.node,
