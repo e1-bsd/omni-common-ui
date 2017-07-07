@@ -9,7 +9,7 @@ import Card from 'components/Card';
 import testClass from 'domain/testClass';
 import StudentCard from '../';
 
-const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
+const Profile = (props, { backgroundless, vertical }) => {
   const { status, statusHighlighted } = props;
 
   const renderName = (prop, name, nameClasses, nameLink) => {
@@ -50,7 +50,6 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
         backgroundless={backgroundless}
         vertical={vertical}
         withBiggerAvatar={props.withBiggerAvatar}
-        withSeparatorLine={withSeparatorLine}
         productionStatusClassName={testClass('studentCard-status')}
         productionStatus={status}
         productionStatusHighlighted={statusHighlighted} />
@@ -59,7 +58,6 @@ const Profile = (props, { withSeparatorLine, backgroundless, vertical }) => {
 
 Profile.contextTypes = {
   backgroundless: PropTypes.bool,
-  withSeparatorLine: PropTypes.bool,
   vertical: PropTypes.bool,
 };
 
