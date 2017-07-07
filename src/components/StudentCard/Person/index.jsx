@@ -11,7 +11,6 @@ import ProductionStatus from 'components/ProductionStatus';
 const PersonComp = (props) => {
   const classes = classnames(styles.Person,
       styles.__1, {
-        [styles.__separated]: props.withSeparatorLine,
         [styles.__backgroundless]: props.backgroundless,
         [styles.__vertical]: props.vertical,
       }, props.className);
@@ -44,7 +43,6 @@ PersonComp.propTypes = {
   backgroundless: PropTypes.bool,
   vertical: PropTypes.bool,
   withBiggerAvatar: PropTypes.bool,
-  withSeparatorLine: PropTypes.bool,
 };
 
 export default pure(PersonComp);

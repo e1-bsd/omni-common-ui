@@ -1,0 +1,12 @@
+@import 'main.postcss';
+
+.Content {
+  &.__withSeparatorLine {
+    &::before {
+      border-top: 1px solid var(--colorBorder);
+      content: '';
+      display: block;
+      margin: 0 var(--cardContentPaddingHorizontal);
+    }
+  }
+}
