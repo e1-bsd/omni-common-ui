@@ -7,16 +7,8 @@ import PropTypes from 'prop-types';
 
 class StudentCard extends PureComponent {
   getChildContext() {
-    const {
-      backgroundless = false,
-      withSeparatorLine = false,
-      vertical = false,
-    } = this.props;
-    return {
-      backgroundless,
-      withSeparatorLine,
-      vertical,
-    };
+    const { backgroundless = false, withSeparatorLine = false, vertical = false } = this.props;
+    return { backgroundless, withSeparatorLine, vertical };
   }
 
   render() {

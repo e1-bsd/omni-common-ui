@@ -220,48 +220,13 @@
   position: relative;
 }
 
-:root {
-  --imageSize: 50px;
-  --biggerModeImageSize: 60px;
-}
-
-.Person {
-  align-items: center;
-
-  /* for the subtle line when Content is present */
-  display: flex;
-  padding-bottom: 15px;
-  padding-top: calc(var(--touchablePaddingVertical) - 1px);  /* total: 15px */
-
-  &:not(.__backgroundless) {
-    background-color: var(--colorCardBg);
-  }
-
-  &.__vertical {
-    flex-direction: column;
-    padding-bottom: 5px;
-  }
-
-  &_picture {
-    align-self: flex-start;
-    border-radius: 50%;
-    display: block;
-    height: var(--imageSize);
-    max-width: var(--imageSize);
-    width: var(--imageSize);
-
-    &.__bigger {
-      height: var(--biggerModeImageSize);
-      max-width: var(--biggerModeImageSize);
-      width: var(--biggerModeImageSize);
-    }
-
-    &.__vertical {
-      align-self: center;
-      height: var(--imageSize);
-      margin-bottom: 10px;
-      max-width: var(--imageSize);
-      width: var(--imageSize);
+.Content {
+  &.__withSeparatorLine {
+    &::before {
+      border-top: 1px solid var(--colorBorder);
+      content: '';
+      display: block;
+      margin: 0 var(--cardContentPaddingHorizontal);
     }
   }
 }
