@@ -152,6 +152,7 @@
     "reselect": "^3.0.1",
     "rimraf": "^2.6.1",
     "scroll-to-element": "^2.0.0",
+    "signalr-no-jquery": "^0.1.8",
     "sprintf-js": "^1.1.1",
     "style-loader": "^0.18.2",
     "stylelint": "^7.12.0",
