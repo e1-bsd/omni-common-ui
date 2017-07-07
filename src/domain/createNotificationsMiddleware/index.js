@@ -21,30 +21,38 @@ export function createNotificationsMiddleware(config = {}) {
   invariant(!! StrategyClass,
       `strategy must be valid (one of ${Object.keys(STRATEGIES).toString()})`);
 
-  return (store) => {
-    const emitter = new StrategyClass(config);
-    emitter.on('notification', () => {
-      const {
-        method, apiUrl, disableDefault,
-      } = config.dispatch;
+  let emitter;
 
-      const fullUrl = buildUrl(apiUrl);
-      const actionExtras = disableDefault ? { disableDefault: true } : {};
+  return (store) => (next) => (action) => {
+    const user = store.getState().get('singleSignOn').user || {};
+    const { access_token: accessToken } = user;
 
-      store.dispatch(
-          createApiActionCreator({
-            actionObjectName: 'NOTIFICATIONS',
-            url: fullUrl,
-            method,
-            requestExtras: actionExtras,  // disableDefault in request, success, failure
-            successExtras: actionExtras,
-            failureExtras: actionExtras,
-          }));
-    });
+    if (is.string(accessToken) && ! emitter) {
+      emitter = new StrategyClass(config, accessToken);
 
-    log.info(`Pulling notifications using the \`${config.strategy}\` strategy`);
+      emitter.on('notification', () => {
+        const {
+          method, apiUrl, disableDefault,
+        } = config.dispatch;
 
-    return (next) => (action) => next(action);
+        const fullUrl = buildUrl(apiUrl);
+        const actionExtras = disableDefault ? { disableDefault: true } : {};
+
+        store.dispatch(
+            createApiActionCreator({
+              actionObjectName: 'NOTIFICATIONS',
+              url: fullUrl,
+              method,
+              requestExtras: actionExtras,  // disableDefault in request, success, failure
+              successExtras: actionExtras,
+              failureExtras: actionExtras,
+            }));
+      });
+
+      log.info(`Notification pull strategy: \`${config.strategy}\``);
+    }
+
+    return next(action);
   };
 }
 
