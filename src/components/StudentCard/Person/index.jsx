@@ -24,22 +24,22 @@ const PersonComp = (props) => {
         })} />
     {props.nameNode}
     {props.localNameNode}
-    <ProductionStatus className={props.productionStatusClassName}
-        status={props.productionStatus}
-        highlighted={props.productionStatusHighlighted} />
+    <ProductionStatus className={props.statusClassName}
+        status={props.status}
+        highlighted={props.statusHighlighted} />
   </Person>;
 };
 
 PersonComp.propTypes = {
   className: PropTypes.string,
+  statusClassName: PropTypes.string,
   pictureClassName: PropTypes.string,
-  productionStatusClassName: PropTypes.string,
   avatarUrl: PropTypes.string,
   gender: PropTypes.string,
   nameNode: PropTypes.node,
   localNameNode: PropTypes.node,
-  productionStatus: PropTypes.string,
-  productionStatusHighlighted: PropTypes.bool,
+  status: PropTypes.string,
+  statusHighlighted: PropTypes.bool,
   backgroundless: PropTypes.bool,
   vertical: PropTypes.bool,
   withBiggerAvatar: PropTypes.bool,
