@@ -50,9 +50,9 @@ const Profile = (props, { backgroundless, vertical }) => {
         backgroundless={backgroundless}
         vertical={vertical}
         withBiggerAvatar={props.withBiggerAvatar}
-        productionStatusClassName={testClass('studentCard-status')}
-        productionStatus={status}
-        productionStatusHighlighted={statusHighlighted} />
+        statusClassName={testClass('studentCard-status')}
+        status={status}
+        statusHighlighted={statusHighlighted} />
   </Card.Content>;
 };
 
