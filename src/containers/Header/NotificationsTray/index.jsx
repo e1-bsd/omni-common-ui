@@ -1,8 +1,9 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
-import Cursor from 'immutable-cursor';
 import classnames from 'classnames';
+import Cursor from 'immutable-cursor';
+import { CSSTransitionGroup } from 'react-transition-group';
 import Config from 'domain/Config';
 import connect from 'domain/connect';
 import Icon from 'components/Icon';
@@ -94,6 +95,7 @@ class NotificationsTray extends PureComponent {
   }
 
   render() {
+    const { notifications } = this.props;
     return <Callout popupClassName={styles.NotificationsTray_popup}
         content={this._renderCalloutPopupContent()}
         onOpenStateChanged={this._onCalloutOpenStateChanged}
@@ -101,6 +103,14 @@ class NotificationsTray extends PureComponent {
       <div className={styles.NotificationsTray}>
         <Icon className={styles.NotificationsTray_icon}
             id="bell" />
+        <CSSTransitionGroup transitionName="bubble"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}>
+          {notifications && notifications.size ?
+            <aside className={styles.NotificationsTray_bubble}>
+              {notifications.size > 99 ? '…' : notifications.size}
+            </aside> : null}
+        </CSSTransitionGroup>
       </div>
     </Callout>;
   }
