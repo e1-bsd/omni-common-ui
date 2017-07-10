@@ -234,16 +234,12 @@
   &_notch,
   &_popup {
     position: absolute;
-    transform-origin: top center;
-    transition-duration: 0.2s;  /* split because SAFARI */
-    transition-property: opacity, transform;
-    transition-timing-function: ease;
-    will-change: transform, opacity;
+    transition: opacity 0.2s ease;
+    will-change: opacity;
 
     &:global(.popup-enter),
     &:global(.popup-leave.popup-leave-active) {
       opacity: 0;
-      transform: scale(1);
     }
 
     &:global(.popup-leave),
@@ -253,7 +249,6 @@
 
     &:global(.popup-enter.popup-enter-active) {
       opacity: 1;
-      transform: scale(1.05);
     }
   }
 
@@ -291,6 +286,8 @@
       box-shadow: none;
       left: 0 !important;
       right: 0 !important;
+      top: 58px;  /* excuse my magic number! */
+      transform: matrix(1, 0, 0, 1, 0, 0) !important;
       width: 100%;
     }
   }
