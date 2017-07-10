@@ -54,6 +54,10 @@ class NotificationsTray extends PureComponent {
 
   _onMarkClick() {
     console.log('dega', this.state.notificationIds);
+    this.setState({
+      notificationIds: [],
+      markingMode: false,
+    });
   }
 
   _onNotificationCheckBoxClick(checked, notificationId) {
@@ -117,7 +121,6 @@ class NotificationsTray extends PureComponent {
 
   _onCheckAllNotifications(checked, notifications) {
     if (checked) {
-      console.log('dega', ...notifications.keys());
       this.setState({
         notificationIds: [...notifications.keys()],
       });
@@ -136,16 +139,18 @@ class NotificationsTray extends PureComponent {
             checked={this.state.notificationIds.length === notifications.size}
             onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
             className={styles.NotificationsTray_notification_footer_checkAll} />
-        <Button type={Button.Type.default}
-            className={styles.NotificationsTray_notification_footer_cancel}
-            onClick={() => this._onCancelClick()}>
-          Cancel
-        </Button>
-        <Button type={Button.Type.primary}
-            className={styles.NotificationsTray_notification_footer_mark}
-            onClick={() => this._onMarkClick()}>
-          Mark
-        </Button>
+        <div className={styles.NotificationsTray_notification_footer_btns}>
+          <Button type={Button.Type.default}
+              className={styles.NotificationsTray_notification_footer_cancel}
+              onClick={() => this._onCancelClick()}>
+            Cancel
+          </Button>
+          <Button type={Button.Type.primary}
+              className={styles.NotificationsTray_notification_footer_mark}
+              onClick={() => this._onMarkClick()}>
+            Mark
+          </Button>
+        </div>
       </div>;
     }
     return null;
@@ -153,9 +158,9 @@ class NotificationsTray extends PureComponent {
 
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
-    const { viewingNotification, markingMode } = this.state;
+    const { viewingNotification } = this.state;
     const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn,
-      { [styles.__inactive]: ! markingMode });
+      { [styles.__inactive]: ! this.state.markingMode });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: ! this.state.viewingNotification,
