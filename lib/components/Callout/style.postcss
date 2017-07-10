@@ -233,22 +233,26 @@
 
   &_notch,
   &_popup {
+    opacity: 1;
     position: absolute;
-    transition: opacity 0.2s ease;
     will-change: opacity;
 
-    &:global(.popup-enter),
+    &:global(.popup-enter) {
+      opacity: 0.01;
+    }
+
+    &:global(.popup-enter.popup-enter-active) {
+      opacity: 1;
+      transition: opacity 100ms ease-in;
+    }
+
+    &:global(.popup-leave) {
+      opacity: 1;
+    }
+
     &:global(.popup-leave.popup-leave-active) {
-      opacity: 0;
-    }
-
-    &:global(.popup-leave),
-    &:global(.popup-enter.popup-enter-active) {
-      opacity: 1;
-    }
-
-    &:global(.popup-enter.popup-enter-active) {
-      opacity: 1;
+      opacity: 0.01;
+      transition: opacity 200ms ease-in;
     }
   }
 
