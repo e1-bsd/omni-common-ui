@@ -8,6 +8,7 @@ import Config from 'domain/Config';
 import connect from 'domain/connect';
 import Icon from 'components/Icon';
 import Callout from 'components/Callout';
+import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 
 class NotificationsTray extends PureComponent {
@@ -70,6 +71,39 @@ class NotificationsTray extends PureComponent {
     </li>;
   }
 
+  _renderNotifications(notifications) {
+    if (notifications && notifications.size) {
+      return <ul className={styles.NotificationsTray_popup_list}>
+        {notifications.map((notification, notificationId) =>
+          this._renderNotification(notification, notificationId)
+        )}
+
+      </ul>;
+    }
+    return null;
+  }
+
+  _renderNotificationFooter() {
+    if (this.state.markingMode) {
+      return <div className={styles.NotificationsTray_notification_footer}>
+        <Checkbox name="check-all"
+            id="check-all"
+            className={styles.NotificationsTray_notification_footer_checkAll} />
+        <Button type={Button.Type.default}
+            className={styles.NotificationsTray_notification_footer_cancel}
+            onClick={() => this._onCancelClick()}>
+          Cancel
+        </Button>
+        <Button type={Button.Type.primary}
+            className={styles.NotificationsTray_notification_footer_mark}
+            onClick={() => this._onMarkClick()}>
+          Mark
+        </Button>
+      </div>;
+    }
+    return null;
+  }
+
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
     const { viewingNotification, markingMode } = this.state;
@@ -92,12 +126,8 @@ class NotificationsTray extends PureComponent {
             <aside>New notifications will appear here when <br />
               teachers add internal notes for your students.</aside>
           </div> : null}
-        {notifications && notifications.size ?
-          <ul className={styles.NotificationsTray_popup_list}>
-            {notifications.map((notification, notificationId) =>
-              this._renderNotification(notification, notificationId)
-            )}
-          </ul> : null}
+        {this._renderNotifications(notifications)}
+        {this._renderNotificationFooter()}
       </div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: !! this.state.viewingNotification,

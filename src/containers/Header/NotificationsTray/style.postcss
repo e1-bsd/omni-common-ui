@@ -184,10 +184,10 @@
 
     &_blurb {
       flex: 0 1 100%;
-      max-width: 300px;
+      max-width: 270px;
+      min-width: 270px;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 300px;
 
       @media (--xs-viewport) {
         flex-basis: 95%;
@@ -226,6 +226,18 @@
       height: 40px;
       padding: 0 var(--spaceBase);
       white-space: nowrap;
+    }
+
+    &_footer {
+      padding: var(--spaceBase);
+
+      &_mark {
+        align-self: flex-end;
+      }
+
+      &_cancel {
+        align-self: flex-end;
+      }
     }
   }
 }
