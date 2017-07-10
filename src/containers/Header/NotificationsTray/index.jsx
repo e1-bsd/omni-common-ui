@@ -1,18 +1,19 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
-import classnames from 'classnames';
 import Cursor from 'immutable-cursor';
 import { CSSTransitionGroup } from 'react-transition-group';
+import classnames from 'classnames';
 import Config from 'domain/Config';
 import connect from 'domain/connect';
 import Icon from 'components/Icon';
 import Callout from 'components/Callout';
+import Checkbox from 'components/Checkbox';
 
 class NotificationsTray extends PureComponent {
   constructor() {
     super();
-    this.state = { viewingNotification: null };
+    this.state = { viewingNotification: null, markingMode: false };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
     this._onCalloutOpenStateChanged = this._onCalloutOpenStateChanged.bind(this);
@@ -34,9 +35,46 @@ class NotificationsTray extends PureComponent {
     this.setState({ viewingNotification: null });
   }
 
+  _onMarkAsReadClick() {
+    this.setState({
+      markingMode: ! this.state.markingMode,
+    });
+  }
+
+  _renderNotificationCheckbox(notificationId) {
+    if (this.state.markingMode) {
+      return <Checkbox name={notificationId}
+          id={notificationId}
+          className={styles.NotificationsTray_notification_checkbox} />;
+    }
+    return null;
+  }
+
+  _renderNotification(notification, notificationId) {
+    return <li>
+      {this._renderNotificationCheckbox(notificationId)}
+      <div className={styles.NotificationsTray_notification}
+          onClick={this._onNotificationClicked}
+          data-notification-id={notificationId}
+          role="button"
+          tabIndex="0">
+        <span className={styles.NotificationsTray_notification_blurb}>
+          {notification.blurb}
+        </span>
+        <span className={styles.NotificationsTray_notification_time}>
+          {notification.moment.fromNow()}
+        </span>
+        <Icon className={styles.NotificationsTray_notification_chevron}
+            id="chevron-small-right" />
+      </div>
+    </li>;
+  }
+
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
-    const { viewingNotification } = this.state;
+    const { viewingNotification, markingMode } = this.state;
+    const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn,
+      { [styles.__inactive]: ! markingMode });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: ! this.state.viewingNotification,
@@ -44,6 +82,8 @@ class NotificationsTray extends PureComponent {
       })}>
         <div className={styles.NotificationsTray_popup_heading}>
           <h2>Notifications</h2>
+          <a className={headerBtnClassName}
+              onClick={() => this._onMarkAsReadClick()}>Mark as read</a>
         </div>
         {! notifications || ! notifications.size ?
           <div className={styles.NotificationsTray_popup_empty}>
@@ -54,22 +94,9 @@ class NotificationsTray extends PureComponent {
           </div> : null}
         {notifications && notifications.size ?
           <ul className={styles.NotificationsTray_popup_list}>
-            {notifications.map((notification, notificationId) => <li>
-              <div className={styles.NotificationsTray_notification}
-                  onClick={this._onNotificationClicked}
-                  data-notification-id={notificationId}
-                  role="button"
-                  tabIndex="0">
-                <span className={styles.NotificationsTray_notification_blurb}>
-                  {notification.blurb}
-                </span>
-                <span className={styles.NotificationsTray_notification_time}>
-                  {notification.moment.fromNow()}
-                </span>
-                <Icon className={styles.NotificationsTray_notification_chevron}
-                    id="chevron-small-right" />
-              </div>
-            </li>)}
+            {notifications.map((notification, notificationId) =>
+              this._renderNotification(notification, notificationId)
+            )}
           </ul> : null}
       </div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {

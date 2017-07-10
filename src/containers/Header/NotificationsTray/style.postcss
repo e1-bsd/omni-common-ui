@@ -126,10 +126,21 @@
       display: flex;
       flex: 0 0 auto;
       height: 55px;
+      justify-content: space-between;
       padding: 0 var(--spaceBase);
       padding-top: 5px;
       position: relative;
       user-select: none;
+
+      &_btn {
+        color: var(--colorPrimary);
+        cursor: pointer;
+        text-transform: capitalize;
+
+        &.__inActive {
+          color: var(--colorTextGreyed);
+        }
+      }
 
       &::after {
         bottom: 0;
@@ -207,6 +218,12 @@
       flex: 0 0 5%;
       font-size: 10px;
       justify-content: flex-end;
+    }
+
+    &_checkbox {
+      display: flex;
+      justify-content: flex-start;
+      width: 5%;
     }
   }
 }
