@@ -100,8 +100,7 @@ class Callout extends PureComponent {
           transitionLeaveTimeout={200}>
         {this.state.open &&
           <div className={styles.Callout_notch}
-              ref={(node) => { this._notchNode = node; }}
-              key="Callout#notch" /> }
+              ref={(node) => { this._notchNode = node; }} /> }
         {this.state.open && newContent}
       </CSSTransitionGroup>
     </div>;
