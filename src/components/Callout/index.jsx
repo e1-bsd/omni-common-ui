@@ -47,9 +47,13 @@ class Callout extends PureComponent {
     domAlign(this._notchNode, this._node.children[0], {
       points: notchPoints,
       offset: [0, 15],
+      useCssTransform: true,
     });
     domAlign(this._calloutNode, this._node.children[0], {
-      points, offset });
+      points,
+      offset,
+      useCssTransform: true,
+    });
   }
 
   _onClickedOutside(evt) {
