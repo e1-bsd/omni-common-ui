@@ -227,11 +227,15 @@
   display: flex;
   justify-content: center;
   left: 0;
-  padding: 2.5em;
   position: fixed;
   right: 0;
   top: 0;
   z-index: var(--zIndex-10--modalPopup);
+
+  @mixin responsiveCardPadding;
+
+  /* This overrides the responsiveCardPadding for the smallest viewports */
+  padding: 0; /* stylelint-disable-line declaration-block-properties-order */
 }
 
 .LoadingOverlay {
