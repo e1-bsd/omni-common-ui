@@ -10,7 +10,7 @@ import testClass from 'domain/testClass';
 import StudentCard from '../';
 
 const Profile = (props, { backgroundless, vertical }) => {
-  const { status, statusHighlighted } = props;
+  const { status, statusHighlighted, isPlaceholder } = props;
 
   const renderName = (prop, name, nameClasses, nameLink) => {
     if (! name) {
@@ -40,13 +40,18 @@ const Profile = (props, { backgroundless, vertical }) => {
   );
 
   const name = `${getStr(props.name)} ${getStr(props.surname)}`;
+  const placeholder = <div className={styles.StudentCard_profile_linePlaceholder} />;
 
   return <Card.Content withoutBottomPadding>
     <StudentCard.Person className={props.className}
         avatarUrl={props.avatarUrl}
         gender={props.gender}
-        nameNode={renderName('name', name, nameClass, props.nameLink)}
-        localNameNode={renderName('localName', props.localName, localNameClass)}
+        nameNode={isPlaceholder ?
+            placeholder :
+            renderName('name', name, nameClass, props.nameLink)}
+        localNameNode={isPlaceholder ?
+            placeholder :
+            renderName('localName', props.localName, localNameClass)}
         backgroundless={backgroundless}
         vertical={vertical}
         withBiggerAvatar={props.withBiggerAvatar}
@@ -63,6 +68,7 @@ Profile.contextTypes = {
 
 Profile.propTypes = {
   className: PropTypes.string,
+  isPlaceholder: PropTypes.bool,
   name: PropTypes.string,
   surname: PropTypes.string,
   localName: PropTypes.string,
