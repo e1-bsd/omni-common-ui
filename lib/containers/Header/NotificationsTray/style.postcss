@@ -223,13 +223,51 @@
 :root {
   --slideTransitionDuration: 0.3s;
   --slideTransitionDelay: 0.2s;
+  --bubbleInDuration: 500ms;
+  --bubbleOutDuration: 500ms;
 }
 
 .NotificationsTray {
   margin-right: var(--spaceBase);
+  position: relative;
 
   &_icon {
     font-size: 18px;
+  }
+
+  &_bubble {
+    align-items: center;
+    background: var(--colorWrong);
+    border-radius: 100%;
+    color: var(--colorTextInverse);
+    display: flex;
+    font-size: 10.5px;
+    font-weight: var(--fontWeight-regular);
+    height: 16px;
+    justify-content: center;
+    line-height: 100%;
+    position: absolute;
+    right: -35%;
+    top: -45%;
+    transform-origin: center center;
+    width: 16px;
+    will-change: transform;
+
+    &:global(.bubble-enter) {
+      transform: scale(0);
+    }
+
+    &:global(.bubble-enter.bubble-enter-active) {
+      animation: bubble var(--bubbleInDuration) ease-in-out 1;
+    }
+
+    &:global(.bubble-leave) {
+      transition: transform var(--bubbleOutDuration) linear;
+    }
+
+    &:global(.bubble-leave.bubble-leave-active) {
+      transform: scale(0);
+    }
   }
 
   &_popup {
@@ -395,4 +433,22 @@
 
 @keyframes goOutlineless {
   100% { outline: 0; }
+}
+
+@keyframes bubble {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  75% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
