@@ -54,9 +54,6 @@ class NotificationsTray extends PureComponent {
 
   _onMarkClick() {
     console.log('dega', this.state.notificationIds);
-    this.setState({
-      markingMode: false,
-    });
   }
 
   _onNotificationCheckBoxClick(checked, notificationId) {
@@ -78,6 +75,7 @@ class NotificationsTray extends PureComponent {
   _renderNotificationCheckbox(notificationId) {
     if (this.state.markingMode) {
       return <Checkbox name={notificationId}
+          checked={this.state.notificationIds.includes(notificationId)}
           className={styles.NotificationsTray_notification_checkbox}
           onChange={(checked) => this._onNotificationCheckBoxClick(checked, notificationId)}
           id={notificationId} />;
@@ -117,11 +115,26 @@ class NotificationsTray extends PureComponent {
     return null;
   }
 
-  _renderNotificationFooter() {
+  _onCheckAllNotifications(checked, notifications) {
+    if (checked) {
+      console.log('dega', ...notifications.keys());
+      this.setState({
+        notificationIds: [...notifications.keys()],
+      });
+    } else {
+      this.setState({
+        notificationIds: [],
+      });
+    }
+  }
+
+  _renderNotificationFooter(notifications) {
     if (this.state.markingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
         <Checkbox name="check-all"
             id="check-all"
+            checked={this.state.notificationIds.length === notifications.size}
+            onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
             className={styles.NotificationsTray_notification_footer_checkAll} />
         <Button type={Button.Type.default}
             className={styles.NotificationsTray_notification_footer_cancel}
@@ -161,7 +174,7 @@ class NotificationsTray extends PureComponent {
               teachers add internal notes for your students.</aside>
           </div> : null}
         {this._renderNotifications(notifications)}
-        {this._renderNotificationFooter()}
+        {this._renderNotificationFooter(notifications)}
       </div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: !! this.state.viewingNotification,
