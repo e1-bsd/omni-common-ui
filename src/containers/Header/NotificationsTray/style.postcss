@@ -110,14 +110,7 @@
 
     &_heading,
     &_list li {
-      &::after {
-        background: var(--colorBorder);
-        content: '';
-        height: 1px;
-        left: 0;
-        position: absolute;
-        width: 100%;
-      }
+      border-bottom: 1px solid var(--colorBorder);
     }
 
     &_heading {
@@ -184,17 +177,17 @@
 
   &_notification {
     align-items: center;
-    cursor: pointer;
     display: flex;
     height: 40px;
     justify-content: space-between;
-    padding: 0 var(--spaceBase);
     white-space: nowrap;
 
     &_blurb {
       flex: 0 1 100%;
+      max-width: 300px;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 300px;
 
       @media (--xs-viewport) {
         flex-basis: 95%;
@@ -224,6 +217,15 @@
       display: flex;
       justify-content: flex-start;
       width: 5%;
+    }
+
+    &_row {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      height: 40px;
+      padding: 0 var(--spaceBase);
+      white-space: nowrap;
     }
   }
 }

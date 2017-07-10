@@ -51,7 +51,7 @@ class NotificationsTray extends PureComponent {
   }
 
   _renderNotification(notification, notificationId) {
-    return <li>
+    return <li className={styles.NotificationsTray_notification_row}>
       {this._renderNotificationCheckbox(notificationId)}
       <div className={styles.NotificationsTray_notification}
           onClick={this._onNotificationClicked}
