@@ -14,7 +14,11 @@ import Checkbox from 'components/Checkbox';
 class NotificationsTray extends PureComponent {
   constructor() {
     super();
-    this.state = { viewingNotification: null, markingMode: false };
+    this.state = {
+      viewingNotification: null,
+      markingMode: false,
+      notificationIds: [],
+    };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
     this._onCalloutOpenStateChanged = this._onCalloutOpenStateChanged.bind(this);
@@ -42,11 +46,41 @@ class NotificationsTray extends PureComponent {
     });
   }
 
+  _onCancelClick() {
+    this.setState({
+      markingMode: false,
+    });
+  }
+
+  _onMarkClick() {
+    console.log('dega', this.state.notificationIds);
+    this.setState({
+      markingMode: false,
+    });
+  }
+
+  _onNotificationCheckBoxClick(checked, notificationId) {
+    if (checked) {
+      const notificationIds = [...this.state.notificationIds, notificationId];
+      this.setState({
+        notificationIds,
+      });
+    } else {
+      const notificationIds = [...this.state.notificationIds.filter(
+        (id) => id !== notificationId
+      )];
+      this.setState({
+        notificationIds,
+      });
+    }
+  }
+
   _renderNotificationCheckbox(notificationId) {
     if (this.state.markingMode) {
       return <Checkbox name={notificationId}
-          id={notificationId}
-          className={styles.NotificationsTray_notification_checkbox} />;
+          className={styles.NotificationsTray_notification_checkbox}
+          onChange={(checked) => this._onNotificationCheckBoxClick(checked, notificationId)}
+          id={notificationId} />;
     }
     return null;
   }
