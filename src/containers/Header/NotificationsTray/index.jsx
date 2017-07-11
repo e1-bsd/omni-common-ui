@@ -1,10 +1,13 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Cursor from 'immutable-cursor';
 import { CSSTransitionGroup } from 'react-transition-group';
 import classnames from 'classnames';
+import { fetch, buildUrl } from 'domain/Api';
 import Config from 'domain/Config';
+import createApiActionCreator from 'domain/createApiActionCreator';
 import connect from 'domain/connect';
 import Icon from 'components/Icon';
 import Callout from 'components/Callout';
@@ -31,21 +34,18 @@ class NotificationsTray extends PureComponent {
     if (this.state.isMarkingMode) {
       if (! this.state.notificationIdsToMarkRead.includes(notificationId)) {
         const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
-        this.setState({
-          notificationIdsToMarkRead: notificationIds,
-        });
-      } else {
-        const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
-          (id) => id !== notificationId
-        )];
-        this.setState({
+        return this.setState({
           notificationIdsToMarkRead: notificationIds,
         });
       }
-      console.log('dega', this.state.notificationIdsToMarkRead);
-    } else {
-      this.setState({ viewingNotification: this.props.notifications.get(notificationId) });
+      const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
+        (id) => id !== notificationId
+      )];
+      return this.setState({
+        notificationIdsToMarkRead: notificationIds,
+      });
     }
+    return this.setState({ viewingNotification: this.props.notifications.get(notificationId) });
   }
 
   _onClickBackToNotifications() {
@@ -72,7 +72,9 @@ class NotificationsTray extends PureComponent {
   }
 
   _onMarkClick() {
-    console.log('dega', this.state.notificationIdsToMarkRead);
+    if (this.state.notificationIdsToMarkRead.length !== 0) {
+      this.props.markNotificationAsRead(this.state.notificationIdsToMarkRead);
+    }
     this.setState({
       notificationIdsToMarkRead: [],
       isMarkingMode: false,
@@ -235,10 +237,12 @@ class NotificationsTray extends PureComponent {
 }
 
 NotificationsTray.propTypes = {
-  notifications: React.PropTypes.shape({
-    map: React.PropTypes.func.isRequired,
-    get: React.PropTypes.func.isRequired,
+  notifications: PropTypes.shape({
+    map: PropTypes.func.isRequired,
+    get: PropTypes.func.isRequired,
   }),
+  accessToken: PropTypes.string,
+  markNotificationAsRead: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -247,4 +251,34 @@ function mapStateToProps(state) {
   return { notifications };
 }
 
-export default connect(mapStateToProps)(NotificationsTray);
+function mapDispatchToProps(dispatch) {
+  const markAsReadDispatchConfig = Config.get('notificationsTray').markAsRead.dispatch;
+  const apiUrl = buildUrl(markAsReadDispatchConfig.apiUrl);
+  const method = markAsReadDispatchConfig.method;
+  return {
+    markNotificationAsRead: (notificationIds = []) => {
+      const data = JSON.stringify(notificationIds.map((id) => {
+        const model = { id };
+        return model;
+      }));
+      const actionCreator = createApiActionCreator({
+        actionObjectName: 'MARK_NOTIFICATIONS_READ',  // SUBMIT_MARK_NOTIFICATIONS_READ_REQUEST, SUBMIT_..._SUCCESS
+        url: apiUrl,
+        method,
+        requestExtras: {
+          disableDefault: true,
+          payload: fetch(apiUrl, {
+            method,
+            body: data,
+          }),
+          notificationIds,
+        },
+        successExtras: { disableDefault: true, notificationIds, },
+        failureExtras: { disableDefault: true, notificationIds, },
+      });
+      actionCreator(dispatch);
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsTray);
