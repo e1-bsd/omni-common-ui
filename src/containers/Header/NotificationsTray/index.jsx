@@ -90,13 +90,13 @@ class NotificationsTray extends PureComponent {
   }
 
   _renderNotification(notification, notificationId) {
-    return <li className={styles.NotificationsTray_notification_row}>
-      {this._renderNotificationCheckbox(notificationId)}
+    return <li>
       <div className={styles.NotificationsTray_notification}
           onClick={this._onNotificationClicked}
           data-notification-id={notificationId}
           role="button"
           tabIndex="0">
+        {this._renderNotificationCheckbox(notificationId)}
         <span className={styles.NotificationsTray_notification_blurb}>
           {notification.blurb}
         </span>
@@ -168,15 +168,12 @@ class NotificationsTray extends PureComponent {
       classnames(styles.NotificationsTray_popup_heading_btn,
         styles.NotificationsTray_popup_heading_btn_inActive) :
       styles.NotificationsTray_popup_heading_btn;
-    const headerClassName = classnames(styles.NotificationsTray_popup_heading, {
-      [styles.__marking]: ! this.state.viewingNotification,
-    });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: ! this.state.viewingNotification,
         [styles.__previous]: !! this.state.viewingNotification,
       })}>
-        <div className={headerClassName}>
+        <div className={styles.NotificationsTray_popup_heading}>
           <h2>Notifications</h2>
           <a className={headerBtnClassName}
               onClick={() => this._onMarkAsReadClick()}>Mark as read</a>
@@ -198,9 +195,11 @@ class NotificationsTray extends PureComponent {
             onClick={this._onClickBackToNotifications}
             role="button"
             tabIndex="-1">
-          <Icon className={styles.NotificationsTray_popup_heading_chevron}
+          <div className={styles.NotificationsTray_popup_heading_secondary}>
+            <Icon className={styles.NotificationsTray_popup_heading_chevron}
               id="chevron-small-left" />
-          <h2>Back to notifications</h2>
+            <h2>Back to notifications</h2>
+          </div>
         </div>
         {viewingNotification && viewingNotification.getNotificationViewNode &&
             viewingNotification.getNotificationViewNode(this)}
