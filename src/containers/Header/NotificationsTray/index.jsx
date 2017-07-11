@@ -29,8 +29,11 @@ class NotificationsTray extends PureComponent {
   }
 
   _onNotificationClicked(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
     const element = ev.currentTarget;
     const { notificationId } = element.dataset;
+
     if (this.state.isMarkingMode) {
       if (! this.state.notificationIdsToMarkRead.includes(notificationId)) {
         const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
