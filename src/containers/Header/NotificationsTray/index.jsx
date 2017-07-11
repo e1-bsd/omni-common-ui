@@ -16,8 +16,8 @@ class NotificationsTray extends PureComponent {
     super();
     this.state = {
       viewingNotification: null,
-      markingMode: false,
-      notificationIds: [],
+      isMarkingMode: false,
+      notificationIdsToMarkRead: [],
     };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
@@ -41,35 +41,35 @@ class NotificationsTray extends PureComponent {
   }
 
   _onMarkAsReadClick() {
-    if (! this.state.markingMode) {
+    if (! this.state.isMarkingMode) {
       this.setState({
-        markingMode: true,
+        isMarkingMode: true,
       });
     }
   }
 
   _onCancelClick() {
     this.setState({
-      markingMode: false,
+      isMarkingMode: false,
     });
   }
 
   _onMarkClick() {
-    console.log('dega', this.state.notificationIds);
+    console.log('dega', this.state.notificationIdsToMarkRead);
     this.setState({
       notificationIds: [],
-      markingMode: false,
+      isMarkingMode: false,
     });
   }
 
   _onNotificationCheckBoxClick(checked, notificationId) {
     if (checked) {
-      const notificationIds = [...this.state.notificationIds, notificationId];
+      const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
       this.setState({
         notificationIds,
       });
     } else {
-      const notificationIds = [...this.state.notificationIds.filter(
+      const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
         (id) => id !== notificationId
       )];
       this.setState({
@@ -79,9 +79,9 @@ class NotificationsTray extends PureComponent {
   }
 
   _renderNotificationCheckbox(notificationId) {
-    if (this.state.markingMode) {
+    if (this.state.isMarkingMode) {
       return <Checkbox name={notificationId}
-          checked={this.state.notificationIds.includes(notificationId)}
+          checked={this.state.notificationIdsToMarkRead.includes(notificationId)}
           className={styles.NotificationsTray_notification_checkbox}
           onChange={(checked) => this._onNotificationCheckBoxClick(checked, notificationId)}
           id={notificationId} />;
@@ -124,22 +124,22 @@ class NotificationsTray extends PureComponent {
   _onCheckAllNotifications(checked, notifications) {
     if (checked) {
       this.setState({
-        notificationIds: [...notifications.keys()],
+        notificationIdsToMarkRead: [...notifications.keys()],
       });
     } else {
       this.setState({
-        notificationIds: [],
+        notificationIdsToMarkRead: [],
       });
     }
   }
 
   _renderNotificationFooter(notifications) {
-    if (this.state.markingMode) {
+    if (this.state.isMarkingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
         <div>
           <Checkbox name="check-all"
               id="check-all"
-              checked={this.state.notificationIds.length === notifications.size}
+              checked={this.state.notificationIdsToMarkRead.length === notifications.size}
               onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
               className={styles.NotificationsTray_notification_footer_checkAll} />
           <span>All</span>
@@ -164,7 +164,7 @@ class NotificationsTray extends PureComponent {
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
     const { viewingNotification } = this.state;
-    const headerBtnClassName = this.state.markingMode ?
+    const headerBtnClassName = this.state.isMarkingMode ?
       classnames(styles.NotificationsTray_popup_heading_btn,
         styles.NotificationsTray_popup_heading_btn_inActive) :
       styles.NotificationsTray_popup_heading_btn;
