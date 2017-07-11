@@ -28,7 +28,24 @@ class NotificationsTray extends PureComponent {
   _onNotificationClicked(ev) {
     const element = ev.currentTarget;
     const { notificationId } = element.dataset;
-    this.setState({ viewingNotification: this.props.notifications.get(notificationId) });
+    if (this.state.isMarkingMode) {
+      if (! this.state.notificationIdsToMarkRead.includes(notificationId)) {
+        const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
+        this.setState({
+          notificationIdsToMarkRead: notificationIds,
+        });
+      } else {
+        const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
+          (id) => id !== notificationId
+        )];
+        this.setState({
+          notificationIdsToMarkRead: notificationIds,
+        });
+      }
+      console.log('dega', this.state.notificationIdsToMarkRead);
+    } else {
+      this.setState({ viewingNotification: this.props.notifications.get(notificationId) });
+    }
   }
 
   _onClickBackToNotifications() {
@@ -57,25 +74,9 @@ class NotificationsTray extends PureComponent {
   _onMarkClick() {
     console.log('dega', this.state.notificationIdsToMarkRead);
     this.setState({
-      notificationIds: [],
+      notificationIdsToMarkRead: [],
       isMarkingMode: false,
     });
-  }
-
-  _onNotificationCheckBoxClick(checked, notificationId) {
-    if (checked) {
-      const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
-      this.setState({
-        notificationIds,
-      });
-    } else {
-      const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
-        (id) => id !== notificationId
-      )];
-      this.setState({
-        notificationIds,
-      });
-    }
   }
 
   _renderNotificationCheckbox(notificationId) {
@@ -83,7 +84,6 @@ class NotificationsTray extends PureComponent {
       return <Checkbox name={notificationId}
           checked={this.state.notificationIdsToMarkRead.includes(notificationId)}
           className={styles.NotificationsTray_notification_checkbox}
-          onChange={(checked) => this._onNotificationCheckBoxClick(checked, notificationId)}
           id={notificationId} />;
     }
     return null;
@@ -197,7 +197,7 @@ class NotificationsTray extends PureComponent {
             tabIndex="-1">
           <div className={styles.NotificationsTray_popup_heading_secondary}>
             <Icon className={styles.NotificationsTray_popup_heading_chevron}
-              id="chevron-small-left" />
+                id="chevron-small-left" />
             <h2>Back to notifications</h2>
           </div>
         </div>
