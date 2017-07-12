@@ -156,7 +156,8 @@ class NotificationsTray extends PureComponent {
           </Button>
           <Button type={Button.Type.primary}
               className={styles.NotificationsTray_notification_footer_mark}
-              onClick={this._onMarkClick}>
+              onClick={this._onMarkClick}
+              disabled={this.state.notificationIdsToMarkRead.size === 0}>
             Mark
           </Button>
         </div>
