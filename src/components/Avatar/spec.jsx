@@ -5,7 +5,7 @@ import generateUserInitialsAvatarSvgUri from './generateUserInitialsAvatarSvg';
 
 const bloggsInitialsAvatarUri = generateUserInitialsAvatarSvgUri('Joe', 'Bloggs');
 const unknownInitialsAvatarUri = generateUserInitialsAvatarSvgUri('?', '?');
-const redInitialsAvatarUri = generateUserInitialsAvatarSvgUri('Kelly', '?', '#D8213A', 'white');
+const redInitialsAvatarUri = generateUserInitialsAvatarSvgUri('Kelly', '?', '#DE4C4C', 'white');
 
 let props;
 
