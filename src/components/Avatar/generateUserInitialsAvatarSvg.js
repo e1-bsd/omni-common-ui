@@ -2,31 +2,31 @@ import is from 'is_js';
 
 const COLOR_SPECS = [{
   nameRegexp: /^[A-D]/i,
-  bgFill: '#59295A',
+  bgFill: '#59295A',  // purple
   textFill: 'white',
 }, {
   nameRegexp: /^[E-H]/i,
-  bgFill: '#92205F',
+  bgFill: '#92205F', // magenta
   textFill: 'white',
 }, {
   nameRegexp: /^[I-L]/i,
-  bgFill: '#D8213A',
+  bgFill: '#DE4C4C',  // red
   textFill: 'white',
 }, {
   nameRegexp: /^[M-P]/i,
-  bgFill: '#E9852C',
+  bgFill: '#E9852C',  // dark orange
   textFill: 'white',
 }, {
   nameRegexp: /^[Q-T]/i,
-  bgFill: '#FBCB22',
+  bgFill: '#FBCB22',  // orange
   textFill: 'black',
 }, {
   nameRegexp: /^[U-X]/i,
-  bgFill: '#00773F',
+  bgFill: '#00773F',  // green
   textFill: 'white',
 }, {
   nameRegexp: /^[Y-Z]/i,
-  bgFill: '#1C8FC2',
+  bgFill: '#1C8FC2',  // cyan
   textFill: 'white',
 }];
 
