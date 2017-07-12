@@ -129,11 +129,11 @@ class NotificationsTray extends PureComponent {
   _onCheckAllNotifications(checked, notifications) {
     if (checked) {
       this.setState({
-        notificationIdsToMarkRead: [...notifications.keys()],
+        notificationIdsToMarkRead: new Set([...notifications.keys()]),
       });
     } else {
       this.setState({
-        notificationIdsToMarkRead: [],
+        notificationIdsToMarkRead: new Set(),
       });
     }
   }
@@ -144,7 +144,7 @@ class NotificationsTray extends PureComponent {
         <div>
           <Checkbox name="check-all"
               id="check-all"
-              checked={this.state.notificationIdsToMarkRead.length === notifications.size}
+              checked={this.state.notificationIdsToMarkRead.size === notifications.size}
               onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
               className={styles.NotificationsTray_notification_footer_checkAll} />
           <span>All</span>
