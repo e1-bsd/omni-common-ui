@@ -250,6 +250,8 @@
 
       &_checkAll {
         cursor: pointer;
+        display: none;  /* allow space for buttons on tiny screens */
+        white-space: nowrap;
 
         & > * {
           display: inline-block;
@@ -257,8 +259,8 @@
           vertical-align: middle;
         }
 
-        @media (--xs-viewport) {
-          display: none;  /* allow enough space for buttons */
+        @media (--md-viewport-new) {
+          display: block;
         }
       }
     }

@@ -148,7 +148,8 @@ class NotificationsTray extends PureComponent {
               onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }} />
           <span>All</span>
         </label>
-        <div className={styles.NotificationsTray_notification_footer_btns}>
+        <Button.Container className={styles.NotificationsTray_notification_footer_btns}
+            align="right">
           <Button type={Button.Type.default}
               className={styles.NotificationsTray_notification_footer_cancel}
               onClick={this._onCancelClick}>
@@ -160,7 +161,7 @@ class NotificationsTray extends PureComponent {
               disabled={this.state.notificationIdsToMarkRead.size === 0}>
             Mark
           </Button>
-        </div>
+        </Button.Container>
       </div>;
     }
     return null;
@@ -280,8 +281,8 @@ function mapDispatchToProps(dispatch) {
           }),
           notificationIds,
         },
-        successExtras: { disableDefault: true, notificationIds, },
-        failureExtras: { disableDefault: true, notificationIds, },
+        successExtras: { disableDefault: true, notificationIds },
+        failureExtras: { disableDefault: true, notificationIds },
       });
       actionCreator(dispatch);
     },
