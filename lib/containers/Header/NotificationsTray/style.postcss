@@ -353,6 +353,14 @@
       position: relative;
       user-select: none;
 
+      &::after {
+        bottom: 0;
+      }
+
+      & h2 {
+        flex: 1 0 auto;
+      }
+
       &_secondary {
         display: flex;
       }
@@ -360,15 +368,15 @@
       &_btn {
         color: var(--colorPrimary);
         cursor: pointer;
+        flex: 0 0 auto;
         text-transform: uppercase;
+        white-space: nowrap;
 
-        &.__inActive {
+        &.__inactive {
           color: var(--colorTextGreyed);
+          cursor: default;
+          outline: 0;
         }
-      }
-
-      &::after {
-        bottom: 0;
       }
 
       &.__clickable {
@@ -451,12 +459,24 @@
     }
 
     &_footer {
+      align-items: center;
       display: flex;
       justify-content: space-between;
       padding: var(--spaceBase);
+      padding-bottom: calc(var(--spaceBase) + 5px);
 
       &_btns {
-        align-self: flex-end;
+        align-self: center;
+      }
+
+      &_checkAll {
+        cursor: pointer;
+
+        & > * {
+          display: inline-block;
+          line-height: 100%;
+          vertical-align: middle;
+        }
       }
     }
   }

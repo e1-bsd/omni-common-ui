@@ -141,14 +141,13 @@ class NotificationsTray extends PureComponent {
   _renderNotificationFooter(notifications) {
     if (this.state.isMarkingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
-        <div>
+        <label className={styles.NotificationsTray_notification_footer_checkAll}>
           <Checkbox name="check-all"
               id="check-all"
               checked={this.state.notificationIdsToMarkRead.size === notifications.size}
-              onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
-              className={styles.NotificationsTray_notification_footer_checkAll} />
+              onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }} />
           <span>All</span>
-        </div>
+        </label>
         <div className={styles.NotificationsTray_notification_footer_btns}>
           <Button type={Button.Type.default}
               className={styles.NotificationsTray_notification_footer_cancel}
@@ -170,7 +169,7 @@ class NotificationsTray extends PureComponent {
     const { notifications } = this.props;
     const { viewingNotification } = this.state;
     const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn, {
-      [styles.__inActive]: this.state.isMarkingMode,
+      [styles.__inactive]: !! this.state.isMarkingMode,
     });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
@@ -179,8 +178,13 @@ class NotificationsTray extends PureComponent {
       })}>
         <div className={styles.NotificationsTray_popup_heading}>
           <h2>Notifications</h2>
-          <a className={headerBtnClassName}
-              onClick={this._onMarkAsReadClick}>Mark as read</a>
+          {notifications && notifications.size ?
+            <a className={headerBtnClassName}
+                onClick={this._onMarkAsReadClick}
+                role="button"
+                tabIndex="-1">
+              Mark as read
+            </a> : null}
         </div>
         {! notifications || ! notifications.size ?
           <div className={styles.NotificationsTray_popup_empty}>
