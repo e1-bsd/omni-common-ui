@@ -35,9 +35,14 @@ const createApiActionCreator = (actionObjectName,
 
     function createFetchRequestAction() {
       const type = `${prefix}${upperActionObjectName}_REQUEST`;
-      return ApiCall.createAction({
-        type, url, method, payload: fetch(url), ...requestExtras,
-      });
+      const action = {
+        type, url, method, ...requestExtras,
+      };
+      // do a bog standard GET if `payload` was not supplied in the extras
+      if (! requestExtras.payload) {
+        action.payload = fetch(url);
+      }
+      return ApiCall.createAction(action);
     }
 
     function createFetchSuccessAction(response) {
