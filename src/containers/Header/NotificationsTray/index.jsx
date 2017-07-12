@@ -141,14 +141,14 @@ class NotificationsTray extends PureComponent {
   _renderNotificationFooter(notifications) {
     if (this.state.isMarkingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
-        <div>
+        <label>
           <Checkbox name="check-all"
               id="check-all"
               checked={this.state.notificationIdsToMarkRead.size === notifications.size}
               onChange={(checked) => { this._onCheckAllNotifications(checked, notifications); }}
               className={styles.NotificationsTray_notification_footer_checkAll} />
           <span>All</span>
-        </div>
+        </label>
         <div className={styles.NotificationsTray_notification_footer_btns}>
           <Button type={Button.Type.default}
               className={styles.NotificationsTray_notification_footer_cancel}
