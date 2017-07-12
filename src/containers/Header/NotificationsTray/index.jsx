@@ -2,6 +2,7 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Set } from 'immutable';
 import Cursor from 'immutable-cursor';
 import { CSSTransitionGroup } from 'react-transition-group';
 import classnames from 'classnames';
@@ -20,12 +21,15 @@ class NotificationsTray extends PureComponent {
     this.state = {
       viewingNotification: null,
       isMarkingMode: false,
-      notificationIdsToMarkRead: [],
+      notificationIdsToMarkRead: new Set(),
     };
     this._onNotificationClicked = this._onNotificationClicked.bind(this);
     this._onClickBackToNotifications = this._onClickBackToNotifications.bind(this);
     this._onCalloutOpenStateChanged = this._onCalloutOpenStateChanged.bind(this);
     this._renderCalloutPopupContent = this._renderCalloutPopupContent.bind(this);
+    this._onMarkAsReadClick = this._onMarkAsReadClick.bind(this);
+    this._onCancelClick = this._onCancelClick.bind(this);
+    this._onMarkClick = this._onMarkClick.bind(this);
   }
 
   _onNotificationClicked(ev) {
@@ -35,17 +39,13 @@ class NotificationsTray extends PureComponent {
     const { notificationId } = element.dataset;
 
     if (this.state.isMarkingMode) {
-      if (! this.state.notificationIdsToMarkRead.includes(notificationId)) {
-        const notificationIds = [...this.state.notificationIdsToMarkRead, notificationId];
+      if (! this.state.notificationIdsToMarkRead.has(notificationId)) {
         return this.setState({
-          notificationIdsToMarkRead: notificationIds,
+          notificationIdsToMarkRead: this.state.notificationIdsToMarkRead.add(notificationId),
         });
       }
-      const notificationIds = [...this.state.notificationIdsToMarkRead.filter(
-        (id) => id !== notificationId
-      )];
       return this.setState({
-        notificationIdsToMarkRead: notificationIds,
+        notificationIdsToMarkRead: this.state.notificationIdsToMarkRead.delete(notificationId),
       });
     }
     return this.setState({ viewingNotification: this.props.notifications.get(notificationId) });
@@ -75,11 +75,11 @@ class NotificationsTray extends PureComponent {
   }
 
   _onMarkClick() {
-    if (this.state.notificationIdsToMarkRead.length !== 0) {
+    if (this.state.notificationIdsToMarkRead.size !== 0) {
       this.props.markNotificationAsRead(this.state.notificationIdsToMarkRead);
     }
     this.setState({
-      notificationIdsToMarkRead: [],
+      notificationIdsToMarkRead: new Set(),
       isMarkingMode: false,
     });
   }
@@ -152,12 +152,12 @@ class NotificationsTray extends PureComponent {
         <div className={styles.NotificationsTray_notification_footer_btns}>
           <Button type={Button.Type.default}
               className={styles.NotificationsTray_notification_footer_cancel}
-              onClick={() => this._onCancelClick()}>
+              onClick={this._onCancelClick}>
             Cancel
           </Button>
           <Button type={Button.Type.primary}
               className={styles.NotificationsTray_notification_footer_mark}
-              onClick={() => this._onMarkClick()}>
+              onClick={this._onMarkClick}>
             Mark
           </Button>
         </div>
@@ -169,10 +169,9 @@ class NotificationsTray extends PureComponent {
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
     const { viewingNotification } = this.state;
-    const headerBtnClassName = this.state.isMarkingMode ?
-      classnames(styles.NotificationsTray_popup_heading_btn,
-        styles.NotificationsTray_popup_heading_btn_inActive) :
-      styles.NotificationsTray_popup_heading_btn;
+    const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn, {
+      [styles.__inActive]: this.state.isMarkingMode,
+    });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: ! this.state.viewingNotification,
@@ -181,7 +180,7 @@ class NotificationsTray extends PureComponent {
         <div className={styles.NotificationsTray_popup_heading}>
           <h2>Notifications</h2>
           <a className={headerBtnClassName}
-              onClick={() => this._onMarkAsReadClick()}>Mark as read</a>
+              onClick={this._onMarkAsReadClick}>Mark as read</a>
         </div>
         {! notifications || ! notifications.size ?
           <div className={styles.NotificationsTray_popup_empty}>
@@ -259,7 +258,7 @@ function mapDispatchToProps(dispatch) {
   const apiUrl = buildUrl(markAsReadDispatchConfig.apiUrl);
   const method = markAsReadDispatchConfig.method;
   return {
-    markNotificationAsRead: (notificationIds = []) => {
+    markNotificationAsRead: (notificationIds) => {
       const data = JSON.stringify(notificationIds.map((id) => {
         const model = { id };
         return model;
