@@ -1,4 +1,5 @@
 import is from 'is_js';
+import Api from 'domain/Api';
 import createApiActionCreator from './';
 
 jest.mock('domain/Api', () => ({
@@ -28,7 +29,7 @@ describe('curry test', () => {
   });
 });
 
-test('makes us some actions', () => {
+test('creates some actions!', () => {
   const thunk = createApiActionCreator('object', 'url', 'method');
   thunk((fetchRequestAction) => {
     expect(fetchRequestAction).toEqual({
@@ -37,6 +38,44 @@ test('makes us some actions', () => {
       method: 'method',
       payload: 'url',
     });
+    return {
+      payload: {
+        then: () => ({
+          catch: () => {},
+        }),
+      },
+    };
+  });
+});
+
+test('calls basic fetch once when a `payload` was not supplied', () => {
+  const thunk = createApiActionCreator('object', 'url', 'method');
+  const fetch = jest.spyOn(Api, 'fetch')
+      .mockImplementation((url) => url);
+  fetch.mockClear();
+  thunk(() => {
+    expect(fetch.mock.calls.length).toBe(1);
+    expect(fetch.mock.calls[0]).toEqual(['url']);
+    return {
+      payload: {
+        then: () => ({
+          catch: () => {},
+        }),
+      },
+    };
+  });
+});
+
+test('calls supplied fetch once when a `payload` was supplied', () => {
+  const fetch = jest.spyOn(Api, 'fetch')
+      .mockImplementation((url) => url);
+  fetch.mockClear();
+  const thunk = createApiActionCreator('object', 'url', 'method', {
+    payload: fetch('url2', { method: 'PUT' }),
+  });
+  thunk(() => {
+    expect(fetch.mock.calls.length).toBe(1);
+    expect(fetch.mock.calls[0]).toEqual(['url2', { method: 'PUT' }]);
     return {
       payload: {
         then: () => ({
