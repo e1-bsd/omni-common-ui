@@ -126,10 +126,25 @@
       display: flex;
       flex: 0 0 auto;
       height: 55px;
+      justify-content: space-between;
       padding: 0 var(--spaceBase);
       padding-top: 5px;
       position: relative;
       user-select: none;
+
+      &_secondary {
+        display: flex;
+      }
+
+      &_btn {
+        color: var(--colorPrimary);
+        cursor: pointer;
+        text-transform: uppercase;
+
+        &.__inActive {
+          color: var(--colorTextGreyed);
+        }
+      }
 
       &::after {
         bottom: 0;
@@ -206,7 +221,22 @@
     &_chevron {
       flex: 0 0 5%;
       font-size: 10px;
-      justify-content: flex-end;
+      justify-content: flex-end !important;
+    }
+
+    &_checkbox {
+      flex: 0 0 5%;
+      justify-content: flex-start;
+    }
+
+    &_footer {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--spaceBase);
+
+      &_btns {
+        align-self: flex-end;
+      }
     }
   }
 }
