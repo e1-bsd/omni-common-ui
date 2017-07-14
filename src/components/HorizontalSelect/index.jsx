@@ -62,14 +62,14 @@ class HorizontalSelect extends PureComponent {
           <ul className={styles.HorizontalSelect_options}>
             {
               options.map((option) => {
-                const className = classnames(styles.HorizontalSelect_option, {
+                const optionClassName = classnames(styles.HorizontalSelect_option, {
                   [styles.HorizontalSelect_option_active]: option.value === this.state.value,
-                });
+                }, option.className);
                 if (! option._onClick) {
                   option._onClick = this._onClick.bind(null, option);  // eslint-disable-line
                 }
                 return <li key={option.value}
-                    className={className}>
+                    className={optionClassName}>
                   <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
                       draggable={false}
                       onMouseDown={this._onMouseDown}
@@ -91,10 +91,12 @@ HorizontalSelect.propTypes = {
     PropTypes.shape({
       html: PropTypes.node,
       value: PropTypes.string,
+      className: PropTypes.string,
     })).isRequired,
   value: PropTypes.string,
   getLinkHrefForValue: PropTypes.func.isRequired,
   onSelect: PropTypes.func,
+  optionClassName: PropTypes.string,
 };
 
 export default HorizontalSelect;
