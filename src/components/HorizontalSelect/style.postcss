@@ -1,5 +1,9 @@
 @import 'main.postcss';
 
+:root {
+  --optionSpace: 130px;
+}
+
 .HorizontalSelect {
   &_wrap {
     @mixin responsiveCardPaddingHorizontal;
@@ -67,11 +71,17 @@
 
     display: inline-flex;
     flex: 0 0 auto;
+    height: var(--optionSpace);
     min-height: 100px;
     position: relative;  /* for the ::after pseudo-class below */
+    width: var(--optionSpace);
 
     &:not(:last-child) {
       margin-right: 10px;
+    }
+
+    > a {
+      width: 100%;
     }
 
     &_active {
