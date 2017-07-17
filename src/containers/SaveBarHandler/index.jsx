@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Config from 'domain/Config';
+import testClass from 'domain/testClass';
 import SaveBarButton from './SaveBarButton';
 
 const HTTP_METHOD_TRIGGERS = ['POST', 'PUT', 'DELETE'];
@@ -149,7 +150,8 @@ class SaveBarHandler extends PureComponent {
       [styles.SaveBar_overlay]: true,
       [styles.__visible]: !! isAnyApiCallSaving,
     };
-    return <div className={styles.SaveBarHandler}>
+    return <div className={classnames(styles.SaveBarHandler,
+      testClass('save-bar-handler'))}>
       <aside className={classnames(barClasses)}>
         <div className={styles.SaveBar_inner}>
           <span className={classnames(styles.SaveBar_text, {
