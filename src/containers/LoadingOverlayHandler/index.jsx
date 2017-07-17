@@ -8,6 +8,7 @@ import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Config from 'domain/Config';
 import PropTypes from 'prop-types';
+import testClass from 'domain/testClass';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -54,9 +55,13 @@ class LoadingOverlayHandler extends PureComponent {
       'pace-inactive': ! this.state.isThrobberVisible,
       'pace-active': this.state.isThrobberVisible,
     });
+    const innerClassName = classnames('pace-activity',
+      {
+        [testClass('is-any-api-call-loading')]: this.props.isAnyApiCallLoading,
+      });
     return <div className={styles.LoadingOverlayHandler}>
       <div className={classes}>
-        <div className="pace-activity" />
+        <div className={innerClassName} />
       </div>
       {children}
     </div>;
