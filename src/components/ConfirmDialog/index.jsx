@@ -2,11 +2,13 @@ import styles from './style.postcss';
 
 import React from 'react';
 import is from 'is_js';
+import classnames from 'classnames';
 
 import Dialog from 'components/Dialog';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
+import testClass from 'domain/testClass';
 
 const ConfirmDialog = ({
   children,
@@ -39,14 +41,16 @@ const ConfirmDialog = ({
       <Button.Container className={styles.ConfirmDialog_buttons}
           align="center">
         <Button type={Button.Type.primary}
-            className={styles.ConfirmDialog_button}
+            className={classnames(styles.ConfirmDialog_button,
+            testClass('confirm-dialog-primary'))}
             onClick={() => onPrimaryClick()}>
           {primaryButtonContent}
         </Button>
         {
           secondaryButtonContent &&
           <Button type={Button.Type.default}
-              className={styles.ConfirmDialog_button}
+              className={classnames(styles.ConfirmDialog_button,
+                testClass('confirm-dialog-secondary'))}
               onClick={() => onSecondaryClick()} >
             {secondaryButtonContent}
           </Button>
