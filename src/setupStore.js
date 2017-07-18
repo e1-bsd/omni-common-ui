@@ -6,7 +6,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
-import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
+import { loadUser, reducer as oidcReducer } from 'redux-oidc';
+import { userManager } from 'containers/SingleSignOn';
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { combineReducers } from 'redux-immutable';
@@ -29,7 +30,6 @@ export function setupStore(reducer) {
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
     applyMiddleware.apply(this, [
-      singleSignOnMiddleware,
       reduxRouterMiddleware,
       thunk,
       createLoggerMiddleware(),
@@ -46,6 +46,11 @@ export function setupStore(reducer) {
     selectLocationState: (state) => state.get('routing').toJS(),
   });
 
+  if (Config.get('featureLogin')) {
+    // load the current user into the redux store
+    loadUser(store, userManager);
+  }
+
   return { store, syncBrowserHistory };
 }
 
@@ -53,7 +58,7 @@ function createReducer(reducer) {
   return combineReducers({
     rootReducer: combineReducers(reducer),
     routing,
-    singleSignOn,
+    singleSignOn: oidcReducer,
     privileges,
     impersonate,
     apiCalls,

@@ -4227,7 +4227,7 @@ immutable-devtools@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/immutable-devtools/-/immutable-devtools-0.0.7.tgz#da0fbdd860c3a8a598967fc544bb0329ec3ad26e"
 
-immutable@^3.7.2, immutable@^3.7.6, immutable@^3.8.1:
+immutable@>=3.6.0, immutable@^3.7.2, immutable@^3.7.6, immutable@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -4983,10 +4983,6 @@ jest@^20.0.4:
   resolved "https://registry.yarnpkg.com/jest/-/jest-20.0.4.tgz#3dd260c2989d6dad678b1e9cc4d91944f6d602ac"
   dependencies:
     jest-cli "^20.0.4"
-
-jmespath@0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
 
 jquery-deferred@0.3.1:
   version "0.3.1"
@@ -7808,9 +7804,11 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-oidc@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/redux-oidc/-/redux-oidc-2.2.1.tgz#9eb3edb01f989ac3cbb3588d0c300f472a2f8d1d"
+redux-oidc@^3.0.0-beta.9:
+  version "3.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/redux-oidc/-/redux-oidc-3.0.0-beta.9.tgz#631ba912914384d1cdf04b48b3426c9699ac136f"
+  optionalDependencies:
+    immutable ">=3.6.0"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
@@ -8278,10 +8276,6 @@ signalr-no-jquery@^0.1.8:
   dependencies:
     jquery-deferred "0.3.1"
     jquery-param "0.2.0"
-
-simple-fmt@~0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/simple-fmt/-/simple-fmt-0.1.0.tgz#191bf566a59e6530482cb25ab53b4a8dc85c3a6b"
 
 simple-html-tokenizer@^0.1.1:
   version "0.1.1"
