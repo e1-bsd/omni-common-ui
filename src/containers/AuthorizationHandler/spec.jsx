@@ -6,10 +6,11 @@ import { AuthorizationHandler, mapStateToProps } from './';
 
 let baseProps;
 
-const getComponent = (kids, extraProps = {}) => shallow(<AuthorizationHandler {...baseProps}
-    {...extraProps}>
-  {kids}
-</AuthorizationHandler>);
+const getComponent = (kids = null, extraProps = {}) =>
+  shallow(<AuthorizationHandler {...baseProps}
+      {...extraProps}>
+    {kids}
+  </AuthorizationHandler>);
 
 const state = new Map({
   singleSignOn: new Map({
@@ -36,6 +37,22 @@ describe('component', () => {
     });
 
     test('renders its children', () => {
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
+    });
+
+    test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
+      getComponent();
+      expect(baseProps.fetchPrivilegesIfNeeded).not.toHaveBeenCalled();
+    });
+
+    test('renders its children if the user is fine', () => {
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
+    });
+
+    test('renders its children even if the user is not valid', () => {
+      baseProps.user = null;
       const wrapper = getComponent(<div id="inner" />);
       expect(wrapper.find('#inner')).toHaveLength(1);
     });
@@ -83,6 +100,18 @@ describe('component', () => {
       expect(props.permissionChecks[0].canAccess).toHaveBeenCalled();
       expect(props.permissionChecks[1].canAccess).toHaveBeenCalled();
       expect(props.permissionChecks[2].canAccess).not.toHaveBeenCalled();
+    });
+
+    test('calls fetchPrivilegesIfNeeded if the user is fine but permissions have not loaded', () => {
+      baseProps.havePrivilegesLoaded = () => false;
+      getComponent();
+      expect(baseProps.fetchPrivilegesIfNeeded).toHaveBeenCalled();
+    });
+
+    test('renders its children if the user is fine and permissions have loaded', () => {
+      baseProps.havePrivilegesLoaded = () => true;
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
     });
   });
 });
