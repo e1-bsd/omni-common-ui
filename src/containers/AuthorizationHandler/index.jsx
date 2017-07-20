@@ -16,6 +16,9 @@ export const AuthorizationHandler = (props) => {
   const { user, permissionChecks, children, havePrivilegesLoaded } = props;
 
   if (Config.get('featureLogin')) {
+    if (! user) {
+      return null;
+    }
     const profile = user.get('profile');
     const userId = profile.sub;
     const email = profile.email;
