@@ -24,32 +24,36 @@ export function createNotificationsMiddleware(config = {}) {
   let emitter;
 
   return (store) => (next) => (action) => {
-    const user = store.getState().get('singleSignOn').user || {};
-    const { access_token: accessToken } = user;
+    const state = store.getState();
+    const sso = state && state.get('singleSignOn');
+    const user = (sso && sso.get('user')) || {};
+    if (user && ! is.empty(user)) {
+      const accessToken = user.get('access_token');
 
-    if (is.string(accessToken) && ! emitter) {
-      emitter = new StrategyClass(config, accessToken);
+      if (is.string(accessToken) && ! emitter) {
+        emitter = new StrategyClass(config, accessToken);
 
-      emitter.on('notification', () => {
-        const {
-          method, apiUrl, disableDefault,
-        } = config.dispatch;
+        emitter.on('notification', () => {
+          const {
+            method, apiUrl, disableDefault,
+          } = config.dispatch;
 
-        const fullUrl = buildUrl(apiUrl);
-        const actionExtras = disableDefault ? { disableDefault: true } : {};
+          const fullUrl = buildUrl(apiUrl);
+          const actionExtras = disableDefault ? { disableDefault: true } : {};
 
-        store.dispatch(
-            createApiActionCreator({
-              actionObjectName: 'NOTIFICATIONS',
-              url: fullUrl,
-              method,
-              requestExtras: actionExtras,  // disableDefault in request, success, failure
-              successExtras: actionExtras,
-              failureExtras: actionExtras,
-            }));
-      });
+          store.dispatch(
+              createApiActionCreator({
+                actionObjectName: 'NOTIFICATIONS',
+                url: fullUrl,
+                method,
+                requestExtras: actionExtras,  // disableDefault in request, success, failure
+                successExtras: actionExtras,
+                failureExtras: actionExtras,
+              }));
+        });
 
-      log.info(`Notification pull strategy: \`${config.strategy}\``);
+        log.info(`Notification pull strategy: \`${config.strategy}\``);
+      }
     }
 
     return next(action);

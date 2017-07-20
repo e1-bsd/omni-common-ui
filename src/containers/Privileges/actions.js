@@ -11,12 +11,12 @@ const buildPrivilegesUrl = (userId) => buildUrl(`/users/${userId}/privileges`);
 const method = 'GET';
 
 function getSSOUserId(state) {
-  const user = state.get('singleSignOn').user;
+  const user = state.get('singleSignOn').get('user');
 
   // logging out?
   if (! user) return null;
 
-  const userId = user.profile.sub;
+  const userId = user.get('profile').sub;
   return userId;
 }
 
@@ -27,7 +27,9 @@ export function havePrivilegesLoaded() {
     if (! userId) return false;
     const url = buildPrivilegesUrl(userId);
     const callState = ApiCall.find(state, { url, method });
-    return ApiCall.State.isValue(callState) && ApiCall.State.hasSucceeded(callState);
+    return callState &&
+        ApiCall.State.isValue(callState) &&
+        ApiCall.State.hasSucceeded(callState);
   };
 }
 

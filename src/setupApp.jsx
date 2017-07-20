@@ -5,17 +5,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import {
-  SingleSignOnHandler,
   SingleSignOnProvider,
-  routes as singleSignOnRoutes,
   IdleTimeoutHandler,
+  routes as singleSignOnRoutes,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
 import Store from 'domain/Store';
 import parseRoutes from 'domain/parseRoutes';
 import App from 'components/App';
 import is from 'is_js';
-import PermissionHandler from 'containers/PermissionHandler';
+import AuthorizationHandler from 'containers/AuthorizationHandler';
 import ErrorPageHandler from 'containers/ErrorPageHandler';
 import LoadingOverlayHandler from 'containers/LoadingOverlayHandler';
 import SaveBarHandler from 'containers/SaveBarHandler';
@@ -67,31 +66,28 @@ export function setupApp({ routes, reducer, errorMessageMap }) {
     },
     ...singleSignOnRoutes,
     {
-      component: SingleSignOnHandler,
+      component: IdleTimeoutHandler,
       childRoutes: [{
-        component: IdleTimeoutHandler,
-        childRoutes: [{
-          component: App,
-          childRoutes: [
-            {
-              component: LoadingOverlayHandler,
+        component: App,
+        childRoutes: [
+          {
+            component: LoadingOverlayHandler,
+            childRoutes: [{
+              component: AuthorizationHandler,
               childRoutes: [{
-                component: PermissionHandler,
+                component: ErrorPageHandler,
                 childRoutes: [{
-                  component: ErrorPageHandler,
-                  childRoutes: [{
-                    component: SaveBarHandler,
-                    childRoutes: is.array(routes) ? routes : [routes],
-                  }],
+                  component: SaveBarHandler,
+                  childRoutes: is.array(routes) ? routes : [routes],
                 }],
               }],
-            },
-            {
-              path: '*',
-              component: NoMatchingRouteErrorHandler,
-            },
-          ],
-        }],
+            }],
+          },
+          {
+            path: '*',
+            component: NoMatchingRouteErrorHandler,
+          },
+        ],
       }],
     },
   ], store);
