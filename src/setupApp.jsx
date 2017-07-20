@@ -36,7 +36,7 @@ if (PRODUCTION) {
 }
 
 Oidc.Log.logger = log;
-Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.DEBUG;
+Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
 Raven.config(Config.get('sentryDsn'), {
   release: COMMIT,
