@@ -32,14 +32,17 @@ const userManagerConfig = {
 
 const createCustomUserManager = memoize((config) => {
   const newUserManager = new UserManager(config);
-  newUserManager.forceSignoutRedirect = () => {
+  newUserManager.forceSignOutRedirect = () => {
     newUserManager.signOut = true;
     newUserManager.signoutRedirect();
   };
-  newUserManager.signinRedirectWithValidation = () => {
+  newUserManager.signInRedirectWithValidation = () => {
     if (newUserManager.signOut === true) return;
     newUserManager.signinRedirect();
   };
+  // fix casing in these inherited methods
+  newUserManager.signInRedirect = () => newUserManager.signinRedirect();
+  newUserManager.signOutRedirect = () => newUserManager.signoutRedirect();
   return newUserManager;
 });
 

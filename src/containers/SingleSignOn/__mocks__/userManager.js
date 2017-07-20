@@ -1,6 +1,6 @@
 module.exports = {
-  signinRedirectWithValidation: jest.fn(),
-  signinRedirect: jest.fn(),
-  signoutRedirect: jest.fn(),
-  forceSignoutRedirect: jest.fn(),
+  signInRedirectWithValidation: jest.fn(),
+  signInRedirect: jest.fn(),
+  signOutRedirect: jest.fn(),
+  forceSignOutRedirect: jest.fn(),
 };

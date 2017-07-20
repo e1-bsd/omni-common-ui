@@ -8,7 +8,7 @@ import {
 } from 'data/SingleSignOn/actions';
 import { createUserManager } from 'data/SingleSignOn';
 
-export function createSigninRedirectMiddleware() {
+export function createSignInRedirectMiddleware() {
   return () => (next) => (action) => {
     switch (action.type) {
       case USER_EXPIRED:
@@ -16,15 +16,15 @@ export function createSigninRedirectMiddleware() {
       case LOAD_USER_ERROR:
       case SESSION_TERMINATED:
         if (location.pathname === '/callback') break;  // still processing the callback
-        log.info('createSigninRedirectMiddleware: Caught an invalid user/session action. Redirecting.');
+        log.info('createSignInRedirectMiddleware: Caught an invalid user/session action. Redirecting.');
         sessionStorage.lastUrlPath =
             location.pathname + location.search;
-        createUserManager().signinRedirectWithValidation();
+        createUserManager().signInRedirectWithValidation();
         break;
       case TRIGGER_SIGNOUT_REDIRECT:
         sessionStorage.lastUrlPath =
             action.returnUrl || location.pathname + location.search;
-        createUserManager().forceSignoutRedirect();
+        createUserManager().forceSignOutRedirect();
         break;
       default: break;
     }
@@ -32,4 +32,4 @@ export function createSigninRedirectMiddleware() {
   };
 }
 
-export default createSigninRedirectMiddleware;
+export default createSignInRedirectMiddleware;
