@@ -39,11 +39,11 @@ export default class IdleTimeoutHandler extends PureComponent {
 
   _signOut() {
     log.debug('IdleTimeoutHandler - Will sign out!');
-    // Signout should not be with the route hook.
+    // SignOut should not be with the route hook.
     if (this.props.router) {
       this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
     }
-    createUserManager().forceSignoutRedirect();
+    createUserManager().forceSignOutRedirect();
   }
 
   _getCurrentRoute() {

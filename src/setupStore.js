@@ -11,7 +11,7 @@ import { createUserManager, loadUser, reducer as oidcStateReducer } from 'data/S
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { reducer as apiCalls } from 'containers/ApiCalls';
-import { createSigninRedirectMiddleware } from 'containers/SingleSignOn';
+import { createSignInRedirectMiddleware } from 'containers/SingleSignOn';
 import createLoggerMiddleware from 'domain/createLoggerMiddleware';
 import createNotificationsMiddleware from 'domain/createNotificationsMiddleware';
 import Config from 'domain/Config';
@@ -32,7 +32,7 @@ export function setupStore(reducer) {
     applyMiddleware.apply(this, [
       reduxRouterMiddleware,
       thunk,
-      createSigninRedirectMiddleware(),
+      createSignInRedirectMiddleware(),
       createLoggerMiddleware(),
       notificationsTriggerConfig ?
           createNotificationsMiddleware(notificationsTriggerConfig) :

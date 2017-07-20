@@ -5,10 +5,10 @@ import IdleTimeoutHandler from './IdleTimeoutHandler';
 
 jest.mock('data/SingleSignOn', () => {  // eslint-disable-line
   const userManager = {
-    signinRedirectWithValidation: jest.fn(),
-    signinRedirect: jest.fn(),
-    signoutRedirect: jest.fn(),
-    forceSignoutRedirect: jest.fn(),
+    signInRedirectWithValidation: jest.fn(),
+    signInRedirect: jest.fn(),
+    signOutRedirect: jest.fn(),
+    forceSignOutRedirect: jest.fn(),
   };
   return {
     createUserManager: () => userManager,
@@ -31,11 +31,11 @@ describe('when autoSignOutTimeout is false', () => {
     Config.merge({ autoSignOutTimeout: false });
   });
 
-  test('does not call userManager.forceSignoutRedirect()', () => {
+  test('does not call userManager.forceSignOutRedirect()', () => {
     const createUserManager = require('data/SingleSignOn').createUserManager;
     mountComponent();
     jest.runAllTimers();
-    expect(createUserManager().forceSignoutRedirect).not.toHaveBeenCalled();
+    expect(createUserManager().forceSignOutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {
@@ -50,14 +50,14 @@ describe('when autoSignOutTimeout is a number', () => {
     Config.merge({ autoSignOutTimeout });
   });
 
-  test('calls userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout', () => {
+  test('calls userManager.forceSignOutRedirect() after the seconds set in autoSignOutTimeout', () => {
     const createUserManager = require('data/SingleSignOn').createUserManager;
     mountComponent();
     jest.runAllTimers();
-    expect(createUserManager().forceSignoutRedirect).toHaveBeenCalled();
+    expect(createUserManager().forceSignOutRedirect).toHaveBeenCalled();
   });
 
-  test('does not call userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout ' +
+  test('does not call userManager.forceSignOutRedirect() after the seconds set in autoSignOutTimeout ' +
       'if there are some user interactions happening', () => {
     const createUserManager = require('data/SingleSignOn').createUserManager;
     const halfTimeoutTime = (autoSignOutTimeout * 1000) / 2;
@@ -65,7 +65,7 @@ describe('when autoSignOutTimeout is a number', () => {
     jest.runTimersToTime(halfTimeoutTime);
     window.document.dispatchEvent(new Event('click'));
     jest.runTimersToTime(halfTimeoutTime);
-    expect(createUserManager().forceSignoutRedirect).not.toHaveBeenCalled();
+    expect(createUserManager().forceSignOutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {
