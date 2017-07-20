@@ -96,4 +96,13 @@ describe('when clicked', () => {
     wrapper.simulate('click');
     expect(onClick).not.toHaveBeenCalled();
   });
+
+  test('does not fail if the component is unmounted while active', () => {
+    const onClick = jest.fn();
+    const wrapper = mount(<Button onClick={onClick} onClickActiveClassAddDelay={0} />);
+    wrapper.simulate('click');
+    jest.runTimersToTime(100);
+    wrapper.unmount();
+    expect(() => jest.runOnlyPendingTimers(1000)).not.toThrow();
+  });
 });
