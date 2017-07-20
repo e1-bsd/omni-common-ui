@@ -3,14 +3,15 @@ import installDevTools from 'immutable-devtools';
 
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { createHistory, useBasename, useBeforeUnload } from 'history';
+import { combineReducers } from 'redux-immutable';
 import { useRouterHistory } from 'react-router';
+import { createHistory, useBasename, useBeforeUnload } from 'history';
 import { syncHistoryWithStore, routerMiddleware, LOCATION_CHANGE } from 'react-router-redux';
-import { singleSignOnMiddleware, reducer as singleSignOn } from 'containers/SingleSignOn';
+import { createUserManager, loadUser, reducer as oidcStateReducer } from 'data/SingleSignOn';
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
-import { combineReducers } from 'redux-immutable';
 import { reducer as apiCalls } from 'containers/ApiCalls';
+import { createSignInRedirectMiddleware } from 'containers/SingleSignOn';
 import createLoggerMiddleware from 'domain/createLoggerMiddleware';
 import createNotificationsMiddleware from 'domain/createNotificationsMiddleware';
 import Config from 'domain/Config';
@@ -29,9 +30,9 @@ export function setupStore(reducer) {
   const reduxRouterMiddleware = routerMiddleware(browserHistory);
   const createStoreWithMiddleware = compose(
     applyMiddleware.apply(this, [
-      singleSignOnMiddleware,
       reduxRouterMiddleware,
       thunk,
+      createSignInRedirectMiddleware(),
       createLoggerMiddleware(),
       notificationsTriggerConfig ?
           createNotificationsMiddleware(notificationsTriggerConfig) :
@@ -46,6 +47,10 @@ export function setupStore(reducer) {
     selectLocationState: (state) => state.get('routing').toJS(),
   });
 
+  if (Config.get('featureLogin')) {
+    loadUser(store, createUserManager());
+  }
+
   return { store, syncBrowserHistory };
 }
 
@@ -53,7 +58,7 @@ function createReducer(reducer) {
   return combineReducers({
     rootReducer: combineReducers(reducer),
     routing,
-    singleSignOn,
+    singleSignOn: oidcStateReducer,
     privileges,
     impersonate,
     apiCalls,

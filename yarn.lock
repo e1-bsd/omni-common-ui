@@ -4984,10 +4984,6 @@ jest@^20.0.4:
   dependencies:
     jest-cli "^20.0.4"
 
-jmespath@0.15.0:
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
-
 jquery-deferred@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/jquery-deferred/-/jquery-deferred-0.3.1.tgz#596eca1caaff54f61b110962b23cafea74c35355"
@@ -7808,10 +7804,6 @@ redux-logger@^3.0.6:
   dependencies:
     deep-diff "^0.3.5"
 
-redux-oidc@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/redux-oidc/-/redux-oidc-2.2.1.tgz#9eb3edb01f989ac3cbb3588d0c300f472a2f8d1d"
-
 redux-thunk@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
@@ -8278,10 +8270,6 @@ signalr-no-jquery@^0.1.8:
   dependencies:
     jquery-deferred "0.3.1"
     jquery-param "0.2.0"
-
-simple-fmt@~0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/simple-fmt/-/simple-fmt-0.1.0.tgz#191bf566a59e6530482cb25ab53b4a8dc85c3a6b"
 
 simple-html-tokenizer@^0.1.1:
   version "0.1.1"

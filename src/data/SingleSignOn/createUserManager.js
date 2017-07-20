@@ -1,6 +1,14 @@
-import { createUserManager } from 'redux-oidc';
+import { UserManager } from 'oidc-client';
 import log from 'domain/log';
 import Config from 'domain/Config';
+
+const memoizeCache = {};
+
+const memoize = (fn) => (arg) => {
+  const ret = memoizeCache[arg] || fn(arg);
+  memoizeCache[arg] = ret;
+  return ret;
+};
 
 const protocol = window.location.protocol;
 const hostname = window.location.hostname;
@@ -20,24 +28,25 @@ const userManagerConfig = {
   silent_redirect_uri: `${protocol}//${hostname}${port}/silent-renew`,
   automaticSilentRenew: true,
   filterProtocolClaims: true,
-  loadUserInfo: true,
 };
 
-const customUserManager = (userManager) => {
-  const newUserManager = userManager;
-  newUserManager.forceSignoutRedirect = () => {
+const createCustomUserManager = memoize((config) => {
+  const newUserManager = new UserManager(config);
+  newUserManager.forceSignOutRedirect = () => {
     newUserManager.signOut = true;
     newUserManager.signoutRedirect();
   };
-  newUserManager.signinRedirectWithValidation = () => {
+  newUserManager.signInRedirectWithValidation = () => {
     if (newUserManager.signOut === true) return;
     newUserManager.signinRedirect();
   };
-
+  // fix casing in these inherited methods
+  newUserManager.signInRedirect = () => newUserManager.signinRedirect();
+  newUserManager.signOutRedirect = () => newUserManager.signoutRedirect();
   return newUserManager;
-};
+});
 
-const userManager = customUserManager(createUserManager(userManagerConfig));
+const createUserManager = () =>
+  createCustomUserManager(userManagerConfig);
 
-
-export default userManager;
+export default createUserManager;

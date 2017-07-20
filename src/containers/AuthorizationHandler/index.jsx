@@ -1,5 +1,8 @@
 import React from 'react';
+import ReactGA from 'react-ga';
+import PropTypes from 'prop-types';
 import pure from 'recompose/pure';
+import Raven from 'raven-js';
 import connect from 'domain/connect';
 import is from 'is_js';
 import { actions as privilegesActions } from 'containers/Privileges';
@@ -7,15 +10,25 @@ import { bindActionCreators } from 'redux';
 import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
 import Config from 'domain/Config';
-import PropTypes from 'prop-types';
+import log from 'domain/log';
 
-export const PermissionHandler = (props) => {
-  const { permissionChecks, children, havePrivilegesLoaded } = props;
-  if (Config.get('featureLogin') !== true) {
+export const AuthorizationHandler = (props) => {
+  const { user, permissionChecks, children, havePrivilegesLoaded } = props;
+
+  if (Config.get('featureLogin')) {
+    const profile = user.get('profile');
+    const userId = profile.sub;
+    const email = profile.email;
+
+    ReactGA.set({ userId });
+    Raven.setUserContext({ email, id: userId });
+  } else {
     return children;
   }
 
   if (! havePrivilegesLoaded()) {
+    log.debug('PermissionHandler - Will call fetchPrivilegesIfNeeded()');
+    props.fetchPrivilegesIfNeeded();
     return null;
   }
 
@@ -31,15 +44,20 @@ export const PermissionHandler = (props) => {
   return <AuthorisationErrorPage {...props} />;
 };
 
-PermissionHandler.propTypes = {
+AuthorizationHandler.propTypes = {
+  user: PropTypes.shape({
+    get: PropTypes.function,
+  }),
   permissionChecks: PropTypes.arrayOf(PropTypes.shape({
     canAccess: PropTypes.func.isRequired,
   })),
   children: PropTypes.node,
   havePrivilegesLoaded: PropTypes.func.isRequired,
+  fetchPrivilegesIfNeeded: PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state, { routes }) {
+  const user = state.get('singleSignOn').get('user');
   const permissionChecks = routes.filter((route) => {
     if (is.not.existy(route.canAccess)) {
       return false;
@@ -54,11 +72,11 @@ export function mapStateToProps(state, { routes }) {
     return true;
   });
 
-  return { permissionChecks, config: ErrorPageConfig.get(routes) };
+  return { user, permissionChecks, config: ErrorPageConfig.get(routes) };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(privilegesActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(pure(PermissionHandler));
+export default connect(mapStateToProps, mapDispatchToProps)(pure(AuthorizationHandler));

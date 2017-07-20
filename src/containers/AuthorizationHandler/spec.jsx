@@ -1,7 +1,34 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Map } from 'immutable';
 import Config from 'domain/Config';
-import { PermissionHandler, mapStateToProps } from './';
+import { AuthorizationHandler, mapStateToProps } from './';
+
+let baseProps;
+
+const getComponent = (kids = null, extraProps = {}) =>
+  shallow(<AuthorizationHandler {...baseProps}
+      {...extraProps}>
+    {kids}
+  </AuthorizationHandler>);
+
+const state = new Map({
+  singleSignOn: new Map({
+    user: new Map(),
+  }),
+});
+
+beforeEach(() => {
+  baseProps = {
+    fetchPrivilegesIfNeeded: jest.fn(),
+    user: new Map({
+      expired: false,
+      profile: {
+        sub: '123',
+      },
+    }),
+  };
+});
 
 describe('component', () => {
   describe('when featureLogin is not true', () => {
@@ -10,7 +37,23 @@ describe('component', () => {
     });
 
     test('renders its children', () => {
-      const wrapper = shallow(<PermissionHandler><div id="inner" /></PermissionHandler>);
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
+    });
+
+    test('does not call fetchPrivilegesIfNeeded even if the user is fine', () => {
+      getComponent();
+      expect(baseProps.fetchPrivilegesIfNeeded).not.toHaveBeenCalled();
+    });
+
+    test('renders its children if the user is fine', () => {
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
+    });
+
+    test('renders its children even if the user is not valid', () => {
+      baseProps.user = null;
+      const wrapper = getComponent(<div id="inner" />);
       expect(wrapper.find('#inner')).toHaveLength(1);
     });
   });
@@ -21,29 +64,27 @@ describe('component', () => {
     });
 
     test('does nothing if no route is provided', () => {
-      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => true}>
-        <div id="inner" />
-      </PermissionHandler>);
+      const wrapper = getComponent(<div id="inner" />, { havePrivilegesLoaded: () => true });
       expect(wrapper.contains(<div id="inner" />)).toBe(true);
     });
 
     test('renders nothing if privileges have not been loaded', () => {
-      const wrapper = shallow(<PermissionHandler havePrivilegesLoaded={() => false}>
-        <div id="inner" />
-      </PermissionHandler>);
+      const wrapper = getComponent(<div id="inner" />, { havePrivilegesLoaded: () => false });
       expect(wrapper.html()).toBe(null);
     });
 
     test('throws if permissionChecks.canAccess is not a function', () => {
-      expect(() => shallow(<PermissionHandler permissionChecks={[{}]}
-          havePrivilegesLoaded={() => true} />)).toThrowError();
+      expect(() =>
+        getComponent(null, { havePrivilegesLoaded: () => true, permissionChecks: [{}] })
+      ).toThrowError();
     });
 
     test('calls permissionChecks.canAccess passing all props if it is a function', () => {
       const canAccess = jest.fn();
       const props = { permissionChecks: [{ canAccess }], havePrivilegesLoaded: () => true };
-      shallow(<PermissionHandler {...props} />);
-      expect(canAccess).toHaveBeenCalledWith(props);
+      getComponent(null, props);
+      expect(canAccess).toHaveBeenCalledWith(
+          Object.assign({ children: null }, baseProps, props));
     });
 
     test('calls canAccess() for all routes until one returns false', () => {
@@ -55,10 +96,22 @@ describe('component', () => {
         ],
         havePrivilegesLoaded: () => true,
       };
-      shallow(<PermissionHandler {...props} />);
+      getComponent(null, props);
       expect(props.permissionChecks[0].canAccess).toHaveBeenCalled();
       expect(props.permissionChecks[1].canAccess).toHaveBeenCalled();
       expect(props.permissionChecks[2].canAccess).not.toHaveBeenCalled();
+    });
+
+    test('calls fetchPrivilegesIfNeeded if the user is fine but permissions have not loaded', () => {
+      baseProps.havePrivilegesLoaded = () => false;
+      getComponent();
+      expect(baseProps.fetchPrivilegesIfNeeded).toHaveBeenCalled();
+    });
+
+    test('renders its children if the user is fine and permissions have loaded', () => {
+      baseProps.havePrivilegesLoaded = () => true;
+      const wrapper = getComponent(<div id="inner" />);
+      expect(wrapper.find('#inner')).toHaveLength(1);
     });
   });
 });
@@ -72,7 +125,7 @@ describe('mapStateToProps()', () => {
     const permissionChecks1 = { canAccess: () => {} };
     const permissionChecks2 = { canAccess: () => {} };
     const routes = [{}, permissionChecks1, {}, permissionChecks2];
-    const result = mapStateToProps(null, { routes });
+    const result = mapStateToProps(state, { routes });
     expect(result.permissionChecks).toEqual([permissionChecks1, permissionChecks2]);
   });
 
@@ -80,11 +133,11 @@ describe('mapStateToProps()', () => {
       'if there is only one that has a canAccess()', () => {
     const permissionChecks1 = { canAccess: () => {} };
     const routes = [{}, permissionChecks1, {}];
-    const result = mapStateToProps(null, { routes });
+    const result = mapStateToProps(state, { routes });
     expect(result.permissionChecks).toEqual([permissionChecks1]);
   });
 
   test('returns permissionChecks as an empty array if no route has canAccess()', () => {
-    expect(mapStateToProps(null, { routes: [{}, {}, {}] }).permissionChecks).toEqual([]);
+    expect(mapStateToProps(state, { routes: [{}, {}, {}] }).permissionChecks).toEqual([]);
   });
 });
