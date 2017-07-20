@@ -27,7 +27,9 @@ export function havePrivilegesLoaded() {
     if (! userId) return false;
     const url = buildPrivilegesUrl(userId);
     const callState = ApiCall.find(state, { url, method });
-    return ApiCall.State.isValue(callState) && ApiCall.State.hasSucceeded(callState);
+    return callState &&
+        ApiCall.State.isValue(callState) &&
+        ApiCall.State.hasSucceeded(callState);
   };
 }
 
