@@ -5,12 +5,16 @@ import pure from 'recompose/pure';
 import classnames from 'classnames';
 import is from 'is_js';
 import PropTypes from 'prop-types';
+import testClass from 'domain/testClass';
 
 const PageCardHeading = (props) => {
   const { className, text } = props;
-
+  const textAbbr = is.string(text) &&
+    text.replace(/\s+/g, '-').replace(/'/, '').toLowerCase();
+  const textClassName = textAbbr && testClass(`${textAbbr}-page-card`);
   return <header className={classnames(styles.PageCardHeading, className, {
     [styles.__stackHorizontal]: props.stackMode === 'horizontal',
+    [textClassName]: is.existy(textAbbr),
   })}>
     {is.string(text) && text.length ?
       <h1 className={styles.PageCardHeading_h1}>
