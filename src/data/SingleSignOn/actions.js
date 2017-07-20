@@ -1,4 +1,5 @@
 // actions
+export const TRIGGER_SIGNIN_REDIRECT = 'SSO_TRIGGER_SIGNIN_REDIRECT';
 export const TRIGGER_SIGNOUT_REDIRECT = 'SSO_TRIGGER_SIGNOUT_REDIRECT';
 
 // state changes
@@ -12,6 +13,13 @@ export const SESSION_TERMINATED = 'SSO_SESSION_TERMINATED';
 export const LOADING_USER = 'SSO_LOADING_USER';
 export const USER_SIGNED_OUT = 'SSO_USER_SIGNED_OUT';
 export const LOAD_USER_ERROR = 'SSO_LOAD_USER_ERROR';
+
+export function triggerSignInRedirect(returnUrl = null) {
+  return {
+    type: TRIGGER_SIGNIN_REDIRECT,
+    returnUrl,
+  };
+}
 
 export function triggerSignOutRedirect(returnUrl = null) {
   return {

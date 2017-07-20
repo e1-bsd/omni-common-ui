@@ -1,6 +1,5 @@
 import styles from './style.postcss';
 
-import is from 'is_js';
 import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
@@ -45,7 +44,7 @@ class UserInfo extends PureComponent {
 
   _checkImpersonation(props) {
     if (props.hasUnimpersonated) {
-      this._redirectToPortal();
+      this.props.triggerSignInRedirect();
     }
   }
 
@@ -75,15 +74,6 @@ class UserInfo extends PureComponent {
     return this.props.routes[this.props.routes.length - 1];
   }
 
-  _redirectToPortal() {
-    const url = Config.get('afterImpersonationRedirectTo');
-    if (is.url(url)) {
-      window.location = url;
-    } else {
-      window.location.reload();
-    }
-  }
-
   _onSwitchBackClicked() {
     this.props.postImpersonate(undefined, this.props.token);
     this.setState({ impersonateData: undefined });
@@ -104,7 +94,7 @@ class UserInfo extends PureComponent {
   }
 
   _handleImpersonateSuccess() {
-    this._redirectToPortal();
+    this.props.triggerSignInRedirect();
   }
 
   _renderImpersonateDialog() {
@@ -208,6 +198,7 @@ UserInfo.propTypes = {
   user: PropTypes.object,
   canImpersonate: PropTypes.bool,
   hasImpersonateFailed: PropTypes.bool.isRequired,
+  triggerSignInRedirect: PropTypes.func.isRequired,
   triggerSignOutRedirect: PropTypes.func.isRequired,
 };
 
