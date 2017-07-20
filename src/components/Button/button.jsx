@@ -23,12 +23,12 @@ class Button extends PureComponent {
     const { onClickActiveClassAddDelay, onClickActiveClassRemoveDelay } = this.props;
 
     // defer this - we don't want to show an active state if something happens immediately
-    setTimeout(() => {
+    setTimeout(async () => {
       if (! this._node) return;
       this._node.classList.add(styles.__active);
       if (ret instanceof Promise) {
-        ret.then(() => { this._unsetActiveClassIfNonActive(); })
-            .catch(() => { this._unsetActiveClassIfNonActive(); });
+        try { await ret; } catch (e) { /**/ }
+        this._unsetActiveClassIfNonActive();
       } else {
         setTimeout(() => {
           this._unsetActiveClassIfNonActive();
