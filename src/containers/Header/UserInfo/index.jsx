@@ -1,19 +1,19 @@
 import styles from './style.postcss';
 
+import is from 'is_js';
 import React, { PureComponent } from 'react';
-import connect from 'domain/connect';
+import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
+import connect from 'domain/connect';
 import Dialog from 'components/Dialog';
 import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
-import { createUserManager } from 'data/SingleSignOn';
-import is from 'is_js';
+import { actions as ssoActions } from 'data/SingleSignOn';
 import alertifyjs from 'alertifyjs';
 import Config from 'domain/Config';
 import AdultPicture from 'components/AdultPicture';
 import testClass from 'domain/testClass';
 import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
-import { bindActionCreators } from 'redux';
 import { actions as privilegesActions } from 'containers/Privileges';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
@@ -66,7 +66,7 @@ class UserInfo extends PureComponent {
         if (this.props.router) {
           this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
         }
-        createUserManager().forceSignoutRedirect();
+        this.props.triggerSignOutRedirect();
       },
     }).show();
   }
@@ -208,6 +208,7 @@ UserInfo.propTypes = {
   user: PropTypes.object,
   canImpersonate: PropTypes.bool,
   hasImpersonateFailed: PropTypes.bool.isRequired,
+  triggerSignOutRedirect: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -225,7 +226,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
     bindActionCreators(privilegesActions, dispatch),
-    bindActionCreators(impersonateActions, dispatch)
+    bindActionCreators(impersonateActions, dispatch),
+    bindActionCreators(ssoActions, dispatch)
   );
 }
 

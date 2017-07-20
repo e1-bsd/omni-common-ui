@@ -1,3 +1,7 @@
+// actions
+export const TRIGGER_SIGNOUT_REDIRECT = 'SSO_TRIGGER_SIGNOUT_REDIRECT';
+
+// state changes
 export const USER_EXPIRED = 'SSO_USER_EXPIRED';
 export const REDIRECT_SUCCESS = 'SSO_REDIRECT_SUCCESS';
 export const USER_FOUND = 'SSO_USER_FOUND';
@@ -8,6 +12,13 @@ export const SESSION_TERMINATED = 'SSO_SESSION_TERMINATED';
 export const LOADING_USER = 'SSO_LOADING_USER';
 export const USER_SIGNED_OUT = 'SSO_USER_SIGNED_OUT';
 export const LOAD_USER_ERROR = 'SSO_LOAD_USER_ERROR';
+
+export function triggerSignOutRedirect(returnUrl = null) {
+  return {
+    type: TRIGGER_SIGNOUT_REDIRECT,
+    returnUrl,
+  };
+}
 
 // dispatched when the existing user expired
 export function userExpired() {
