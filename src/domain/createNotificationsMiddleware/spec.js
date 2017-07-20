@@ -1,5 +1,5 @@
 import is from 'is_js';
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { createNotificationsMiddleware } from './';
 import TimerStrategy from './timer';
 
@@ -70,7 +70,7 @@ describe('action dispatch', () => {
     };
     const middleware = createNotificationsMiddleware(config);
     middleware({
-      getState: () => new Map({
+      getState: () => fromJS({
         singleSignOn: {
           user: {
             access_token: 'access_token',
@@ -106,7 +106,7 @@ describe('action dispatch', () => {
     };
     const middleware = createNotificationsMiddleware(config);
     middleware({
-      getState: () => new Map({
+      getState: () => fromJS({
         singleSignOn: {
           user: {
             access_token: 'access_token',

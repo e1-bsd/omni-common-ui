@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 import Timer from './Timer';
-import userManager from './userManager';
+import { createUserManager } from 'data/SingleSignOn';
 import log from 'domain/log';
 import Config from 'domain/Config';
 import is from 'is_js';
@@ -43,7 +43,7 @@ export default class IdleTimeoutHandler extends PureComponent {
     if (this.props.router) {
       this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
     }
-    userManager.forceSignoutRedirect();
+    createUserManager().forceSignoutRedirect();
   }
 
   _getCurrentRoute() {

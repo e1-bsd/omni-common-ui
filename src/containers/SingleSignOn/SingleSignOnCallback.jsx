@@ -1,15 +1,15 @@
 import React from 'react';
 import pure from 'recompose/pure';
 import { connect } from 'react-redux';
-import { CallbackComponent } from 'redux-oidc';
 import { replace } from 'react-router-redux';
 import log from 'domain/log';
 import PropTypes from 'prop-types';
-import userManager from './userManager';
+import { CallbackComponent } from './';
+import { createUserManager } from 'data/SingleSignOn';
 
 const SingleSignOnCallback = (props) => {
   log.debug('SingleSignOnCallback - called!');
-  return <CallbackComponent userManager={userManager}
+  return <CallbackComponent userManager={createUserManager()}
       successCallback={successCallback}
       errorCallback={errorCallback}>
     {/* Loading spinner */}

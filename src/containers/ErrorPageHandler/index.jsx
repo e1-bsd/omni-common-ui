@@ -10,7 +10,7 @@ import ErrorPageConfig from 'domain/ErrorPageConfig';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
-import userManager from 'containers/SingleSignOn/userManager';
+import { createUserManager } from 'data/SingleSignOn';
 
 export class ErrorPageHandler extends PureComponent {
   constructor(props) {
@@ -92,7 +92,7 @@ export class ErrorPageHandler extends PureComponent {
 
     if (erroredApi.error && erroredApi.error.status === 401) {
       this._setLastUrlPath();
-      userManager.forceSignoutRedirect();
+      createUserManager().forceSignoutRedirect();
       throw new Error('Api called with 401 unauthorized');
     }
 

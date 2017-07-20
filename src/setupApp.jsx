@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import {
   SingleSignOnHandler,
   SingleSignOnProvider,
-  routes as singleSignOnRoutes,
   IdleTimeoutHandler,
+  routes as singleSignOnRoutes,
 } from 'containers/SingleSignOn';
 import { Router, browserHistory } from 'react-router';
 import Store from 'domain/Store';
@@ -36,7 +36,7 @@ if (PRODUCTION) {
 }
 
 Oidc.Log.logger = log;
-Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
+Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.DEBUG;
 
 Raven.config(Config.get('sentryDsn'), {
   release: COMMIT,
