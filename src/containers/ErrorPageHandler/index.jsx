@@ -1,6 +1,7 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import is from 'is_js';
 import ErrorPage from 'components/ErrorPage';
@@ -10,12 +11,11 @@ import ErrorPageConfig from 'domain/ErrorPageConfig';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
-import { createUserManager } from 'data/SingleSignOn';
+import { actions as ssoActions } from 'data/SingleSignOn';
 
 export class ErrorPageHandler extends PureComponent {
   constructor(props) {
     super(props);
-    this._setLastUrlPath = this._setLastUrlPath.bind(this);
     this._shouldShowPopUp = this._shouldShowPopUp.bind(this);
     this._buildMessage = this._buildMessage.bind(this);
     this._cleanErrors = this._cleanErrors.bind(this);
@@ -28,10 +28,6 @@ export class ErrorPageHandler extends PureComponent {
     if (pathname !== nextPath) {  // page changed, clear errors
       this._cleanErrors();
     }
-  }
-
-  _setLastUrlPath() {
-    sessionStorage.lastUrlPath = location.pathname + location.search;
   }
 
   _shouldShowPopUp() {
@@ -91,8 +87,7 @@ export class ErrorPageHandler extends PureComponent {
     }
 
     if (erroredApi.error && erroredApi.error.status === 401) {
-      this._setLastUrlPath();
-      createUserManager().forceSignoutRedirect();
+      this.props.triggerSignOutRedirect('/');  // return to / to prevent an infinite loop
       throw new Error('Api called with 401 unauthorized');
     }
 
@@ -135,6 +130,7 @@ ErrorPageHandler.propTypes = {
   clean: PropTypes.func.isRequired,
   replace: PropTypes.func.isRequired,
   children: PropTypes.node,
+  triggerSignOutRedirect: PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state, { routes }) {
@@ -144,7 +140,9 @@ export function mapStateToProps(state, { routes }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { clean: (key) => dispatch(ApiCall.clean(key)) };
+  return Object.assign(
+      { clean: (key) => dispatch(ApiCall.clean(key)) },
+      bindActionCreators(ssoActions, dispatch));
 }
 
 function getApiErrors(state) {
