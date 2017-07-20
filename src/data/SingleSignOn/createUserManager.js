@@ -1,7 +1,14 @@
 import { UserManager } from 'oidc-client';
-import memoize from 'lodash.memoize';
 import log from 'domain/log';
 import Config from 'domain/Config';
+
+const memoizeCache = {};
+
+const memoize = (fn) => (arg) => {
+  const ret = memoizeCache[arg] || fn(arg);
+  memoizeCache[arg] = ret;
+  return ret;
+};
 
 const protocol = window.location.protocol;
 const hostname = window.location.hostname;
