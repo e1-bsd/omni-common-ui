@@ -1,5 +1,10 @@
 import { PureComponent } from 'react';
-import { processSilentRenew } from 'redux-oidc';
+import { createUserManager } from 'data/SingleSignOn';
+
+const processSilentRenew = () => {
+  const mgr = createUserManager();
+  mgr.signinSilentCallback();
+};
 
 export default class SingleSignOnSilentRenew extends PureComponent {
   componentWillMount() {

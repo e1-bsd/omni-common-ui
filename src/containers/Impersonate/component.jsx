@@ -108,7 +108,7 @@ function mapStateToProps(state) {
     postImpersonateState: state.get('impersonate')
       .get('postedImpersonate')
       .get('impersonate'),
-    token: state.get('singleSignOn').user.id_token,
+    token: state.get('singleSignOn').get('user').get('id_token'),
     error,
     apiKey,
   };

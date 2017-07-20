@@ -1,10 +1,19 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import userManager from './userManager';
 import Config from 'domain/Config';
 import IdleTimeoutHandler from './IdleTimeoutHandler';
 
-jest.mock('./userManager');
+jest.mock('data/SingleSignOn', () => {  // eslint-disable-line
+  const userManager = {
+    signinRedirectWithValidation: jest.fn(),
+    signinRedirect: jest.fn(),
+    signoutRedirect: jest.fn(),
+    forceSignoutRedirect: jest.fn(),
+  };
+  return {
+    createUserManager: () => userManager,
+  };
+});
 
 const mountComponent = () => mount(<IdleTimeoutHandler><div id="inner" /></IdleTimeoutHandler>);
 
@@ -23,9 +32,10 @@ describe('when autoSignOutTimeout is false', () => {
   });
 
   test('does not call userManager.forceSignoutRedirect()', () => {
+    const createUserManager = require('data/SingleSignOn').createUserManager;
     mountComponent();
     jest.runAllTimers();
-    expect(userManager.forceSignoutRedirect).not.toHaveBeenCalled();
+    expect(createUserManager().forceSignoutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {
@@ -41,19 +51,21 @@ describe('when autoSignOutTimeout is a number', () => {
   });
 
   test('calls userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout', () => {
+    const createUserManager = require('data/SingleSignOn').createUserManager;
     mountComponent();
     jest.runAllTimers();
-    expect(userManager.forceSignoutRedirect).toHaveBeenCalled();
+    expect(createUserManager().forceSignoutRedirect).toHaveBeenCalled();
   });
 
   test('does not call userManager.forceSignoutRedirect() after the seconds set in autoSignOutTimeout ' +
       'if there are some user interactions happening', () => {
+    const createUserManager = require('data/SingleSignOn').createUserManager;
     const halfTimeoutTime = (autoSignOutTimeout * 1000) / 2;
     mountComponent();
     jest.runTimersToTime(halfTimeoutTime);
     window.document.dispatchEvent(new Event('click'));
     jest.runTimersToTime(halfTimeoutTime);
-    expect(userManager.forceSignoutRedirect).not.toHaveBeenCalled();
+    expect(createUserManager().forceSignoutRedirect).not.toHaveBeenCalled();
   });
 
   test('renders its children', () => {

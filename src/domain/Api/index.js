@@ -33,8 +33,8 @@ export const fetch = (url, options = {}) => {
   invariant(is.string(url), 'url must be a string');
   invariant(is.object(options), 'options must be a plain object');
 
-  const user = Store.get().getState().get('singleSignOn').user || {};
-  const { access_token: accessToken } = user;
+  const user = Store.get().getState().get('singleSignOn').get('user') || {};
+  const accessToken = user.get('access_token');
   const finalOptions = Object.assign({}, options, getDefaultFetchOpts(options, accessToken));
 
   // https://m.alphasights.com/killing-cors-preflight-requests-on-a-react-spa-1f9b04aa5730#4bdf

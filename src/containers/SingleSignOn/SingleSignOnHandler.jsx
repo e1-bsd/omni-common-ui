@@ -1,14 +1,13 @@
 import { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 import { actions as privilegesActions } from 'containers/Privileges';
 import log from 'domain/log';
 import routes from './routes';
-import userManager from './userManager';
 import Config from 'domain/Config';
-import ReactGA from 'react-ga';
-import Raven from 'raven-js';
-import PropTypes from 'prop-types';
 
 const MockSingleSignOnHandler = (props) => props.children;
 
@@ -30,23 +29,20 @@ class SingleSignOnHandlerImpl extends PureComponent {
   }
 
   _checkUserAndPrivileges(props) {
-    if (! this._isUserValid()) {
-      return userManager.signinRedirectWithValidation();
-    }
-
+    if (! this._isUserValid(props)) return;
     this._logUser(props);
     log.debug('SingleSignOnHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
   }
 
-  _logUser(props) {
+  _logUser(props = this.props) {
     if (! props.user) {
       return;
     }
 
-    const user = props.user.profile;
-    const userId = user.sub;
-    const { email } = user;
+    const profile = props.user.get('profile');
+    const userId = profile.sub;
+    const email = profile.email;
 
     ReactGA.set({ userId });
     Raven.setUserContext({ email, id: userId });
@@ -61,30 +57,29 @@ class SingleSignOnHandlerImpl extends PureComponent {
     sessionStorage.lastUrlPath = location.pathname + location.search;
   }
 
-  _isUserValid() {
-    const { user } = this.props;
+  _isUserValid(props = this.props) {
+    const { user } = props;
     return user && ! user.expired;
   }
 
   render() {
-    if (this._isUserValid()) {
-      log.debug('SingleSignOnHandler - User is valid', this.props.user);
-      return this.props.children;
-    }
-
-    return null;
+    const { isLoadingUser } = this.props;
+    if (isLoadingUser || ! this._isUserValid()) return null;
+    return this.props.children;
   }
 }
 
 SingleSignOnHandlerImpl.propTypes = {
   children: PropTypes.node,
   user: PropTypes.object,
+  isLoadingUser: PropTypes.bool,
   fetchPrivilegesIfNeeded: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  const user = state.get('singleSignOn').user;
-  return { user };
+  const user = state.get('singleSignOn').get('user');
+  const isLoadingUser = state.get('singleSignOn').get('isLoadingUser');
+  return { user, isLoadingUser };
 }
 
 function mapDispatchToProps(dispatch) {
