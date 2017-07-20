@@ -42,7 +42,9 @@ Header.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const userProfile = state.get('singleSignOn').user.profile;
+  const userProfile =
+      state.get('singleSignOn').get('user') &&
+      state.get('singleSignOn').get('user').get('profile');
   let impersonate;
   if (! userProfile.impersonated_user_email) return { impersonate };
 

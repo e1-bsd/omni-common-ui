@@ -1,4 +1,5 @@
-import { createUserManager } from 'redux-oidc';
+import { UserManager } from 'oidc-client';
+import memoize from 'lodash.memoize';
 import log from 'domain/log';
 import Config from 'domain/Config';
 
@@ -20,11 +21,10 @@ const userManagerConfig = {
   silent_redirect_uri: `${protocol}//${hostname}${port}/silent-renew`,
   automaticSilentRenew: true,
   filterProtocolClaims: true,
-  loadUserInfo: true,
 };
 
-const customUserManager = (userManager) => {
-  const newUserManager = userManager;
+const createCustomUserManager = memoize((config) => {
+  const newUserManager = new UserManager(config);
   newUserManager.forceSignoutRedirect = () => {
     newUserManager.signOut = true;
     newUserManager.signoutRedirect();
@@ -33,11 +33,10 @@ const customUserManager = (userManager) => {
     if (newUserManager.signOut === true) return;
     newUserManager.signinRedirect();
   };
-
   return newUserManager;
-};
+});
 
-const userManager = customUserManager(createUserManager(userManagerConfig));
+const createUserManager = () =>
+  createCustomUserManager(userManagerConfig);
 
-
-export default userManager;
+export default createUserManager;

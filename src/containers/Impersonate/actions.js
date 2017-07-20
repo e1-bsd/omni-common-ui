@@ -1,5 +1,5 @@
 import { fetch } from 'domain/Api';
-import { userManager } from 'containers/SingleSignOn';
+import { createUserManager } from 'data/SingleSignOn';
 import Config from 'domain/Config';
 import ApiCall from 'containers/ApiCalls';
 import QueryString from 'query-string';
@@ -64,12 +64,12 @@ export function postImpersonate(email, token) {
   };
 
   function _getSingleSingOnScope() {
-    return userManager.settings._scope;
+    return createUserManager().settings._scope;
   }
 }
 
 export function getTokenEndPoint() {
-  return userManager.settings._metadata.token_endpoint;
+  return createUserManager().settings._metadata.token_endpoint;
 }
 
 export function clearImpersonateData() {

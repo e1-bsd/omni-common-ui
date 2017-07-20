@@ -3,8 +3,8 @@ import isomorphicFetch from 'isomorphic-fetch';
 jest.mock('domain/Store', () => ({
   get: () => {
     // eslint-disable-next-line no-shadow
-    const { Map } = require('immutable');
-    return { getState: () => new Map({ singleSignOn: { user: { access_token: 'TOKEN' } } }) };
+    const { fromJS } = require('immutable');
+    return { getState: () => fromJS({ singleSignOn: { user: { access_token: 'TOKEN' } } }) };
   },
 }));
 jest.mock('isomorphic-fetch', () => global.fetch);

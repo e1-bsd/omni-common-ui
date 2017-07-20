@@ -5,7 +5,7 @@ import connect from 'domain/connect';
 import classnames from 'classnames';
 import Dialog from 'components/Dialog';
 import Impersonate, { actions as impersonateActions } from 'containers/Impersonate';
-import userManager from 'containers/SingleSignOn/userManager';
+import { createUserManager } from 'data/SingleSignOn';
 import is from 'is_js';
 import alertifyjs from 'alertifyjs';
 import Config from 'domain/Config';
@@ -66,7 +66,7 @@ class UserInfo extends PureComponent {
         if (this.props.router) {
           this.props.router.setRouteLeaveHook(this._getCurrentRoute(), null);
         }
-        userManager.forceSignoutRedirect();
+        createUserManager().forceSignoutRedirect();
       },
     }).show();
   }
@@ -144,10 +144,10 @@ class UserInfo extends PureComponent {
   _renderUser() {
     const classes = classnames(styles.UserInfo_container_user_img, testClass('user-picture'));
     return <AdultPicture className={classes}
-        src={this.props.user.profile.avatar_url}
-        gender={this.props.user.profile.gender}
-        userFirstName={this.props.user.profile.given_name}
-        userLastName={this.props.user.profile.family_name}
+        src={this.props.user.get('profile').avatar_url}
+        gender={this.props.user.get('profile').gender}
+        userFirstName={this.props.user.get('profile').given_name}
+        userLastName={this.props.user.get('profile').family_name}
         displayUserInitialsAsDefaultAvatar />;
   }
 
@@ -214,11 +214,11 @@ function mapStateToProps(state) {
   const postedImpersonate = state.get('impersonate').get('postedImpersonate').get('impersonate');
   return {
     arePrivilegesLoaded: state.get('privileges').items,
-    user: state.get('singleSignOn').user,
+    user: state.get('singleSignOn').get('user'),
     canImpersonate: PrivilegeChecker.hasPrivilege(state, Config.get('impersonatePermission')),
     hasUnimpersonated: !! (postedImpersonate && (postedImpersonate.get('error') || postedImpersonate.get('data'))),
     hasImpersonateFailed: !! (postedImpersonate && postedImpersonate.get('error')),
-    token: state.get('singleSignOn').user.id_token,
+    token: state.get('singleSignOn').get('user').get('id_token'),
   };
 }
 
