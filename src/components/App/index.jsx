@@ -60,6 +60,9 @@ class App extends PureComponent {
   }
 
   render() {
+    const { user } = this.props;
+    if (! user || user.expired) return null;
+
     return <div className={classnames(styles.App, testClass('app'))}>
       {
         ! PRODUCTION && Config.get('performanceProfiler') === true &&
@@ -90,7 +93,14 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
+  user: PropTypes.shape({
+    expired: PropTypes.bool,
+  }),
   children: PropTypes.node,
 };
 
-export default connect()(App);
+export function mapStateToProps(state) {
+  return { user: state.get('singleSignOn').get('user') };
+}
+
+export default connect(mapStateToProps)(App);
