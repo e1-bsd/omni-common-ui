@@ -24,6 +24,12 @@ test('renders a Link when linkTo is provided', () => {
   expect(wrapper.find(Link)).toHaveLength(1);
 });
 
+test('renders an <a> when linkTo is provided but disabled=true', () => {
+  const wrapper = shallow(<Button linkTo="/" disabled />);
+  expect(wrapper.find(Link)).toHaveLength(0);
+  expect(wrapper.find('a')).toHaveLength(1);
+});
+
 test('will open link in a new Tab if newTab is provided', () => {
   const wrapper = shallow(<Button linkHref="/" newTab />);
   expect(wrapper.prop('target')).toBe('_blank');
