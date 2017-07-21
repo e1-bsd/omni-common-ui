@@ -37,6 +37,30 @@ describe('#fetch', () => {
         },
       }]);
     });
+
+    describe('when the response has a failing status', () => {
+      test('converts to camel case its properties if an object is received in the response', async () => {
+        expect.assertions(1);
+        isomorphicFetch.mockResponse(JSON.stringify({ 'A-foo': 'bar' }), { status: 500 });
+        const { fetch } = require('./');
+        try {
+          await fetch('https://domain/somePath');
+        } catch (e) {
+          expect(e.response.aFoo).toBe('bar');
+        }
+      });
+
+      test('does not touch the response if it is not an object', async () => {
+        expect.assertions(1);
+        isomorphicFetch.mockResponse('some error', { status: 500 });
+        const { fetch } = require('./');
+        try {
+          await fetch('https://domain/somePath');
+        } catch (e) {
+          expect(e.response).toBe('some error');
+        }
+      });
+    });
   });
 
   describe('includeBearerTokenInApiGetUrls=true', () => {
