@@ -8,15 +8,16 @@ import is from 'is_js';
 import PropTypes from 'prop-types';
 
 class Button extends PureComponent {
-  _handleButtonClick(e) {
-    if (this.props.disabled) {
-      return;
-    }
+  constructor(props) {
+    super(props);
+    this._handleButtonClick = this._handleButtonClick.bind(this);
+  }
 
-    if (is.function(this.props.onClick)) {
-      const ret = this.props.onClick(e);
-      this._setActiveClassOnClick(ret);
-    }
+  _handleButtonClick(e) {
+    if (this.props.disabled) return;
+    const { onClick } = this.props;
+    const ret = is.function(onClick) && onClick(e);
+    this._setActiveClassOnClick(ret);
   }
 
   _setActiveClassOnClick(ret) {
@@ -43,12 +44,12 @@ class Button extends PureComponent {
     this._node.classList.remove(styles.__active);
   }
 
-  _renderButton(type, modeClasses) {
+  _renderButton(type, modeClasses, assignOnClick = true) {
     const classes = classnames(type, modeClasses, this.props.className);
 
     return <button className={classes}
         disabled={this.props.disabled}
-        onClick={this.props.onClick && ((e) => { this._handleButtonClick(e); })}
+        onClick={assignOnClick ? this._handleButtonClick : undefined}
         ref={(c) => { this._node = c; }}
         {...this.props.attrs || {}}>
       {this.props.children}
@@ -73,8 +74,8 @@ class Button extends PureComponent {
       return <a href={! props.disabled ? props.linkHref : 'javascript:void(0)'}
           className={classnames(styles.ButtonLink, modeClasses, props.className)}
           target={props.newTab ? '_blank' : undefined}
-          onClick={() => { this._setActiveClassOnClick(); }}>
-        {this._renderButton(type, modeClasses)}
+          onClick={this._handleButtonClick}>
+        {this._renderButton(type, modeClasses, false)}
       </a>;
     }
 
@@ -83,8 +84,8 @@ class Button extends PureComponent {
       return <Link to={props.linkTo}
           draggable={false}
           className={classnames(styles.ButtonLink, modeClasses, props.className)}
-          onClick={() => { this._setActiveClassOnClick(); }}>
-        {this._renderButton(type, modeClasses)}
+          onClick={this._handleButtonClick}>
+        {this._renderButton(type, modeClasses, false)}
       </Link>;
     }
 
