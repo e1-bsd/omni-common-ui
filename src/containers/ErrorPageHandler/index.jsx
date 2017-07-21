@@ -1,7 +1,6 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import is from 'is_js';
 import ErrorPage from 'components/ErrorPage';
@@ -11,7 +10,6 @@ import ErrorPageConfig from 'domain/ErrorPageConfig';
 import AlertDialog from 'components/AlertDialog';
 import ErrorMessage from 'domain/ErrorMessage';
 import Config from 'domain/Config';
-import { actions as ssoActions } from 'data/SingleSignOn';
 
 export class ErrorPageHandler extends PureComponent {
   constructor(props) {
@@ -86,11 +84,6 @@ export class ErrorPageHandler extends PureComponent {
       return null;
     }
 
-    if (erroredApi.error && erroredApi.error.status === 401) {
-      this.props.triggerSignOutRedirect('/');  // return to / to prevent an infinite loop
-      throw new Error('Api called with 401 unauthorized');
-    }
-
     if (this._shouldShowPopUp()) {
       return <AlertDialog isWarning
           content1={this._buildMessage()}
@@ -130,7 +123,6 @@ ErrorPageHandler.propTypes = {
   clean: PropTypes.func.isRequired,
   replace: PropTypes.func.isRequired,
   children: PropTypes.node,
-  triggerSignOutRedirect: PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state, { routes }) {
@@ -140,9 +132,7 @@ export function mapStateToProps(state, { routes }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign(
-      { clean: (key) => dispatch(ApiCall.clean(key)) },
-      bindActionCreators(ssoActions, dispatch));
+  return { clean: (key) => dispatch(ApiCall.clean(key)) };
 }
 
 function getApiErrors(state) {
