@@ -3,7 +3,7 @@ import { createUserManager } from 'data/SingleSignOn';
 
 const processSilentRenew = () => {
   const mgr = createUserManager();
-  mgr.signInSilentCallback();
+  mgr.signinSilentCallback();
 };
 
 export default class SingleSignOnSilentRenew extends PureComponent {
