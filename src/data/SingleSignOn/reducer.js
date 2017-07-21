@@ -8,6 +8,7 @@ import {
   SESSION_TERMINATED,
   LOADING_USER,
   USER_SIGNED_OUT,
+  TRIGGER_USER_CLEAR,
 } from './actions';
 
 const initialState = new Map({
@@ -27,6 +28,7 @@ const reducer = (state = initialState, action) => {
     case SILENT_RENEW_ERROR:
     case SESSION_TERMINATED:
     case USER_SIGNED_OUT:
+    case TRIGGER_USER_CLEAR:
       return new Map({
         user: null,
         isLoadingUser: false,

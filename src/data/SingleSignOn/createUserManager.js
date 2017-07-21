@@ -43,6 +43,7 @@ const createCustomUserManager = memoize((config) => {
   // fix casing in these inherited methods
   newUserManager.signInRedirect = () => newUserManager.signinRedirect();
   newUserManager.signOutRedirect = () => newUserManager.signoutRedirect();
+  newUserManager.signInSilentCallback = () => newUserManager.signinSilentCallback();
   return newUserManager;
 });
 
