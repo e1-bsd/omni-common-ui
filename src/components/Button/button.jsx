@@ -49,7 +49,7 @@ class Button extends PureComponent {
 
     return <button className={classes}
         disabled={this.props.disabled}
-        onClick={assignOnClick && this._handleButtonClick}
+        onClick={assignOnClick ? this._handleButtonClick : undefined}
         ref={(c) => { this._node = c; }}
         {...this.props.attrs || {}}>
       {this.props.children}
