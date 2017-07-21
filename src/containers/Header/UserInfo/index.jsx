@@ -49,7 +49,6 @@ class UserInfo extends PureComponent {
   }
 
   _onLogoutButtonClicked() {
-    event.preventDefault();
     alertifyjs.confirm()
     .setting({
       movable: false,
