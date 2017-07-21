@@ -6,6 +6,8 @@ import { shallow, mount } from 'enzyme';
 import Button from './';
 import { Type } from './type';
 
+jest.mock('react-router', () => ({ Link: (props) => <div {...props} /> }));
+
 beforeEach(() => {
   jest.clearAllTimers();
 });
@@ -70,17 +72,50 @@ test('applies custom attrs when provided', () => {
 });
 
 describe('when clicked', () => {
+  testButtonClick();
+
+  describe('when it renders as an <a />', () => {
+    testButtonClick({ linkHref: '/' });
+  });
+
+  describe('when it renders as an <Link />', () => {
+    testButtonClick({ linkTo: '/' });
+  });
+});
+
+function testButtonClick(props = {}) {
   test('calls onClick', () => {
     const onClick = jest.fn();
-    const wrapper = shallow(<Button onClick={onClick} />);
+    const wrapper = shallow(<Button {...props} onClick={onClick} />);
     wrapper.simulate('click');
     expect(onClick).toHaveBeenCalled();
+  });
+
+  test('does not fail if onClick is not provided', () => {
+    const wrapper = shallow(<Button {...props} />);
+    expect(() => wrapper.simulate('click')).not.toThrowError();
+  });
+
+  test('does nothing if it is disabled', () => {
+    const onClick = jest.fn();
+    const wrapper = shallow(<Button {...props} onClick={onClick} disabled />);
+    wrapper.simulate('click');
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  test('does not fail if the component is unmounted while active', () => {
+    const onClick = jest.fn();
+    const wrapper = mount(<Button {...props} onClick={onClick} onClickActiveClassAddDelay={0} />);
+    wrapper.simulate('click');
+    jest.runTimersToTime(100);
+    wrapper.unmount();
+    expect(() => jest.runOnlyPendingTimers(1000)).not.toThrow();
   });
 
   test('sets the .__active class after 100ms by default', () => {
     jest.useFakeTimers();
 
-    const wrapper = mount(<Button onClick={() => {}} />);
+    const wrapper = mount(<Button {...props} onClick={() => {}} />);
     wrapper.simulate('click');
     jest.runTimersToTime(100);
 
@@ -90,7 +125,9 @@ describe('when clicked', () => {
   test('sets the .__active class after a custom amount of time if onClickActiveClassAddDelay is provided', () => {
     jest.useFakeTimers();
 
-    const wrapper = mount(<Button onClick={() => {}} onClickActiveClassAddDelay={500} />);
+    const wrapper = mount(<Button {...props}
+        onClick={() => {}}
+        onClickActiveClassAddDelay={500} />);
     wrapper.simulate('click');
     jest.runTimersToTime(100);
     expect(wrapper.find(`.${styles.__active}`)).toHaveLength(0);
@@ -103,7 +140,7 @@ describe('when clicked', () => {
 
     let resolve;
     const promise = new Promise((r) => { resolve = r; });
-    const wrapper = mount(<Button onClick={() => promise} />);
+    const wrapper = mount(<Button {...props} onClick={() => promise} />);
 
     wrapper.simulate('click');
     jest.runTimersToTime(100);
@@ -120,7 +157,7 @@ describe('when clicked', () => {
 
     let reject;
     const promise = new Promise((_, r) => { reject = r; });
-    const wrapper = mount(<Button onClick={() => promise} />);
+    const wrapper = mount(<Button {...props} onClick={() => promise} />);
 
     wrapper.simulate('click');
     jest.runTimersToTime(100);
@@ -131,25 +168,4 @@ describe('when clicked', () => {
 
     expect(wrapper.find(`.${styles.__active}`)).toHaveLength(0);
   });
-
-  test('does not fail if onClick is not provided', () => {
-    const wrapper = shallow(<Button />);
-    expect(() => wrapper.simulate('click')).not.toThrowError();
-  });
-
-  test('does nothing if it is disabled', () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(<Button onClick={onClick} disabled />);
-    wrapper.simulate('click');
-    expect(onClick).not.toHaveBeenCalled();
-  });
-
-  test('does not fail if the component is unmounted while active', () => {
-    const onClick = jest.fn();
-    const wrapper = mount(<Button onClick={onClick} onClickActiveClassAddDelay={0} />);
-    wrapper.simulate('click');
-    jest.runTimersToTime(100);
-    wrapper.unmount();
-    expect(() => jest.runOnlyPendingTimers(1000)).not.toThrow();
-  });
-});
+}
