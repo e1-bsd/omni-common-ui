@@ -150,12 +150,12 @@ class SaveBarHandler extends PureComponent {
       [styles.SaveBar_overlay]: true,
       [styles.__visible]: !! isAnyApiCallSaving,
     };
-    return <div className={classnames(styles.SaveBarHandler,
-      testClass('save-bar-handler'))}>
+    return <div className={styles.SaveBarHandler}>
       <aside className={classnames(barClasses)}>
         <div className={styles.SaveBar_inner}>
           <span className={classnames(styles.SaveBar_text, {
             [styles.__visible]: !! isAnyApiCallSaving,
+            [testClass('api-saving')]: !! isAnyApiCallSaving,
           })}>
             Saving…
           </span>
