@@ -1,0 +1,10 @@
+@import 'main.postcss';
+
+.ExpandableAnimationItem {
+  overflow: hidden;
+  transition: height var(--transitionDurationBase) ease-in;
+
+  &_inner {
+    transition: margin var(--transitionDurationBase) ease-in;
+  }
+}
