@@ -2,10 +2,11 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import is from 'is_js';
 import HorizontalScroll from '../HorizontalScroll';
-import PropTypes from 'prop-types';
+import ExpandableAnimationItem from '../ExpandableAnimationItem';
 
 const wasLeftMouseButtonPressed = (e = window.event) => {
   const button = e.which || e.button;
@@ -49,39 +50,49 @@ class HorizontalSelect extends PureComponent {
     }
   }
 
-  render() {
-    const { options, getLinkHrefForValue } = this.props;
-    if (! is.existy(options) || options.length === 0) {
-      return null;
-    }
-    return <div className={styles.HorizontalSelect_wrap}>
+  _renderOptions() {
+    const { getLinkHrefForValue } = this.props;
+    return <ul className={styles.HorizontalSelect_options}>
+      {
+        this.props.options.map((option) => {
+          const optionClassName = classnames(styles.HorizontalSelect_option, {
+            [styles.HorizontalSelect_option_active]: option.value === this.state.value,
+          }, option.className);
+          if (! option._onClick) {
+            option._onClick = this._onClick.bind(null, option);  // eslint-disable-line
+          }
+          return <li key={option.value} className={optionClassName}>
+            <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
+                draggable={false}
+                onMouseDown={this._onMouseDown}
+                onClick={option._onClick}>
+              {option.html}
+            </Link>
+          </li>;
+        })
+      }
+    </ul>;
+  }
+
+  _renderHorizontalSelect() {
+    return <ExpandableAnimationItem isExpand={! this.props.isHide} height={150}>
       <HorizontalScroll className={styles.HorizontalSelect}
           innerClassName={styles.HorizontalSelect_scroller}
           scrollToElement={this.scrollToElement}>
         <div className={styles.HorizontalSelect_options_wrap}>
-          <ul className={styles.HorizontalSelect_options}>
-            {
-              options.map((option) => {
-                const optionClassName = classnames(styles.HorizontalSelect_option, {
-                  [styles.HorizontalSelect_option_active]: option.value === this.state.value,
-                }, option.className);
-                if (! option._onClick) {
-                  option._onClick = this._onClick.bind(null, option);  // eslint-disable-line
-                }
-                return <li key={option.value}
-                    className={optionClassName}>
-                  <Link to={getLinkHrefForValue && getLinkHrefForValue(option.value)}
-                      draggable={false}
-                      onMouseDown={this._onMouseDown}
-                      onClick={option._onClick}>
-                    {option.html}
-                  </Link>
-                </li>;
-              })
-            }
-          </ul>
+          {this._renderOptions()}
         </div>
       </HorizontalScroll>
+    </ExpandableAnimationItem>;
+  }
+
+  render() {
+    const { options } = this.props;
+    if (! is.existy(options) || options.length === 0) {
+      return null;
+    }
+    return <div className={styles.HorizontalSelect_wrap}>
+      {this._renderHorizontalSelect()}
     </div>;
   }
 }
@@ -97,6 +108,7 @@ HorizontalSelect.propTypes = {
   getLinkHrefForValue: PropTypes.func.isRequired,
   onSelect: PropTypes.func,
   optionClassName: PropTypes.string,
+  isHide: PropTypes.bool,
 };
 
 export default HorizontalSelect;
