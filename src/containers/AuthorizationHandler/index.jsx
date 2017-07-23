@@ -15,7 +15,7 @@ import log from 'domain/log';
 export const AuthorizationHandler = (props) => {
   const { user, permissionChecks, children, havePrivilegesLoaded } = props;
 
-  const spinner = <div className="pace" >
+  const spinner = <div className="pace">
     <div className="pace-activity" />
   </div>;
 
