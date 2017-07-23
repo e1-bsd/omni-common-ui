@@ -25,7 +25,7 @@ const userManagerConfig = {
   response_type: 'token id_token',
   scope: 'openid profile email e1SystemAPI',
   authority: Config.get('ssoAuthorityUrl'),
-  silent_redirect_uri: `${protocol}//${hostname}${port}/silent-renew`,
+  silent_redirect_uri: `${protocol}//${hostname}${port}/sso-silent-renew.html`,
   automaticSilentRenew: true,
   filterProtocolClaims: true,
 };

@@ -7,11 +7,21 @@ const version = packageInfo.version;
 const commitHash = git.long();
 const tag = git.tag();
 
-module.exports = (options) => new HtmlWebpackPlugin(Object.assign({
-  template: path.join(__dirname, 'lib/index.html'),
-  inject: 'body',
-  version,
-  tag,
-  commit: commitHash,
-  title: process.env.TITLE,
-}, options));
+module.exports = (options) => [
+  // index.html
+  new HtmlWebpackPlugin(Object.assign({
+    template: path.join(__dirname, 'lib/index.html'),
+    excludeChunks: ['ssoSilentRenew'],
+    inject: 'body',
+    version,
+    tag,
+    commit: commitHash,
+    title: process.env.TITLE,
+  }, options)),
+  // sso-silent-renew.html
+  new HtmlWebpackPlugin(Object.assign({
+    template: path.join(__dirname, 'lib/assets/partials/blank.html'),
+    chunks: ['vendor', 'ssoSilentRenew'],
+    filename: 'sso-silent-renew.html',
+  }, options)),
+];
