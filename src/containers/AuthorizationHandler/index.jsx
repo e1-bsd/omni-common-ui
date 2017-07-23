@@ -15,9 +15,13 @@ import log from 'domain/log';
 export const AuthorizationHandler = (props) => {
   const { user, permissionChecks, children, havePrivilegesLoaded } = props;
 
+  const spinner = <div className="pace">
+    <div className="pace-activity" />
+  </div>;
+
   if (Config.get('featureLogin')) {
     if (! user) {
-      return null;
+      return spinner;
     }
     const profile = user.get('profile');
     const userId = profile.sub;
@@ -32,7 +36,7 @@ export const AuthorizationHandler = (props) => {
   if (! havePrivilegesLoaded()) {
     log.debug('PermissionHandler - Will call fetchPrivilegesIfNeeded()');
     props.fetchPrivilegesIfNeeded();
-    return null;
+    return spinner;
   }
 
   if (is.undefined(permissionChecks)) {
