@@ -45,6 +45,7 @@ module.exports = merge.smart(CommonConfig, {
       __CONFIG__: path.resolve(`config/${process.env.CONFIG || process.env.NODE_ENV || 'development'}.json`),
     }),
     definePlugin({ PRODUCTION: false }),
-    htmlPlugin(),
-  ],
+  ].concat(
+    htmlPlugin()
+  ),
 });

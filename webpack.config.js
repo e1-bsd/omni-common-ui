@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
+    ssoSilentRenew: path.join(__dirname, 'lib/ssoSilentRenew.js'),
   },
   output: {
     path: path.resolve('dist'),
