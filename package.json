@@ -121,6 +121,7 @@
     "react-addons-test-utils": "^15.6.0",
     "react-appinsights": "^1.0.2",
     "react-collapse": "^4.0.2",
+    "react-contenteditable": "^2.0.4",
     "react-daterange-picker": "^1.1.0",
     "react-day-picker": "2.5.0",
     "react-dom": "^15.6.1",
