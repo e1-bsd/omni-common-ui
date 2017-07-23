@@ -49,6 +49,7 @@ import _CalendarPicker from 'components/CalendarPicker';
 import _TextArea from 'components/TextArea';
 import _Notification from 'containers/Notification';
 import _createApiActionCreator from 'domain/createApiActionCreator';
+import _createUserManager from 'data/SingleSignOn/createUserManager';
 
 export const Breadcrumbs = _Breadcrumbs;
 export const Button = _Button;
@@ -103,3 +104,4 @@ export const CalendarPicker = _CalendarPicker;
 export const TextArea = _TextArea;
 export const Notification = _Notification;
 export const createApiActionCreator = _createApiActionCreator;
+export const createUserManager = _createUserManager;  /* used in the SSO silent renew page */
