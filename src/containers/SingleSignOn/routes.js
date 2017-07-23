@@ -1,12 +1,8 @@
 import SingleSignOnCallback from './SingleSignOnCallback';
-import SingleSignOnSilentRenew from './SingleSignOnSilentRenew';
 
-export default {
+export const callbackRoute = {
   path: '/callback',
   component: SingleSignOnCallback,
 };
 
-export const singleSignOnSilentRenewRoutes = {
-  path: '/silent-renew',
-  component: SingleSignOnSilentRenew,
-};
+export default [callbackRoute];
