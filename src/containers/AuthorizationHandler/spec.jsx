@@ -68,9 +68,11 @@ describe('component', () => {
       expect(wrapper.contains(<div id="inner" />)).toBe(true);
     });
 
-    test('renders nothing if privileges have not been loaded', () => {
+    test('renders a loading spinner if privileges have not been loaded', () => {
       const wrapper = getComponent(<div id="inner" />, { havePrivilegesLoaded: () => false });
-      expect(wrapper.html()).toBe(null);
+      expect(wrapper.contains(
+        <div className="pace"><div className="pace-activity" /></div>
+      )).toBe(true);
     });
 
     test('throws if permissionChecks.canAccess is not a function', () => {
