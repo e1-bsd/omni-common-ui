@@ -4,7 +4,6 @@ import {
   USER_EXPIRED,
   REDIRECT_SUCCESS,
   USER_FOUND,
-  SILENT_RENEW_ERROR,
   SESSION_TERMINATED,
   LOADING_USER,
   USER_SIGNED_OUT,
@@ -25,7 +24,6 @@ const reducer = (state = initialState, action) => {
         isLoadingUser: false,
       });
     case USER_EXPIRED:
-    case SILENT_RENEW_ERROR:
     case SESSION_TERMINATED:
     case USER_SIGNED_OUT:
     case TRIGGER_USER_CLEAR:
