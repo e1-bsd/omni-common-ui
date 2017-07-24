@@ -14,7 +14,7 @@ class ExpandableAnimationItem extends PureComponent {
       height: this.props.isExpand ? this.height : 0,
     };
     const innerStyle = {
-      'margin-top': this.props.isExpand ? 0 : - this.height,
+      marginTop: this.props.isExpand ? 0 : - this.height,
     };
     return <div className={styles.ExpandableAnimationItem} style={outerStyle}>
       <div ref={(node) => this._setUpHeight(node)}
