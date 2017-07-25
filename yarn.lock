@@ -7436,10 +7436,6 @@ react-collapse@^4.0.2:
   dependencies:
     prop-types "15.5.8"
 
-react-contenteditable@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/react-contenteditable/-/react-contenteditable-2.0.4.tgz#d745affcdeb6d79f28f75cf362bdcd178d20a446"
-
 react-daterange-picker@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-daterange-picker/-/react-daterange-picker-1.1.0.tgz#e790ce4a63e740544fcc6a8c292bed88821243b4"
