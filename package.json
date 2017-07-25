@@ -59,6 +59,7 @@
     "formsy-react": "^0.19.5",
     "git-rev-sync": "^1.9.1",
     "glob": "^7.1.2",
+    "happypack": "^4.0.0-beta.1",
     "history": "3.2.1",
     "html-webpack-plugin": "e1-bsd/html-webpack-plugin#5a2c99aa91a80e216b183488c1ecc19c20da2fd4",
     "identity-obj-proxy": "^3.0.0",
