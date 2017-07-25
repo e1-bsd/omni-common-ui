@@ -1,8 +1,15 @@
 {
   "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
+    "order/order": [
+        "custom-properties",
+        "declarations"
+    ],
+    "order/properties-alphabetical-order": true,
     "declaration-block-no-duplicate-properties": true,
-    "declaration-block-properties-order": "alphabetical",
     "font-family-name-quotes": "always-unless-keyword",
     "function-url-quotes": "always",
     "string-quotes": "single",
@@ -16,6 +23,12 @@
       true,
       {
         "ignorePseudoClasses": ["global", "export"]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["mixin", "define-mixin"]
       }
     ]
   },
