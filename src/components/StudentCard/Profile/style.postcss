@@ -28,14 +28,8 @@
   }
 
   &_linePlaceholder {
-    animation-delay: 0s;
-    animation-direction: alternate;
+    animation: calc(var(--transitionDurationBase) * 2) ease-in-out 0s infinite alternate both pulse;
     animation-duration: calc(var(--transitionDurationBase) * 2);
-    animation-fill-mode: both;
-    animation-iteration-count: infinite;
-    animation-name: pulse;
-    animation-play-state: running;
-    animation-timing-function: ease-in-out;
     background: var(--colorPlaceholder);
     height: 18px;
     margin-bottom: 6px;

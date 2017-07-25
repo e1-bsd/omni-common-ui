@@ -154,8 +154,9 @@
     "signalr-no-jquery": "^0.1.8",
     "sprintf-js": "^1.1.1",
     "style-loader": "^0.18.2",
-    "stylelint": "^7.12.0",
-    "stylelint-config-standard": "^16.0.0",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-order": "^0.6.0",
     "supervisor": "^0.12.0",
     "svg-inline-loader": "^0.7.1",
     "svg-inline-react": "^2.0.0",
@@ -213,5 +214,5 @@
     "omni-sentry-release": "./scripts/sentry-release.js",
     "omni-start-mock": "./scripts/start-mock.js"
   },
-  "version": "0.21.0-dev.1995"
+  "version": "0.21.0-dev.1998"
 }
