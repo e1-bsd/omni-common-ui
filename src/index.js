@@ -47,6 +47,7 @@ import _HorizontalScroll from 'components/HorizontalScroll';
 import _HorizontalSelect from 'components/HorizontalSelect';
 import _CalendarPicker from 'components/CalendarPicker';
 import _TextArea from 'components/TextArea';
+import _ContentEditable from 'components/ContentEditable';
 import _Notification from 'containers/Notification';
 import _createApiActionCreator from 'domain/createApiActionCreator';
 import _createUserManager from 'data/SingleSignOn/createUserManager';
@@ -102,6 +103,7 @@ export const HorizontalScroll = _HorizontalScroll;
 export const HorizontalSelect = _HorizontalSelect;
 export const CalendarPicker = _CalendarPicker;
 export const TextArea = _TextArea;
+export const ContentEditable = _ContentEditable;
 export const Notification = _Notification;
 export const createApiActionCreator = _createApiActionCreator;
 export const createUserManager = _createUserManager;  /* used in the SSO silent renew page */
