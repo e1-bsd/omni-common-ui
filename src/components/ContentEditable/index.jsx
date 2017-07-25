@@ -63,7 +63,6 @@ export default class ContentEditable extends Component {
     // eslint-disable-next-line
     return <div {...props}
         ref={(e) => { this.htmlEl = e; }}
-        onBlur={this.props.onBlur || this._emitChange}
         contentEditable={! this.props.disabled}
         dangerouslySetInnerHTML={{ __html: html }}>
       {this.props.children}
@@ -75,7 +74,6 @@ ContentEditable.propTypes = {
   className: PropTypes.string,
   html: PropTypes.string,
   disabled: PropTypes.bool,
-  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   children: PropTypes.node,
 };
