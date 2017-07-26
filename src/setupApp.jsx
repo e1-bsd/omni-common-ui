@@ -37,12 +37,15 @@ if (PRODUCTION) {
 Oidc.Log.logger = log;
 Oidc.Log.level = PRODUCTION ? Oidc.Log.WARN : Oidc.Log.INFO;
 
-Raven.config(Config.get('sentryDsn'), {
-  release: COMMIT,
-  environment: Config.get('sentryEnvironment'),
-  tags: { version: VERSION },
-  debug: ! PRODUCTION,
-}).install();
+const sentry = Config.get('sentry');
+if (sentry && sentry.disabled !== true) {
+  Raven.config(sentry.dsn, {
+    release: COMMIT,
+    environment: sentry.environment,
+    tags: { version: VERSION },
+    debug: ! PRODUCTION,
+  }).install();
+}
 
 export function setupApp({ routes, reducer, errorMessageMap }) {
   const { store, syncBrowserHistory } = setupStore(reducer);

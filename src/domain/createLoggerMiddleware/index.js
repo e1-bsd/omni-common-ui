@@ -1,10 +1,10 @@
 import { createLogger } from 'redux-logger';
 import log from 'domain/log';
 import Config from 'domain/Config';
-import is from 'is_js';
 
 export function createLoggerMiddleware() {
-  if (is.not.string(Config.get('sentryDsn')) || is.empty(Config.get('sentryDsn'))) {
+  const sentry = Config.get('sentry');
+  if (sentry && sentry.disabled === true) {
     return createLogger();
   }
 

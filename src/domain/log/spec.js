@@ -12,11 +12,10 @@ beforeEach(() => {
   global.console.error = jest.fn();
 });
 
-describe('when the config contains a sentryDsn', () => {
+describe('when the config does not explicitly disable Sentry', () => {
   beforeEach(() => {
     buildLogToRaven = require('./buildLogToRaven');
     Config = require('domain/Config');
-    Config.merge({ sentryDsn: 'this is a valid dsn' });
     log = require('./').default;
   });
 
@@ -33,10 +32,11 @@ describe('when the config contains a sentryDsn', () => {
   });
 });
 
-describe('when the config does not contain a sentryDsn', () => {
+describe('when the config explicitly disables Sentry', () => {
   beforeEach(() => {
     buildLogToRaven = require('./buildLogToRaven');
     Config = require('domain/Config');
+    Config.set('sentry', { disabled: true });
     log = require('./').default;
   });
 

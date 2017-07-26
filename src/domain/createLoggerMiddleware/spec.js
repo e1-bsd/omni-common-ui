@@ -10,11 +10,11 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-describe('when the config contains a sentryDsn', () => {
+describe('when the config does not explicitly disable Sentry', () => {
   let next;
 
   beforeEach(() => {
-    Config.merge({ sentryDsn: 'this is a valid dsn' });
+    Config.remove('sentry');
     next = jest.fn();
   });
 
@@ -41,9 +41,9 @@ describe('when the config contains a sentryDsn', () => {
   });
 });
 
-describe('when the config does not contain a sentryDsn', () => {
+describe('when the config explicitly disables Sentry', () => {
   beforeEach(() => {
-    Config.remove('sentryDsn');
+    Config.set('sentry', { disabled: true });
   });
 
   test('uses redux-logger directly', () => {
