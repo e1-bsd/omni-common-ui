@@ -1,18 +1,13 @@
-let Config;
-let log;
-let createLoggerMiddleware;
-let createLogger;
+import { createLoggerMiddleware } from './';
+import { createLogger } from 'redux-logger';
+import log from 'domain/log';
+import Config from 'domain/Config';
 
 jest.mock('redux-logger', () => ({ createLogger: jest.fn() }));
 jest.mock('domain/log', () => ({ debug: jest.fn(), warn: jest.fn() }));
 
 beforeEach(() => {
-  jest.resetModules();
-
-  Config = require('domain/Config');
-  log = require('domain/log');
-  createLoggerMiddleware = require('./').createLoggerMiddleware;
-  createLogger = require('redux-logger').createLogger;
+  jest.resetAllMocks();
 });
 
 describe('when the config contains a sentryDsn', () => {
