@@ -1,6 +1,7 @@
 import { createLoggerMiddleware } from './';
 import { createLogger } from 'redux-logger';
 import log from 'domain/log';
+import Config from 'domain/Config';
 
 jest.mock('redux-logger', () => ({ createLogger: jest.fn() }));
 jest.mock('domain/log', () => ({ debug: jest.fn(), warn: jest.fn() }));
@@ -9,11 +10,11 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-describe('when PRODUCTION=true', () => {
+describe('when the config does not explicitly disable Sentry', () => {
   let next;
 
   beforeEach(() => {
-    global.PRODUCTION = true;
+    Config.remove('sentry');
     next = jest.fn();
   });
 
@@ -40,9 +41,9 @@ describe('when PRODUCTION=true', () => {
   });
 });
 
-describe('when PRODUCTION=false', () => {
+describe('when the config explicitly disables Sentry', () => {
   beforeEach(() => {
-    global.PRODUCTION = false;
+    Config.set('sentry', { disabled: true });
   });
 
   test('uses redux-logger directly', () => {
