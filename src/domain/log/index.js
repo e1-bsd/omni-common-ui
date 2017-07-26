@@ -1,4 +1,5 @@
 import buildLogToRaven from './buildLogToRaven';
+import Config from 'domain/Config';
 
 class log {}
 const methods = ['error', 'info', 'log', 'warn', 'debug'];
@@ -8,7 +9,8 @@ methods.forEach((method) => {
 });
 
 function buildLogMethod(method) {
-  if (! PRODUCTION) {
+  const sentry = Config.get('sentry');
+  if (sentry && sentry.disabled === true) {
     return (...args) => {
       /* eslint-disable no-console */
       if (window.console && console[method]) {
