@@ -28,6 +28,7 @@ const userManagerConfig = {
   silent_redirect_uri: `${protocol}//${hostname}${port}/sso-silent-renew.html`,
   automaticSilentRenew: true,
   filterProtocolClaims: true,
+  clockSkew: 1800, // 30 minutes
 };
 
 const createCustomUserManager = memoize((config) => {
