@@ -1,4 +1,6 @@
 import buildLogToRaven from './buildLogToRaven';
+import Config from 'domain/Config';
+import is from 'is_js';
 
 class log {}
 const methods = ['error', 'info', 'log', 'warn', 'debug'];
@@ -8,7 +10,7 @@ methods.forEach((method) => {
 });
 
 function buildLogMethod(method) {
-  if (! PRODUCTION) {
+  if (is.not.string(Config.get('sentryDsn')) || is.empty(Config.get('sentryDsn'))) {
     return (...args) => {
       /* eslint-disable no-console */
       if (window.console && console[method]) {

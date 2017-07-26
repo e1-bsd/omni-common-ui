@@ -1,19 +1,25 @@
-import { createLoggerMiddleware } from './';
-import { createLogger } from 'redux-logger';
-import log from 'domain/log';
+let Config;
+let log;
+let createLoggerMiddleware;
+let createLogger;
 
 jest.mock('redux-logger', () => ({ createLogger: jest.fn() }));
 jest.mock('domain/log', () => ({ debug: jest.fn(), warn: jest.fn() }));
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  jest.resetModules();
+
+  Config = require('domain/Config');
+  log = require('domain/log');
+  createLoggerMiddleware = require('./').createLoggerMiddleware;
+  createLogger = require('redux-logger').createLogger;
 });
 
-describe('when PRODUCTION=true', () => {
+describe('when the config contains a sentryDsn', () => {
   let next;
 
   beforeEach(() => {
-    global.PRODUCTION = true;
+    Config.merge({ sentryDsn: 'this is a valid dsn' });
     next = jest.fn();
   });
 
@@ -40,9 +46,9 @@ describe('when PRODUCTION=true', () => {
   });
 });
 
-describe('when PRODUCTION=false', () => {
+describe('when the config does not contain a sentryDsn', () => {
   beforeEach(() => {
-    global.PRODUCTION = false;
+    Config.remove('sentryDsn');
   });
 
   test('uses redux-logger directly', () => {
