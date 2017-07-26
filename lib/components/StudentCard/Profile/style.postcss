@@ -223,16 +223,6 @@
   position: relative;
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 0.5;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
 .StudentCard_profile {
   &_name,
   &_localName {
@@ -251,15 +241,33 @@
   }
 
   &_linePlaceholder {
-    animation: calc(var(--transitionDurationBase) * 2) ease-in-out 0s infinite alternate both pulse;
-    animation-duration: calc(var(--transitionDurationBase) * 2);
-    background: var(--colorPlaceholder);
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    background: linear-gradient(to right, #ebebed 30%, #e1e1e5 50%, #ebebed 70%);
+    background-size: 400% 100px;
     height: 18px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
     width: 100%;
+
+    &:first-child {
+      margin-bottom: 0;
+    }
   }
 
   &_linePlaceholder + &_linePlaceholder {
     width: 70%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 115% 0;
+  }
+
+  to {
+    background-position: -115% 0;
   }
 }
