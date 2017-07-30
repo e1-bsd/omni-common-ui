@@ -11,8 +11,8 @@ import { createUserManager, loadUser, reducer as oidcStateReducer } from 'data/S
 import { reducer as privileges } from 'containers/Privileges';
 import { reducer as impersonate } from 'containers/Impersonate';
 import { reducer as apiCalls } from 'containers/ApiCalls';
-import { createSignInRedirectMiddleware } from 'containers/SingleSignOn';
 import createLoggerMiddleware from 'domain/createLoggerMiddleware';
+import createSignInRedirectMiddleware from 'domain/createSignInRedirectMiddleware';
 import createNotificationsMiddleware from 'domain/createNotificationsMiddleware';
 import Config from 'domain/Config';
 
