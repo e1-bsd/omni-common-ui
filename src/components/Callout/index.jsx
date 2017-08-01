@@ -116,14 +116,14 @@ Callout.propTypes = {
   popupClassName: PropTypes.string,
   children: PropTypes.node,
   content: PropTypes.node,
-  points: PropTypes.arrayOf((val, key) => {
+  points: PropTypes.arrayOf((arr, key) => arr.every((val) => {
     if (is.string(val) && val.length === 2 && key < 2) return true;
-    return new Error('`points` should use the format required by dom-align');
-  }),
-  offset: PropTypes.arrayOf((val, key) => {
-    if (is.number(val) && val.length === 2 && key < 2) return true;
-    return new Error('`offset` should use the format required by dom-align');
-  }),
+    return new Error(`'points' should use the format required by dom-align. got ${val}`);
+  })),
+  offset: PropTypes.arrayOf((arr, key) => arr.every((val) => {
+    if (is.number(val) && key < 2) return true;
+    return new Error(`'offset' should use the format required by dom-align. got ${val}`);
+  })),
   onOpenStateChanged: PropTypes.func,
 };
 

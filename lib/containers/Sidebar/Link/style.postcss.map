@@ -1,0 +1,1 @@
+{"version":3,"sources":["containers/Sidebar/Link/style.postcss"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,sBAAsB;;EAEtB;;;IAGE,wBAAwB;GACzB;CACF","file":"style.postcss","sourcesContent":[".LinkComponent {\n  display: block;\n  text-decoration: none;\n\n  &:hover,\n  &:active,\n  &.__current {\n    background-color: #0006;\n  }\n}\n"]}

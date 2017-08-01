@@ -1,0 +1,1 @@
+{"version":3,"sources":["domain/createApiActionCreator/__mocks__/index.js"],"names":["module","exports","params"],"mappings":";;AAAAA,OAAOC,OAAP,GAAiB,UAACC,MAAD;AAAA,SAAYA,MAAZ;AAAA,CAAjB","file":"index.js","sourcesContent":["module.exports = (params) => params;\n"]}
