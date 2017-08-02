@@ -30,7 +30,8 @@ export function createSignInRedirectMiddleware() {
     if (ApiCall.Action.isApiAction(action) &&
         ApiCall.Action.isFailure(action) &&
         action.error.status === 401) {
-      triggerSignInRedirectFlow(action.returnUrl);
+      // going back to the current URL might put us in a loop!
+      triggerSignInRedirectFlow(action.returnUrl || '/');
 
     // handle trigger and state change actions
     } else {
