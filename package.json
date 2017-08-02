@@ -8,7 +8,8 @@
     "watch": "node node_modules/gulp/bin/gulp.js watch",
     "lint:css": "node node_modules/stylelint/bin/stylelint.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
-    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\""
+    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\"",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "lib/index.js",
   "repository": {
@@ -176,7 +177,8 @@
     "gulp-postcss": "^7.0.0",
     "gulp-sequence": "0.4.6",
     "gulp-sourcemaps": "^2.6.0",
-    "omni-gulp-replace": "1.0.0"
+    "omni-gulp-replace": "1.0.0",
+    "semantic-release": "^6.3.6"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -214,5 +216,5 @@
     "omni-sentry-release": "./scripts/sentry-release.js",
     "omni-start-mock": "./scripts/start-mock.js"
   },
-  "version": "0.23.0"
+  "version": "0.0.0-development"
 }

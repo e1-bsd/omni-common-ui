@@ -1,27 +1,15 @@
-sudo: required
-dist: trusty
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-4.8
-      - g++-4.8
-
 language: node_js
-node_js:
-  - '8'
-
 cache: yarn
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_3a8c1431a01a_key -iv $encrypted_3a8c1431a01a_iv -in deploy.enc -out deploy -d
-  - chmod 600 deploy
-  - eval `ssh-agent -s`
-  - ssh-add deploy
-  - rm deploy
-  - npm config set git-tag-version false
-  - source ci.checkout-develop.sh
+notifications:
+  email: false
+  slack:
+    on_success: never
+    on_failure: always
+    secure: U+dYmbZcLrHZq1e7aeyrvZcZhCeTp2v0NcM3QyJoSAitNWbDkP0VTL/AfnNiVQFVGbjP1Ym7ixte7pznAyGozChLNnqRUxPBP1QwJczZ897j1ePuEU0DyIpJ6W6d7ULcGmmXnDkatcnCo9CHUB9QcICj3X+IP9dvu6yg/DhtlU8T98/GOeqOuzS1ypVA9g6mrG8ua+INE8Vda86OADLtTghV/ep0Z1NE17DlBVZbYNg+mg5I4EeVC4qyynKB/53DpHsG/MsFbJaTUIlWIWs/R5Il3be01t/cLzruUaIEOocJkow/Ni2t8Zj+oFKWUUy13Pwnygu39UjPkaVcR2vcUEuXgEr1SFJ4HB3oPDXiHpcq6Ts0YJnxJa1vNrCNTmAtXkgCus2s3IIxfsUVwALJ6s7QdGYJaq4jwyk/GJvg6CrMBfdgz71ilxpbdLhmJZNh1Qy/J2wHaYPz9jwJtReN/38QC47rArE5QiWmqzBn9Dnzl62QQ+b3oYsTLtHVZnu/ndyETOoh1ONZAqI/iIUCPFfn0iLsIVemYxG5LeYKHSnoB8idnTRXL6ZRv29LEm0GeZRTdY9L77W2Du/dYl9UmjfdM9dpIOrHubxA8m6joG5VeEO+2C+JLpRrH3OF01rTyaLkz9rU1BxlftoRGyc9iwxL2sBysCc9NBC6hKNVM2U=
+
+node_js:
+  - '8'
 
 install:
   - npm install -g yarn
@@ -36,32 +24,9 @@ script:
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
-before_deploy:
-  - git config --global user.email "$GIT_EMAIL"
-  - git config --global user.name "$GIT_NAME"
+after_success:
+  - yarn semantic-release
 
-deploy:
-  - provider: script
-    script: bash ci.deploy-dev.sh
-    skip_cleanup: true
-    on:
-      branch: develop
-  - provider: npm
-    email: $GIT_EMAIL
-    api_key: $NPM_TOKEN
-    skip_cleanup: true
-    on:
-      tags: true
-
-notifications:
-  slack:
-    on_success: never
-    on_failure: always
-    secure: U+dYmbZcLrHZq1e7aeyrvZcZhCeTp2v0NcM3QyJoSAitNWbDkP0VTL/AfnNiVQFVGbjP1Ym7ixte7pznAyGozChLNnqRUxPBP1QwJczZ897j1ePuEU0DyIpJ6W6d7ULcGmmXnDkatcnCo9CHUB9QcICj3X+IP9dvu6yg/DhtlU8T98/GOeqOuzS1ypVA9g6mrG8ua+INE8Vda86OADLtTghV/ep0Z1NE17DlBVZbYNg+mg5I4EeVC4qyynKB/53DpHsG/MsFbJaTUIlWIWs/R5Il3be01t/cLzruUaIEOocJkow/Ni2t8Zj+oFKWUUy13Pwnygu39UjPkaVcR2vcUEuXgEr1SFJ4HB3oPDXiHpcq6Ts0YJnxJa1vNrCNTmAtXkgCus2s3IIxfsUVwALJ6s7QdGYJaq4jwyk/GJvg6CrMBfdgz71ilxpbdLhmJZNh1Qy/J2wHaYPz9jwJtReN/38QC47rArE5QiWmqzBn9Dnzl62QQ+b3oYsTLtHVZnu/ndyETOoh1ONZAqI/iIUCPFfn0iLsIVemYxG5LeYKHSnoB8idnTRXL6ZRv29LEm0GeZRTdY9L77W2Du/dYl9UmjfdM9dpIOrHubxA8m6joG5VeEO+2C+JLpRrH3OF01rTyaLkz9rU1BxlftoRGyc9iwxL2sBysCc9NBC6hKNVM2U=
-
-env:
-  global:
-    - CXX=g++-4.8
-    - GIT_NAME: Travis CI
-    - GIT_EMAIL: E1BSD_Technology@EF.com
-    - secure: "nnt/xlSms5Kncht5R6iGi78ljDwJBK2EHsfiwIxIiubK2Sdl1DoreZXO4V3wS6biMkIXaw5tYUEhlCiQQRoNBWOIR8396O8T2/9HSuxq9wz9OCXqd5w+XJwCGPELWxjNHnZrtNFZ7CumsBx3UP5+voLbXpPxp0i7zCKHbQ1CdGNhC/nbS3EipoJOXxXXH03lYrBw87DgrDcFgjHU+BqF+7mwlxyoAoHsflzrlz8jlUExcZNOAjX/znlzeoyYIUe/LSzmppEGyIGfVck5RCAOxbZ61vUaivu6NSWGt8xU8RAauqUH+9maXVQiJsOWUkS7Uz9QwcxLOawZfPyzV3FkyZQyoS1uAs9DCBKrvFUfX+3TUlIFtGRUK34Bm+oGIJvq0Rc8WAiRhU6qLn0bb3P7VKrwWXCT/eb6Pw4apPk4mac1TVMUAAm9rm9HjmU/8Z1Zbg7n2cXC5tO54VNnK3zpVy4L75oMQlcKs/mISfAs7Pt4vizFawLrPtv5NBEzz6dz/u7OqE0T70Lq7wP5AL7fn0xKK5JySIrQ7nTr1OPzZ2rFnIuDaKB3cAK40ZjXmFls5DC2zW/9hRmHKdjpbNXfgkLd80dkNFiEgNOqoKTKVJwxcmJzkG6ascs3zHhxz2fzHmmWgYBfhzcjUrFxb+IR48aGGv48ho3OLsdPekXknXM="
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
