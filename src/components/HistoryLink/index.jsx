@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
+import testClass from 'domain/testClass';
 
 const HistoryLink = (props) => {
   const currentRoute = props.routes[props.routes.length - 1];
@@ -22,7 +23,7 @@ const HistoryLink = (props) => {
 
   if (history && is.not.string(history.link)) return null;
 
-  return <div className={classnames(styles.HistoryLink, props.className)}>
+  return <div className={classnames(styles.HistoryLink, props.className, testClass('history-link'))}>
     <Link to={history.link}
         draggable={false}>
       History
