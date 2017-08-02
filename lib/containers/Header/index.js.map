@@ -1,1 +1,0 @@
-{"version":3,"sources":["containers/Header/index.js"],"names":["Header"],"mappings":";;;;;;AAAA;;;;;;AAEA,IAAMA,4BAAN;;kBAEeA,M","file":"index.js","sourcesContent":["import _Header from './component';\n\nconst Header = _Header;\n\nexport default Header;\n"]}

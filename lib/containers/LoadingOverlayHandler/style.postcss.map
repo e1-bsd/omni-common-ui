@@ -1,1 +1,0 @@
-{"version":3,"sources":["containers/LoadingOverlayHandler/style.postcss"],"names":[],"mappings":"AAAA;EACE,qBAAqB;EACrB,cAAc;EACd,eAAe;EACf,oBAAoB;EACpB,wBAAwB;EACxB,YAAY;CACb","file":"style.postcss","sourcesContent":[".LoadingOverlayHandler {\n  align-items: stretch;\n  display: flex;\n  flex: 1 1 auto;\n  flex-direction: row;\n  justify-content: center;\n  width: 100%;\n}\n"]}

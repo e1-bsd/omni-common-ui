@@ -1,1 +1,0 @@
-{"version":3,"sources":["ssoSilentRenew.js"],"names":["signinSilentCallback"],"mappings":";;AAAA;;AAEA,uCAAoBA,oBAApB","file":"ssoSilentRenew.js","sourcesContent":["import { createUserManager } from 'omni-common-ui';\n\ncreateUserManager().signinSilentCallback();\n"]}

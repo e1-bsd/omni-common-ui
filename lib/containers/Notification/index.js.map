@@ -1,1 +1,0 @@
-{"version":3,"sources":["containers/Notification/index.js"],"names":["create"],"mappings":";;;;;;AAAA;;;;AACA;;;;;;AAEA,gBAAaA,MAAb","file":"index.js","sourcesContent":["import Notification from './model';\nimport create from './create';\n\nNotification.create = create;\n\nexport default Notification;\n"]}
