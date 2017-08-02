@@ -12,6 +12,10 @@
 
   @mixin fontNormal;
 
+  @media (--md-viewport-new) {
+    min-height: var(--textAreaMinHeightLgScreen);
+  }
+
   &:focus {
     border-color: var(--colorActive);
   }
