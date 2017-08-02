@@ -112,7 +112,8 @@
   --cardContentPaddingVertical: var(--touchablePaddingVertical);
   --cardContentPaddingHorizontal: calc(var(--touchablePaddingHorizontal) - 1px);
   --headerSize: 50px;
-  --textAreaMinHeight: 100px;
+  --textAreaMinHeight: 150px;
+  --textAreaMinHeightLgScreen: 100px;
 }
 
 :root {
@@ -235,6 +236,10 @@
   width: 100%;
 
   @mixin fontNormal;
+
+  @media (--md-viewport-new) {
+    min-height: var(--textAreaMinHeightLgScreen);
+  }
 
   &:focus {
     border-color: var(--colorActive);
