@@ -7,11 +7,10 @@ master | [![Build Status – master](https://travis-ci.org/e1-bsd/omni-common-ui
 
 ## Setting up the environment
 
-
 Follow this steps to setup your development environment.
 
-1. Install [NodeJS](https://nodejs.org/).
-It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).
+1. Install [NodeJS](https://nodejs.org/).  
+It is **highly** recommended to use [Node Version Manager](https://github.com/creationix/nvm) (for Mac and Linux).  
 A [Windows](https://github.com/coreybutler/nvm-windows) version is also available.
 2. Install [Yarn](https://yarnpkg.com/) running `npm install -g yarn`.
 3. Open a terminal at the root folder of the project.
