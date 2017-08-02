@@ -17,11 +17,11 @@ script:
   - yarn test -- --coverage
   - yarn run build
 
-after_script:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
 after_success:
   - yarn semantic-release
+
+after_script:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 branches:
   except:
