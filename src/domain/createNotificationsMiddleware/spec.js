@@ -11,7 +11,7 @@ jest.mock('domain/Config', () => {
 jest.mock('./timer', () => {
   const EventEmitter = require('event-emitter');
   let instance;
-  return () => instance || (instance = new EventEmitter());
+  return () => instance || (instance = new EventEmitter()); // eslint-disable-line no-return-assign
 });
 
 test('is a function', () => {
