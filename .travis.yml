@@ -11,10 +11,6 @@ notifications:
 node_js:
   - '8'
 
-install:
-  - npm install -g yarn
-  - yarn --prefer-offline --no-progress --frozen-lockfile
-
 script:
   - yarn run lint:css -- --quiet
   - yarn run lint:js -- --quiet
