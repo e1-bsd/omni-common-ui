@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { Map } from 'immutable';
 import Config from 'domain/Config';
 import { AuthorizationHandler, mapStateToProps } from './';
+import PaceSpinner from 'components/PaceSpinner';
 
 let baseProps;
 
@@ -70,9 +71,7 @@ describe('component', () => {
 
     test('renders a loading spinner if privileges have not been loaded', () => {
       const wrapper = getComponent(<div id="inner" />, { havePrivilegesLoaded: () => false });
-      expect(wrapper.contains(
-        <div className="pace"><div className="pace-activity" /></div>
-      )).toBe(true);
+      expect(wrapper.contains(<PaceSpinner isShown />)).toBe(true);
     });
 
     test('throws if permissionChecks.canAccess is not a function', () => {
