@@ -3,7 +3,6 @@
 /bower_components
 /deploy_key.pem
 /dist*
-/lib
 /node_modules
 /coverage
 /npm-debug.log

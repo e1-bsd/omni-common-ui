@@ -8,8 +8,9 @@ module.exports = {
   entry: {
     app: 'app.jsx',
     vendor: ['babel-polyfill', 'omni-common-ui'],
-    ssoSilentRenew: path.join(__dirname, 'lib/ssoSilentRenew.js'),
+    ssoSilentRenew: path.join(__dirname, '../src/ssoSilentRenew.js'),
   },
+  context: path.resolve('app'),
   output: {
     path: path.resolve('dist'),
     filename: '[name].[hash].js',
@@ -18,7 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules(\/|\\)((?!(omni-common-ui)).)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -133,6 +134,7 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve('app'),
+      path.resolve('src'),
       process.cwd(),
       path.resolve('node_modules'),
     ],

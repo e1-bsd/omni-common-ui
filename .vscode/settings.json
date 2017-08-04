@@ -6,7 +6,6 @@
     "package-lock.json": true,
     ".yarn-cache": true,
     "yarn.lock": true,
-    "lib": true,
     "dist*": true,
     "coverage": true
   }
