@@ -2,16 +2,16 @@
   "name": "omni-common-ui",
   "description": "Project Omni's common UI components.",
   "scripts": {
-    "start": "node node_modules/gulp/bin/gulp.js watch",
-    "build": "node node_modules/gulp/bin/gulp.js build",
+    "start": "webpack --watch --config webpack/common/webpack.dev.js",
+    "build": "webpack -p --config webpack/common/webpack.prod.js",
     "test": "jest",
-    "watch": "node node_modules/gulp/bin/gulp.js watch",
+    "clean": "rimraf dist",
     "lint:css": "node node_modules/stylelint/bin/stylelint.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
     "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\"",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "main": "lib/index.js",
+  "main": "dist/main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/e1-bsd/omni-common-ui.git"
@@ -170,14 +170,6 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
-    "babel-plugin-resolver": "1.1.0",
-    "del": "^3.0.0",
-    "gulp": "3.9.1",
-    "gulp-babel": "6.1.2",
-    "gulp-postcss": "^7.0.0",
-    "gulp-sequence": "0.4.6",
-    "gulp-sourcemaps": "^2.6.0",
-    "omni-gulp-replace": "1.0.0",
     "semantic-release": "^6.3.6"
   },
   "engines": {

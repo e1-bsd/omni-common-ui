@@ -1,15 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const CommonConfig = require('./webpack.config.js');
-const definePlugin = require('./webpack.define-plugin.js');
-const htmlPlugin = require('./webpack.html-plugin.js');
+const baseConfig = require('../webpack.config.js');
+const definePlugin = require('../utils/define-plugin.js');
+const htmlPlugin = require('../utils/html-plugin.js');
 
 const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 const isCommon = packageInfo.name === 'omni-common-ui';
 const port = isCommon ? '3000' : '8080';
 
-module.exports = merge.smart(CommonConfig, {
+module.exports = merge.smart(baseConfig, {
   devtool: 'cheap-module-source-map',
   output: {
     devtoolModuleFilenameTemplate: 'webpack:///[absolute-resource-path]',

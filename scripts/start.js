@@ -14,7 +14,7 @@ const DEFAULT_PORT = '8080';
 
 process.env.CONFIG = options.config || '';
 
-const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--profile', '--progress', '--hot', '--inline', '--config', path.resolve(__dirname, '../webpack.dev.js')];
+const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '--profile', '--progress', '--hot', '--inline', '--config', path.resolve(__dirname, '../webpack/app/webpack.dev.js')];
 
 if (options.host) {
   command.push('--host');

@@ -2,7 +2,7 @@ const path = require('path');  // eslint-disable-line
 
 const packageInfo = require(path.resolve('package.json')); // eslint-disable-line import/no-dynamic-require
 const isCommon = packageInfo.name === 'omni-common-ui';
-const contextFolder = isCommon ? 'sample' : 'app';
+const contextFolder = isCommon ? 'src' : 'app';
 
 module.exports = {
   plugins: [

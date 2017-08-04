@@ -10,7 +10,7 @@ const tag = git.tag();
 module.exports = (options) => [
   // index.html
   new HtmlWebpackPlugin(Object.assign({
-    template: path.join(__dirname, 'lib/index.html'),
+    template: path.join(__dirname, '../../src/index.html'),
     excludeChunks: ['ssoSilentRenew'],
     inject: 'body',
     version,
@@ -20,7 +20,7 @@ module.exports = (options) => [
   }, options)),
   // sso-silent-renew.html
   new HtmlWebpackPlugin(Object.assign({
-    template: path.join(__dirname, 'lib/assets/partials/blank.html'),
+    template: path.join(__dirname, '../../src/assets/partials/blank.html'),
     chunks: ['vendor', 'ssoSilentRenew'],
     filename: 'sso-silent-renew.html',
   }, options)),
