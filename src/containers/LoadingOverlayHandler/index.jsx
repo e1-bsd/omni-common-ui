@@ -9,7 +9,7 @@ import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Config from 'domain/Config';
 import testClass from 'domain/testClass';
-import PaceSpinner from 'components/PaceSpinner';
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -55,8 +55,8 @@ class LoadingOverlayHandler extends PureComponent {
       [testClass('is-any-api-call-loading')]: this.props.isAnyApiCallLoading,
     });
     return <div className={styles.LoadingOverlayHandler}>
-      <PaceSpinner className={classes}
-          isShown={this.state.isThrobberVisible} />
+      <PageLoadingSpinner className={classes}
+          isHidden={! this.state.isThrobberVisible} />
       {children}
     </div>;
   }

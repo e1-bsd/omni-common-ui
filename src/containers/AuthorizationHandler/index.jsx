@@ -11,12 +11,12 @@ import AuthorisationErrorPage from 'components/AuthorisationErrorPage';
 import ErrorPageConfig from 'domain/ErrorPageConfig';
 import Config from 'domain/Config';
 import log from 'domain/log';
-import PaceSpinner from 'components/PaceSpinner';
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 
 export const AuthorizationHandler = (props) => {
   const { user, permissionChecks, children, havePrivilegesLoaded } = props;
 
-  const spinner = <PaceSpinner isShown />;
+  const spinner = <PageLoadingSpinner />;
 
   if (Config.get('featureLogin')) {
     if (! user) {
