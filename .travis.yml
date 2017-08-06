@@ -11,6 +11,9 @@ notifications:
 node_js:
   - '8'
 
+env:
+  - CODECLIMATE_REPO_TOKEN=1d4a03bf4d8ae4c8a81d322c9d3690300fdb307c298d5fbc7eebaa3ba7c16b85
+
 script:
   - yarn run lint:css -- --quiet
   - yarn run lint:js -- --quiet
@@ -22,6 +25,7 @@ after_success:
 
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat ./coverage/lcov.info | ./node_modules/codeclimate-test-reporter/bin/codeclimate.js
 
 branches:
   except:
