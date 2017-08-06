@@ -6,16 +6,14 @@ import log from 'domain/log';
 import PropTypes from 'prop-types';
 import { CallbackComponent } from './';
 import { createUserManager } from 'data/SingleSignOn';
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 
 const SingleSignOnCallback = (props) => {
   log.debug('SingleSignOnCallback - called!');
   return <CallbackComponent userManager={createUserManager()}
       successCallback={successCallback}
       errorCallback={errorCallback}>
-    {/* Loading spinner */}
-    <div className="pace">
-      <div className="pace-activity" />
-    </div>
+    <PageLoadingSpinner />
   </CallbackComponent>;
 
   function successCallback() {

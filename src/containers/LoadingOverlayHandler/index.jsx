@@ -1,14 +1,15 @@
 import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import is from 'is_js';
 
 import connect from 'domain/connect';
 import ApiCall from 'containers/ApiCalls';
 import Config from 'domain/Config';
-import PropTypes from 'prop-types';
 import testClass from 'domain/testClass';
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 
 const HTTP_METHOD_TRIGGERS = 'GET';
 const REQUEST_DURATION_THRESHOLD_MS = 100;
@@ -51,18 +52,11 @@ class LoadingOverlayHandler extends PureComponent {
   render() {
     const { children } = this.props;
     const classes = classnames({
-      pace: true,
-      'pace-inactive': ! this.state.isThrobberVisible,
-      'pace-active': this.state.isThrobberVisible,
+      [testClass('is-any-api-call-loading')]: this.props.isAnyApiCallLoading,
     });
-    const innerClassName = classnames('pace-activity',
-      {
-        [testClass('is-any-api-call-loading')]: this.props.isAnyApiCallLoading,
-      });
     return <div className={styles.LoadingOverlayHandler}>
-      <div className={classes}>
-        <div className={innerClassName} />
-      </div>
+      <PageLoadingSpinner className={classes}
+          isHidden={! this.state.isThrobberVisible} />
       {children}
     </div>;
   }
