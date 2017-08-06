@@ -2,8 +2,7 @@
 
 Branch | Build | Coverage
 ------ | --- | ---
-develop | [![Build Status – develop](https://travis-ci.org/e1-bsd/omni-common-ui.svg?branch=develop)](https://travis-ci.org/e1-bsd/omni-common-ui) | [![Coverage Status](https://coveralls.io/repos/github/e1-bsd/omni-common-ui/badge.svg?branch=develop)](https://coveralls.io/github/e1-bsd/omni-common-ui?branch=develop)
-master | [![Build Status – master](https://travis-ci.org/e1-bsd/omni-common-ui.svg?branch=master)](https://travis-ci.org/e1-bsd/omni-common-ui) | [![Coverage Status](https://coveralls.io/repos/github/e1-bsd/omni-common-ui/badge.svg)](https://coveralls.io/github/e1-bsd/omni-common-ui)
+master | [![Build Status – master](https://travis-ci.org/e1-bsd/omni-common-ui.svg?branch=master)](https://travis-ci.org/e1-bsd/omni-common-ui) | [![Coverage Status](https://coveralls.io/repos/github/e1-bsd/omni-common-ui/badge.svg)](https://coveralls.io/github/e1-bsd/omni-common-ui) [![Code Climate](https://img.shields.io/codeclimate/github/e1-bsd/omni-common-ui.svg)](https://codeclimate.com/github/e1-bsd/omni-common-ui)
 
 ## Setting up the environment
 
