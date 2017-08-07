@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="IDP-UI-with-averages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="IDP-Editable-re-design-Copy-3" transform="translate(-183.000000, -574.000000)" fill="#4A4A4A">
+            <g id="Group" transform="translate(183.000000, 574.000000)">
+                <path d="M10,0 C15.5229167,0 20,4.47708333 20,10 C20,15.5239583 15.5229167,20 10,20 C4.47708333,20 0,15.5239583 0,10 C0,4.47708333 4.47708333,0 10,0 L10,0 Z M18.7020833,10 C18.7020833,5.19375 14.8052083,1.29791667 10,1.29791667 C5.19270833,1.29791667 1.29791667,5.19375 1.29791667,10 C1.296875,14.80625 5.19270833,18.7020833 10,18.7020833 C14.8052083,18.7020833 18.7020833,14.80625 18.7020833,10 Z" id="Shape"></path>
+                <polygon id="Path" points="14.579 12.851 12.85 14.58 9.79 11.519 6.729 14.579 5 12.85 8.062 9.79 5.001 6.729 6.73 5.001 9.79 8.061 12.851 5 14.58 6.729 11.518 9.79"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
