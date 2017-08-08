@@ -33,16 +33,10 @@ Or its simpler version `<type>(<scope>): <subject>`. For example, a fix commit c
 fix(Avatar): Avoided a bug that happened on IE11.
 ```
 
-Adding a new feature:
+Or adding a new feature:
 
 ```
 feat(Avatar): Allowed passing in a default avatar to show if the user's avatar cannot be loaded.
-```
-
-Or a breaking change:
-
-```
-perf(Avatar): Removed the className prop for Avatar. It cannot be extended with a className anymore.
 ```
 
 ## Starting the development environment
