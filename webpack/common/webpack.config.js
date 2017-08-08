@@ -5,7 +5,11 @@ const baseConfig = require('../webpack.config.js');
 delete baseConfig.entry;
 
 module.exports = merge.smart(baseConfig, {
-  entry: 'index.js',
+  entry: {
+    main: 'index.js',
+    ApiResponseHelper: 'domain/ApiResponseHelper/index.js',
+    ApiCalls: 'containers/ApiCalls/index.js',
+  },
   context: path.resolve('src'),
   devtool: 'source-map',
   output: {
