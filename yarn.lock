@@ -7212,16 +7212,15 @@ rc-tooltip@^3.4.7:
     prop-types "^15.5.8"
     rc-trigger "1.x"
 
-rc-tree@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/rc-tree/-/rc-tree-1.7.1.tgz#bb65a2bc69261cd7da3cb682fc7894c42e078256"
+rc-tree@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/rc-tree/-/rc-tree-1.5.0.tgz#6b700303c4f160ad7f6c438a8fdca57de96a5dd1"
   dependencies:
-    babel-runtime "^6.23.0"
     classnames "2.x"
+    object-assign "4.x"
     prop-types "^15.5.8"
     rc-animate "2.x"
-    rc-util "^4.0.4"
-    warning "^3.0.0"
+    rc-util "^4.0.2"
 
 rc-trigger@1.x:
   version "1.11.2"
@@ -7234,7 +7233,7 @@ rc-trigger@1.x:
     rc-animate "2.x"
     rc-util "4.x"
 
-rc-util@4.x, rc-util@^4.0.4:
+rc-util@4.x, rc-util@^4.0.2:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.0.4.tgz#99813dd90aee7e29b64939a70ac176ead3f4ff39"
   dependencies:
