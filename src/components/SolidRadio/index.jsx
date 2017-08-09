@@ -1,10 +1,15 @@
 import styles from './style.postcss';
-
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class SolidRadio extends PureComponent {
-  _handleCheck(value) {
+class SolidRadio extends Component {
+  constructor(props) {
+    super(props);
+    this._handleCheck = this._handleCheck.bind(this);
+  }
+
+  _handleCheck(evt) {
+    const { value } = evt.target;
     if (this.props.onChange) {
       this.props.onChange(value);
     }
@@ -18,7 +23,7 @@ class SolidRadio extends PureComponent {
           value={this.props.value}
           className={styles.SolidRadio_radio}
           checked={this.props.isChecked}
-          onChange={(e) => this._handleCheck(e.target.value)} />
+          onChange={this._handleCheck} />
       <label htmlFor={this.props.id} />
     </div>;
   }
