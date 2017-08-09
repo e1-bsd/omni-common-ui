@@ -26,6 +26,10 @@
       justify-content: space-between;
       user-select: none;
 
+      &:empty {
+        display: none;
+      }
+
       &_breadcrumbs {
         @mixin responsiveCardPadding;
       }
