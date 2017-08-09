@@ -65,3 +65,11 @@ When all your dependencies are installed, you can follow this steps to build the
 If you meet some error when trying to run `yarn start` or `yarn test`, the most common cause is that someone has added or updated some new dependency into the project.
 
 Run `yarn` to get your environment up to date.
+
+### Some tests keep failing unless I use `--no-cache`
+
+If you have some tests that are always failing unless you use `yarn test -- --no-cache`, that means that the Jest cache is kind of broken. To fix this quickly:
+
+1. Run `yarn test -- --showConfig`.
+2. Look for the value `cacheDirectory`.
+3. Remove that directory manually.
