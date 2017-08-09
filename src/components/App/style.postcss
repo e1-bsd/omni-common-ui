@@ -15,7 +15,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    width: calc(100% - var(--sidebarWidth));
+    width: 100%;
 
     &_auxiliary {
       background-color: var(--colorNavSectionBg);
@@ -25,6 +25,10 @@
       flex-shrink: 0;
       justify-content: space-between;
       user-select: none;
+
+      &:empty {
+        display: none;
+      }
 
       &_breadcrumbs {
         @mixin responsiveCardPadding;

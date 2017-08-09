@@ -14,7 +14,6 @@ import testClass from 'domain/testClass';
 import DropdownBox from 'components/DropdownBox';
 import PrivilegeChecker from 'domain/PrivilegeChecker';
 import { actions as privilegesActions } from 'containers/Privileges';
-import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
 
 require('alertifyjs/build/css/alertify.css');
@@ -171,9 +170,6 @@ class UserInfo extends PureComponent {
         onClickOutside={() => this.setState({ isDropdownOpen: false })}>
       <div className={classnames(styles.UserInfo_container, testClass('header-user-dropdown'))}
           onClick={(e) => this._toggleDropdown(e)}>
-        <div className={classnames(styles.UserInfo_container_expand)}>
-          <Icon id="chevron-small-down" />
-        </div>
         <div className={classnames(styles.UserInfo_container_user)}>
           {this._renderUser()}
           {this._renderImpersonatedUser()}

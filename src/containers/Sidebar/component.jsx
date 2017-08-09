@@ -8,7 +8,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classnames from 'classnames';
 import testClass from 'domain/testClass';
 import PropTypes from 'prop-types';
-import Icon from 'components/Icon';
 
 class Sidebar extends PureComponent {
   static _getItems(props) {
@@ -24,22 +23,12 @@ class Sidebar extends PureComponent {
         .sortBy((item) => item.get('order'));
   }
 
-  static _getColor(props) {
-    const { routes } = props;
-    const colorConfig = new List(routes).findLast((route) => is.string(route.sidebarColor));
-    if (! colorConfig) {
-      return undefined;
-    }
-
-    return colorConfig.sidebarColor;
-  }
-
   constructor(props) {
     super(props);
     this._items = Sidebar._getItems(props);
-    this._color = Sidebar._getColor(props);
     this._onClickedOutside = this._onClickedOutside.bind(this);
     this._onPageScrolled = this._onPageScrolled.bind(this);
+    this._color = styles.headerBgColor;
   }
 
   componentDidMount() {
@@ -48,7 +37,6 @@ class Sidebar extends PureComponent {
 
   componentWillUpdate(props) {
     this._items = Sidebar._getItems(props);
-    this._color = Sidebar._getColor(props);
     this._setUp(props);
   }
 
@@ -122,12 +110,6 @@ class Sidebar extends PureComponent {
     const { location: { pathname } } = this.props;
     return <div className={classnames(styles.Sidebar_expanded, testClass('sidebar-expanded'))}
         style={{ backgroundColor: this._color }}>
-      <div className={styles.Sidebar_close}>
-        <button onClick={(e) => this._contract(e)}
-            className={classnames(styles.Sidebar_close_button, testClass('sidebar-close'))}>
-          <Icon className={styles.Sidebar_close_button_icon} id="close" />
-        </button>
-      </div>
       {
         // eslint-disable-next-line react/no-array-index-key
         this._items.map((config, link) => <Link key={link} to={link} currentPath={pathname}>

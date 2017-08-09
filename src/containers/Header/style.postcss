@@ -1,8 +1,14 @@
 @import 'main.postcss';
 
+:root {
+  --headerSize: 55px;
+}
+
 .Header {
-  background-color: #fff;
-  box-shadow: var(--headerBoxShadow);
+  @mixin responsiveCardPaddingHorizontal;
+
+  background-color: var(--colorHeaderBg);
+  box-shadow: var(--headerBoxShadow);  /* temporary! */
   display: flex;
   flex: none;
   flex-direction: row;
@@ -19,25 +25,26 @@
     font-size: 20px;
     height: var(--headerSize);
     justify-content: center;
-    width: var(--headerSize);
+    margin: 0;
+    margin-right: 15px;
+    width: 20px;
   }
 
   &_logo {
-    background-color: var(--colorTableStripe);
     background-position: center;
     background-repeat: no-repeat;
-    width: var(--headerSize);
+    background-size: 100%;
+    width: 30px;
 
     &:global {
       background-image: url('omni-logo-small.svg');
     }
 
     @media (--md-viewport-new) {
-      background-size: 118px 30px;
-      width: 150px;
+      width: 100px;
 
       &:global {
-        background-image: url('omni-logo-big.svg');
+        background-image: url('omni-logo-big-white.svg');
       }
     }
   }
@@ -48,11 +55,11 @@
     flex: 1;
     flex-direction: row;
     justify-content: flex-end;
-    padding: 0 var(--spaceBase);
   }
 
   &.__impersonating {
     background-color: var(--colorImpersonating);
+    border-bottom: none;
     color: var(--colorTextInverse);
 
     & .Header_burger {
@@ -60,15 +67,13 @@
     }
 
     & .Header_logo {
-      background-color: #fff4;
-
       &:global {
         background-image: url('omni-logo-small-white.svg');
       }
 
       @media (--md-viewport-new) {
         &:global {
-          background-image: url('omni-logo-big-white.svg');
+          background-image: url('omni-logo-big-all-white.svg');
         }
       }
     }
