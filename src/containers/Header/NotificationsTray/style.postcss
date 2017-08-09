@@ -8,10 +8,11 @@
 }
 
 .NotificationsTray {
-  margin-right: var(--spaceBase);
+  margin-right: 25px;
   position: relative;
 
   &_icon {
+    color: var(--colorTextInverse);
     font-size: 18px;
   }
 
@@ -31,7 +32,6 @@
     top: -45%;
     transform-origin: center center;
     width: 16px;
-    will-change: transform;
 
     &:global(.bubble-enter) {
       transform: scale(0);
@@ -80,10 +80,9 @@
       outline: 1px solid var(--colorBorder);
       position: absolute;
       top: 0;
-      transform: translateX(0%) translate3d(0, 0, 0);
+      transform: translateX(0%);
       transition: transform var(--slideTransitionDuration) ease;
       width: 100%;
-      will-change: transform;
 
       /* a short delay when transitioning from the main slide */
       &.__previous:first-child {
@@ -95,7 +94,7 @@
 
       &:not(.__active) {
         outline: 0;
-        transform: translateX(100%) translate3d(0, 0, 0);
+        transform: translateX(100%);
 
         & * {
           /* wait for the slide transition to finish then put outline: 0 on the kids */
@@ -104,7 +103,7 @@
       }
 
       &.__previous {
-        transform: translateX(-100%) translate3d(0, 0, 0);
+        transform: translateX(-100%);
       }
     }
 
