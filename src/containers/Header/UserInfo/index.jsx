@@ -125,7 +125,10 @@ class UserInfo extends PureComponent {
   _renderDropdown() {
     return <DropdownBox className={styles.UserInfo_features} open={this.state.isDropdownOpen}>
       {this._renderImpersonateOption()}
-      <DropdownBox.Item onClick={() => this._onLogoutButtonClicked()}>Log Out</DropdownBox.Item>
+      <DropdownBox.Item className={testClass('header-user-log-out')}
+          onClick={() => this._onLogoutButtonClicked()}>
+        Log Out
+      </DropdownBox.Item>
     </DropdownBox>;
   }
 
