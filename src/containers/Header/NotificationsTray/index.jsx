@@ -14,6 +14,7 @@ import Icon from 'components/Icon';
 import Callout from 'components/Callout';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
+import testClass from 'domain/testClass';
 
 class NotificationsTray extends PureComponent {
   constructor() {
@@ -85,18 +86,22 @@ class NotificationsTray extends PureComponent {
   }
 
   _renderNotificationCheckbox(notificationId) {
+    const className = classnames(styles.NotificationsTray_notification_checkbox,
+      testClass('notification-checkbox'));
     if (this.state.isMarkingMode) {
       return <Checkbox name={notificationId}
           checked={this.state.notificationIdsToMarkRead.includes(notificationId)}
-          className={styles.NotificationsTray_notification_checkbox}
+          className={className}
           id={notificationId} />;
     }
     return null;
   }
 
   _renderNotification(notification, notificationId) {
+    const className = classnames(styles.NotificationsTray_notification,
+      testClass('notification'));
     return <li>
-      <div className={styles.NotificationsTray_notification}
+      <div className={className}
           onClick={this._onNotificationClicked}
           data-notification-id={notificationId}
           role="button"
@@ -139,6 +144,8 @@ class NotificationsTray extends PureComponent {
   }
 
   _renderNotificationFooter(notifications) {
+    const markBtnClassName = classnames(styles.NotificationsTray_notification_footer_mark,
+    testClass('notification-mark'));
     if (this.state.isMarkingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
         <label className={styles.NotificationsTray_notification_footer_checkAll}>
@@ -156,7 +163,7 @@ class NotificationsTray extends PureComponent {
             Cancel
           </Button>
           <Button type={Button.Type.primary}
-              className={styles.NotificationsTray_notification_footer_mark}
+              className={markBtnClassName}
               onClick={this._onMarkClick}
               disabled={this.state.notificationIdsToMarkRead.size === 0}>
             Mark
@@ -170,7 +177,8 @@ class NotificationsTray extends PureComponent {
   _renderCalloutPopupContent() {
     const { notifications } = this.props;
     const { viewingNotification } = this.state;
-    const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn, {
+    const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn,
+      testClass('mark-as-read'), {
       [styles.__inactive]: !! this.state.isMarkingMode,
     });
     return <div>
@@ -224,11 +232,12 @@ class NotificationsTray extends PureComponent {
 
   render() {
     const { notifications } = this.props;
+    const className = classnames(styles.NotificationsTray, testClass('notifications-tray'));
     return <Callout popupClassName={styles.NotificationsTray_popup}
         content={this._renderCalloutPopupContent()}
         onOpenStateChanged={this._onCalloutOpenStateChanged}
         ref={(comp) => { this._callout = comp; }}>
-      <div className={styles.NotificationsTray}>
+      <div className={className}>
         <Icon className={styles.NotificationsTray_icon}
             id="bell" />
         <CSSTransitionGroup transitionName="bubble"
