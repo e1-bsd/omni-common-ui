@@ -178,9 +178,8 @@ class NotificationsTray extends PureComponent {
     const { notifications } = this.props;
     const { viewingNotification } = this.state;
     const headerBtnClassName = classnames(styles.NotificationsTray_popup_heading_btn,
-      testClass('mark-as-read'), {
-      [styles.__inactive]: !! this.state.isMarkingMode,
-    });
+      testClass('mark-as-read'),
+      { [styles.__inactive]: !! this.state.isMarkingMode });
     return <div>
       <div className={classnames(styles.NotificationsTray_popup_slide, {
         [styles.__active]: ! this.state.viewingNotification,
