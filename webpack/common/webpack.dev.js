@@ -11,10 +11,8 @@ module.exports = merge.smart(baseConfigForCommon, {
           {
             loader: 'css-loader',
             options: {
-              getLocalIdent: require('../utils/css-class-hash')({
-                prefix: 'oci-',
-                keepOriginalName: true,
-              }),
+              localIdentName: '[local]___[hash:base64:5]',
+              getLocalIdent: require('../utils/css-class-hash')({ prefix: 'oci-' }),
             },
           },
         ],
