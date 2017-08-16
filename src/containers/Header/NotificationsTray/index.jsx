@@ -145,7 +145,7 @@ class NotificationsTray extends PureComponent {
 
   _renderNotificationFooter(notifications) {
     const markBtnClassName = classnames(styles.NotificationsTray_notification_footer_mark,
-    testClass('notification-mark'));
+      testClass('notification-mark'));
     if (this.state.isMarkingMode) {
       return <div className={styles.NotificationsTray_notification_footer}>
         <label className={styles.NotificationsTray_notification_footer_checkAll}>
