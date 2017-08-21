@@ -21,15 +21,15 @@ beforeEach(() => {
   wrapper = shallow(<Breadcrumbs items={[groupLink, markAttendanceLink]} />);
 });
 
-test('links has been rendered properly', () => {
-  expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`)).toHaveLength(2);
+test('links have been rendered properly', () => {
+  expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`)).toHaveLength(3);
 });
 
-test('back button has been rendered properly', () => {
-  expect(wrapper.find(`.${styles.Breadcrumbs_crumb_back}`)).toHaveLength(1);
+test('home button has been rendered properly', () => {
+  expect(wrapper.find('.test-crumb-home')).toHaveLength(1);
 });
 
 test('only render the first item as a link', () => {
   expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).last().find('span').text()).toBe('mark attendance');
-  expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).first().find(Link)).toHaveLength(1);
+  expect(wrapper.find(`.${styles.Breadcrumbs_crumb}`).at(1).find(Link)).toHaveLength(1);
 });

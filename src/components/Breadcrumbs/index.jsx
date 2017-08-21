@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 import Icon from 'components/Icon';
 import PropTypes from 'prop-types';
+import testClass from 'domain/testClass';
 
 const RESIZE_DEBOUNCE_MS = 100;
 
@@ -134,7 +135,7 @@ class Breadcrumbs extends PureComponent {
           }}>
         {
           itemsToRender.length === 0 ? null :
-          <li className={classnames(styles.Breadcrumbs_crumb, styles.__clickable)}>
+          <li className={classnames(styles.Breadcrumbs_crumb, styles.__clickable, testClass('crumb-home'))}>
             <Link to="/"
                 onClick={() => this._onLinkClick('Home button')}
                 draggable={false}>
