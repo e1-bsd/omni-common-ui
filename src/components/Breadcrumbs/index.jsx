@@ -98,24 +98,6 @@ class Breadcrumbs extends PureComponent {
     }
   }
 
-  _renderBackButton() {
-    const reversedItems = this.props.items.slice(0).reverse();
-    const backLinkItem = reversedItems.find((item) => item.clickable);
-    let backLinkHref = reversedItems[0].backLinkHref;
-    if (! is.string(backLinkHref)) {
-      if (! is.existy(backLinkItem)) {
-        return null;
-      }
-      backLinkHref = backLinkItem.href;
-    }
-    return <Link to={backLinkHref}
-        className={styles.Breadcrumbs_crumb_back}
-        onClick={() => this._onLinkClick('Back button')}
-        draggable={false}>
-      <Icon id="arrow-left" />
-    </Link>;
-  }
-
   _onLinkClick(linkLabel) {
     ReactGA.event({
       category: 'Navigation',
@@ -152,7 +134,13 @@ class Breadcrumbs extends PureComponent {
           }}>
         {
           itemsToRender.length === 0 ? null :
-          this._renderBackButton()
+          <li className={classnames(styles.Breadcrumbs_crumb, styles.__clickable)}>
+            <Link to="/"
+                onClick={() => this._onLinkClick('Home button')}
+                draggable={false}>
+              <Icon id="home" />
+            </Link>
+          </li>
         }
         {itemsToRender.map((item, idx) => {
           const indexedCrumbClassName = styles[`Breadcrumbs_crumb_${idx}`];
