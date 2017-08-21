@@ -3,7 +3,7 @@ let testClass;
 beforeEach(() => {
   jest.resetModules();
   require('domain/Config').merge({ enableTestClasses: true });
-  testClass = require('./').default;
+  testClass = require.requireActual('./').default;
 });
 
 test('throws an error if the given class contains unacceptable characters', () => {
