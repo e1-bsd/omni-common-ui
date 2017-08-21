@@ -110,7 +110,7 @@ class Breadcrumbs extends PureComponent {
     }
     return <Link to={backLinkHref}
         className={styles.Breadcrumbs_crumb_back}
-        onClick={() => this._onLinkClick(backLinkItem.label)}
+        onClick={() => this._onLinkClick('Back button')}
         draggable={false}>
       <Icon id="arrow-left" />
     </Link>;
