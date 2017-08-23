@@ -3,6 +3,7 @@ import styles from './style.postcss';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 import { Dialog } from './';
 
 test('renders its children if open', () => {
@@ -20,14 +21,14 @@ test('does not render its children if not open', () => {
 describe('loading overlay', () => {
   test('shows the loading overlay when loading', () => {
     const wrapper = shallow(<Dialog isOpen isLoading><div /></Dialog>);
-    expect(wrapper.find(`.${styles.LoadingOverlay}`)).toHaveLength(1);
-    expect(wrapper.find(`.${styles.LoadingOverlay}.${styles.__visible}`)).toHaveLength(1);
+    expect(wrapper.find(PageLoadingSpinner)).toHaveLength(1);
+    expect(wrapper.find(PageLoadingSpinner).props().isHidden).toBe(false);
   });
 
   test('hides the loading overlay when not loading', () => {
     const wrapper = shallow(<Dialog isOpen><div /></Dialog>);
-    expect(wrapper.find(`.${styles.LoadingOverlay}`)).toHaveLength(1);
-    expect(wrapper.find(`.${styles.LoadingOverlay}.${styles.__visible}`)).toHaveLength(0);
+    expect(wrapper.find(PageLoadingSpinner)).toHaveLength(1);
+    expect(wrapper.find(PageLoadingSpinner).props().isHidden).toBe(true);
   });
 });
 
