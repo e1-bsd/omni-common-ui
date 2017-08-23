@@ -43,7 +43,8 @@ const ConfirmDialog = ({
         <Button type={Button.Type.primary}
             className={classnames(styles.ConfirmDialog_button,
             testClass('confirm-dialog-primary'))}
-            onClick={() => onPrimaryClick()}>
+            onClick={() => onPrimaryClick()}
+            disabled={!! isLoading}>
           {primaryButtonContent}
         </Button>
         {
@@ -51,7 +52,8 @@ const ConfirmDialog = ({
           <Button type={Button.Type.default}
               className={classnames(styles.ConfirmDialog_button,
                 testClass('confirm-dialog-secondary'))}
-              onClick={() => onSecondaryClick()} >
+              onClick={() => onSecondaryClick()}
+              disabled={!! isLoading}>
             {secondaryButtonContent}
           </Button>
         }
