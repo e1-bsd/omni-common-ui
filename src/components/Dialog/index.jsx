@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import Card from 'components/Card';
 import Icon from 'components/Icon';
+import PageLoadingSpinner from 'components/PageLoadingSpinner';
 
 export const Dialog = (props) => <Modal className={styles.Dialog}
     overlayClassName={styles.Overlay}
@@ -25,11 +26,8 @@ export const Dialog = (props) => <Modal className={styles.Dialog}
         <Icon id="close" />
       </div>
     }
-    <div className={classnames(styles.LoadingOverlay, {
-      [styles.__visible]: !! props.isLoading,
-    })}>
-      <div className={styles.LoadingOverlay_inner} />
-    </div>
+    <PageLoadingSpinner isAbsolutePositioned
+        isHidden={! props.isLoading} />
   </Card>
 </Modal>;
 
