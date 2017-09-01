@@ -171,7 +171,7 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
-    "semantic-release": "^6.3.6"
+    "semantic-release": "^7.0.2"
   },
   "engines": {
     "node": ">=8.0.0"
