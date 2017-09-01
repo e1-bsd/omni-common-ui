@@ -7,6 +7,7 @@ const spawn = require('./spawn');
 const options = require('command-line-args')([
   { name: 'config', alias: 'c', type: String },
   { name: 'host', type: String },
+  { name: 'public', type: String },
   { name: 'port', type: String },
 ]);
 
@@ -19,6 +20,11 @@ const command = ['node_modules/webpack-dev-server/bin/webpack-dev-server.js', '-
 if (options.host) {
   command.push('--host');
   command.push(`${options.host}`);
+}
+
+if (options.public) {
+  command.push('--public');
+  command.push(`${options.public}`);
 }
 
 command.push('--port');
