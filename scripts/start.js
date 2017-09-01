@@ -41,3 +41,4 @@ spawn('node', command, { stdio: 'inherit' })
       process.exit(code);
     }
   });
+
