@@ -1,9 +1,17 @@
 pipeline:
-  build:
+  dependencies:
     image: node:8
     commands:
       - yarn
+  test:
+    group: test-build
+    image: node:8
+    commands:
       - yarn lint:css -- --quiet
       - yarn lint:js -- --quiet
       - yarn test -- --coverage
+  build:
+    group: test-build
+    image: node:8
+    commands:
       - yarn build
