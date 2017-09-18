@@ -3,6 +3,8 @@ pipeline:
     image: node:8
     commands:
       - yarn
+      - echo $SECRET_NAME
+    secrets: [secret_name]
   test:
     group: test-build
     image: node:8
