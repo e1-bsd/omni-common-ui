@@ -82,6 +82,7 @@
     "jsdom": "^11.1.0",
     "jsrsasign": "^8.0.3",
     "jwt-simple": "^0.5.1",
+    "linkifyjs": "^2.1.4",
     "lodash.camelcase": "^4.3.0",
     "lodash.debounce": "4.0.8",
     "lodash.find": "^4.6.0",
