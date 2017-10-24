@@ -13,7 +13,6 @@ import PerformanceProfiler from 'components/PerformanceProfiler';
 import Config from 'domain/Config';
 import BreadcrumbsBuilder from 'domain/BreadcrumbsBuilder';
 import PropTypes from 'prop-types';
-import Zendesk from 'components/Zendesk';
 
 class App extends PureComponent {
   constructor(props) {
@@ -89,7 +88,6 @@ class App extends PureComponent {
         </div>
       </div>
       <Footer />
-      {PRODUCTION && <Zendesk />}
     </div>;
   }
 }
