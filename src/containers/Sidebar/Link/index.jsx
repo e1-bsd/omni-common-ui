@@ -16,7 +16,9 @@ const LinkComponent = ({ currentPath, to, children }) => {
     return <Link to={to} className={styles.LinkComponent}>{children}</Link>;
   }
 
-  return <a href={to} className={styles.LinkComponent}>{children}</a>;
+  return <a href={to} target="_blank" rel="noopener noreferrer" className={styles.LinkComponent}>
+    {children}
+  </a>;
 };
 
 LinkComponent.propTypes = {
