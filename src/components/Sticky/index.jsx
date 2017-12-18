@@ -2,7 +2,6 @@ import styles from './style.postcss';
 
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
-import log from 'domain/log';
 import PropTypes from 'prop-types';
 
 const CHECK_SAME_HEIGHT_MAX = 5;
@@ -52,7 +51,6 @@ export class Sticky extends PureComponent {
   }
 
   _checkHeight() {
-    log.debug('Sticky - _checkHeight()');
     if (this._sameHeightCount > CHECK_SAME_HEIGHT_MAX) {
       return this._stopPeriodicCheck();
     }
