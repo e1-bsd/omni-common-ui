@@ -1,3 +1,5 @@
+@import 'main.postcss';
+
 .Avatar {
   background-attachment: scroll;
   background-position: top center;
@@ -6,4 +8,12 @@
   border-radius: 50%;
   display: block;
   flex-shrink: 0;
+
+  &.__biggerOnHover {
+    transition: all var(--transitionDurationBase) ease-in-out;
+
+    &:hover {
+      transform: scale(2) translate3d(0, 0, 0);
+    }
+  }
 }
