@@ -55,14 +55,14 @@ class Avatar extends PureComponent {
 
   render() {
     const className = classnames(styles.Avatar, {
-      [styles.__animation]: this.props.animitaion,
+      [styles.__biggerOnHover]: this.props.biggerOnHover,
     }, this.props.className);
     return <div style={this._style} className={className} />;
   }
 }
 
 Avatar.propTypes = {
-  animitaion: PropTypes.bool,
+  biggerOnHover: PropTypes.bool,
   className: PropTypes.string,
   src: PropTypes.string,
   default: PropTypes.string,

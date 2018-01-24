@@ -11,7 +11,7 @@ export const StudentPicture = ({ src, className, gender }) => <Avatar src={src}
     default={defaultAvatarImg}
     defaultMale={defaultAvatarMaleImg}
     defaultFemale={defaultAvatarFemaleImg}
-    animitaion
+    biggerOnHover
     className={className}
     gender={gender} />;
 
