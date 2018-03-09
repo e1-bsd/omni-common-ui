@@ -54,7 +54,7 @@ When all your dependencies are installed, you can follow this steps to build the
 ### Testing during development
 
 1. Open a terminal at the root folder of the project.
-2. Run `yarn test -- --wach` or `yarn test -- --wach --silent`.
+2. Run `yarn test -- --watch` or `yarn test -- --watch --silent`.
 3. The tests will run.
 4. The tests will run again automatically when you change the code.
 
