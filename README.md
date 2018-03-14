@@ -58,6 +58,10 @@ When all your dependencies are installed, you can follow this steps to build the
 3. The tests will run.
 4. The tests will run again automatically when you change the code.
 
+## Deploying
+
+Make sure your commits follow the [Committing](#committing) section. And just push/merge to the `master` branch. The [CI job](./.travis.yml) will do the rest.
+
 ## Frequent problems
 
 ### `yarn start` is broken :(
