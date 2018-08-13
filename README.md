@@ -74,6 +74,6 @@ Run `yarn` to get your environment up to date.
 
 If you have some tests that are always failing unless you use `yarn test -- --no-cache`, that means that the Jest cache is kind of broken. To fix this quickly:
 
-1. Run `yarn test -- --showConfig`.
-2. Look for the value `cacheDirectory`.
-3. Remove that directory manually.
+1. Run `yarn test -- --showConfig`
+2. Look for the value `cacheDirectory`
+3. Remove that directory manually
