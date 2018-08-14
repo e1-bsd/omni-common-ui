@@ -15,6 +15,7 @@ A [Windows](https://github.com/coreybutler/nvm-windows) version is also availabl
 3. Open a terminal at the root folder of the project.
 4. Run `yarn`.
 
+
 ## Committing
 
 All commits should follow the patterns described by [semantic-release](https://github.com/semantic-release/semantic-release).
