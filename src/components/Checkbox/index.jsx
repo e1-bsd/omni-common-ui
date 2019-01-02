@@ -15,13 +15,14 @@ class Checkbox extends PureComponent {
   }
 
   render() {
-    const { checked, onChange } = this.props;
+    const { checked, disabled, onChange } = this.props;
     return <div className={styles.Checkbox}>
       <input type="checkbox"
           id={this.props.id}
           name={this.props.name}
           value={this.props.value || this.props.id}
           checked={is.existy(checked) ? !! checked : undefined}
+          disabled={is.existy(disabled) ? !! disabled : undefined}
           className={styles.Checkbox_input}
           onChange={onChange ? this._handleCheck : null} />
       <label className={styles.Checkbox_label} htmlFor={this.props.id} />
@@ -34,6 +35,7 @@ Checkbox.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
