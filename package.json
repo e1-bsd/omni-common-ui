@@ -8,7 +8,8 @@
     "clean": "rimraf dist",
     "lint:css": "node node_modules/stylelint/bin/stylelint.js src/**/*.postcss sample/**/*.postcss",
     "lint:js": "node node_modules/eslint/bin/eslint.js src/**/*.js src/**/*.jsx sample/**/*.js sample/**/*.jsx",
-    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\""
+    "lint:js:e": "yarn run lint:js | grep -B 2 error | grep -ve \"warning .\"",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "main": "dist/main.js",
   "repository": {
@@ -170,6 +171,9 @@
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
   },
+  "devDependencies": {
+    "semantic-release": "^6.3.6"
+  },
   "engines": {
     "node": ">=8.0.0"
   },
@@ -206,5 +210,5 @@
     "omni-sentry-release": "./scripts/sentry-release.js",
     "omni-start-mock": "./scripts/start-mock.js"
   },
-  "version": "0.40.0"
+  "version": "0.0.0-development"
 }
