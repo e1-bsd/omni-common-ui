@@ -4,7 +4,7 @@ import Icon from 'components/Icon';
 
 const Footer = () => <div className={styles.Footer}>
   <Icon id="ef-logo" className={styles.Footer_logo} />
-  <div className={styles.Footer_content}>    
+  <div className={styles.Footer_content}>
     <div className={styles.Footer_content_row}>
       <div className={styles.Footer_copyright}>
         <span className={styles.Footer_copyright_firstLine}>
