@@ -11,7 +11,7 @@ import AlertDialog from 'components/AlertDialog';
 import ApiCall from 'containers/ApiCalls';
 import PropTypes from 'prop-types';
 
-const suffix = '@ef.com';
+const suffix = '';
 
 class Impersonate extends PureComponent {
   constructor(props) {
@@ -68,7 +68,6 @@ class Impersonate extends PureComponent {
         <TextInput labelName="Email"
             className={styles.Impersonate_field}
             inputClassName={inputClasses}
-            suffix={suffix}
             onChange={(e) => this._handleEmailChange(e)} />
       </div>
       <Button.Container className={styles.Impersonate_buttonContainer}
