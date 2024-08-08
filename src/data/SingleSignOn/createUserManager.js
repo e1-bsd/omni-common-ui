@@ -20,6 +20,9 @@ log.debug('SingleSignOn - userManager - ssoClientId', Config.get('ssoClientId'))
 log.debug('SingleSignOn - userManager - ssoAuthorityUrl', Config.get('ssoAuthorityUrl'));
 
 const userManagerConfig = {
+  acr_values: Config.get('ssoProvider') === undefined || Config.get('ssoProvider') === 'local' ?
+    '' :
+    `idp:${Config.get('ssoProvider')}`,
   client_id: Config.get('ssoClientId'),
   redirect_uri: `${protocol}//${hostname}${port}/callback`,
   response_type: 'token id_token',
@@ -29,6 +32,7 @@ const userManagerConfig = {
   automaticSilentRenew: true,
   filterProtocolClaims: true,
   clockSkew: 1800, // 30 minutes
+  checkSessionInterval: 60 * 1000 * 60 * 24 * 7,
 };
 
 const createCustomUserManager = memoize((config) => {
