@@ -3,15 +3,13 @@ import React from 'react';
 import Icon from 'components/Icon';
 
 const Footer = () => <div className={styles.Footer}>
-  <Icon id="ef-logo" className={styles.Footer_logo} />
+  <Icon id="yingfu-logo" className={styles.Footer_logo} />
   <div className={styles.Footer_content}>
     <div className={styles.Footer_content_row}>
       <div className={styles.Footer_copyright}>
         <span className={styles.Footer_copyright_firstLine}>
-          EF Education First {new Date().getFullYear()}.&nbsp;
+          English One AG
         </span>
-        <br className={styles.Footer_break} />
-        All rights reserved.
       </div>
     </div>
   </div>
